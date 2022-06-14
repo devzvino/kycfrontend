@@ -4,10 +4,10 @@ import {TouchableOpacity, Text } from "react-native";
 import { FontTheme,ButtonTheme,ImageBackgroundTheme,LogoTheme,InputTheme } from '../components/ThemeFile';
 
 
-const MainButton = ({ onPress, title }) => (
-    <TouchableOpacity onPress={onPress} style={ButtonTheme.mainButton}>
+const SignUpNavigationButton = ({ onPress, title }) => (
+    <TouchableOpacity onPress={onPress} style={ButtonTheme.signUpNavigation}>
       <Text style={FontTheme.mainButtonFont}>{title}</Text>
     </TouchableOpacity>
   );
 
- export default MainButton;
+ export default SignUpNavigationButton;

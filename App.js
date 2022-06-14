@@ -40,7 +40,7 @@ const App = () => {
   return (
     <NavigationContainer theme={theme}>
       <StatusBar barStyle={theme == 'Light' ? 'light-content': 'dark-content' }/>
-      <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName= 'Home'>
+      <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName= 'SignUp'>
       
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="SignUp" component={SignUp} />

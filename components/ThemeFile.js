@@ -13,13 +13,24 @@ export const ColorTheme = {
     red: '#FF0000',
     blue: '#3190FF', 
     grey: '#7D7D7D',
+    grey2: '#EFF0F6',
+    grey3: '#CCCCCC',
     lightBlue:'#EEF9FF'
 };
 
-const { primary,main, orange, green, red, blue, grey, grey2, lightBlue } = ColorTheme;
+const { primary,main, orange, green, red, blue, grey, grey2,grey3, lightBlue } = ColorTheme;
 
 // componets styles
 export const FontTheme = {
+    inputTitle:{
+        fontFamily: 'Poppins-Medium',
+        color: 'black',
+        fontSize: 17,
+        lineHeight: 32,
+        paddingTop:10,
+        paddingBottom:10,
+
+    },
     motto:{
         fontFamily: 'Poppins-Medium',
         color: main,
@@ -39,9 +50,9 @@ export const FontTheme = {
     },
 
     mainButtonFont:{
-        fontFamily: 'Poppins-SemiBold',
+        fontFamily: 'Poppins-Bold',
         color: primary,
-        fontSize: 24,
+        fontSize: 22,
         textTransform: 'uppercase'
     },
 
@@ -84,12 +95,37 @@ export const ButtonTheme = {
         color: primary,
         textTransform: 'uppercase',
         elevation: 0,
-        justifyContent: 'center'
+    
+    },
+    signUpNavigation:{
+        position: 'reletive',
+        bottom:0,
+        margin: 'auto',
+        width: '80%',
+        alignItems: 'center',
+        borderRadius: 10,
+        backgroundColor: main,
+        paddingVertical: 15,
+        elevation: 3,
+        marginTop: 40,
+        color: primary,
     },
 
 }
 
 export const InputTheme = {
+    signUpInput:{
+        width:325,
+        backgroundColor: grey2,
+        borderWidth:1,
+        borderColor:grey3, 
+        borderRadius:5,
+        height: 55, 
+        paddingLeft:10,
+        fontFamily: 'Poppins-Regular', 
+        fontSize: 18,
+        color: 'black'
+    },
 
 
 }
@@ -97,6 +133,13 @@ export const InputTheme = {
 export const LogoTheme = {
     mainLogo: {
     marginBottom:50,        
+    },
+    miniLogo:{
+    height:45,
+    resizeMode:'contain',
+    width:136,
+    marginTop:50,
+    marginBottom:20,
     }
 
 

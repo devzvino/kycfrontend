@@ -1,6 +1,5 @@
 import React from 'react'
 import { View,Text,Image,Linking} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { ImageBackground } from 'react-native';
 import mainLogo from '../assets/images/kyc-logo.png';
 import welcomeBg from '../assets/images/splash-bg.jpg'; 
