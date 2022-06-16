@@ -107,7 +107,7 @@ export const ButtonTheme = {
         backgroundColor: main,
         paddingVertical: 15,
         elevation: 3,
-        marginTop: 40,
+        marginTop: 10,
         color: primary,
     },
 
@@ -115,10 +115,8 @@ export const ButtonTheme = {
 
 export const InputTheme = {
     signUpInput:{
-        width:325,
+        width:width/1.15,
         backgroundColor: grey2,
-        borderWidth:1,
-        borderColor:grey3, 
         borderRadius:5,
         height: 55, 
         paddingLeft:10,
@@ -140,6 +138,7 @@ export const LogoTheme = {
     width:136,
     marginTop:50,
     marginBottom:20,
+    alignItems:'flex-start',
     }
 
 

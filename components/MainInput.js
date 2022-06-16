@@ -1,11 +1,16 @@
 import React from 'react'
 import {View, Text, TextInput} from 'react-native';
+import { Dimensions } from "react-native";
 
 //import styles
-import { FontTheme,ButtonTheme,ImageBackgroundTheme,LogoTheme,InputTheme } from '../components/ThemeFile';
+import { FontTheme,ButtonTheme,ImageBackgroundTheme,LogoTheme,InputTheme,ColorTheme } from '../components/ThemeFile';
 
 
-const MainInput=({ onChange,onFocus,onBlur,placeholder, title }) =>  {
+//Device Dimenstions
+const {width, height} = Dimensions.get('screen');
+
+
+const MainInput=({ onChange,onFocus,onBlur,placeholder, title, info }) =>  {
   return (
     <View style = {{marginBottom:10}}>
         <Text style={FontTheme.inputTitle}>{title}</Text>
@@ -16,6 +21,7 @@ const MainInput=({ onChange,onFocus,onBlur,placeholder, title }) =>  {
         style={InputTheme.signUpInput}
         placeholder={placeholder}
         ></TextInput>
+        <Text style={{width:width/1.15, marginTop:20, fontFamily:'Poppins-Medium', color:'#7D7D7D'}}>{info}</Text>
     </View>
   )
 }
