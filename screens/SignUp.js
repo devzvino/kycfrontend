@@ -20,12 +20,6 @@ const SignUp = () => {
     <View style={{width:width, height:height}}>
       <OTPConfirm/>
     </View>
-      
-
-     
-
-
-  
   )
 };
 
