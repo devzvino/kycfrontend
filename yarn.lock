@@ -1566,6 +1566,10 @@
     sudo-prompt "^9.0.0"
     wcwidth "^1.0.1"
 
+"@react-native-picker/picker@react-native-picker/picker":
+  version "2.4.1"
+  resolved "https://codeload.github.com/react-native-picker/picker/tar.gz/5bfcd877d7c2efbb953f8c360696e4516e5346fb"
+
 "@react-native/assets@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@react-native/assets/-/assets-1.0.0.tgz#c6f9bf63d274bafc8e970628de24986b30a55c8e"
@@ -2729,6 +2733,14 @@ expo-font@~10.0.4, expo-font@~10.0.5:
   dependencies:
     fontfaceobserver "^2.1.0"
 
+expo-image-picker@~12.0.1:
+  version "12.0.2"
+  resolved "https://registry.yarnpkg.com/expo-image-picker/-/expo-image-picker-12.0.2.tgz#4789c5419208ff8ede557784368a7f18f3878c30"
+  integrity sha512-rAoNGtofV5cg3UN+cdIGDVfbMvbutBX6uNV7jCIEw/WZxZlbW+R7HC8l5lGDFtoLVqcpkHE/6JpAXvESxVSAOA==
+  dependencies:
+    "@expo/config-plugins" "^4.0.2"
+    uuid "7.0.2"
+
 expo-json-utils@~0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/expo-json-utils/-/expo-json-utils-0.2.1.tgz#a8d15181e361f3fc782d5241ce381851bab4465b"
@@ -3152,6 +3164,11 @@ globals@^11.1.0:
   version "11.12.0"
   resolved "https://registry.yarnpkg.com/globals/-/globals-11.12.0.tgz#ab8795338868a0babd8525758018c2a7eb95c42e"
   integrity sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==
+
+google-libphonenumber@^3.2.2:
+  version "3.2.28"
+  resolved "https://registry.yarnpkg.com/google-libphonenumber/-/google-libphonenumber-3.2.28.tgz#246b7fb797ff9dc2230519777c4c8cf78a366e6e"
+  integrity sha512-6VHuMFJa+kPpcMwv+2y/o5uKD5uVh4SOVoXQAy4ZE1TKtxZX/BvBOJX5CZe7nKj5GeE5/9WnBItjWvZVZYcpiA==
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.3, graceful-fs@^4.1.6, graceful-fs@^4.1.9, graceful-fs@^4.2.0, graceful-fs@^4.2.4:
   version "4.2.10"
@@ -4670,7 +4687,7 @@ prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.6.0, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -4729,6 +4746,11 @@ react-dom@17.0.1:
     object-assign "^4.1.1"
     scheduler "^0.20.1"
 
+react-freeze@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-freeze/-/react-freeze-1.0.0.tgz#b21c65fe1783743007c8c9a2952b1c8879a77354"
+  integrity sha512-yQaiOqDmoKqks56LN9MTgY06O0qQHgV4FUrikH357DydArSZHQhl0BJFqGKIZoTqi8JizF9Dxhuk1FIZD6qCaw==
+
 react-hook-form@^7.32.1:
   version "7.32.1"
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.32.1.tgz#103de7b7ef3a7d295264433e4464bd17c8e4bdc9"
@@ -4753,6 +4775,11 @@ react-native-codegen@^0.0.6:
     jscodeshift "^0.11.0"
     nullthrows "^1.1.1"
 
+react-native-dropdown-select-list@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/react-native-dropdown-select-list/-/react-native-dropdown-select-list-1.0.7.tgz#5b79193f08ee0c0fe707e63f69acaf7dc07ccfb1"
+  integrity sha512-etbU+Hns2/Jj9Xeh8eCiyB1CoKMwCuF0gTW2AxKXoOp+Wmg/xcFv38gbtU+d7makgi9djgvV1a+5G1oLxNq35A==
+
 react-native-gesture-handler@~2.1.0:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-2.1.3.tgz#b96f1e61932d5062cb1023259e1649d65f78338b"
@@ -4764,10 +4791,50 @@ react-native-gesture-handler@~2.1.0:
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
+react-native-image-picker@^4.8.4:
+  version "4.8.4"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.8.4.tgz#ac52f1e265458e944664adf1dcd0a9ee408fe083"
+  integrity sha512-Mjh2j/sddyolb16EpmprWzbtyeFvW8Xgzr/8WNi9d6bR2FC/kL78cY/a+7Yzujg5ZDtT1MWys+eWw/qtfwgGiw==
+
+react-native-iphone-x-helper@^1.0.3:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
+  integrity sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg==
+
+react-native-keyboard-aware-scroll-view@^0.9.5:
+  version "0.9.5"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.9.5.tgz#e2e9665d320c188e6b1f22f151b94eb358bf9b71"
+  integrity sha512-XwfRn+T/qBH9WjTWIBiJD2hPWg0yJvtaEw6RtPCa5/PYHabzBaWxYBOl0usXN/368BL1XktnZPh8C2lmTpOREA==
+  dependencies:
+    prop-types "^15.6.2"
+    react-native-iphone-x-helper "^1.0.3"
+
+react-native-phone-input@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/react-native-phone-input/-/react-native-phone-input-1.3.4.tgz#fc26f7251998b0a085e2dda02034d774de461e62"
+  integrity sha512-h8FkfQ4k30xiXHJSqxaDmPnAXPB+wVbJ4RRLuGiGcd13bB3KUSPdNLvrSQXIClW/OKKdXaFGrJiH8V1fKlJ9LQ==
+  dependencies:
+    google-libphonenumber "^3.2.2"
+    lodash "^4.17.21"
+    prop-types "^15.5.10"
+
 react-native-safe-area-context@3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.3.2.tgz#9549a2ce580f2374edb05e49d661258d1b8bcaed"
   integrity sha512-yOwiiPJ1rk+/nfK13eafbpW6sKW0jOnsRem2C1LPJjM3tfTof6hlvV5eWHATye3XOpu2cJ7N+HdkUvUDGwFD2Q==
+
+react-native-screens@^3.13.1:
+  version "3.13.1"
+  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-3.13.1.tgz#b3b1c5788dca25a71668909f66d87fb35c5c5241"
+  integrity sha512-xcrnuUs0qUrGpc2gOTDY4VgHHADQwp80mwR1prU/Q0JqbZN5W3koLhuOsT6FkSRKjR5t40l+4LcjhHdpqRB2HA==
+  dependencies:
+    react-freeze "^1.0.0"
+    warn-once "^0.1.0"
+
+react-native-select-dropdown@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-select-dropdown/-/react-native-select-dropdown-2.0.3.tgz#4e23668c6bba92ef05c1729fd3acd003ed2cf947"
+  integrity sha512-UEJxd1O6FW0IrEhdnHD/LwpksgkvHvqifpBqHmPuLhHmB/8oRLBQDLaXCodNTPu1nDQ/ARYOjUNxNuNIel9N6Q==
 
 react-native-web@0.17.1:
   version "0.17.1"
@@ -5701,6 +5768,11 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==
+
+uuid@7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.2.tgz#7ff5c203467e91f5e0d85cfcbaaf7d2ebbca9be6"
+  integrity sha512-vy9V/+pKG+5ZTYKf+VcphF5Oc6EFiu3W8Nv3P3zIh0EqVI80ZxOzuPfe9EHjkFNvf8+xuTHVeei4Drydlx4zjw==
 
 uuid@^3.3.2, uuid@^3.4.0:
   version "3.4.0"

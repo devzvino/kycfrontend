@@ -124,6 +124,30 @@ export const InputTheme = {
         fontSize: 18,
         color: 'black'
     },
+    phoneInput:{
+    flex:1,
+        backgroundColor: grey2,
+        borderRadius:5,
+        height: 55, 
+        paddingLeft:10,
+        fontFamily: 'Poppins-Regular', 
+        fontSize: 18,
+        color: 'black',
+        marginLeft: 15,
+    },
+    phoneDropDown:{
+        width:width/4,
+        backgroundColor: grey2,
+        borderRadius:5,
+        height: 55, 
+        fontFamily: 'Poppins-Regular', 
+        color: 'black',
+        justifyContent: 'center',
+        fontFamily: 'Poppins-Regular',
+        alignItems:'center',
+        borderWidth: 0,
+        fontSize:18,
+    }
 
 
 }
@@ -133,6 +157,7 @@ export const LogoTheme = {
     marginBottom:50,        
     },
     miniLogo:{
+    width:width/1.15,
     height:45,
     resizeMode:'contain',
     width:136,
@@ -140,8 +165,6 @@ export const LogoTheme = {
     marginBottom:20,
     alignItems:'flex-start',
     }
-
-
 }
 
 export const SectionTheme = {

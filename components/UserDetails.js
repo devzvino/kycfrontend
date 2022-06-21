@@ -1,23 +1,23 @@
 import React from 'react';
 import { Text, View,TextInput, Image, Keyboard} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useRef, } from 'react';
 
 import mainLogo from '../assets/images/kyc-logo.png';
 
 import MainInput from './MainInput';
-import { LogoTheme } from './ThemeFile';
+import { InputTheme, LogoTheme } from './ThemeFile';
 import SignUpNavigationButton from './SignUpNavigationButton';
 import { Dimensions } from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import PhoneInput from './PhoneInput';
 
 //Device Dimenstions
 const {width, height} = Dimensions.get('screen');
 
-//Handling buttonPress
 
-const handlePress=()=>{
-  
-};
+
+
 const handleChange =(e)=>{
   const userValue =e.target.value;
   console.log(userValue);
@@ -25,12 +25,16 @@ const handleChange =(e)=>{
 
 
 const UserDetails = () => {
+
+// Ability  to set phone number
+const [phone, setPhone ] = useState();
+const phoneRef = useRef();
+
   return (
     <View>
-      <View style={{width:'87%', height:'20%', marginLeft:'8%', paddingTop: '10%',}}>
-      <Image source={mainLogo} style={LogoTheme.miniLogo}/>
-      </View>
-    <View  style= {{width:width, height:'65%', alignItems: "center",}}>
+    
+      <KeyboardAwareScrollView>
+        <View  style= {{width:width, height:'65%', alignItems: "center",}}>
           <MainInput 
           title= {'Firstname(s) (as on your ID)'}
           placeholder={'e.g. Benard Tafara'}
@@ -44,9 +48,9 @@ const UserDetails = () => {
           required
           onBlur={Keyboard.dismiss}
           />
-          <MainInput 
+          <PhoneInput
           title= {'Phone Number'}
-          placeholder={'e.g. 263 77 123 4567'}
+          placeholder={'e.g. 771234567'}
           required
           onBlur={Keyboard.dismiss}
           />
@@ -56,17 +60,10 @@ const UserDetails = () => {
           required
           onBlur={Keyboard.dismiss}
           />
+         
      </View>
-     <View style= {{width:width, height:'15%', alignItems: "center",}}>
-      <SignUpNavigationButton title={'Continue'} onPress={handlePress}/>
-     </View>
+      </KeyboardAwareScrollView>
     </View>
-      
-
-     
-
-
-  
   )
 };
 

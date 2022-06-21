@@ -26,10 +26,7 @@ const handleChange =(e)=>{
 const OTPConfirm=()=> {
   return (
     <View>
-        <View>
-      <View style={{width:'87%', height:'20%', marginLeft:'8%', paddingTop: '10%',}}>
-      <Image source={mainLogo} style={LogoTheme.miniLogo}/>
-      </View>
+      
     <View  style= {{width:width, height:'65%', alignItems: "center",}}>
           <MainInput 
           title= {'OTP Confirmation Code'}
@@ -41,11 +38,7 @@ const OTPConfirm=()=> {
           />
           
      </View>
-     <View style= {{width:width, height:'15%', alignItems: "center",}}>
-      <SignUpNavigationButton title={'Continue'} onPress={handlePress}/>
-     </View>
-    </View>
-
+  
     </View>
   )
 }
