@@ -12,6 +12,7 @@ import UserDetails from '../components/UserDetails';
 import OTPConfirm from '../components/OTPConfirm';
 import SignUpNavigationButton from '../components/SignUpNavigationButton';
 import PhoneInput from 'react-native-phone-input';
+import RegConfirm from '../components/RegConfirm';
 
 import { FontTheme,ButtonTheme,ImageBackgroundTheme,LogoTheme,InputTheme } from '../components/ThemeFile';
 
@@ -27,6 +28,10 @@ const handlePress=()=>{
 
 const SignUp = () => {
   // state randering
+const [userDetails, setUserDetails] = useState(false)
+const [idUpload, setIdUpload] = useState(false)
+const [otpConfirm, setOtpConfirm] = useState(true)
+const [regConfirm, setRegConfirm] = useState(false)
 
 
 
@@ -37,10 +42,10 @@ const SignUp = () => {
       <Image source={mainLogo} style={LogoTheme.miniLogo}/>
       </View>
       {/* Render Form elements here */}
-      <IdUpload/>
-      {/* <UserDetails/> */}
-
-      {/* <OTPConfirm/>  */}
+      {userDetails && <UserDetails/>}
+      {idUpload && <IdUpload/>}
+      {otpConfirm && <OTPConfirm/>}
+      {regConfirm && <RegConfirm/>}
       <View style= {{width:width, height:'15%', alignItems: "center", position:'absolute', bottom:0,}}>
       <SignUpNavigationButton title={'Continue'} onPress={handlePress}/>
      </View>

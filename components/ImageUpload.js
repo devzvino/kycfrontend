@@ -1,19 +1,22 @@
 import React from 'react'
 import { View,Text,Image,TouchableOpacity } from 'react-native'
-import cam from '../assets/icons/cam.png'
+import CamSvg from './CamSvg';
+import { Dimensions } from "react-native";
 
 import { FontTheme,ButtonTheme,ImageBackgroundTheme,LogoTheme,InputTheme,ImageTheme } from '../components/ThemeFile';
 
-function ImageUpload() {
+const {width, height} = Dimensions.get('screen');
+
+function ImageUpload({title, buttontext}) {
   return (
    <View>
-    <Text>
-
+    <Text style={FontTheme.inputTitle}>
+    {title}
     </Text>
-    <TouchableOpacity style={{}}>
-        <Image source={cam}/>
-        <Text>
-        Upload ID
+    <TouchableOpacity style={{ width:'100%', backgroundColor:'#EFF0F6',padding:30,alignItems:'center', borderRadius:5,marginTop:10,marginBottom:10,}}>
+        <CamSvg/>
+        <Text style={FontTheme.footerLink}>
+            {buttontext}
         </Text>
     </TouchableOpacity>
     
@@ -21,4 +24,4 @@ function ImageUpload() {
   )
 }
 
-export default ImageUpload
+export default ImageUpload;

@@ -21,7 +21,7 @@ const MainInput=({ onChange,onFocus,onBlur,placeholder, title, info }) =>  {
         style={InputTheme.signUpInput}
         placeholder={placeholder}
         ></TextInput>
-        <Text style={{width:width/1.15, marginTop:0, fontFamily:'Poppins-Medium', color:'#7D7D7D'}}>{info}</Text>
+        <Text style={{width:width/1.15, marginTop:10, fontFamily:'Poppins-Medium', color:'#7D7D7D'}}>{info}</Text>
     </View>
   )
 }

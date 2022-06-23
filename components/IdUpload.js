@@ -4,6 +4,7 @@ import { Dimensions } from "react-native";
 
 import IconText from "./iconText";
 import { View,Text,Image } from "react-native";
+import ImageUpload from "./ImageUpload";
 
 
 import { FontTheme,ButtonTheme,ImageBackgroundTheme,LogoTheme,InputTheme } from '../components/ThemeFile';
@@ -21,13 +22,18 @@ const IdUpload =()=>{
             <Text style={FontTheme.description}>
             {uploadWarning}
             </Text>
-            <View style={{marginTop:10}}>
+            <View style={{marginTop:5, marginBottom:10,}}>
             <IconText
             paraText={'Document should be good condition and clearly visible.'}/>
             <IconText
             paraText={'Make sure that there is no light glare on the card.'}/>  
             </View>
-            
+            <ImageUpload
+            title={'Upload ID Front'}
+            buttontext={'Upload Photo'}/>
+            <ImageUpload
+            title={'Upload Your Photo'}
+            buttontext={'Upload Photo'}/>
         </View>
     )
 }

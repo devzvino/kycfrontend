@@ -74,6 +74,17 @@ export const FontTheme = {
         textAlign: 'center',
         paddingTop:10,
     },
+    footText: {
+
+        fontFamily: 'Poppins-Regular',
+        width:'80%',
+        color: grey,
+        fontStyle: 'normal',
+        fontSize: 16,
+        fontWeight: '400',
+        textAlign: 'center',
+        paddingTop:20,
+    },
     footerLink: {
         width:'70%',
         color: main,

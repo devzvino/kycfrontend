@@ -7,7 +7,7 @@ import { StatusBar } from 'react-native';
 //import Screens
 import Home from './screens/Home';
 import SignUp from './screens/SignUp';
-import Welcome from './screens/Welcome'; 
+import WelcomeScreen from './screens/Welcome'; 
 
 //import fonts
 import { useFonts } from "expo-font";
@@ -44,7 +44,7 @@ const App = () => {
       
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Welcome" component={Welcome} />
+        <Stack.Screen name="Welcome" component={WelcomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
