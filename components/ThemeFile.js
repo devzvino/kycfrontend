@@ -31,6 +31,13 @@ export const FontTheme = {
         paddingBottom:10,
 
     },
+    icontext:{
+        width:'90%',
+        fontFamily: 'Poppins-Medium',
+        color: grey,
+        fontStyle: 'normal',
+        fontSize: 14,
+    },
     motto:{
         fontFamily: 'Poppins-Medium',
         color: main,
@@ -198,7 +205,16 @@ export const SectionTheme = {
         backgroundColor: primary,
         borderTopLeftRadius: 75,
         paddingTop: '20%',
+    },
+
+    
+
+}
+
+export const ImageTheme ={
+
+    iconInText:{
+        marginRight:10,
+        alignSelf:'center'
     }
-
-
 }
