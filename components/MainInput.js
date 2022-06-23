@@ -10,18 +10,19 @@ import { FontTheme,ButtonTheme,ImageBackgroundTheme,LogoTheme,InputTheme,ColorTh
 const {width, height} = Dimensions.get('screen');
 
 
-const MainInput=({ onChange,onFocus,onBlur,placeholder, title, info }) =>  {
+const MainInput=({ onChange,onFocus,onBlur,placeholder, title, info,textStyles,keyboardType }) =>  {
   return (
     <View style = {{marginBottom:0}}>
         <Text style={FontTheme.inputTitle}>{title}</Text>
         <TextInput
-        onChange={onChange}
+        keyboardType={keyboardType}
+        onChangeText={onChange}
         onFocus={onFocus}
         onBlur={onBlur}
         style={InputTheme.signUpInput}
         placeholder={placeholder}
         ></TextInput>
-        <Text style={{width:width/1.15, marginTop:10, fontFamily:'Poppins-Medium', color:'#7D7D7D'}}>{info}</Text>
+        <Text style={textStyles}>{info}</Text>
     </View>
   )
 }

@@ -62,6 +62,21 @@ export const FontTheme = {
         fontSize: 22,
         textTransform: 'uppercase'
     },
+    messagetxt:{
+        width:width/1.15, 
+        marginTop:10,
+        fontFamily:'Poppins-Medium',
+        color:'#7D7D7D'
+    },
+    errortxt:{
+        fontFamily: 'Poppins-Regular',
+        width:width/1.15,
+        color: red,
+        fontStyle: 'normal',
+        fontSize: 12,
+        textAlign: 'left',
+        paddingTop:5,  
+    },
 
     footerText: {
 

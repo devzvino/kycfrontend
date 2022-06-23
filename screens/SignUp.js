@@ -22,34 +22,31 @@ const {width, height} = Dimensions.get('screen');
 //Handling buttonPress
 
 const handlePress=()=>{
+
+  
   
 };
 
 
 const SignUp = () => {
   // state randering
-const [userDetails, setUserDetails] = useState(false)
+
+const [userDetails, setUserDetails] = useState(true)
 const [idUpload, setIdUpload] = useState(false)
-const [otpConfirm, setOtpConfirm] = useState(true)
+const [otpConfirm, setOtpConfirm] = useState(false)
 const [regConfirm, setRegConfirm] = useState(false)
 
-
-
-
   return (
-    <View style={{width:width, height:height,}}>
+    <View style={{width:width, height:height, }}>
         <View style={{width:'100%', height:'20%', marginLeft:'8%', paddingTop: '10%',}}>
       <Image source={mainLogo} style={LogoTheme.miniLogo}/>
       </View>
       {/* Render Form elements here */}
-      {userDetails && <UserDetails/>}
-      {idUpload && <IdUpload/>}
-      {otpConfirm && <OTPConfirm/>}
-      {regConfirm && <RegConfirm/>}
-      <View style= {{width:width, height:'15%', alignItems: "center", position:'absolute', bottom:0,}}>
-      <SignUpNavigationButton title={'Continue'} onPress={handlePress}/>
-     </View>
-    </View>
+      {userDetails && <UserDetails setUserDetails={setUserDetails}/>}
+      {idUpload && <IdUpload setIdUpload={setIdUpload}/>}
+      {otpConfirm && <OTPConfirm setOtpConfirm={setOtpConfirm}/>}
+      {regConfirm && <RegConfirm setRegConfirm={setRegConfirm}/>}
+      </View>
   )
 };
 

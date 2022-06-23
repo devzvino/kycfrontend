@@ -1,6 +1,7 @@
 import React from "react";
 import  *  as ImagePicker from 'expo-image-picker';
 import { Dimensions } from "react-native";
+import SignUpNavigationButton from "./SignUpNavigationButton";
 
 import IconText from "./iconText";
 import { View,Text,Image } from "react-native";
@@ -17,8 +18,8 @@ const uploadWarning = "To avoid delays when verifying account, Please make sure 
 const IdUpload =()=>{
 
     return(
-
-        <View style={{width:width/1.15, alignSelf:'center'}}>
+        <View style={{flex:1}}>
+            <View style={{width:width/1.15, alignSelf:'center', }}>
             <Text style={FontTheme.description}>
             {uploadWarning}
             </Text>
@@ -34,7 +35,14 @@ const IdUpload =()=>{
             <ImageUpload
             title={'Upload Your Photo'}
             buttontext={'Upload Photo'}/>
+            
         </View>
+        <View style= {{width:width, height:'15%', alignItems: "center", position:'absolute', bottom:0,}}>
+                <SignUpNavigationButton title={'Continue'} />
+        </View>
+        </View>
+
+        
     )
 }
 
