@@ -60,7 +60,8 @@ export const FontTheme = {
         fontFamily: 'Poppins-Bold',
         color: primary,
         fontSize: 22,
-        textTransform: 'uppercase'
+        textTransform: 'uppercase',
+        
     },
     messagetxt:{
         width:width/1.15, 
@@ -141,6 +142,7 @@ export const ButtonTheme = {
         elevation: 3,
         marginTop: 10,
         color: primary,
+        elevation:0,
     },
 
 }

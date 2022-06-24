@@ -11,7 +11,7 @@ import IdUpload from '../components/IdUpload';
 import UserDetails from '../components/UserDetails';
 import OTPConfirm from '../components/OTPConfirm';
 import SignUpNavigationButton from '../components/SignUpNavigationButton';
-import RegConfirm from '../components/Regconfirm';
+import RegConfirm from '../components/RegConfirm';
 
 import { LogoTheme } from '../components/ThemeFile';
 
@@ -22,10 +22,10 @@ const {width, height} = Dimensions.get('screen');
 const SignUp = () => {
   // state randering
 
-  const [userView, setuserView] = useState(false)
+  const [userView, setuserView] = useState(true)
   const [idUploadView, setidUploadView] = useState(false)
   const [otpConfrimView, setOtpConfrimView] = useState(false)
-  const [regConfrimView, setRegConfrimView] = useState(true)
+  const [regConfrimView, setRegConfrimView] = useState(false)
 
 
   return (
