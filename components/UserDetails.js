@@ -19,14 +19,6 @@ const {width, height} = Dimensions.get('screen');
 const fillFieldError = 'This field cannot be empty';
 
 
-
-
-const handleChange =(e)=>{
-  const userValue =e.target.value;
-  console.log(userValue);
-}
-
-
 const UserDetails = () => {
 
 
