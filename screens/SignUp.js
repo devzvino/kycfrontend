@@ -11,7 +11,7 @@ import IdUpload from '../components/IdUpload';
 import UserDetails from '../components/UserDetails';
 import OTPConfirm from '../components/OTPConfirm';
 import SignUpNavigationButton from '../components/SignUpNavigationButton';
-import RegConfirm from '../components/Regconfirm';
+import RegConfirm from '../components/RegConfirm';
 
 import { LogoTheme } from '../components/ThemeFile';
 
@@ -22,10 +22,10 @@ const {width, height} = Dimensions.get('screen');
 const SignUp = () => {
   // state randering
 
-  const [userView, setuserView] = useState(false)
-  const [idUploadView, setidUploadView] = useState(false)
+  const [userView, setUserView] = useState(true)
+  const [idUploadView, setIdUploadView] = useState(false)
   const [otpConfrimView, setOtpConfrimView] = useState(false)
-  const [regConfrimView, setRegConfrimView] = useState(true)
+  const [regConfrimView, setRegConfrimView] = useState(false)
 
 
   return (
@@ -35,10 +35,10 @@ const SignUp = () => {
       </View>
       {/* Render Form elements here */}
 
-      {userView && <UserDetails />}
-      {idUploadView && <IdUpload />}
-      {otpConfrimView &&  <OTPConfirm />}
-      {regConfrimView &&  <RegConfirm />}
+      {userView && <UserDetails setUserView={setUserView} setIdUploadView={setIdUploadView} setOtpConfrimView={setOtpConfrimView} setRegConfrimView={setRegConfrimView} />}
+      {idUploadView && <IdUpload  setUserView={setUserView} setIdUploadView={setIdUploadView} setOtpConfrimView={setOtpConfrimView} setRegConfrimView={setRegConfrimView}/>}
+      {otpConfrimView &&  <OTPConfirm  setUserView={setUserView} setIdUploadView={setIdUploadView} setOtpConfrimView={setOtpConfrimView} setRegConfrimView={setRegConfrimView}/>}
+      {regConfrimView &&  <RegConfirm  setUserView={setUserView} setIdUploadView={setIdUploadView} setOtpConfrimView={setOtpConfrimView} setRegConfrimView={setRegConfrimView}/>}
     
       </ScrollView>
   )
