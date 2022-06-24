@@ -44,6 +44,7 @@ const UserDetails = ({
     setLoading(true);
     if (!firstName || !surname || !phone || !id) {
       setError("Please fill this field");
+      setLoading(false);
     } else {
       setTimeout(() => {
         setUserView(false);

@@ -68,7 +68,7 @@ const OTPConfirm = ({
         }}
       >
         <SignUpNavigationButton
-          title={"Continue"}
+          title={"Verify"}
           loading={loading}
           onPress={handleSubmit}
         />

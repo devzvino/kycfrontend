@@ -19,7 +19,7 @@ function RegConfirm() {
     Please Proceed to add your addresses to start the address verification prosess 
     </Text>
     <View style= {{width:width, height:'15%', alignItems: "center", position:'absolute', bottom:0,}}>
-      <SignUpNavigationButton title={'Continue'} />
+      <SignUpNavigationButton title={'Get Started'} />
      </View>
    </View>
    
