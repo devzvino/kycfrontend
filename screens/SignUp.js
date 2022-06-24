@@ -31,8 +31,8 @@ const handlePress=()=>{
 const SignUp = () => {
   // state randering
 
-const [userDetails, setUserDetails] = useState(true)
-const [idUpload, setIdUpload] = useState(false)
+const [userDetails, setUserDetails] = useState(false)
+const [idUpload, setIdUpload] = useState(true)
 const [otpConfirm, setOtpConfirm] = useState(false)
 const [regConfirm, setRegConfirm] = useState(false)
 
