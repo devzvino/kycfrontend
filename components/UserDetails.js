@@ -35,8 +35,7 @@ const phoneRef = useRef();
   const handleSubmit=()=>{
     if (!firstName || !surname || !phone || !id){
       setError(fillFieldError)
-    } 
-     
+    }  
   };
 
   return (
