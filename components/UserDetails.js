@@ -15,6 +15,9 @@ import PhoneInput from './PhoneInput';
 //Device Dimenstions
 const {width, height} = Dimensions.get('screen');
 
+//Form validation Messages
+const fillFieldError = 'This field cannot be empty';
+
 
 
 
@@ -39,11 +42,10 @@ const phoneRef = useRef();
 
   const handleSubmit=()=>{
     if (!firstName || !surname || !phone || !id){
-      setError('Please fill this field')
+      setError(fillFieldErrorr)
     } 
      
   };
-console.log(error)
 
   return (
     <View style={{flex:1}}>
