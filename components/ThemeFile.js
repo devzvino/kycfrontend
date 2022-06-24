@@ -131,7 +131,6 @@ export const ButtonTheme = {
     
     },
     signUpNavigation:{
-        position: 'reletive',
         bottom:0,
         margin: 'auto',
         width: '80%',

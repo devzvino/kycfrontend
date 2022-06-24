@@ -39,7 +39,7 @@ const App = () => {
 
   return (
     <NavigationContainer theme={theme}>
-      <StatusBar barStyle={theme == 'Light' ? 'light-content': 'dark-content' }/>
+      {/* <StatusBar barStyle={'light'}/> */}
       <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName= 'SignUp'>
       
         <Stack.Screen name="Home" component={Home} />

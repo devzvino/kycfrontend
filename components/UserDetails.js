@@ -48,7 +48,12 @@ console.log(error)
   return (
     <View style={{flex:1}}>
     
-      <KeyboardAwareScrollView style={{flex:1}}>
+      <KeyboardAwareScrollView
+      viewIsInsideTabBar={true}
+      // extraHeight={200}
+      enableOnAndroid={true} 
+      // style={{flex:1}}
+      >
         <View  style= {{width:width, height:'65%', alignItems: "center",}}>
           <MainInput 
           title= {'Firstname(s) (as on your ID)'}

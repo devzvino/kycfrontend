@@ -6,48 +6,46 @@ import { useEffect, useState } from 'react';
 import mainLogo from '../assets/images/kyc-logo.png';
 
 
-import { Dimensions } from "react-native";
+import { Dimensions,ScrollView } from "react-native";
 import IdUpload from '../components/IdUpload';
 import UserDetails from '../components/UserDetails';
 import OTPConfirm from '../components/OTPConfirm';
 import SignUpNavigationButton from '../components/SignUpNavigationButton';
-import PhoneInput from 'react-native-phone-input';
-import RegConfirm from '../components/RegConfirm';
+import RegConfirm from '../components/Regconfirm';
 
-import { FontTheme,ButtonTheme,ImageBackgroundTheme,LogoTheme,InputTheme } from '../components/ThemeFile';
+import { LogoTheme } from '../components/ThemeFile';
 
 //Device Dimenstions
 const {width, height} = Dimensions.get('screen');
-
-//Handling buttonPress
-
-const handlePress=()=>{
-
-  
-  
-};
 
 
 const SignUp = () => {
   // state randering
 
-const [userDetails, setUserDetails] = useState(false)
-const [idUpload, setIdUpload] = useState(true)
-const [otpConfirm, setOtpConfirm] = useState(false)
-const [regConfirm, setRegConfirm] = useState(false)
+  const [userView, setuserView] = useState(false)
+  const [idUploadView, setidUploadView] = useState(false)
+  const [otpConfrimView, setOtpConfrimView] = useState(false)
+  const [regConfrimView, setRegConfrimView] = useState(true)
+
 
   return (
-    <View style={{width:width, height:height, }}>
+    <ScrollView  contentContainerStyle={{width:width, height:height  }}>
         <View style={{width:'100%', height:'20%', marginLeft:'8%', paddingTop: '10%',}}>
       <Image source={mainLogo} style={LogoTheme.miniLogo}/>
       </View>
       {/* Render Form elements here */}
-      {userDetails && <UserDetails setUserDetails={setUserDetails}/>}
-      {idUpload && <IdUpload setIdUpload={setIdUpload}/>}
-      {otpConfirm && <OTPConfirm setOtpConfirm={setOtpConfirm}/>}
-      {regConfirm && <RegConfirm setRegConfirm={setRegConfirm}/>}
-      </View>
+
+      {userView && <UserDetails />}
+      {idUploadView && <IdUpload />}
+      {otpConfrimView &&  <OTPConfirm />}
+      {regConfrimView &&  <RegConfirm />}
+    
+      </ScrollView>
   )
 };
 
 export default SignUp;
+
+   {/* 
+      <OTPConfirm setOtpConfirm={setOtpConfirm}/>
+   */}
