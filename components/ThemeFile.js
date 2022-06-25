@@ -64,9 +64,10 @@ export const FontTheme = {
     },
     messagetxt:{
         width:width/1.15, 
-        marginTop:10,
+        marginTop:5,
         fontFamily:'Poppins-Medium',
-        color:'#7D7D7D'
+        color:'#7D7D7D',
+        textAlign:'left'
     },
     errortxt:{
         fontFamily: 'Poppins-Regular',
@@ -141,6 +142,7 @@ export const ButtonTheme = {
         elevation: 3,
         marginTop: 10,
         color: primary,
+        elevation: 0,
     },
 
 }

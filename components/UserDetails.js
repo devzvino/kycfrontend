@@ -16,7 +16,7 @@ import {
 import SignUpNavigationButton from "./SignUpNavigationButton";
 import { Dimensions } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import PhoneInput from "./PhoneInput";
+import { errorMsg1 } from "./appMessages";
 
 //Device Dimenstions
 const { width, height } = Dimensions.get("screen");
@@ -43,7 +43,7 @@ const UserDetails = ({
   const handleSubmit = () => {
     setLoading(true);
     if (!firstName || !surname || !phone || !id) {
-      setError("Please fill this field");
+      setError(errorMsg1);
       setLoading(false);
     } else {
       setTimeout(() => {

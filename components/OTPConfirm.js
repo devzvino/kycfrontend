@@ -4,6 +4,7 @@ import { Text, View, TextInput, Image, Keyboard } from "react-native";
 import MainInput from "./MainInput";
 import SignUpNavigationButton from "./SignUpNavigationButton";
 import { Dimensions } from "react-native";
+import { errorMsg } from "./appMessages";
 
 import {
   FontTheme,
@@ -16,6 +17,9 @@ import {
 //Device Dimenstions
 const { width, height } = Dimensions.get("screen");
 
+const otpMessage = "Check your SMS for your security code. If you don't receive your security code, please contact support for further assistance."
+
+
 const OTPConfirm = ({
   setUserView,
   setIdUploadView,
@@ -26,12 +30,13 @@ const OTPConfirm = ({
   const [error, setError] = useState();
   const [otp, setOtp] = useState();
 
-  // sumit function to api
+  // submit function to api
   const handleSubmit = () => {
     setLoading(true);
     if (!otp) {
-      setError("Please fill this field");
+      setError(errorMsg);
       setLoading(false);
+      console.log(error)
     } else {
       setTimeout(() => {
         setUserView(false);
@@ -49,15 +54,18 @@ const OTPConfirm = ({
       <View style={{ width: width, height: "65%", alignItems: "center" }}>
         <MainInput
           title={"OTP Confirmation Code"}
-          required
+          textStyles={FontTheme.errortxt}
+          required 
+          info={otp? null : error}
           onBlur={Keyboard.dismiss}
           onChange={(value) => {
             setOtp(value);
           }}
-          textStyles={FontTheme.messagetxt}
-          info={otp ? null : error}
+        
         />
+        <Text style={FontTheme.messagetxt}>{otpMessage}</Text>
       </View>
+      
       <View
         style={{
           width: width,
