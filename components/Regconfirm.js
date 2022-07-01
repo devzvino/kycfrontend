@@ -9,6 +9,25 @@ import { FontTheme,ButtonTheme,ImageBackgroundTheme,LogoTheme,InputTheme } from 
 //Device Dimensions
 const {width, height} = Dimensions.get('screen');
 
+// submit function to api
+const handleSubmit = () => {
+  setLoading(true);
+  if (!otp) {
+    setError(errorMsg1);
+    setLoading(false);
+    console.log(error)
+  } else {
+    setTimeout(() => {
+      setUserView(false);
+      setIdUploadView(false);
+      setOtpConfrimView(false);
+      setRegConfrimView(true);
+      setLoading(false);
+    }, 2000);
+    setLoading(false);
+  }
+};
+
 function RegConfirm() {
   return (
    <View style={{width:width/1.15, alignSelf:'center', alignItems:'center' ,flex:1}}>

@@ -4,7 +4,7 @@ import { Text, View, TextInput, Image, Keyboard } from "react-native";
 import MainInput from "./MainInput";
 import SignUpNavigationButton from "./SignUpNavigationButton";
 import { Dimensions } from "react-native";
-import { errorMsg } from "./appMessages";
+import { errorMsg1 } from "./appMessages";
 
 import {
   FontTheme,
@@ -34,15 +34,15 @@ const OTPConfirm = ({
   const handleSubmit = () => {
     setLoading(true);
     if (!otp) {
-      setError(errorMsg);
+      setError(errorMsg1);
       setLoading(false);
       console.log(error)
     } else {
       setTimeout(() => {
         setUserView(false);
         setIdUploadView(false);
-        setOtpConfrimView(false);
-        setRegConfrimView(true);
+        setOtpConfrimView(true);
+        setRegConfrimView(false);
         setLoading(false);
       }, 2000);
       setLoading(false);

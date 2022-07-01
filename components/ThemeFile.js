@@ -15,10 +15,11 @@ export const ColorTheme = {
     grey: '#7D7D7D',
     grey2: '#EFF0F6',
     grey3: '#CCCCCC',
+    grey4:'#808080',
     lightBlue:'#EEF9FF'
 };
 
-const { primary,main, orange, green, red, blue, grey, grey2,grey3, lightBlue } = ColorTheme;
+const { primary,main, orange, green, red, blue, grey, grey2,grey3, lightBlue,grey4 } = ColorTheme;
 
 // componets styles
 export const FontTheme = {
@@ -30,6 +31,15 @@ export const FontTheme = {
         paddingTop:10,
         paddingBottom:10,
 
+    },
+    iconButton:{
+       
+        fontFamily: 'Poppins-Medium',
+        color:grey4 ,
+        fontStyle: 'normal',
+        fontSize: 20,
+        paddingLeft: 10
+        
     },
     icontext:{
         width:'90%',
