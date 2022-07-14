@@ -1,7 +1,6 @@
 import React from "react";
-import { Text, View, TextInput, Image, Keyboard } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useEffect, useState } from "react";
+import { View, Image } from "react-native";
+import { useState } from "react";
 
 import mainLogo from "../assets/images/kyc-logo.png";
 
@@ -9,8 +8,7 @@ import { Dimensions, ScrollView } from "react-native";
 import IdUpload from "../components/IdUpload";
 import UserDetails from "../components/UserDetails";
 import OTPConfirm from "../components/OTPConfirm";
-import SignUpNavigationButton from "../components/SignUpNavigationButton";
-import RegConfirm from "../components/RegConfirm";
+import RegConfirm from "../components/Regconfirm";
 
 import { LogoTheme } from "../components/ThemeFile";
 
@@ -76,9 +74,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
-{
-  /* 
-      <OTPConfirm setOtpConfirm={setOtpConfirm}/>
-   */
-}
