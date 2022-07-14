@@ -1,18 +1,25 @@
-import * as React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import AppLoading from 'expo-app-loading';
-import { StatusBar } from 'react-native';
+import { StatusBar,View,Dimensions } from 'react-native';
+import 'react-native-gesture-handler';
+import * as SplashScreen from 'expo-splash-screen';
+import * as Font from 'expo-font';
+import {useFonts} from 'expo-font';
 
 //import Screens
 import Home from './screens/Home';
 import SignUp from './screens/SignUp';
-import WelcomeScreen from './screens/Welcome'; 
+import WelcomeScreen from './screens/Welcome';
+import TabsNav from './navigation/TabsNav'; 
+// import AddLocation from './screens/AddLocation';
+
 
 //import fonts
-import { useFonts } from "expo-font";
 
 
+const {width, height} = Dimensions.get('screen');
 
 const Stack = createStackNavigator();
 
@@ -25,6 +32,9 @@ const theme = {
 }
 
 const App = () => {
+
+  
+
   let [fontsLoaded] = useFonts({
     'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
     'Poppins-SemiBold': require('./assets/fonts/Poppins-SemiBold.ttf'),
@@ -34,19 +44,28 @@ const App = () => {
   });
 
   if (!fontsLoaded) { 
+    
     return <AppLoading/>;
   }
 
   return (
-    <NavigationContainer theme={theme}>
-      {/* <StatusBar barStyle={'light'}/> */}
-      <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName= 'SignUp'>
+     
+        <NavigationContainer  theme={theme}  >
+        {/* <StatusBar barStyle={'light'}/> */}
+        <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName= 'SignUp'>
+        
+          <Stack.Screen name="TabsNav" component={TabsNav}/>
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="Welcome" component={WelcomeScreen} />
+          {/* <Stack.Screen name="AddLocation" component={AddLocation} /> */}
+        
+        </Stack.Navigator>
+      </NavigationContainer>
+     
       
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+     
+   
+    
   );
   }
 

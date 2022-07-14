@@ -9,8 +9,10 @@ import { Dimensions, ScrollView } from "react-native";
 import IdUpload from "../components/IdUpload";
 import UserDetails from "../components/UserDetails";
 import OTPConfirm from "../components/OTPConfirm";
-import { LogoTheme } from "../components/ThemeFile";
+import SignUpNavigationButton from "../components/SignUpNavigationButton";
 import RegConfirm from "../components/RegConfirm";
+
+import { LogoTheme } from "../components/ThemeFile";
 
 //Device Dimenstions
 const { width, height } = Dimensions.get("screen");
@@ -18,8 +20,8 @@ const { width, height } = Dimensions.get("screen");
 const SignUp = () => {
   // state randering
 
-  const [userView, setuserView] = useState(true);
-  const [idUploadView, setidUploadView] = useState(false);
+  const [userView, setUserView] = useState(true);
+  const [idUploadView, setIdUploadView] = useState(false);
   const [otpConfrimView, setOtpConfrimView] = useState(false);
   const [regConfrimView, setRegConfrimView] = useState(false);
 
@@ -37,10 +39,38 @@ const SignUp = () => {
       </View>
       {/* Render Form elements here */}
 
-      {userView && <UserDetails />}
-      {idUploadView && <IdUpload />}
-      {otpConfrimView && <OTPConfirm />}
-      {regConfrimView && <RegConfirm />}
+      {userView && (
+        <UserDetails
+          setUserView={setUserView}
+          setIdUploadView={setIdUploadView}
+          setOtpConfrimView={setOtpConfrimView}
+          setRegConfrimView={setRegConfrimView}
+        />
+      )}
+      {idUploadView && (
+        <IdUpload
+          setUserView={setUserView}
+          setIdUploadView={setIdUploadView}
+          setOtpConfrimView={setOtpConfrimView}
+          setRegConfrimView={setRegConfrimView}
+        />
+      )}
+      {otpConfrimView && (
+        <OTPConfirm
+          setUserView={setUserView}
+          setIdUploadView={setIdUploadView}
+          setOtpConfrimView={setOtpConfrimView}
+          setRegConfrimView={setRegConfrimView}
+        />
+      )}
+      {regConfrimView && (
+        <RegConfirm
+          setUserView={setUserView}
+          setIdUploadView={setIdUploadView}
+          setOtpConfrimView={setOtpConfrimView}
+          setRegConfrimView={setRegConfrimView}
+        />
+      )}
     </ScrollView>
   );
 };

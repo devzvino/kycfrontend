@@ -10,7 +10,7 @@ import { FontTheme,ButtonTheme,ImageBackgroundTheme,LogoTheme,InputTheme,ColorTh
 const {width, height} = Dimensions.get('screen');
 
 
-const MainInput=({ onChange,onFocus,onBlur,placeholder, title, info,textStyles,keyboardType }) =>  {
+const MainInput=({ onChange,onFocus,onBlur,placeholder, title, info,textStyles,keyboardType, }) =>  {
   return (
     <View style = {{marginBottom:0}}>
         <Text style={FontTheme.inputTitle}>{title}</Text>
