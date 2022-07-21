@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StatusBar } from "react-native";
 import React from "react";
 import { ArrowLeftIcon, MenuAlt2Icon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
@@ -9,6 +9,7 @@ const GlobalHeader = ({ title, backable }) => {
 
   return (
     <View style={{ flexDirection: "row", alignItems: "center", padding: 15 }}>
+      <StatusBar StatusBarStyle="dark-content" />
       {backable ? (
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <ArrowLeftIcon size={24} color="#14142A" />

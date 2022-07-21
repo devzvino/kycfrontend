@@ -19,17 +19,22 @@ const TabsNav = () => {
         tabBarInactiveTintColor: "#808080",
         tabBarShowLabel: false,
         tabBarLabelStyle: {
+          elevation: 0,
           fontSize: 12,
           marginTop: -5,
           paddingBottom: 5,
         },
         tabBarStyle: {
           backgroundColor: "#ebebeb",
-          height: 90,
+          height: 100,
+          padding: 17,
           position: "absolute",
           bottom: 0,
           left: 0,
           right: 0,
+          elevation: 0,
+          borderTopLeftRadius: 15,
+          borderTopRightRadius: 15,
         },
       }}
     >
@@ -38,7 +43,7 @@ const TabsNav = () => {
         component={Home}
         options={{
           tabBarIcon: ({ color }) => (
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
               <HomeIcon color={color} size={22} />
               <Text style={{ color: `${color}` }}> Home</Text>
             </View>
@@ -53,6 +58,21 @@ const TabsNav = () => {
             <View
               style={[
                 styles.addLocation,
+                {
+                  marginTop: -70,
+                  padding: 30,
+                  borderWidth: 8,
+                  borderColor: "white",
+                  shadowColor: "white",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+
+                  elevation: 0,
+                },
                 color ? { backgroundColor: color } : { backgroundColor: color },
               ]}
             >
