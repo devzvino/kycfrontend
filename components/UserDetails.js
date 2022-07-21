@@ -21,10 +21,8 @@ import { errorMsg1 } from "./appMessages";
 //Device Dimenstions
 const { width, height } = Dimensions.get("screen");
 
-const handleChange = (e) => {
-  const userValue = e.target.value;
-  console.log(userValue);
-};
+//Form validation Messages
+const fillFieldError = "This field cannot be empty";
 
 const UserDetails = ({
   setUserView,
