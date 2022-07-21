@@ -1,26 +1,12 @@
 import React from "react";
-import {
-  View,
-  Dimensions,
-  StyleSheet,
-  Text,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { HomeIcon, PlusIcon, QrcodeIcon } from "react-native-heroicons/outline";
 
 //import Screens
 import Home from "../screens/Home";
 import QRcode from "../screens/QRcode";
-import AddLocation from "../screens/AddLocation";
-
-import HomeSvg from "../components/HomeSvg";
-
-//import Svgs/png
-import success from "../assets/icons/success.png";
-
-//use Device Dimensions
-const { width, height } = Dimensions.get("screen");
+import AddAddress from "../screens/AddAddress";
 
 const Tab = createBottomTabNavigator();
 
@@ -28,74 +14,90 @@ const TabsNav = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: {
-          position: "absolute",
-          flex: 1,
-          backgroundColor: "#F8f8f8",
-          elevation: 0,
-          bottom: 25,
-          height: 90,
-          right: 20,
-          left: 20,
-          borderRadius: 15,
-          alignItems: "center",
-          justifyContent: "center",
-          ...styles.shadow,
-        },
-        tabBarShowLabel: false,
         headerShown: false,
+        tabBarActiveTintColor: "#2FBF00",
+        tabBarInactiveTintColor: "#808080",
+        tabBarShowLabel: false,
+        tabBarLabelStyle: {
+          fontSize: 12,
+          marginTop: -5,
+          paddingBottom: 5,
+        },
+        tabBarStyle: {
+          backgroundColor: "#ebebeb",
+          height: 90,
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+        },
       }}
     >
       <Tab.Screen
-        name={"Home"}
+        name="Home"
         component={Home}
         options={{
-          tabBarIcon: ({ focused }) => {
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 10,
-              }}
-            >
-              <Image
-                source={success}
-                resizeMode="contain"
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? "#2FBF00" : "#808080",
-                }}
-              />
-              <Text
-                style={{
-                  color: focused ? "#2FBF00" : "#808080",
-                  fontSize: 12,
-                }}
-              >
-                Home
-              </Text>
-            </View>;
-          },
+          tabBarIcon: ({ color }) => (
+            <View style={{ flexDirection: "row" }}>
+              <HomeIcon color={color} size={22} />
+              <Text style={{ color: `${color}` }}> Home</Text>
+            </View>
+          ),
         }}
       />
-      <Tab.Screen name={"AddLocation"} component={AddLocation} />
-      <Tab.Screen name={"QRcode"} component={QRcode} />
+      <Tab.Screen
+        name="AddLocation"
+        component={AddAddress}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <View
+              style={[
+                styles.addLocation,
+                color ? { backgroundColor: color } : { backgroundColor: color },
+              ]}
+            >
+              <PlusIcon color={"#fff"} size={22} />
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="QRcode"
+        component={QRcode}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <View style={{ flexDirection: "row" }}>
+              <QrcodeIcon color={color} size={22} />
+              <Text style={{ color: `${color}` }}> QR Code</Text>
+            </View>
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
 
 const styles = StyleSheet.create({
-  shadow: {
-    shadowColor: "#808080",
-    shadowOpacity: 0.25,
-    shadowRadius: 3.5,
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    elevation: 5,
+  addLocation: {
+    padding: 15,
+    borderRadius: 50,
   },
 });
 
 export default TabsNav;
+
+//  //
+//  tabBarStyle: {
+//   position: "absolute",
+//   flex: 1,
+//   backgroundColor: "#F8F8F8",
+//   elevation: 0,
+//   bottom: 0,
+//   height: 90,
+//   right: 0,
+//   left: 0,
+//   alignItems: "center",
+//   justifyContent: "center",
+// },
+// tabBarShowLabel: false,
+// headerShown: false,

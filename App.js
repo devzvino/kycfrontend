@@ -1,26 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import AppLoading from "expo-app-loading";
-import { StatusBar, View, Dimensions } from "react-native";
 import "react-native-gesture-handler";
-import * as SplashScreen from "expo-splash-screen";
-import * as Font from "expo-font";
 import { useFonts } from "expo-font";
 
-//import Screens
-import Home from "./screens/Home";
-import SignUp from "./screens/SignUp";
-import WelcomeScreen from "./screens/Welcome";
-import TabsNav from "./navigation/TabsNav";
-// import AddLocation from './screens/AddLocation';
+import StackNavigation from "./navigation/StackNavigation";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 //import fonts
-
-const { width, height } = Dimensions.get("screen");
-
-const Stack = createStackNavigator();
-
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -44,17 +31,7 @@ const App = () => {
 
   return (
     <NavigationContainer theme={theme}>
-      {/* <StatusBar barStyle={'light'}/> */}
-      <Stack.Navigator
-        screenOptions={{ headerShown: false }}
-        initialRouteName="SignUp"
-      >
-        {/* <Stack.Screen name="home" component={Home} /> */}
-        <Stack.Screen name="TabsNav" component={TabsNav} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        {/* <Stack.Screen name="AddLocation" component={AddLocation} /> */}
-      </Stack.Navigator>
+      <StackNavigation />
     </NavigationContainer>
   );
 };
