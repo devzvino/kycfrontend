@@ -27,7 +27,7 @@ const TabsNav = () => {
         tabBarStyle: {
           backgroundColor: "#ebebeb",
           height: 100,
-          padding: 17,
+          padding: 15,
           position: "absolute",
           bottom: 0,
           left: 0,
@@ -43,9 +43,9 @@ const TabsNav = () => {
         component={Home}
         options={{
           tabBarIcon: ({ color }) => (
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <HomeIcon color={color} size={22} />
-              <Text style={{ color: `${color}` }}> Home</Text>
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent:'center' }}>
+              <HomeIcon color={color} size={30} />
+              <Text style={{ color: `${color}`, fontSize:18 }}> Home</Text>
             </View>
           ),
         }}
@@ -53,30 +53,23 @@ const TabsNav = () => {
       <Tab.Screen
         name="AddLocation"
         component={AddAddress}
+    
         options={{
           tabBarIcon: ({ color }) => (
             <View
               style={[
                 styles.addLocation,
-                {
-                  marginTop: -70,
-                  padding: 30,
+                { 
+                  top:-25,
+                  overflow: "hidden",
+                  padding: 20,
                   borderWidth: 8,
                   borderColor: "white",
-                  shadowColor: "white",
-                  shadowOffset: {
-                    width: 0,
-                    height: 2,
-                  },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 3.84,
-
-                  elevation: 0,
                 },
                 color ? { backgroundColor: color } : { backgroundColor: color },
               ]}
             >
-              <PlusIcon color={"#fff"} size={22} />
+              <PlusIcon color={"#fff"} size={30} />
             </View>
           ),
         }}
@@ -86,9 +79,9 @@ const TabsNav = () => {
         component={QRcode}
         options={{
           tabBarIcon: ({ color }) => (
-            <View style={{ flexDirection: "row" }}>
-              <QrcodeIcon color={color} size={22} />
-              <Text style={{ color: `${color}` }}> QR Code</Text>
+            <View style={{ flexDirection: "row",alignItems: "center", justifyContent:'center' }}>
+              <QrcodeIcon color={color} size={30} />
+              <Text style={{ color: `${color}`,fontSize:18 }}> QR Code</Text>
             </View>
           ),
         }}
@@ -99,7 +92,7 @@ const TabsNav = () => {
 
 const styles = StyleSheet.create({
   addLocation: {
-    padding: 15,
+    padding: 100,
     borderRadius: 50,
   },
 });
