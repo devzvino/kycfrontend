@@ -18,21 +18,15 @@ const TabsNav = () => {
         tabBarActiveTintColor: "#2FBF00",
         tabBarInactiveTintColor: "#808080",
         tabBarShowLabel: false,
-        tabBarLabelStyle: {
-          elevation: 0,
-          fontSize: 12,
-          marginTop: -5,
-          paddingBottom: 5,
-        },
         tabBarStyle: {
           backgroundColor: "#ebebeb",
           height: 100,
-          padding: 15,
           position: "absolute",
           bottom: 0,
           left: 0,
           right: 0,
           elevation: 0,
+          borderTopWidth: 0,
           borderTopLeftRadius: 15,
           borderTopRightRadius: 15,
         },
@@ -43,9 +37,15 @@ const TabsNav = () => {
         component={Home}
         options={{
           tabBarIcon: ({ color }) => (
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent:'center' }}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <HomeIcon color={color} size={30} />
-              <Text style={{ color: `${color}`, fontSize:18 }}> Home</Text>
+              <Text style={{ color: `${color}`, fontSize: 18 }}> Home</Text>
             </View>
           ),
         }}
@@ -53,14 +53,13 @@ const TabsNav = () => {
       <Tab.Screen
         name="AddLocation"
         component={AddAddress}
-    
         options={{
           tabBarIcon: ({ color }) => (
             <View
               style={[
                 styles.addLocation,
-                { 
-                  top:-25,
+                {
+                  top: -25,
                   overflow: "hidden",
                   padding: 20,
                   borderWidth: 8,
@@ -79,9 +78,15 @@ const TabsNav = () => {
         component={QRcode}
         options={{
           tabBarIcon: ({ color }) => (
-            <View style={{ flexDirection: "row",alignItems: "center", justifyContent:'center' }}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <QrcodeIcon color={color} size={30} />
-              <Text style={{ color: `${color}`,fontSize:18 }}> QR Code</Text>
+              <Text style={{ color: `${color}`, fontSize: 18 }}> QR Code</Text>
             </View>
           ),
         }}
@@ -98,19 +103,3 @@ const styles = StyleSheet.create({
 });
 
 export default TabsNav;
-
-//  //
-//  tabBarStyle: {
-//   position: "absolute",
-//   flex: 1,
-//   backgroundColor: "#F8F8F8",
-//   elevation: 0,
-//   bottom: 0,
-//   height: 90,
-//   right: 0,
-//   left: 0,
-//   alignItems: "center",
-//   justifyContent: "center",
-// },
-// tabBarShowLabel: false,
-// headerShown: false,
