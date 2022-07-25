@@ -18,6 +18,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { ColorTheme } from "../components/ThemeFile";
 import { LocationMarkerIcon } from "react-native-heroicons/outline";
 import * as Location from "expo-location";
+import { mapLocationLoading } from "../components/appMessages";
 
 //Device Dimenstions
 const { width, height } = Dimensions.get("screen");
@@ -150,7 +151,7 @@ const AddLocation = () => {
             }}
           >
             <Text style={{ marginTop: 40 }}>
-              Please wait while we are getting your location....
+              {mapLocationLoading}
             </Text>
           </View>
         )}
