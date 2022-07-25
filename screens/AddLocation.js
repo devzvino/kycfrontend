@@ -19,12 +19,12 @@ import { ColorTheme } from "../components/ThemeFile";
 import { LocationMarkerIcon } from "react-native-heroicons/outline";
 import * as Location from "expo-location";
 import { mapLocationLoading } from "../components/appMessages";
+require("dotenv/config");
 
 //Device Dimenstions
 const { width, height } = Dimensions.get("screen");
 
 const AddLocation = () => {
-  const key = "AIzaSyDOq8Ka8JllvWl9Shy8LHX5ottsSiQeJxY";
   // getting passed title from add address screen
   const route = useRoute();
   const title = route.params.title;
@@ -150,9 +150,7 @@ const AddLocation = () => {
               backgroundColor: "white",
             }}
           >
-            <Text style={{ marginTop: 40 }}>
-              {mapLocationLoading}
-            </Text>
+            <Text style={{ marginTop: 40 }}>{mapLocationLoading}</Text>
           </View>
         )}
       </View>
