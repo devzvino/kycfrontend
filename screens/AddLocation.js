@@ -11,7 +11,7 @@ import { Dimensions } from "react-native";
 import { Marker } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import GlobalHeader from "../components/GlobalHeader";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import BottomSheet from "@gorhom/bottom-sheet";
 import FormInputWithLabel from "../components/FormInputWithLabel";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -19,7 +19,8 @@ import { ColorTheme } from "../components/ThemeFile";
 import { LocationMarkerIcon } from "react-native-heroicons/outline";
 import * as Location from "expo-location";
 import { mapLocationLoading } from "../components/appMessages";
-require("dotenv/config");
+import { GOOGLE_API_KEY } from "../environmentVariables";
+import axios from "axios";
 
 //Device Dimenstions
 const { width, height } = Dimensions.get("screen");
@@ -27,6 +28,7 @@ const { width, height } = Dimensions.get("screen");
 const AddLocation = () => {
   // getting passed title from add address screen
   const route = useRoute();
+  const navigation = useNavigation();
   const title = route.params.title;
 
   // inputs
@@ -39,6 +41,9 @@ const AddLocation = () => {
   const [errMsg, setErrMsg] = useState(null);
   const [city, setCity] = useState();
 
+  // distance section
+  const [feedback, setFeedback] = useState();
+
   // getting current user location
   useEffect(() => {
     (async () => {
@@ -50,11 +55,12 @@ const AddLocation = () => {
 
       let location = await Location.getCurrentPositionAsync({});
       setCurrentLocation(location);
-      console.log(currentLocation);
+      // console.log(currentLocation);
     })();
   }, []);
 
   // console.log(currentLocation);
+  // console.log(coroodinates);
 
   // handleAddAddress
   const handleAddAddress = () => {
@@ -67,6 +73,42 @@ const AddLocation = () => {
 
   const handleConfirm = async () => {
     setloading(true);
+    if (feedback.rows[0].elements[0].distance.value < 30) {
+      axios
+        .post("http://10.70.14.108:4000/api/location/", {
+          userInfo: "62cfecbaa948e3505d483f40",
+          verifiedHome: false,
+          verifiedWork: false,
+          homeLocation: JSON.stringify({
+            address,
+            surburb,
+            city,
+            lat: currentLocation.coords.latitude,
+            lng: currentLocation.coords.longitude,
+          }),
+          workLocation: JSON.stringify({
+            address,
+            surburb,
+            city,
+            lat: currentLocation.coords.latitude,
+            lng: currentLocation.coords.longitude,
+          }),
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            navigation.navigate("Home");
+          } else {
+            alert("Sorry could not verify you, please try again later");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      setloading(false);
+    } else {
+      alert(`you are not ${title}`);
+      setloading(false);
+    }
   };
 
   // handling the bottom sheet to appear
@@ -86,6 +128,7 @@ const AddLocation = () => {
   // const [center, setCenter] = useState([
   //   -17.830675105928798, 31.04908875542284,
   // ]);
+  console.log(feedback);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -103,6 +146,7 @@ const AddLocation = () => {
 
         {currentLocation ? (
           <MapView
+            onReady
             style={{ height: height * 1, width: width }}
             provider={PROVIDER_GOOGLE}
             showsUserLocation
@@ -117,6 +161,19 @@ const AddLocation = () => {
                 latitude: x.latitude,
                 longitude: x.longitude,
               });
+            }}
+            onRegionChangeComplete={(async) => {
+              const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${currentLocation.coords.latitude},${currentLocation.coords.longitude}&destinations=${coroodinates?.latitude},${coroodinates?.longitude}&key=${GOOGLE_API_KEY}`;
+
+              axios
+                .get(url)
+                .then((response) => {
+                  // console.log(response.data);
+                  setFeedback(response.data);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
             }}
           >
             {currentLocation ? (
@@ -210,6 +267,12 @@ const AddLocation = () => {
                 <Text style={{ color: "#7D7D7D", paddingVertical: 20 }}>
                   Drag the pin to your location and tap proceed
                 </Text>
+                {feedback && (
+                  <>
+                    <Text>Time Left : </Text>
+                    <Text>distance : </Text>
+                  </>
+                )}
                 <TouchableOpacity
                   onPress={handleConfirm}
                   style={{
