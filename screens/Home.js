@@ -9,6 +9,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import GlobalHeader from "../components/GlobalHeader";
 import axios from "axios";
+import HomeVerificationCard from "../components/HomeVerificationCard";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
@@ -22,10 +23,9 @@ const Home = () => {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        "http://10.70.14.108:4000/api/location/"
+        "http://192.168.100.5:4000/api/location/"
       );
       myInfo = data.filter((i) => i.userInfo._id === _id);
-
       setMyVerifications(myInfo);
       setLoading(false);
     } catch (error) {
@@ -42,26 +42,15 @@ const Home = () => {
     };
   }, []);
 
-  console.log(myVerifications);
+  // console.log(myVerifications);
 
   return (
     <SafeAreaView style={styles.container}>
       <GlobalHeader title="Home" />
       {myVerifications ? (
-        myVerifications.map((item) => {
-          let home = JSON.parse(item.homeLocation);
-          console.log(item);
-          console.log(home);
-          return (
-            <TouchableOpacity key={item._id}>
-              <Text>{item.userInfo.firstname}</Text>
-              <View style={{ flexDirection: "row" }}>
-                <Text>{home.lat}</Text>
-                <Text>{home.lng}</Text>
-              </View>
-            </TouchableOpacity>
-          );
-        })
+        myVerifications.map((item) => (
+          <HomeVerificationCard key={item._id} item={item} />
+        ))
       ) : (
         <View
           style={{

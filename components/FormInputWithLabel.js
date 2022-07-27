@@ -13,7 +13,12 @@ const FormInputWithLabel = ({
       <Text style={styles.title}>
         {title ? title : label} {title ? "Address" : null}
       </Text>
-      <TextInput keyboardType={keyboardType} style={styles.input} />
+      <TextInput
+        keyboardType={keyboardType}
+        style={styles.input}
+        value={value}
+        onChangeText={onTextChange}
+      />
     </View>
   );
 };

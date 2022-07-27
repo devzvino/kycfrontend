@@ -5,8 +5,6 @@ import "react-native-gesture-handler";
 import { useFonts } from "expo-font";
 
 import StackNavigation from "./navigation/StackNavigation";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-
 //import fonts
 const theme = {
   ...DefaultTheme,

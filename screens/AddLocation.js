@@ -59,9 +59,6 @@ const AddLocation = () => {
     })();
   }, []);
 
-  // console.log(currentLocation);
-  // console.log(coroodinates);
-
   // handleAddAddress
   const handleAddAddress = () => {
     setloading(true);
@@ -74,36 +71,54 @@ const AddLocation = () => {
   const handleConfirm = async () => {
     setloading(true);
     if (feedback.rows[0].elements[0].distance.value < 30) {
-      axios
-        .post("http://10.70.14.108:4000/api/location/", {
-          userInfo: "62cfecbaa948e3505d483f40",
-          verifiedHome: false,
-          verifiedWork: false,
-          homeLocation: JSON.stringify({
-            address,
-            surburb,
-            city,
-            lat: currentLocation.coords.latitude,
-            lng: currentLocation.coords.longitude,
-          }),
-          workLocation: JSON.stringify({
-            address,
-            surburb,
-            city,
-            lat: currentLocation.coords.latitude,
-            lng: currentLocation.coords.longitude,
-          }),
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            navigation.navigate("Home");
-          } else {
-            alert("Sorry could not verify you, please try again later");
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      if (title === "home") {
+        axios
+          .post("http://192.168.100.5:4000/api/location/", {
+            userInfo: "62cfecbaa948e3505d483f40",
+            homeAddress: address,
+            homeSurburb: surburb,
+            homeCity: city,
+            homeLocation: JSON.stringify({
+              lat: currentLocation.coords.latitude,
+              lng: currentLocation.coords.longitude,
+            }),
+            workLocation: [""],
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              navigation.navigate("Home");
+            } else {
+              alert("Sorry could not verify you, please try again later");
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        axios
+          .post("http://192.168.100.5:4000/api/location/", {
+            userInfo: "62cfecbaa948e3505d483f40",
+            workAddress: address,
+            workSurburb: surburb,
+            workCity: city,
+            workLocation: JSON.stringify({
+              lat: currentLocation.coords.latitude,
+              lng: currentLocation.coords.longitude,
+            }),
+            homeLocation: [""],
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              navigation.navigate("Home");
+            } else {
+              alert("Sorry could not verify you, please try again later");
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+
       setloading(false);
     } else {
       alert(`you are not ${title}`);
@@ -124,11 +139,18 @@ const AddLocation = () => {
     // console.log("handleSheetChanges", index);
   }, []);
 
-  // console.log(title);
-  // const [center, setCenter] = useState([
-  //   -17.830675105928798, 31.04908875542284,
-  // ]);
-  console.log(feedback);
+  const updateRegionCenter = async () => {
+    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${currentLocation.coords.latitude},${currentLocation.coords.longitude}&destinations=${coroodinates?.latitude},${coroodinates?.longitude}&key=${GOOGLE_API_KEY}`;
+    axios
+      .get(url)
+      .then((response) => {
+        console.log(response.data);
+        setFeedback(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -162,19 +184,7 @@ const AddLocation = () => {
                 longitude: x.longitude,
               });
             }}
-            onRegionChangeComplete={(async) => {
-              const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${currentLocation.coords.latitude},${currentLocation.coords.longitude}&destinations=${coroodinates?.latitude},${coroodinates?.longitude}&key=${GOOGLE_API_KEY}`;
-
-              axios
-                .get(url)
-                .then((response) => {
-                  // console.log(response.data);
-                  setFeedback(response.data);
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
-            }}
+            onRegionChangeComplete={() => updateRegionCenter()}
           >
             {currentLocation ? (
               <Marker
