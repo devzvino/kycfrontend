@@ -19,7 +19,7 @@ import { ColorTheme } from "../components/ThemeFile";
 import { LocationMarkerIcon } from "react-native-heroicons/outline";
 import * as Location from "expo-location";
 import { mapLocationLoading } from "../components/appMessages";
-import { GOOGLE_API_KEY } from "../environmentVariables";
+// import { GOOGLE_API_KEY } from "../environmentVariables";
 import axios from "axios";
 
 //Device Dimenstions
