@@ -42,7 +42,24 @@ const Home = () => {
     };
   }, []);
 
-  // console.log(myVerifications);
+  console.log(myVerifications);
+
+  if (loading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text style={{ color: "black", paddingBottom: 30 }}>
+          Loading please wait...
+        </Text>
+        <ActivityIndicator />
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -54,13 +71,12 @@ const Home = () => {
       ) : (
         <View
           style={{
-            paddingTop: 100,
+            paddingTop: 150,
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <Text style={{ color: "black" }}>Loading please wait...</Text>
-          <ActivityIndicator />
+          <Text>No Verification done yet</Text>
         </View>
       )}
     </SafeAreaView>
