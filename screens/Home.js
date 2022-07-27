@@ -23,7 +23,7 @@ const Home = () => {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        "http://192.168.100.5:4000/api/location/"
+        "http://10.70.14.108:4000/api/location/"
       );
       myInfo = data.filter((i) => i.userInfo._id === _id);
       setMyVerifications(myInfo);

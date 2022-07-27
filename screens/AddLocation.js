@@ -73,7 +73,7 @@ const AddLocation = () => {
     if (feedback.rows[0].elements[0].distance.value < 30) {
       if (title === "home") {
         axios
-          .post("http://192.168.100.5:4000/api/location/", {
+          .post("http://10.70.14.108:4000/api/location/", {
             userInfo: "62cfecbaa948e3505d483f40",
             homeAddress: address,
             homeSurburb: surburb,
@@ -96,7 +96,7 @@ const AddLocation = () => {
           });
       } else {
         axios
-          .post("http://192.168.100.5:4000/api/location/", {
+          .post("http://10.70.14.108:4000/api/location/", {
             userInfo: "62cfecbaa948e3505d483f40",
             workAddress: address,
             workSurburb: surburb,

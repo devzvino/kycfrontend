@@ -1,5 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
+import { ColorTheme } from "./ThemeFile";
 
 const HomeVerificationCard = ({ item }) => {
   let home;
@@ -15,7 +16,9 @@ const HomeVerificationCard = ({ item }) => {
   console.log(work);
   return (
     <TouchableOpacity key={item._id}>
-      <Text>{home ? item.homeAddress : item.workAddress}</Text>
+      <Text style={{ color: ColorTheme.main }}>
+        {home ? item.homeAddress : item.workAddress}
+      </Text>
       <View style={{ flexDirection: "row" }}>
         {home ? (
           <>
