@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Dimensions,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -10,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import GlobalHeader from "../components/GlobalHeader";
 import axios from "axios";
 import HomeVerificationCard from "../components/HomeVerificationCard";
+import { SwipeListView } from "react-native-swipe-list-view";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
@@ -34,6 +36,9 @@ const Home = () => {
     }
   };
 
+  // delete home verification card
+  const handleDeleteProcess = async (id) => {};
+
   useEffect(() => {
     getMyVerifications();
     // clearing memory
@@ -42,7 +47,7 @@ const Home = () => {
     };
   }, []);
 
-  console.log(myVerifications);
+  // console.log(myVerifications);
 
   if (loading) {
     return (
@@ -64,10 +69,35 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
       <GlobalHeader title="Home" />
+      <View style={{ paddingVertical: 20 }}></View>
+
       {myVerifications ? (
-        myVerifications.map((item) => (
-          <HomeVerificationCard key={item._id} item={item} />
-        ))
+        // myVerifications.map((item) => (
+        //   <HomeVerificationCard key={item._id} item={item} />
+        // ))
+        <SwipeListView
+          data={myVerifications}
+          renderItem={(item) => <HomeVerificationCard item={item} />}
+          disableRightSwipe={true}
+          previewOpenDelay={3000}
+          friction={1000}
+          tension={40}
+          leftOpenValue={75}
+          stopLeftSwipe={75}
+          rightOpenValue={-75}
+          renderHiddenItem={(item) => (
+            <View style={styles.hiddenContainer}>
+              <TouchableOpacity
+                onPress={() => handleDeleteProcess(item._id)}
+                style={styles.hiddenButton}
+              >
+                <Text style={{ color: "white", fontWeight: "bold" }}>
+                  Delete
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        />
       ) : (
         <View
           style={{
@@ -84,6 +114,25 @@ const Home = () => {
 };
 
 export default Home;
+
+const { width } = Dimensions.get("window");
 const styles = StyleSheet.create({
-  flex: 1,
+  container: {
+    flex: 1,
+    marginHorizontal: 15,
+  },
+  hiddenContainer: {
+    flex: 1,
+    paddingTop: 1,
+    overflow: "hidden",
+  },
+  hiddenButton: {
+    backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "flex-end",
+    paddingRight: 25,
+    borderRadius: 10,
+    height: "100%",
+    height: 140,
+  },
 });
