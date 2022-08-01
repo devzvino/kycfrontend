@@ -5,6 +5,7 @@ import SignUp from "../screens/SignUp";
 import WelcomeScreen from "../screens/Welcome";
 import TabsNav from "./TabsNav";
 import LocationSelect from "../screens/LocationSelect";
+import { StatusBar } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ const StackNavigation = () => {
       screenOptions={{ headerShown: false }}
       initialRouteName="SignUp"
     >
+     
       {!user ? (
         <Stack.Group>
           <Stack.Screen name="SignUp" component={SignUp} />
