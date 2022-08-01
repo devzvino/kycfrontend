@@ -104,7 +104,7 @@ const Home = () => {
 						alignItems: 'center',
 					}}
 				>
-					<Text>No Verification done yet</Text>
+					<Text>You have not added your home or work address.</Text>
 				</View>
 			)}
 		</SafeAreaView>

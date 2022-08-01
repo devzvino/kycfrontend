@@ -2,12 +2,12 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
 	Dimensions,
-	StatusBar,
 	Text,
 	TouchableOpacity,
 	View,
 } from 'react-native';
 import { ArrowLeftIcon, MenuAlt2Icon } from 'react-native-heroicons/outline';
+import { StatusBar } from 'expo-status-bar';
 
 const { height, width } = Dimensions.get('screen');
 
@@ -29,7 +29,7 @@ const GlobalHeader = ({ title, backable }) => {
 				backgroundColor: '#ffffff',
 			}}
 		>
-			<StatusBar StatusBarStyle="dark-content" />
+			<StatusBar style="dark" />
 			{backable ? (
 				<TouchableOpacity onPress={() => navigation.goBack()}>
 					<ArrowLeftIcon size={24} color="#14142A" />

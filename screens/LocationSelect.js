@@ -16,6 +16,7 @@ import {
 	Touchable,
 	TouchableOpacity,
 	View,
+  SafeAreaView
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
@@ -157,9 +158,9 @@ const LocationSelect = () => {
 	// start of render
 
 	return (
-		<View style={styles.container}>
+		<SafeAreaView style={styles.container}>
 			{/* navigation section */}
-			<View style={{ position: 'absolute' }}>
+			<View style={{ position: 'absolute', zIndex:10, paddingTop:20, backgroundColor: 'white' }}>
 				<GlobalHeader
 					title={confrimSnapPoint ? 'Select Location ' : `Add ${title} Address`}
 					backable={true}
@@ -171,6 +172,7 @@ const LocationSelect = () => {
 				{currentLocation ? (
 					<>
 						<MapView
+            showsUserLocation
 							onReady
 							style={{ height: height, width: width }}
 							provider={PROVIDER_GOOGLE}
@@ -246,7 +248,7 @@ const LocationSelect = () => {
 							</>
 						) : (
 							<View style={{ alignItems: 'center' }}>
-								<Text style={{ color: '#7D7D7D', paddingVertical: 20 }}>
+								<Text style={{ color: '#7D7D7D' }}>
 									Drag the pin to your location and tap proceed
 								</Text>
 								<View
@@ -274,7 +276,7 @@ const LocationSelect = () => {
 					</View>
 				</KeyboardAwareScrollView>
 			</BottomSheet>
-		</View>
+		</SafeAreaView>
 	);
 };
 
@@ -284,10 +286,7 @@ const styles = StyleSheet.create({
 	container: { flex: 1 },
 	imageMarker: {
 		position: 'absolute',
-		height: 35,
-		width: 35,
-		top: height / 2,
-		marginTop: -55,
+		width: 35, 
 		resizeMode: 'contain',
 	},
 });
