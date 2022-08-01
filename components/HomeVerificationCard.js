@@ -18,7 +18,7 @@ const HomeVerificationCard = ({ item }) => {
 
   return (
     <View style={styles.homeCard} key={item._id}>
-      <Text style={{ color: ColorTheme.main, fontSize: 18, fontWeight: "600" }}>
+      <Text style={{ color: ColorTheme.main, fontSize: 24, fontWeight: "600" }}>
         {home ? item.item.homeAddress : item.item.workAddress}
       </Text>
       {/* coordinates */}

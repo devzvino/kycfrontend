@@ -1,14 +1,18 @@
-import { View, Text, TouchableOpacity, StatusBar } from "react-native";
+import { View, Text, TouchableOpacity, StatusBar, Dimensions } from "react-native";
 import React from "react";
 import { ArrowLeftIcon, MenuAlt2Icon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
 
-const GlobalHeader = ({ title, backable }) => {
+const {height,width}= Dimensions.get('screen');
+
+
+
+const GlobalHeader = ({ title, backable , absolute}) => {
   // navigation
   const navigation = useNavigation();
 
   return (
-    <View style={{ flexDirection: "row", alignItems: "center", padding: 15 }}>
+    <View style={[{ flexDirection: "row", alignItems: "center",height:height*0.15, zIndex:10,paddingHorizontal: 15, paddingTop:10, paddingBottom:0, backgroundColor:"#ffffff" }, absolute ? {position:'absolute',top:0, width:'100%'}:{position:"relative"}]}>
       <StatusBar StatusBarStyle="dark-content" />
       {backable ? (
         <TouchableOpacity onPress={() => navigation.goBack()}>

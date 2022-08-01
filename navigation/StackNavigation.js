@@ -4,6 +4,7 @@ import AddLocation from "../screens/AddLocation";
 import SignUp from "../screens/SignUp";
 import WelcomeScreen from "../screens/Welcome";
 import TabsNav from "./TabsNav";
+import LocationSelect from "../screens/LocationSelect";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +26,7 @@ const StackNavigation = () => {
         <>
           <Stack.Screen name="TabsNav" component={TabsNav} />
           <Stack.Group>
-            <Stack.Screen name="AddNewLocation" component={AddLocation} />
+            <Stack.Screen name="AddNewLocation" component={LocationSelect} />
           </Stack.Group>
         </>
       )}

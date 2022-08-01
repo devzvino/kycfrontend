@@ -22,6 +22,10 @@ import { mapLocationLoading } from "../components/appMessages";
 // import { GOOGLE_API_KEY } from "../environmentVariables";
 import axios from "axios";
 
+//import components
+import MainButton from '../components/MainButton';
+import { back } from "react-native/Libraries/Animated/Easing";
+
 //Device Dimenstions
 const { width, height } = Dimensions.get("screen");
 
@@ -153,8 +157,9 @@ const AddLocation = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       <GlobalHeader
+      absolute={true}
         title={confrimSnapPoint ? "Select Location " : `Add ${title} Address`}
         backable={true}
       />
@@ -169,7 +174,7 @@ const AddLocation = () => {
         {currentLocation ? (
           <MapView
             onReady
-            style={{ height: height * 1, width: width }}
+            style={{ height: height, width: width }}
             provider={PROVIDER_GOOGLE}
             showsUserLocation
             initialRegion={{
@@ -229,8 +234,8 @@ const AddLocation = () => {
         snapPoints={confrimSnapPoint ? singleSnap : snapPoints}
         onChange={handleSheetChanges}
       >
-        <KeyboardAwareScrollView>
-          <View style={{ flex: 1, paddingVertical: 10, paddingHorizontal: 25 }}>
+        <KeyboardAwareScrollView contentContainerStyle={{ flex: 1}}>
+          <View style={{ flex: 1, paddingVertical: 10, paddingHorizontal: 25,}}>
             {!confrimSnapPoint ? (
               <>
                 <FormInputWithLabel
@@ -251,39 +256,25 @@ const AddLocation = () => {
                   value={city}
                   onTextChange={setCity}
                 />
-                <TouchableOpacity
+                <View style={{alignItems:'center', position: 'absolute', bottom: 30, width:'100%', alignSelf: 'center'}}>
+                  <MainButton
                   onPress={handleAddAddress}
-                  style={{
-                    backgroundColor: ColorTheme.main,
-                    padding: 15,
-                    borderRadius: 5,
-                  }}
+    
+                  title={loading ? "Please wait..." : "Continue"}
                 >
-                  <Text
-                    style={{
-                      textAlign: "center",
-                      color: "white",
-                      fontWeight: "bold",
-                      textTransform: "uppercase",
-                      fontSize: 18,
-                    }}
-                  >
-                    {loading ? "Please wait..." : "Continue"}
-                  </Text>
-                </TouchableOpacity>
+                 
+                </MainButton>
+                </View>
+                
               </>
             ) : (
               <View style={{ alignItems: "center" }}>
                 <Text style={{ color: "#7D7D7D", paddingVertical: 20 }}>
                   Drag the pin to your location and tap proceed
                 </Text>
-                {feedback && (
-                  <>
-                    <Text>Time Left : </Text>
-                    <Text>distance : </Text>
-                  </>
-                )}
-                <TouchableOpacity
+                <View style={{alignItems:'center', position: 'absolute', bottom: 30, width:'100%', alignSelf: 'center'}}></View>
+          
+                <MainButton
                   onPress={handleConfirm}
                   style={{
                     backgroundColor: ColorTheme.main,
@@ -291,25 +282,15 @@ const AddLocation = () => {
                     borderRadius: 5,
                     width: "100%",
                   }}
+                  title={loading ? "Please wait..." : "Confirm"}
                 >
-                  <Text
-                    style={{
-                      textAlign: "center",
-                      color: "white",
-                      fontWeight: "bold",
-                      textTransform: "uppercase",
-                      fontSize: 18,
-                    }}
-                  >
-                    {loading ? "Please wait..." : "Confirm"}
-                  </Text>
-                </TouchableOpacity>
+                </MainButton>
               </View>
             )}
           </View>
         </KeyboardAwareScrollView>
       </BottomSheet>
-    </SafeAreaView>
+    </View>
   );
 };
 
