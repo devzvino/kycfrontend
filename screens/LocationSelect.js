@@ -1,5 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import axios from 'axios';
 import * as Location from 'expo-location';
 import React, {
 	useCallback,
@@ -11,12 +12,10 @@ import React, {
 import {
 	Dimensions,
 	Image,
+	SafeAreaView,
 	StyleSheet,
 	Text,
-	Touchable,
-	TouchableOpacity,
 	View,
-  SafeAreaView
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
@@ -26,6 +25,7 @@ import GlobalHeader from '../components/GlobalHeader';
 //import components
 import MainButton from '../components/MainButton';
 import { ColorTheme } from '../components/ThemeFile';
+import { keys } from '../environmentVariables';
 
 const { height, width } = Dimensions.get('screen');
 
@@ -43,6 +43,9 @@ const LocationSelect = () => {
 	const [surburb, setSurburb] = useState();
 	const [errMsg, setErrMsg] = useState(null);
 	const [city, setCity] = useState();
+
+	// distance section
+	const [feedback, setFeedback] = useState();
 
 	// getting current user location
 	useEffect(() => {
@@ -64,7 +67,17 @@ const LocationSelect = () => {
 
 	// getting new location when map movies
 	const updateRegionCenter = async () => {
-		const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${currentLocation.coords.latitude},${currentLocation.coords.longitude}&destinations=${coordinates?.latitude},${coordinates?.longitude}&key=${GOOGLE_API_KEY}`;
+		const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${
+			currentLocation.coords.latitude
+		},${currentLocation.coords.longitude}&destinations=${
+			coordinates?.latitude
+				? coordinates.latitude
+				: currentLocation.coords.latitude
+		},${
+			coordinates?.longitude
+				? coordinates.longitude
+				: currentLocation.coords.longitude
+		}&key=${keys.GOOGLE_API}`;
 		axios
 			.get(url)
 			.then((response) => {
@@ -89,6 +102,11 @@ const LocationSelect = () => {
 
 	// handleAddAddress
 	const handleAddAddress = () => {
+		if (!address || !surburb || !city) {
+			alert('Please fill in the form');
+			return;
+		}
+
 		setloading(true);
 		setTimeout(() => {
 			setConfrimSnapPoint(true);
@@ -97,8 +115,16 @@ const LocationSelect = () => {
 	};
 
 	const handleConfirm = async () => {
-		setloading(true);
-		if (feedback.rows[0].elements[0].distance.value < 30) {
+		// validation is all distance are avalable
+		if (feedback.rows[0].elements[0].status === 'ZERO_RESULTS') {
+			setloading(true);
+			alert('Please drag the pin to your location');
+			setloading(false);
+			return;
+		}
+
+		if (feedback.rows[0].elements[0].distance.value < 40) {
+			setloading(true);
 			if (title === 'home') {
 				axios
 					.post('http://10.70.12.222:4000/api/location/', {
@@ -122,6 +148,7 @@ const LocationSelect = () => {
 					.catch((error) => {
 						console.log(error);
 					});
+				setloading(false);
 			} else {
 				axios
 					.post('http://10.70.12.222:4000/api/location/', {
@@ -145,10 +172,12 @@ const LocationSelect = () => {
 					.catch((error) => {
 						console.log(error);
 					});
+				setloading(false);
 			}
 
 			setloading(false);
 		} else {
+			setloading(true);
 			alert(`you are not ${title}`);
 			setloading(false);
 		}
@@ -160,7 +189,14 @@ const LocationSelect = () => {
 	return (
 		<SafeAreaView style={styles.container}>
 			{/* navigation section */}
-			<View style={{ position: 'absolute', zIndex:10, paddingTop:20, backgroundColor: 'white' }}>
+			<View
+				style={{
+					position: 'absolute',
+					zIndex: 10,
+					paddingTop: 20,
+					backgroundColor: 'white',
+				}}
+			>
 				<GlobalHeader
 					title={confrimSnapPoint ? 'Select Location ' : `Add ${title} Address`}
 					backable={true}
@@ -172,7 +208,7 @@ const LocationSelect = () => {
 				{currentLocation ? (
 					<>
 						<MapView
-            showsUserLocation
+							showsUserLocation
 							onReady
 							style={{ height: height, width: width }}
 							provider={PROVIDER_GOOGLE}
@@ -210,7 +246,14 @@ const LocationSelect = () => {
 				onChange={handleSheetChanges}
 			>
 				<KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
-					<View style={{ flex: 1, paddingVertical: 10, paddingHorizontal: 25 }}>
+					<View
+						style={{
+							flex: 1,
+							paddingVertical: 10,
+							paddingHorizontal: 25,
+							alignItems: 'center',
+						}}
+					>
 						{!confrimSnapPoint ? (
 							<>
 								<FormInputWithLabel
@@ -231,44 +274,20 @@ const LocationSelect = () => {
 									value={city}
 									onTextChange={setCity}
 								/>
-								<View
-									style={{
-										alignItems: 'center',
-										position: 'absolute',
-										bottom: 30,
-										width: '100%',
-										alignSelf: 'center',
-									}}
-								>
-									<MainButton
-										onPress={handleAddAddress}
-										title={loading ? 'Please wait...' : 'Continue'}
-									></MainButton>
-								</View>
+
+								<MainButton
+									onPress={handleAddAddress}
+									title={loading ? 'Please wait...' : 'Continue'}
+								></MainButton>
 							</>
 						) : (
-							<View style={{ alignItems: 'center' }}>
+							<View style={{ width: '100%', alignItems: 'center' }}>
 								<Text style={{ color: '#7D7D7D' }}>
 									Drag the pin to your location and tap proceed
 								</Text>
-								<View
-									style={{
-										alignItems: 'center',
-										position: 'absolute',
-										bottom: 30,
-										width: '100%',
-										alignSelf: 'center',
-									}}
-								></View>
 
 								<MainButton
 									onPress={handleConfirm}
-									style={{
-										backgroundColor: ColorTheme.main,
-										padding: 15,
-										borderRadius: 5,
-										width: '100%',
-									}}
 									title={loading ? 'Please wait...' : 'Confirm'}
 								></MainButton>
 							</View>
@@ -286,7 +305,7 @@ const styles = StyleSheet.create({
 	container: { flex: 1 },
 	imageMarker: {
 		position: 'absolute',
-		width: 35, 
+		width: 35,
 		resizeMode: 'contain',
 	},
 });

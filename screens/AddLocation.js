@@ -1,5 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import axios from 'axios';
 import * as Location from 'expo-location';
 import React, {
 	useCallback,
@@ -19,16 +20,14 @@ import {
 import { LocationMarkerIcon } from 'react-native-heroicons/outline';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { mapLocationLoading } from '../components/appMessages';
 import FormInputWithLabel from '../components/FormInputWithLabel';
 import GlobalHeader from '../components/GlobalHeader';
 import { ColorTheme } from '../components/ThemeFile';
-// import { GOOGLE_API_KEY } from "../environmentVariables";
-import axios from 'axios';
 
 //import components
 import MainButton from '../components/MainButton';
+import { keys } from '../environmentVariables';
 
 //Device Dimenstions
 const { width, height } = Dimensions.get('screen');
@@ -153,7 +152,7 @@ const AddLocation = () => {
 	}, []);
 
 	const updateRegionCenter = async () => {
-		const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${currentLocation.coords.latitude},${currentLocation.coords.longitude}&destinations=${coroodinates?.latitude},${coroodinates?.longitude}&key=${GOOGLE_API_KEY}`;
+		const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${currentLocation.coords.latitude},${currentLocation.coords.longitude}&destinations=${coroodinates?.latitude},${coroodinates?.longitude}&key=${keys.GOOGLE_API}`;
 		axios
 			.get(url)
 			.then((response) => {

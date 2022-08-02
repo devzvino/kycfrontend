@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import {
@@ -14,6 +15,7 @@ import GlobalHeader from '../components/GlobalHeader';
 import HomeVerificationCard from '../components/HomeVerificationCard';
 
 const Home = () => {
+	const isFocused = useIsFocused();
 	const [loading, setLoading] = useState(false);
 	const [myVerifications, setMyVerifications] = useState([]);
 
@@ -31,13 +33,17 @@ const Home = () => {
 			setMyVerifications(myInfo);
 			setLoading(false);
 		} catch (error) {
-			console.log(error);
 			setLoading(false);
 		}
 	};
 
 	// delete home verification card
-	const handleDeleteProcess = async (id) => {};
+	const handleDeleteProcess = async (id) => {
+		let newArray;
+		await axios.delete(`http://10.70.12.222:4000/api/location/${id}`);
+		newArray = myVerifications.filter((i) => i._id !== id);
+		setMyVerifications(newArray);
+	};
 
 	useEffect(() => {
 		getMyVerifications();
@@ -45,9 +51,7 @@ const Home = () => {
 		return () => {
 			setMyVerifications();
 		};
-	}, []);
-
-	// console.log(myVerifications);
+	}, [isFocused]);
 
 	if (loading) {
 		return (
@@ -71,7 +75,7 @@ const Home = () => {
 			<GlobalHeader title="Home" />
 			<View style={{ paddingVertical: 20 }}></View>
 
-			{myVerifications ? (
+			{myVerifications.length > 0 ? (
 				<SwipeListView
 					contentContainerStyle={{ paddingHorizontal: 15 }}
 					data={myVerifications}
@@ -86,7 +90,7 @@ const Home = () => {
 					renderHiddenItem={(item) => (
 						<View style={styles.hiddenContainer}>
 							<TouchableOpacity
-								onPress={() => handleDeleteProcess(item._id)}
+								onPress={() => handleDeleteProcess(item.item._id)}
 								style={styles.hiddenButton}
 							>
 								<Text style={{ color: 'white', fontWeight: 'bold' }}>

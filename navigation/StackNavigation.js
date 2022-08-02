@@ -11,24 +11,23 @@ const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
 	// checking if user is stored in async storage
-	const [user, setUser] = useState(true);
+	const [user, setUser] = useState(false);
 
 	return (
 		<Stack.Navigator
 			screenOptions={{ headerShown: false }}
-			initialRouteName="SignUp"
+			initialRouteName="Welcome"
 		>
 			{!user ? (
 				<Stack.Group>
-					<Stack.Screen name="SignUp" component={SignUp} />
 					<Stack.Screen name="Welcome" component={WelcomeScreen} />
+					<Stack.Screen name="SignUp" component={SignUp} />
 				</Stack.Group>
 			) : (
 				<>
 					<Stack.Screen name="TabsNav" component={TabsNav} />
 					<Stack.Group>
 						<Stack.Screen name="AddNewLocation" component={LocationSelect} />
-						{/* <Stack.Screen name="AddNewLocation" component={AddLocation} /> */}
 					</Stack.Group>
 				</>
 			)}
@@ -37,7 +36,3 @@ const StackNavigation = () => {
 };
 
 export default StackNavigation;
-
-{
-	/* <Stack.Screen name="home" component={Home} /> */
-}
