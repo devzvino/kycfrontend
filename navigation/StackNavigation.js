@@ -1,7 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useState } from 'react';
-import { StatusBar } from 'react-native';
-import AddLocation from '../screens/AddLocation';
+import { useEffect, useState } from 'react';
 import LocationSelect from '../screens/LocationSelect';
 import SignUp from '../screens/SignUp';
 import WelcomeScreen from '../screens/Welcome';
@@ -12,6 +11,19 @@ const Stack = createNativeStackNavigator();
 const StackNavigation = () => {
 	// checking if user is stored in async storage
 	const [user, setUser] = useState(false);
+
+	const checkingIfUserIsStored = async () => {
+		try {
+			const storedUser = await AsyncStorage.getItem('@user');
+			if (storedUser !== null) {
+				setUser(storedUser);
+			}
+		} catch (error) {}
+	};
+
+	useEffect(() => {
+		checkingIfUserIsStored();
+	}, []);
 
 	return (
 		<Stack.Navigator

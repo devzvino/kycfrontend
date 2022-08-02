@@ -22,6 +22,8 @@ const uploadWarning =
 	'To avoid delays when verifying account, Please make sure that:';
 
 const IdUpload = ({
+	data,
+	setData,
 	setUserView,
 	setIdUploadView,
 	setOtpConfrimView,
@@ -39,6 +41,7 @@ const IdUpload = ({
 		// setLoading(false);
 		// } else {
 		setTimeout(() => {
+			setData({ ...data, idFront, yourPhoto });
 			setUserView(false);
 			setIdUploadView(false);
 			setOtpConfrimView(false);
@@ -48,6 +51,7 @@ const IdUpload = ({
 		setLoading(false);
 		// }
 	};
+	console.log(data);
 	return (
 		<View style={{ flex: 1 }}>
 			<View style={{ width: width / 1.15, alignSelf: 'center' }}>

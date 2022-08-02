@@ -38,7 +38,7 @@ function ImageUpload({ title, buttontext, onPress, value }) {
 		}
 	};
 
-	console.log(value);
+	// console.log(value);
 
 	return (
 		<View>

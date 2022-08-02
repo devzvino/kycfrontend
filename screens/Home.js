@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
@@ -18,8 +19,9 @@ const Home = () => {
 	const isFocused = useIsFocused();
 	const [loading, setLoading] = useState(false);
 	const [myVerifications, setMyVerifications] = useState([]);
+	const [user, setUser] = useState({});
 
-	const _id = '62cfecbaa948e3505d483f40';
+	const _id = user._id;
 
 	// get my verifications from backend
 	const getMyVerifications = async () => {
@@ -27,7 +29,7 @@ const Home = () => {
 		setLoading(true);
 		try {
 			const { data } = await axios.get(
-				'http://10.70.12.222:4000/api/location/'
+				'http://192.168.100.4:4000/api/location/'
 			);
 			myInfo = data.filter((i) => i.userInfo._id === _id);
 			setMyVerifications(myInfo);
@@ -40,12 +42,23 @@ const Home = () => {
 	// delete home verification card
 	const handleDeleteProcess = async (id) => {
 		let newArray;
-		await axios.delete(`http://10.70.12.222:4000/api/location/${id}`);
+		await axios.delete(`http://192.168.100.4:4000/api/location/${id}`);
 		newArray = myVerifications.filter((i) => i._id !== id);
 		setMyVerifications(newArray);
 	};
 
+	// getting user from storage
+	const checkingIfUserIsStored = async () => {
+		try {
+			const storedUser = await AsyncStorage.getItem('@user');
+			if (storedUser !== null) {
+				setUser(JSON.parse(storedUser));
+			}
+		} catch (error) {}
+	};
+
 	useEffect(() => {
+		checkingIfUserIsStored();
 		getMyVerifications();
 		// clearing memory
 		return () => {

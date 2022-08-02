@@ -21,8 +21,9 @@ const SignUp = () => {
 	const [idUploadView, setIdUploadView] = useState(false);
 	const [otpConfrimView, setOtpConfrimView] = useState(false);
 	const [regConfrimView, setRegConfrimView] = useState(false);
+	const [data, setData] = useState({});
 
-	let tempData;
+	// let tempData;
 
 	return (
 		<ScrollView contentContainerStyle={{ width: width, height: height }}>
@@ -40,7 +41,8 @@ const SignUp = () => {
 
 			{userView && (
 				<UserDetails
-					data={tempData}
+					setData={setData}
+					data={data}
 					setUserView={setUserView}
 					setIdUploadView={setIdUploadView}
 					setOtpConfrimView={setOtpConfrimView}
@@ -49,7 +51,8 @@ const SignUp = () => {
 			)}
 			{idUploadView && (
 				<IdUpload
-					data={tempData}
+					setData={setData}
+					data={data}
 					setUserView={setUserView}
 					setIdUploadView={setIdUploadView}
 					setOtpConfrimView={setOtpConfrimView}
@@ -58,7 +61,8 @@ const SignUp = () => {
 			)}
 			{otpConfrimView && (
 				<OTPConfirm
-					data={tempData}
+					setData={setData}
+					data={data}
 					setUserView={setUserView}
 					setIdUploadView={setIdUploadView}
 					setOtpConfrimView={setOtpConfrimView}
@@ -67,7 +71,8 @@ const SignUp = () => {
 			)}
 			{regConfrimView && (
 				<RegConfirm
-					data={tempData}
+					setData={setData}
+					data={data}
 					setUserView={setUserView}
 					setIdUploadView={setIdUploadView}
 					setOtpConfrimView={setOtpConfrimView}

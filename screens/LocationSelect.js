@@ -32,7 +32,7 @@ const { height, width } = Dimensions.get('screen');
 const LocationSelect = () => {
 	const route = useRoute();
 	const navigation = useNavigation();
-	const { title } = route.params;
+	const { title, myId } = route.params;
 
 	const [loading, setloading] = useState(false);
 	const [confrimSnapPoint, setConfrimSnapPoint] = useState();
@@ -115,20 +115,20 @@ const LocationSelect = () => {
 	};
 
 	const handleConfirm = async () => {
+		console.log(feedback);
 		// validation is all distance are avalable
-		if (feedback.rows[0].elements[0].status === 'ZERO_RESULTS') {
+		if (!feedback.rows[0].elements[0].status === 'OK') {
 			setloading(true);
 			alert('Please drag the pin to your location');
 			setloading(false);
-			return;
 		}
 
 		if (feedback.rows[0].elements[0].distance.value < 40) {
 			setloading(true);
 			if (title === 'home') {
 				axios
-					.post('http://10.70.12.222:4000/api/location/', {
-						userInfo: '62cfecbaa948e3505d483f40',
+					.post('http://192.168.100.4:4000/api/location/', {
+						userInfo: myId,
 						homeAddress: address,
 						homeSurburb: surburb,
 						homeCity: city,
@@ -151,8 +151,8 @@ const LocationSelect = () => {
 				setloading(false);
 			} else {
 				axios
-					.post('http://10.70.12.222:4000/api/location/', {
-						userInfo: '62cfecbaa948e3505d483f40',
+					.post('http://192.168.100.4:4000/api/location/', {
+						userInfo: myId,
 						workAddress: address,
 						workSurburb: surburb,
 						workCity: city,

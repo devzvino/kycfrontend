@@ -25,6 +25,7 @@ const fillFieldError = 'This field cannot be empty';
 
 const UserDetails = ({
 	data,
+	setData,
 	setUserView,
 	setIdUploadView,
 	setOtpConfrimView,
@@ -45,12 +46,13 @@ const UserDetails = ({
 			setLoading(false);
 		} else {
 			setTimeout(() => {
-				data = {
-					firstName,
-					surname,
-					phone,
-					id,
-				};
+				// data = {
+				// 	firstName,
+				// 	surname,
+				// 	phone,
+				// 	id,
+				// };
+				setData({ firstName, surname, phone, id });
 				setUserView(false);
 				setIdUploadView(true);
 				setOtpConfrimView(false);
