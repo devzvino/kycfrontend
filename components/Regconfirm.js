@@ -37,7 +37,7 @@ function RegConfirm({
 		// } else {
 
 		try {
-			const response = await fetch('http://192.168.100.4:4000/api/user/', {
+			const response = await fetch('http://10.70.12.222:4000/api/user/', {
 				method: 'POST',
 				headers: { 'content-type': 'application/json' },
 				body: JSON.stringify({

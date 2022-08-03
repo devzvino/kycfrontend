@@ -29,7 +29,7 @@ const Home = () => {
 		setLoading(true);
 		try {
 			const { data } = await axios.get(
-				'http://192.168.100.4:4000/api/location/'
+				'http://10.70.12.222:4000/api/location/'
 			);
 			myInfo = data.filter((i) => i.userInfo._id === _id);
 			setMyVerifications(myInfo);
@@ -42,7 +42,7 @@ const Home = () => {
 	// delete home verification card
 	const handleDeleteProcess = async (id) => {
 		let newArray;
-		await axios.delete(`http://192.168.100.4:4000/api/location/${id}`);
+		await axios.delete(`http://10.70.12.222:4000/api/location/${id}`);
 		newArray = myVerifications.filter((i) => i._id !== id);
 		setMyVerifications(newArray);
 	};
