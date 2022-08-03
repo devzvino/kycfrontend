@@ -18,14 +18,14 @@
 		"ios": {
 			"supportsTablet": false,
 			"config": {
-				"googleMapsApiKey": "AIzaSyDOq8Ka8JllvWl9Shy8LHX5ottsSiQeJxY"
+				"googleMapsApiKey": "AIzaSyCBmk5fxV__Oh_QoxqXH7XSDnnenX_8Wx0"
 			}
 		},
 		"android": {
 			"package": "com.rilpix.kycapp",
 			"config": {
 				"googleMaps": {
-					"apiKey": "AIzaSyDOq8Ka8JllvWl9Shy8LHX5ottsSiQeJxY"
+					"apiKey": "AIzaSyCBmk5fxV__Oh_QoxqXH7XSDnnenX_8Wx0"
 				}
 			},
 			"versionCode": 2,
