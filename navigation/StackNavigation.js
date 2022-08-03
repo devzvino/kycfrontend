@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import LocationSelect from '../screens/LocationSelect';
 import SignUp from '../screens/SignUp';
 import WelcomeScreen from '../screens/Welcome';
+import Home from '../screens/Home';
 import TabsNav from './TabsNav';
 
 const Stack = createNativeStackNavigator();
@@ -11,6 +12,7 @@ const Stack = createNativeStackNavigator();
 const StackNavigation = () => {
 	// checking if user is stored in async storage
 	const [user, setUser] = useState(false);
+	const [rerender, setRerender] = useState(false)
 
 	const checkingIfUserIsStored = async () => {
 		try {
@@ -23,7 +25,8 @@ const StackNavigation = () => {
 
 	useEffect(() => {
 		checkingIfUserIsStored();
-	}, []);
+		setRerender(!rerender)
+	}, [user]);
 
 	return (
 		<Stack.Navigator
@@ -34,6 +37,7 @@ const StackNavigation = () => {
 				<Stack.Group>
 					<Stack.Screen name="Welcome" component={WelcomeScreen} />
 					<Stack.Screen name="SignUp" component={SignUp} />
+					<Stack.Screen name="TabsNav" component={TabsNav} />
 				</Stack.Group>
 			) : (
 				<>

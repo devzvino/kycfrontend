@@ -44,8 +44,8 @@ const IdUpload = ({
 			setData({ ...data, idFront, yourPhoto });
 			setUserView(false);
 			setIdUploadView(false);
-			setOtpConfrimView(false);
-			setRegConfrimView(true);
+			setOtpConfrimView(true);
+			setRegConfrimView(false);
 			setLoading(false);
 		}, 2000);
 		setLoading(false);

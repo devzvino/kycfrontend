@@ -127,7 +127,7 @@ const LocationSelect = () => {
 			setloading(true);
 			if (title === 'home') {
 				axios
-					.post('http://10.70.12.222:4000/api/location/', {
+					.post('https://frozen-badlands-79412.herokuapp.com/api/location/', {
 						userInfo: myId,
 						homeAddress: address,
 						homeSurburb: surburb,
@@ -151,7 +151,7 @@ const LocationSelect = () => {
 				setloading(false);
 			} else {
 				axios
-					.post('http://10.70.12.222:4000/api/location/', {
+					.post('https://frozen-badlands-79412.herokuapp.com/api/location/', {
 						userInfo: myId,
 						workAddress: address,
 						workSurburb: surburb,

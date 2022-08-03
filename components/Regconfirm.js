@@ -4,6 +4,7 @@ import { Dimensions, Image, Text, View } from 'react-native';
 import SignUpNavigationButton from './SignUpNavigationButton';
 import SvgComponent from './SuccessSvg';
 
+
 //App theme styles
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -37,7 +38,7 @@ function RegConfirm({
 		// } else {
 
 		try {
-			const response = await fetch('http://10.70.12.222:4000/api/user/', {
+			const response = await fetch('https://frozen-badlands-79412.herokuapp.com/api/user/', {
 				method: 'POST',
 				headers: { 'content-type': 'application/json' },
 				body: JSON.stringify({
@@ -61,6 +62,7 @@ function RegConfirm({
 			if (response.ok) {
 				// save user to local storage
 				await AsyncStorage.setItem('@user', JSON.stringify(json));
+				navigation.navigate('Home');
 			}
 		} catch (error) {
 			console.log(error.message);

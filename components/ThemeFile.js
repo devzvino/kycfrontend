@@ -236,7 +236,7 @@ export const SectionTheme = {
 		alignItems: 'center',
 		backgroundColor: primary,
 		borderTopLeftRadius: 75,
-		paddingTop: '20%',
+		paddingTop: '13%',
 	},
 };
 

@@ -24,7 +24,7 @@ const GlobalHeader = ({ title, backable }) => {
 				height: height * 0.1,
 				zIndex: 10,
 				paddingHorizontal: 15,
-				paddingTop: 10,
+			
 				paddingBottom: 0,
 				backgroundColor: '#ffffff',
 			}}
@@ -35,9 +35,7 @@ const GlobalHeader = ({ title, backable }) => {
 					<ArrowLeftIcon size={24} color="#14142A" />
 				</TouchableOpacity>
 			) : (
-				<TouchableOpacity>
-					<MenuAlt2Icon size={24} color="#14142A" />
-				</TouchableOpacity>
+				null
 			)}
 			<View
 				style={{
@@ -48,7 +46,7 @@ const GlobalHeader = ({ title, backable }) => {
 			>
 				<Text
 					style={{
-						marginLeft: -34,
+						alignSelf:'center',
 						color: '#14142A',
 						fontWeight: 'bold',
 						fontSize: 18,

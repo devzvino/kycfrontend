@@ -41,8 +41,8 @@ const OTPConfirm = ({
       setTimeout(() => {
         setUserView(false);
         setIdUploadView(false);
-        setOtpConfrimView(true);
-        setRegConfrimView(false);
+        setOtpConfrimView(false);
+        setRegConfrimView(true);
         setLoading(false);
       }, 2000);
       setLoading(false);
