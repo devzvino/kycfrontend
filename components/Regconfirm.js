@@ -4,9 +4,8 @@ import { Dimensions, Image, Text, View } from 'react-native';
 import SignUpNavigationButton from './SignUpNavigationButton';
 import SvgComponent from './SuccessSvg';
 
-
 //App theme styles
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import {
 	ButtonTheme,
@@ -28,6 +27,10 @@ function RegConfirm({
 	setRegConfrimView,
 }) {
 	const navigation = useNavigation();
+	const route = useRoute();
+	const { storeUser } = route.params;
+	// console.log(storeUser);
+
 	// submit function to api
 	const handleSubmit = async () => {
 		// setLoading(true);
@@ -38,19 +41,22 @@ function RegConfirm({
 		// } else {
 
 		try {
-			const response = await fetch('https://frozen-badlands-79412.herokuapp.com/api/user/', {
-				method: 'POST',
-				headers: { 'content-type': 'application/json' },
-				body: JSON.stringify({
-					firstname: data.firstName,
-					surname: data.surname,
-					phone: data.phone,
-					idNumber: data.id,
-					otp: 3322,
-					idFrontImage: data.idFront.uri,
-					idBackIamge: data.yourPhoto.uri,
-				}),
-			});
+			const response = await fetch(
+				'https://frozen-badlands-79412.herokuapp.com/api/user/',
+				{
+					method: 'POST',
+					headers: { 'content-type': 'application/json' },
+					body: JSON.stringify({
+						firstname: data.firstName,
+						surname: data.surname,
+						phone: data.phone,
+						idNumber: data.id,
+						otp: 3322,
+						idFrontImage: data.idFront.uri,
+						idBackIamge: data.yourPhoto.uri,
+					}),
+				}
+			);
 
 			const json = await response.json();
 			console.log(json);
@@ -61,8 +67,9 @@ function RegConfirm({
 
 			if (response.ok) {
 				// save user to local storage
-				await AsyncStorage.setItem('@user', JSON.stringify(json));
-				navigation.navigate('Home');
+				storeUser(json);
+				// await AsyncStorage.setItem('@user', JSON.stringify(json));
+				// navigation.navigate('TabsNav');
 			}
 		} catch (error) {
 			console.log(error.message);

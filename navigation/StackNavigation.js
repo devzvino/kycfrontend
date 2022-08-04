@@ -1,6 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useEffect, useState } from 'react';
+import { log } from 'react-native-reanimated';
 import LocationSelect from '../screens/LocationSelect';
 import SignUp from '../screens/SignUp';
 import WelcomeScreen from '../screens/Welcome';
@@ -9,9 +11,15 @@ import TabsNav from './TabsNav';
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
-	// checking if user is stored in async storage
-	const [user, setUser] = useState(false);
-	const [rerender, setRerender] = useState(false);
+	const [user, setUser] = useState();
+	const [storageUser, setStorageUser] = useState();
+	const isFocused = useIsFocused();
+
+	const storeUser = async (value) => {
+		const newUser = await AsyncStorage.setItem('@user', JSON.stringify(value));
+		setStorageUser(newUser);
+		setUser(value);
+	};
 
 	const checkingIfUserIsStored = async () => {
 		try {
@@ -24,27 +32,30 @@ const StackNavigation = () => {
 
 	useEffect(() => {
 		checkingIfUserIsStored();
-		setRerender(!rerender);
-	}, [user]);
+		return () => setUser();
+	}, []);
 
 	return (
 		<Stack.Navigator
 			screenOptions={{ headerShown: false }}
 			initialRouteName="Welcome"
 		>
-			{!user ? (
+			{user ? (
+				// Screens for registred in users
 				<Stack.Group>
-					<Stack.Screen name="Welcome" component={WelcomeScreen} />
-					<Stack.Screen name="SignUp" component={SignUp} />
 					<Stack.Screen name="TabsNav" component={TabsNav} />
+					<Stack.Screen name="AddNewLocation" component={LocationSelect} />
 				</Stack.Group>
 			) : (
-				<>
-					<Stack.Screen name="TabsNav" component={TabsNav} />
-					<Stack.Group>
-						<Stack.Screen name="AddNewLocation" component={LocationSelect} />
-					</Stack.Group>
-				</>
+				// Auth screens
+				<Stack.Group>
+					<Stack.Screen name="Welcome" component={WelcomeScreen} />
+					<Stack.Screen
+						name="SignUp"
+						component={SignUp}
+						initialParams={{ storeUser: storeUser }}
+					/>
+				</Stack.Group>
 			)}
 		</Stack.Navigator>
 	);

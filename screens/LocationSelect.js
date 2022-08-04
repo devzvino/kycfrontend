@@ -24,7 +24,6 @@ import FormInputWithLabel from '../components/FormInputWithLabel';
 import GlobalHeader from '../components/GlobalHeader';
 //import components
 import MainButton from '../components/MainButton';
-import { ColorTheme } from '../components/ThemeFile';
 import { keys } from '../environmentVariables';
 
 const { height, width } = Dimensions.get('screen');
