@@ -29,17 +29,9 @@ function RegConfirm({
 	const navigation = useNavigation();
 	const route = useRoute();
 	const { storeUser } = route.params;
-	// console.log(storeUser);
 
 	// submit function to api
 	const handleSubmit = async () => {
-		// setLoading(true);
-		// if (!otp) {
-		// 	setError(errorMsg1);
-		// 	setLoading(false);
-		// 	console.log(error);
-		// } else {
-
 		try {
 			const response = await fetch(
 				'https://frozen-badlands-79412.herokuapp.com/api/user/',
@@ -68,14 +60,13 @@ function RegConfirm({
 			if (response.ok) {
 				// save user to local storage
 				storeUser(json);
-				// await AsyncStorage.setItem('@user', JSON.stringify(json));
-				// navigation.navigate('TabsNav');
+				await AsyncStorage.setItem('@user', JSON.stringify(json));
 			}
 		} catch (error) {
 			console.log(error.message);
 		}
 	};
-	// console.log(data);
+
 	return (
 		<View
 			style={{
