@@ -13,10 +13,12 @@ import {
 	Dimensions,
 	Image,
 	SafeAreaView,
+	ScrollView,
 	StyleSheet,
 	Text,
 	View,
 } from 'react-native';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { mapLocationLoading } from '../components/appMessages';
@@ -40,6 +42,8 @@ const LocationSelect = () => {
 
 	const [address, setAddress] = useState();
 	const [surburb, setSurburb] = useState();
+	const [companyName, setCompanyName] = useState();
+	const [building, setBuilding] = useState();
 	const [errMsg, setErrMsg] = useState(null);
 	const [city, setCity] = useState();
 
@@ -255,24 +259,46 @@ const LocationSelect = () => {
 					>
 						{!confrimSnapPoint ? (
 							<>
-								<FormInputWithLabel
-									title={title}
-									keyboardType="default"
-									value={address}
-									onTextChange={setAddress}
-								/>
-								<FormInputWithLabel
-									label="Surburb / Area"
-									keyboardType="default"
-									value={surburb}
-									onTextChange={setSurburb}
-								/>
-								<FormInputWithLabel
-									label="City"
-									keyboardType="default"
-									value={city}
-									onTextChange={setCity}
-								/>
+								{title === 'work' && (
+									<>
+										<FormInputWithLabel
+											label="Company Name"
+											keyboardType="default"
+											value={companyName}
+											onTextChange={setCompanyName}
+										/>
+										<FormInputWithLabel
+											label="Building / Street"
+											keyboardType="default"
+											value={companyName}
+											onTextChange={setCompanyName}
+										/>
+									</>
+								)}
+
+								{title === 'home' && (
+									<>
+										<FormInputWithLabel
+											title={title}
+											keyboardType="default"
+											value={address}
+											onTextChange={setAddress}
+										/>
+
+										<FormInputWithLabel
+											label="Surburb / Area"
+											keyboardType="default"
+											value={surburb}
+											onTextChange={setSurburb}
+										/>
+										<FormInputWithLabel
+											label="City"
+											keyboardType="default"
+											value={city}
+											onTextChange={setCity}
+										/>
+									</>
+								)}
 
 								<MainButton
 									onPress={handleAddAddress}
@@ -307,4 +333,33 @@ const styles = StyleSheet.create({
 		width: 35,
 		resizeMode: 'contain',
 	},
+	ccontainer: {
+		flex: 1,
+		padding: 10,
+		paddingTop: 10,
+		backgroundColor: '#ecf0f1',
+	},
 });
+
+// <GooglePlacesAutocomplete
+// 												placeholder="Enter Location"
+// 												minLength={2}
+// 												autoFocus={false}
+// 												returnKeyType={'default'}
+// 												fetchDetails={true}
+// 												styles={{
+// 													textInput: {
+// 														height: 50,
+// 														color: '#5d5d5d',
+// 														backgroundColor: '#EFF0F6',
+// 														fontSize: 16,
+// 													},
+// 													predefinedPlacesDescription: {
+// 														color: '#5d5d5d',
+// 													},
+// 												}}
+// 												query={{
+// 													key: keys.GOOGLE_API,
+// 													language: 'en',
+// 												}}
+// 											/>

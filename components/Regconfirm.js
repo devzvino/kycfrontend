@@ -6,7 +6,6 @@ import SvgComponent from './SuccessSvg';
 
 //App theme styles
 import { useNavigation, useRoute } from '@react-navigation/native';
-import axios from 'axios';
 import {
 	ButtonTheme,
 	FontTheme,
