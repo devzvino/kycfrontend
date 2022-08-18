@@ -14,6 +14,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import GlobalHeader from '../components/GlobalHeader';
 import HomeVerificationCard from '../components/HomeVerificationCard';
+import { keys } from '../environmentVariables';
 
 const Home = () => {
 	const isFocused = useIsFocused();
@@ -28,9 +29,7 @@ const Home = () => {
 		let myInfo;
 		setLoading(true);
 		try {
-			const { data } = await axios.get(
-				'https://frozen-badlands-79412.herokuapp.com/api/location/'
-			);
+			const { data } = await axios.get(`${keys.apiURL}api/location/`);
 			myInfo = data.filter((i) => i.userInfo._id === _id);
 			setMyVerifications(myInfo);
 			setLoading(false);
@@ -42,7 +41,7 @@ const Home = () => {
 	// delete home verification card
 	const handleDeleteProcess = async (id) => {
 		let newArray;
-		await axios.delete(`https://frozen-badlands-79412.herokuapp.com/api/location/${id}`);
+		await axios.delete(`${keys.apiURL}api/location/${id}`);
 		newArray = myVerifications.filter((i) => i._id !== id);
 		setMyVerifications(newArray);
 	};

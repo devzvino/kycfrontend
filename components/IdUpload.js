@@ -14,6 +14,7 @@ import {
 	InputTheme,
 	LogoTheme,
 } from '../components/ThemeFile';
+import { keys } from '../environmentVariables';
 
 //Device Dimenstions
 const { width, height } = Dimensions.get('screen');
@@ -31,7 +32,28 @@ const IdUpload = ({
 }) => {
 	const [loading, setLoading] = useState(false);
 	const [idFront, setIdFront] = useState();
+	const [otp, setOtp] = useState(Math.floor(1000 + Math.random() * 9000));
 	const [yourPhoto, setYourPhoto] = useState();
+
+	const handleOTPRequest = async () => {
+		const response = await fetch(`${keys.apiURL}api/user/confirm-otp`, {
+			method: 'POST',
+			headers: { 'content-type': 'application/json' },
+			body: JSON.stringify({
+				phone: data.phone,
+				otp,
+			}),
+		});
+		const json = await response.json();
+		console.log(json);
+		if (!response.ok) {
+			alert('something when wrong please try again');
+		}
+		if (response.ok) {
+			// save user to local storage
+			console.log(json);
+		}
+	};
 
 	// sumit function to api
 	const handleSubmit = () => {
@@ -40,8 +62,10 @@ const IdUpload = ({
 		//   setError("Please fill this field");
 		// setLoading(false);
 		// } else {
+		//
+		handleOTPRequest();
 		setTimeout(() => {
-			setData({ ...data, idFront, yourPhoto });
+			setData({ ...data, otp, idFront, yourPhoto });
 			setUserView(false);
 			setIdUploadView(false);
 			setOtpConfrimView(true);
@@ -49,9 +73,8 @@ const IdUpload = ({
 			setLoading(false);
 		}, 2000);
 		setLoading(false);
-		// }
 	};
-	console.log(data);
+
 	return (
 		<View style={{ flex: 1 }}>
 			<View style={{ width: width / 1.15, alignSelf: 'center' }}>

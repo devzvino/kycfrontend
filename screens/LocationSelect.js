@@ -340,26 +340,3 @@ const styles = StyleSheet.create({
 		backgroundColor: '#ecf0f1',
 	},
 });
-
-// <GooglePlacesAutocomplete
-// 												placeholder="Enter Location"
-// 												minLength={2}
-// 												autoFocus={false}
-// 												returnKeyType={'default'}
-// 												fetchDetails={true}
-// 												styles={{
-// 													textInput: {
-// 														height: 50,
-// 														color: '#5d5d5d',
-// 														backgroundColor: '#EFF0F6',
-// 														fontSize: 16,
-// 													},
-// 													predefinedPlacesDescription: {
-// 														color: '#5d5d5d',
-// 													},
-// 												}}
-// 												query={{
-// 													key: keys.GOOGLE_API,
-// 													language: 'en',
-// 												}}
-// 											/>

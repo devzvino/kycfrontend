@@ -42,7 +42,7 @@ function RegConfirm({
 						surname: data.surname,
 						phone: data.phone,
 						idNumber: data.id,
-						otp: 3322,
+						otp: data.otp,
 						idFrontImage: data.idFront.uri,
 						idBackIamge: data.yourPhoto.uri,
 					}),
