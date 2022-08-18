@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
+import registerNNPushToken from 'native-notify';
 import React, { useEffect, useState } from 'react';
 import {
 	ActivityIndicator,
@@ -16,7 +17,8 @@ import GlobalHeader from '../components/GlobalHeader';
 import HomeVerificationCard from '../components/HomeVerificationCard';
 import { keys } from '../environmentVariables';
 
-const Home = () => {
+export default function () {
+	registerNNPushToken(3563, 'f4D4PHdqoUJMiTkDm4E1Uw');
 	const isFocused = useIsFocused();
 	const [loading, setLoading] = useState(false);
 	const [myVerifications, setMyVerifications] = useState([]);
@@ -125,9 +127,7 @@ const Home = () => {
 			)}
 		</SafeAreaView>
 	);
-};
-
-export default Home;
+}
 
 const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({

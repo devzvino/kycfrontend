@@ -32,6 +32,8 @@ const OTPConfirm = ({
 	const [otpErrMessage, setOtpErrMessage] = useState();
 	const [otpCon, setOtpCon] = useState();
 
+	console.log(data);
+
 	// submit function to api
 	const handleSubmit = () => {
 		setLoading(true);

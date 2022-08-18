@@ -2,7 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useEffect, useState } from 'react';
-import { log } from 'react-native-reanimated';
 import LocationSelect from '../screens/LocationSelect';
 import SignUp from '../screens/SignUp';
 import WelcomeScreen from '../screens/Welcome';
