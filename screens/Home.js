@@ -28,16 +28,16 @@ export default function () {
 
 	// get my verifications from backend
 	const getMyVerifications = async () => {
-		let myInfo;
-		setLoading(true);
-		try {
-			const { data } = await axios.get(`${keys.apiURL}api/location/`);
-			myInfo = data.filter((i) => i.userInfo._id === _id);
-			setMyVerifications(myInfo);
-			setLoading(false);
-		} catch (error) {
-			setLoading(false);
-		}
+		// let myInfo;
+		// setLoading(true);
+		// try {
+		// 	const { data } = await axios.get(`${keys.apiURL}api/location/`);
+		// 	myInfo = data.filter((i) => i.userInfo._id === _id);
+		// 	setMyVerifications(myInfo);
+		// 	setLoading(false);
+		// } catch (error) {
+		// 	setLoading(false);
+		// }
 	};
 
 	// delete home verification card
@@ -89,7 +89,7 @@ export default function () {
 			<GlobalHeader title="Home" />
 			<View style={{ paddingVertical: 20 }}></View>
 
-			{myVerifications.length > 0 ? (
+			{myVerifications?.length > 0 ? (
 				<SwipeListView
 					contentContainerStyle={{ paddingHorizontal: 15 }}
 					data={myVerifications}

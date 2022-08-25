@@ -2,6 +2,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import * as Location from 'expo-location';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import React, {
 	useCallback,
 	useEffect,
@@ -16,9 +17,9 @@ import {
 	ScrollView,
 	StyleSheet,
 	Text,
+	TouchableOpacity,
 	View,
 } from 'react-native';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { mapLocationLoading } from '../components/appMessages';
@@ -44,8 +45,46 @@ const LocationSelect = () => {
 	const [surburb, setSurburb] = useState();
 	const [companyName, setCompanyName] = useState();
 	const [building, setBuilding] = useState();
+	const [workingHours, setWorkingHours] = useState();
 	const [errMsg, setErrMsg] = useState(null);
 	const [city, setCity] = useState();
+
+	//date and time
+	const [date, setDate] = useState(new Date());
+	const [mode, setMode] = useState('date');
+	const [showStart, setShowStart] = useState(false);
+	const [showEnd, setShowEnd] = useState(false);
+	const [endTime, setEndTime] = useState();
+	const [startTime, setStartTime] = useState();
+
+	// handling date
+	const onChange = (event, selectedDate) => {
+		const currentDate = selectedDate || date;
+		setShowStart(Platform.OS === 'ios');
+
+		let tempDate = new Date(currentDate);
+		let fTime = tempDate.getHours() + ':' + tempDate.getMinutes();
+
+		setStartTime(fTime);
+	};
+	const onChangeEnd = (event, selectedDate) => {
+		const currentDate = selectedDate || date;
+		setShowEnd(Platform.OS === 'ios');
+
+		let tempDate = new Date(currentDate);
+		let fTime = tempDate.getHours() + ':' + tempDate.getMinutes();
+
+		setEndTime(fTime);
+	};
+
+	const showModeStartTime = (currentMode) => {
+		setShowStart(true);
+		setMode(currentMode);
+	};
+	const showModeEndTime = (currentMode) => {
+		setShowEnd(true);
+		setMode(currentMode);
+	};
 
 	// distance section
 	const [feedback, setFeedback] = useState();
@@ -130,16 +169,16 @@ const LocationSelect = () => {
 			setloading(true);
 			if (title === 'home') {
 				axios
-					.post('https://frozen-badlands-79412.herokuapp.com/api/location/', {
+					.post(`${keys.apiURL}/api/home/`, {
+						user_id: myId,
 						userInfo: myId,
-						homeAddress: address,
-						homeSurburb: surburb,
-						homeCity: city,
-						homeLocation: JSON.stringify({
+						address: address,
+						surburb: surburb,
+						city: city,
+						homeLatLng: JSON.stringify({
 							lat: currentLocation.coords.latitude,
 							lng: currentLocation.coords.longitude,
 						}),
-						workLocation: [''],
 					})
 					.then((res) => {
 						if (res.status === 200) {
@@ -154,16 +193,19 @@ const LocationSelect = () => {
 				setloading(false);
 			} else {
 				axios
-					.post('https://frozen-badlands-79412.herokuapp.com/api/location/', {
+					.post(`${keys.apiURL}/api/work/`, {
+						user_id: myId,
 						userInfo: myId,
-						workAddress: address,
-						workSurburb: surburb,
-						workCity: city,
-						workLocation: JSON.stringify({
+						companyName: companyName,
+						building: building,
+						workingHours: JSON.stringify({
+							startTime: startTime,
+							endTime: endTime,
+						}),
+						workLatLng: JSON.stringify({
 							lat: currentLocation.coords.latitude,
 							lng: currentLocation.coords.longitude,
 						}),
-						homeLocation: [''],
 					})
 					.then((res) => {
 						if (res.status === 200) {
@@ -268,11 +310,66 @@ const LocationSelect = () => {
 											onTextChange={setCompanyName}
 										/>
 										<FormInputWithLabel
-											label="Building / Street"
+											label="Building"
 											keyboardType="default"
-											value={companyName}
-											onTextChange={setCompanyName}
+											value={building}
+											onTextChange={setBuilding}
 										/>
+										<Text
+											style={[
+												{ textAlign: 'left', width: '100%' },
+												styles.title,
+											]}
+										>
+											What time do you start and end work
+										</Text>
+										<View
+											style={{
+												display: 'flex',
+												flexDirection: 'row',
+												width: '100%',
+												borderRadius: 5,
+												justifyContent: 'space-between',
+												backgroundColor: '#EFF0F6',
+											}}
+										>
+											<TouchableOpacity
+												onPress={() => showModeStartTime('time')}
+												style={[styles.inputContainer]}
+											>
+												<Text style={{ color: '#0A0C3F', fontWeight: 'bold' }}>
+													{startTime ? startTime : 'Start Time'}
+												</Text>
+											</TouchableOpacity>
+											<TouchableOpacity
+												onPress={() => showModeEndTime('time')}
+												style={[styles.inputContainer]}
+											>
+												<Text style={{ color: '#0A0C3F', fontWeight: 'bold' }}>
+													{endTime ? endTime : 'End Time'}
+												</Text>
+											</TouchableOpacity>
+										</View>
+										{showStart && (
+											<DateTimePicker
+												testID="dateTimePicker"
+												value={date}
+												mode={mode}
+												is24Hour={true}
+												display="default"
+												onChange={onChange}
+											/>
+										)}
+										{showEnd && (
+											<DateTimePicker
+												testID="dateTimePicker"
+												value={date}
+												mode={mode}
+												is24Hour={true}
+												display="default"
+												onChange={onChangeEnd}
+											/>
+										)}
 									</>
 								)}
 
@@ -338,5 +435,18 @@ const styles = StyleSheet.create({
 		padding: 10,
 		paddingTop: 10,
 		backgroundColor: '#ecf0f1',
+	},
+	inputContainer: {
+		flex: 1,
+		padding: 15,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	title: {
+		fontWeight: 'bold',
+		fontSize: 16,
+		marginHorizontal: 10,
+		marginBottom: 8,
+		textTransform: 'capitalize',
 	},
 });
