@@ -21,31 +21,36 @@ export default function () {
 	registerNNPushToken(3563, 'f4D4PHdqoUJMiTkDm4E1Uw');
 	const isFocused = useIsFocused();
 	const [loading, setLoading] = useState(false);
-	const [myVerifications, setMyVerifications] = useState([]);
+	const [myLocations, setMyLocations] = useState([]);
 	const [user, setUser] = useState({});
 
 	const _id = user._id;
 
 	// get my verifications from backend
-	const getMyVerifications = async () => {
-		// let myInfo;
-		// setLoading(true);
-		// try {
-		// 	const { data } = await axios.get(`${keys.apiURL}api/location/`);
-		// 	myInfo = data.filter((i) => i.userInfo._id === _id);
-		// 	setMyVerifications(myInfo);
-		// 	setLoading(false);
-		// } catch (error) {
-		// 	setLoading(false);
-		// }
+	const getMyLocations = async () => {
+		let myInfo;
+		setLoading(true);
+		try {
+			const { data } = await axios.get(`${keys.apiURL}api/home/my/${_id}`);
+			setMyLocations(data);
+			setLoading(false);
+		} catch (error) {
+			setLoading(false);
+		}
 	};
 
+	console.log(myLocations);
+
 	// delete home verification card
-	const handleDeleteProcess = async (id) => {
+	const handleDeleteProcess = async (id, title) => {
 		let newArray;
-		await axios.delete(`${keys.apiURL}api/location/${id}`);
-		newArray = myVerifications.filter((i) => i._id !== id);
-		setMyVerifications(newArray);
+		await axios.delete(
+			title === 'home'
+				? `${keys.apiURL}api/home/${id}`
+				: `${keys.apiURL}api/work/${id}`
+		);
+		newArray = myLocations.filter((i) => i._id !== id);
+		setMyLocations(newArray);
 	};
 
 	// getting user from storage
@@ -60,10 +65,10 @@ export default function () {
 
 	useEffect(() => {
 		checkingIfUserIsStored();
-		getMyVerifications();
+		getMyLocations();
 		// clearing memory
 		return () => {
-			setMyVerifications();
+			setMyLocations([]);
 		};
 	}, [isFocused]);
 
@@ -89,10 +94,10 @@ export default function () {
 			<GlobalHeader title="Home" />
 			<View style={{ paddingVertical: 20 }}></View>
 
-			{myVerifications?.length > 0 ? (
+			{myLocations?.length > 0 ? (
 				<SwipeListView
 					contentContainerStyle={{ paddingHorizontal: 15 }}
-					data={myVerifications}
+					data={myLocations}
 					renderItem={(item) => <HomeVerificationCard item={item} />}
 					disableRightSwipe={true}
 					previewOpenDelay={3000}
@@ -104,7 +109,9 @@ export default function () {
 					renderHiddenItem={(item) => (
 						<View style={styles.hiddenContainer}>
 							<TouchableOpacity
-								onPress={() => handleDeleteProcess(item.item._id)}
+								onPress={() =>
+									handleDeleteProcess(item.item._id, item.item.title)
+								}
 								style={styles.hiddenButton}
 							>
 								<Text style={{ color: 'white', fontWeight: 'bold' }}>

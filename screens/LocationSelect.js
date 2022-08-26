@@ -28,6 +28,7 @@ import GlobalHeader from '../components/GlobalHeader';
 //import components
 import MainButton from '../components/MainButton';
 import { keys } from '../environmentVariables';
+import { ColorTheme } from '../components/ThemeFile';
 
 const { height, width } = Dimensions.get('screen');
 
@@ -123,7 +124,7 @@ const LocationSelect = () => {
 		axios
 			.get(url)
 			.then((response) => {
-				console.log(response.data);
+				// console.log(response.data);
 				setFeedback(response.data);
 			})
 			.catch((error) => {
@@ -144,9 +145,17 @@ const LocationSelect = () => {
 
 	// handleAddAddress
 	const handleAddAddress = () => {
-		if (!address || !surburb || !city) {
-			alert('Please fill in the form');
-			return;
+		if (title === 'home') {
+			if (!address || !surburb || !city) {
+				alert('Please fill in the form');
+				return;
+			}
+		}
+		if (title === 'work') {
+			if (!companyName || !building || !startTime || !endTime) {
+				alert('Please fill in the form');
+				return;
+			}
 		}
 
 		setloading(true);
@@ -157,7 +166,6 @@ const LocationSelect = () => {
 	};
 
 	const handleConfirm = async () => {
-		console.log(feedback);
 		// validation is all distance are avalable
 		if (!feedback.rows[0].elements[0].status === 'OK') {
 			setloading(true);
@@ -169,7 +177,8 @@ const LocationSelect = () => {
 			setloading(true);
 			if (title === 'home') {
 				axios
-					.post(`${keys.apiURL}/api/home/`, {
+					.post(`${keys.apiURL}api/home/create`, {
+						title,
 						user_id: myId,
 						userInfo: myId,
 						address: address,
@@ -193,7 +202,8 @@ const LocationSelect = () => {
 				setloading(false);
 			} else {
 				axios
-					.post(`${keys.apiURL}/api/work/`, {
+					.post(`${keys.apiURL}api/work/create`, {
+						title,
 						user_id: myId,
 						userInfo: myId,
 						companyName: companyName,
@@ -337,7 +347,9 @@ const LocationSelect = () => {
 												onPress={() => showModeStartTime('time')}
 												style={[styles.inputContainer]}
 											>
-												<Text style={{ color: '#0A0C3F', fontWeight: 'bold' }}>
+												<Text
+													style={{ color: ColorTheme.main, fontWeight: 'bold' }}
+												>
 													{startTime ? startTime : 'Start Time'}
 												</Text>
 											</TouchableOpacity>
@@ -345,7 +357,9 @@ const LocationSelect = () => {
 												onPress={() => showModeEndTime('time')}
 												style={[styles.inputContainer]}
 											>
-												<Text style={{ color: '#0A0C3F', fontWeight: 'bold' }}>
+												<Text
+													style={{ color: ColorTheme.main, fontWeight: 'bold' }}
+												>
 													{endTime ? endTime : 'End Time'}
 												</Text>
 											</TouchableOpacity>
