@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
-import registerNNPushToken from 'native-notify';
+import Toast from 'react-native-toast-message';
+// import registerNNPushToken from 'native-notify';
 import React, { useEffect, useState } from 'react';
 import {
 	ActivityIndicator,
@@ -18,28 +19,24 @@ import HomeVerificationCard from '../components/HomeVerificationCard';
 import { keys } from '../environmentVariables';
 
 export default function () {
-	registerNNPushToken(3563, 'f4D4PHdqoUJMiTkDm4E1Uw');
+	// registerNNPushToken(3563, 'f4D4PHdqoUJMiTkDm4E1Uw');
 	const isFocused = useIsFocused();
 	const [loading, setLoading] = useState(false);
 	const [myLocations, setMyLocations] = useState([]);
+	const [workLocation, setWorkLocation] = useState([]);
+	const [allLocation, setAllLocation] = useState();
+
 	const [user, setUser] = useState({});
+
+	let packagedData;
 
 	const _id = user._id;
 
-	// get my verifications from backend
-	const getMyLocations = async () => {
-		let myInfo;
-		setLoading(true);
-		try {
-			const { data } = await axios.get(`${keys.apiURL}api/home/my/${_id}`);
-			setMyLocations(data);
-			setLoading(false);
-		} catch (error) {
-			setLoading(false);
-		}
+	const mergingArrays = async () => {
+		packagedData = await [...myLocations, ...workLocation];
+		setAllLocation(packagedData);
 	};
-
-	console.log(myLocations);
+	// console.log(myLocations);
 
 	// delete home verification card
 	const handleDeleteProcess = async (id, title) => {
@@ -49,8 +46,13 @@ export default function () {
 				? `${keys.apiURL}api/home/${id}`
 				: `${keys.apiURL}api/work/${id}`
 		);
-		newArray = myLocations.filter((i) => i._id !== id);
-		setMyLocations(newArray);
+		Toast.show({
+			type: 'success',
+			text1: 'Deleted',
+			text2: 'This is some something 👋',
+		});
+		newArray = allLocation.filter((i) => i._id !== id);
+		setAllLocation(newArray);
 	};
 
 	// getting user from storage
@@ -65,7 +67,20 @@ export default function () {
 
 	useEffect(() => {
 		checkingIfUserIsStored();
-		getMyLocations();
+		const gatheringAllLocations = async () => {
+			const response = await fetch(`${keys.apiURL}api/home/my/${_id}`);
+			const responsew = await fetch(`${keys.apiURL}api/work/my/${_id}`);
+			const json = await response.json();
+			const jsonw = await responsew.json();
+			setWorkLocation(jsonw);
+			setMyLocations(json);
+		};
+		gatheringAllLocations();
+
+		// getMyLocations();
+		// getWorkLocation();
+		mergingArrays();
+
 		// clearing memory
 		return () => {
 			setMyLocations([]);
@@ -94,10 +109,10 @@ export default function () {
 			<GlobalHeader title="Home" />
 			<View style={{ paddingVertical: 20 }}></View>
 
-			{myLocations?.length > 0 ? (
+			{allLocation?.length > 0 ? (
 				<SwipeListView
 					contentContainerStyle={{ paddingHorizontal: 15 }}
-					data={myLocations}
+					data={allLocation}
 					renderItem={(item) => <HomeVerificationCard item={item} />}
 					disableRightSwipe={true}
 					previewOpenDelay={3000}

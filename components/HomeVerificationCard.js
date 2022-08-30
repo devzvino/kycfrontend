@@ -8,8 +8,6 @@ const HomeVerificationCard = ({ item }) => {
 	let home;
 	let work;
 
-	console.log(info);
-
 	if (info.title === 'home') {
 		home = JSON.parse(info.homeLatLng);
 	}
@@ -21,7 +19,7 @@ const HomeVerificationCard = ({ item }) => {
 	return (
 		<View style={styles.homeCard} key={item._id}>
 			<Text style={{ color: ColorTheme.main, fontSize: 24, fontWeight: '600' }}>
-				{home ? info.address : info.workAddress}
+				{home ? info.address : info.building}
 			</Text>
 			{/* coordinates */}
 			<View style={{ flexDirection: 'row', marginTop: 10 }}>
@@ -79,7 +77,7 @@ const HomeVerificationCard = ({ item }) => {
 				</>
 			) : (
 				<>
-					{info.homeverified === 'pending' && (
+					{info.workVerified === 'pending' && (
 						<View style={styles.v_container}>
 							<Image
 								style={styles.verificationIcon}
@@ -90,7 +88,7 @@ const HomeVerificationCard = ({ item }) => {
 							</Text>
 						</View>
 					)}
-					{info.homeverified === 'failed' && (
+					{info.workVerified === 'failed' && (
 						<View style={styles.v_container}>
 							<Image
 								style={styles.verificationIcon}
@@ -101,7 +99,7 @@ const HomeVerificationCard = ({ item }) => {
 							</Text>
 						</View>
 					)}
-					{info.homeverified === 'success' && (
+					{info.workVerified === 'success' && (
 						<View style={styles.v_container}>
 							<Image
 								style={styles.verificationIcon}
