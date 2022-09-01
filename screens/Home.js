@@ -1,9 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useIsFocused } from '@react-navigation/native';
-import axios from 'axios';
-import Toast from 'react-native-toast-message';
-// import registerNNPushToken from 'native-notify';
-import React, { useEffect, useState } from 'react';
 import {
 	ActivityIndicator,
 	Dimensions,
@@ -12,31 +6,54 @@ import {
 	TouchableOpacity,
 	View,
 } from 'react-native';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import GlobalHeader from '../components/GlobalHeader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import GlobalHeader from '../components/GlobalHeader';
 import HomeVerificationCard from '../components/HomeVerificationCard';
 import { keys } from '../environmentVariables';
+import { useNavigation } from '@react-navigation/native';
 
-export default function () {
-	// registerNNPushToken(3563, 'f4D4PHdqoUJMiTkDm4E1Uw');
-	const isFocused = useIsFocused();
+const Home = () => {
+	const { addListener } = useNavigation();
+
 	const [loading, setLoading] = useState(false);
-	const [myLocations, setMyLocations] = useState([]);
-	const [workLocation, setWorkLocation] = useState([]);
-	const [allLocation, setAllLocation] = useState();
+	const [homeLocation, setHomeLocation] = useState(null);
+	const [workLocation, setWorkLocation] = useState(null);
+	const [tempDisplay, setTempDisplay] = useState([]);
 
-	const [user, setUser] = useState({});
+	// aggregated locations
+	let checkedUser = {};
+	let id;
 
-	let packagedData;
+	const checkingIfUserIsStored = async () => {
+		setLoading(true);
+		const storedUser = await AsyncStorage.getItem('@user');
+		const userDetails = JSON.parse(storedUser);
+		checkedUser = userDetails;
+		id = checkedUser._id;
 
-	const _id = user._id;
+		//
+		const responseh = await fetch(`${keys.apiURL}api/home/my/${id}`);
+		const jsonh = await responseh.json();
+		setHomeLocation(jsonh);
 
-	const mergingArrays = async () => {
-		packagedData = await [...myLocations, ...workLocation];
-		setAllLocation(packagedData);
+		const responsew = await fetch(`${keys.apiURL}api/work/my/${id}`);
+		const jsonw = await responsew.json();
+		setWorkLocation(jsonw);
+		//
+		mergingArrays(jsonh, jsonw);
+
+		setLoading(false);
 	};
-	// console.log(myLocations);
+
+	const mergingArrays = (home, work) => {
+		let packagedData;
+		packagedData = [...home, ...work];
+		setTempDisplay(packagedData);
+	};
 
 	// delete home verification card
 	const handleDeleteProcess = async (id, title) => {
@@ -46,112 +63,86 @@ export default function () {
 				? `${keys.apiURL}api/home/${id}`
 				: `${keys.apiURL}api/work/${id}`
 		);
-		Toast.show({
-			type: 'success',
-			text1: 'Deleted',
-			text2: 'This is some something 👋',
-		});
-		newArray = allLocation.filter((i) => i._id !== id);
-		setAllLocation(newArray);
+
+		newArray = tempDisplay.filter((i) => i._id !== id);
+		setTempDisplay(newArray);
 	};
 
-	// getting user from storage
-	const checkingIfUserIsStored = async () => {
-		try {
-			const storedUser = await AsyncStorage.getItem('@user');
-			if (storedUser !== null) {
-				setUser(JSON.parse(storedUser));
-			}
-		} catch (error) {}
-	};
+	// force event to rerender page
+	const refresherpage = addListener('focus', () => {
+		checkingIfUserIsStored();
+	});
 
 	useEffect(() => {
+		//  getting intomation locations
 		checkingIfUserIsStored();
-		const gatheringAllLocations = async () => {
-			const response = await fetch(`${keys.apiURL}api/home/my/${_id}`);
-			const responsew = await fetch(`${keys.apiURL}api/work/my/${_id}`);
-			const json = await response.json();
-			const jsonw = await responsew.json();
-			setWorkLocation(jsonw);
-			setMyLocations(json);
-		};
-		gatheringAllLocations();
-
-		// getMyLocations();
-		// getWorkLocation();
-		mergingArrays();
-
-		// clearing memory
+		if (!tempDisplay) refresherpage();
 		return () => {
-			setMyLocations([]);
+			setTempDisplay([]);
 		};
-	}, [isFocused]);
-
-	if (loading) {
-		return (
-			<View
-				style={{
-					flex: 1,
-					justifyContent: 'center',
-					alignItems: 'center',
-				}}
-			>
-				<Text style={{ color: 'black', paddingBottom: 30 }}>
-					Loading please wait...
-				</Text>
-				<ActivityIndicator />
-			</View>
-		);
-	}
+	}, []);
 
 	return (
 		<SafeAreaView style={styles.container}>
 			<GlobalHeader title="Home" />
-			<View style={{ paddingVertical: 20 }}></View>
-
-			{allLocation?.length > 0 ? (
-				<SwipeListView
-					contentContainerStyle={{ paddingHorizontal: 15 }}
-					data={allLocation}
-					renderItem={(item) => <HomeVerificationCard item={item} />}
-					disableRightSwipe={true}
-					previewOpenDelay={3000}
-					friction={1000}
-					tension={40}
-					leftOpenValue={75}
-					stopLeftSwipe={75}
-					rightOpenValue={-75}
-					renderHiddenItem={(item) => (
-						<View style={styles.hiddenContainer}>
-							<TouchableOpacity
-								onPress={() =>
-									handleDeleteProcess(item.item._id, item.item.title)
-								}
-								style={styles.hiddenButton}
-							>
-								<Text style={{ color: 'white', fontWeight: 'bold' }}>
-									Delete
-								</Text>
-							</TouchableOpacity>
+			{loading ? (
+				<View
+					style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
+				>
+					<Text>Loading please wait...</Text>
+					<ActivityIndicator style={{ marginTop: 20 }} />
+				</View>
+			) : (
+				<>
+					{tempDisplay && (
+						<SwipeListView
+							contentContainerStyle={{ paddingHorizontal: 15 }}
+							data={tempDisplay}
+							renderItem={(item) => <HomeVerificationCard item={item} />}
+							disableRightSwipe={true}
+							previewOpenDelay={3000}
+							friction={1000}
+							tension={40}
+							leftOpenValue={75}
+							stopLeftSwipe={75}
+							rightOpenValue={-75}
+							renderHiddenItem={(item) => (
+								<View style={styles.hiddenContainer}>
+									<TouchableOpacity
+										onPress={() =>
+											handleDeleteProcess(item.item._id, item.item.title)
+										}
+										style={styles.hiddenButton}
+									>
+										<Text style={{ color: 'white', fontWeight: 'bold' }}>
+											Delete
+										</Text>
+									</TouchableOpacity>
+								</View>
+							)}
+						/>
+					)}
+					{tempDisplay.length === 0 && (
+						<View
+							style={{
+								paddingTop: 150,
+								justifyContent: 'center',
+								alignItems: 'center',
+							}}
+						>
+							<Text>You have not added your home or work address.</Text>
 						</View>
 					)}
-				/>
-			) : (
-				<View
-					style={{
-						paddingTop: 150,
-						justifyContent: 'center',
-						alignItems: 'center',
-					}}
-				>
-					<Text>You have not added your home or work address.</Text>
-				</View>
+				</>
 			)}
 		</SafeAreaView>
 	);
-}
+};
 
-const { width } = Dimensions.get('window');
+export default Home;
+
+const { width, height } = Dimensions.get('screen');
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
