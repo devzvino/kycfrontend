@@ -20,6 +20,8 @@ const Home = () => {
 	const { addListener } = useNavigation();
 
 	const [loading, setLoading] = useState(false);
+	const [removing, setRemoving] = useState(false)
+	const [errorMessage, setErrorMessage] = useState()
 	const [homeLocation, setHomeLocation] = useState(null);
 	const [workLocation, setWorkLocation] = useState(null);
 	const [tempDisplay, setTempDisplay] = useState([]);
@@ -32,22 +34,37 @@ const Home = () => {
 		setLoading(true);
 		const storedUser = await AsyncStorage.getItem('@user');
 		const userDetails = JSON.parse(storedUser);
-		checkedUser = userDetails;
-		id = checkedUser._id;
+		if (userDetails) {
+			checkedUser = userDetails;
+			id = checkedUser._id;
+		} else {
+			setErrorMessage("Please logout and sign back in")
+		}
 
-		//
-		const responseh = await fetch(`${keys.apiURL}api/home/my/${id}`);
-		const jsonh = await responseh.json();
-		setHomeLocation(jsonh);
 
-		const responsew = await fetch(`${keys.apiURL}api/work/my/${id}`);
-		const jsonw = await responsew.json();
-		setWorkLocation(jsonw);
-		//
-		mergingArrays(jsonh, jsonw);
+		try {
+			//
+			const responseh = await fetch(`${keys.apiURL}api/home/my/${id}`);
+			const jsonh = await responseh.json();
+			setHomeLocation(jsonh);
 
-		setLoading(false);
+			const responsew = await fetch(`${keys.apiURL}api/work/my/${id}`);
+			const jsonw = await responsew.json();
+			setWorkLocation(jsonw);
+			//
+			mergingArrays(jsonh, jsonw);
+
+			setLoading(false);
+		} catch (error) {
+			console.log('====================================');
+			console.log(error);
+			console.log('====================================');
+			setLoading(false);
+		}
+
 	};
+
+
 
 	const mergingArrays = (home, work) => {
 		let packagedData;
@@ -57,6 +74,7 @@ const Home = () => {
 
 	// delete home verification card
 	const handleDeleteProcess = async (id, title) => {
+		setRemoving(true)
 		let newArray;
 		await axios.delete(
 			title === 'home'
@@ -64,8 +82,12 @@ const Home = () => {
 				: `${keys.apiURL}api/work/${id}`
 		);
 
+
 		newArray = tempDisplay.filter((i) => i._id !== id);
 		setTempDisplay(newArray);
+		refresherpage()
+		setRemoving(false)
+
 	};
 
 	// force event to rerender page
@@ -82,6 +104,9 @@ const Home = () => {
 		};
 	}, []);
 
+
+
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<GlobalHeader title="Home" />
@@ -90,39 +115,43 @@ const Home = () => {
 					style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
 				>
 					<Text>Loading please wait...</Text>
+
 					<ActivityIndicator style={{ marginTop: 20 }} />
 				</View>
 			) : (
 				<>
-					{tempDisplay && (
+					{tempDisplay.length ? (
 						<SwipeListView
 							contentContainerStyle={{ paddingHorizontal: 15 }}
 							data={tempDisplay}
-							renderItem={(item) => <HomeVerificationCard item={item} />}
+							keyExtractor={(item, index) => item._id}
+							renderItem={(item, rowMap) => <HomeVerificationCard item={item} />}
 							disableRightSwipe={true}
 							previewOpenDelay={3000}
 							friction={1000}
 							tension={40}
-							leftOpenValue={75}
-							stopLeftSwipe={75}
-							rightOpenValue={-75}
-							renderHiddenItem={(item) => (
-								<View style={styles.hiddenContainer}>
-									<TouchableOpacity
-										onPress={() =>
-											handleDeleteProcess(item.item._id, item.item.title)
-										}
-										style={styles.hiddenButton}
-									>
-										<Text style={{ color: 'white', fontWeight: 'bold' }}>
-											Delete
-										</Text>
-									</TouchableOpacity>
-								</View>
-							)}
+							leftOpenValue={95}
+							stopLeftSwipe={95}
+							rightOpenValue={-95}
+							renderHiddenItem={(item, rowMap) => (
+
+								<TouchableOpacity
+
+									onPress={() => {
+										handleDeleteProcess(item.item._id, item.item.title)
+
+									}
+									}
+									style={styles.hiddenButton}
+								>
+									<Text style={{ color: 'white', fontWeight: 'bold' }}>
+										{removing ? "Deleteing" : 'Delete'}
+									</Text>
+								</TouchableOpacity>
+							)
+							}
 						/>
-					)}
-					{tempDisplay.length === 0 && (
+					) : (
 						<View
 							style={{
 								paddingTop: 150,
@@ -131,8 +160,10 @@ const Home = () => {
 							}}
 						>
 							<Text>You have not added your home or work address.</Text>
+
 						</View>
 					)}
+
 				</>
 			)}
 		</SafeAreaView>
@@ -158,7 +189,11 @@ const styles = StyleSheet.create({
 		alignItems: 'flex-end',
 		paddingRight: 25,
 		borderRadius: 10,
+		marginRight: 1,
 		height: '100%',
 		height: 140,
 	},
 });
+
+
+{/* <View style={styles.hiddenContainer}></View> */ }

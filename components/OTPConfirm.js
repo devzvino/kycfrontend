@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, TextInput, Image, Keyboard } from 'react-native';
+import { Text, View, Keyboard } from 'react-native';
 
 import MainInput from './MainInput';
 import SignUpNavigationButton from './SignUpNavigationButton';
@@ -8,14 +8,11 @@ import { errorMsg1 } from './appMessages';
 
 import {
 	FontTheme,
-	ButtonTheme,
-	ImageBackgroundTheme,
-	LogoTheme,
-	InputTheme,
+
 } from '../components/ThemeFile';
 
 //Device Dimenstions
-const { width, height } = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 
 const otpMessage =
 	"Check your SMS for your security code. If you don't receive your security code, please contact support for further assistance.";

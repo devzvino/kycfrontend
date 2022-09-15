@@ -26,7 +26,7 @@ const StackNavigation = () => {
 			if (storedUser !== null) {
 				setUser(storedUser);
 			}
-		} catch (error) {}
+		} catch (error) { }
 	};
 
 	useEffect(() => {
