@@ -172,7 +172,7 @@ const LocationSelect = () => {
       setloading(false);
     }
 
-    if (feedback.rows[0].elements[0].distance.value < 40) {
+    if (feedback.rows[0].elements[0].distance.value < 80) {
       setloading(true);
       if (title === "home") {
         axios
@@ -260,14 +260,13 @@ const LocationSelect = () => {
       {/* map section */}
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         {currentLocation ? (
-          < >
+          <>
             <MapView
               scrollEnabled={false}
               showsUserLocation
               onReady
               maxZoomLevel={20}
               minZoomLevel={19}
-
               style={{ height: height, width: width }}
               provider={PROVIDER_GOOGLE}
               initialRegion={{
@@ -421,7 +420,7 @@ const LocationSelect = () => {
               </>
             ) : (
               <View style={{ width: "100%", alignItems: "center" }}>
-                <Text style={{ color: "#7D7D7D", textAlign:"center" }}>
+                <Text style={{ color: "#7D7D7D", textAlign: "center" }}>
                   Please Confirm your location is as pinned on the map above.
                 </Text>
 

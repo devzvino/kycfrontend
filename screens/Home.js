@@ -15,8 +15,7 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import HomeVerificationCard from "../components/HomeVerificationCard";
 import { keys } from "../environmentVariables";
 import { useNavigation } from "@react-navigation/native";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Home = () => {
   const { addListener } = useNavigation();
@@ -59,40 +58,28 @@ const Home = () => {
 
   const checkuserIfstoredandfetchdata = async () => {
     setLoading(true);
-    if (!userDetails) {
-      const storedUser = await AsyncStorage.getItem("@user");
-      userDetails = JSON.parse(storedUser);
+    // if (!userDetails) {
+    //   const storedUser = await AsyncStorage.getItem("@user");
+    //   userDetails = JSON.parse(storedUser);
+    // }
+    const storedUser = await AsyncStorage.getItem("@user");
+    userDetails = JSON.parse(storedUser);
+    if (userDetails) {
+      checkedUser = userDetails;
+      id = checkedUser._id;
+    } else {
+      setErrorMessage("Please logout and sign back in");
     }
     //
-
-    fetch(`${keys.apiURL}api/home/my/${userDetails._id}`)
-      .then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
-      })
-      .then(function (data) {
-        // Store the post data to a variable
-        post = data;
-
-        // Fetch another API
-        return fetch(`${keys.apiURL}api/work/my/${userDetails._id}`);
-      })
-      .then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return Promise.reject(response);
-        }
-      })
-      .then(function (userData) {
-        mergingArrays(post, userData);
-      })
-      .catch(function (error) {
-        console.warn(error);
-      });
+    let [res1, res2] = await Promise.all([
+      fetch(`${keys.apiURL}api/home/my/${id}`).then((response) =>
+        response.json()
+      ),
+      fetch(`${keys.apiURL}api/work/my/${id}`).then((response) =>
+        response.json()
+      ),
+    ]);
+    mergingArrays(res1, res2);
     //
     setLoading(false);
   };
@@ -101,6 +88,7 @@ const Home = () => {
     let packagedData;
     packagedData = [...home, ...work];
     setTempDisplay(packagedData);
+    // console.log(tempDisplay);
   };
 
   // delete home verification card
@@ -115,13 +103,15 @@ const Home = () => {
 
     newArray = tempDisplay.filter((i) => i._id !== id);
     setTempDisplay(newArray);
-    refresherpage();
+    checkuserIfstoredandfetchdata();
     setRemoving(false);
   };
 
   // force event to rerender page
   const refresherpage = addListener("focus", () => {
+    setLoading(true);
     checkuserIfstoredandfetchdata();
+    setLoading(true);
   });
 
   useEffect(() => {
@@ -133,24 +123,28 @@ const Home = () => {
     };
   }, []);
 
+  if (loading) {
+    return (
+      <View
+        style={{
+          paddingTop: 150,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text>Loading please wait...</Text>
+
+        <ActivityIndicator style={{ marginTop: 20 }} />
+      </View>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <GlobalHeader title="Home" />
-      {loading && (
-        <View
-          style={{
-            paddingTop: 150,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text>Loading please wait...</Text>
 
-          <ActivityIndicator style={{ marginTop: 20 }} />
-        </View>
-      )}
       <>
-        {tempDisplay.length === 0 ? (
+        {!tempDisplay.length ? (
           <View
             style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
           >
@@ -176,9 +170,23 @@ const Home = () => {
                 }}
                 style={styles.hiddenButton}
               >
-                <Text style={{ color: "Red", fontWeight: "bold" }}>
-                  {removing ? <><MaterialCommunityIcons name="delete-clock" size={24} color="red" /></> : <><MaterialCommunityIcons name="delete" size={24} color="red" /></>}
-                </Text>
+                {removing ? (
+                  <>
+                    <MaterialCommunityIcons
+                      name="delete-clock"
+                      size={24}
+                      color="red"
+                    />
+                  </>
+                ) : (
+                  <>
+                    <MaterialCommunityIcons
+                      name="delete"
+                      size={24}
+                      color="red"
+                    />
+                  </>
+                )}
               </TouchableOpacity>
             )}
           />
@@ -214,3 +222,60 @@ const styles = StyleSheet.create({
     height: 140,
   },
 });
+
+// fetch(`${keys.apiURL}api/home/my/${userDetails._id}`)
+//       .then(function (response) {
+//         if (response.ok) {
+//           return response.json();
+//         } else {
+//           return Promise.reject(response);
+//         }
+//       })
+//       .then(function (data) {
+//         // Store the post data to a variable
+//         post = data;
+
+//         // Fetch another API
+//         return fetch(`${keys.apiURL}api/work/my/${userDetails._id}`);
+//       })
+//       .then(function (response) {
+//         if (response.ok) {
+//           return response.json();
+//         } else {
+//           return Promise.reject(response);
+//         }
+//       })
+//       .then(function (userData) {
+//         mergingArrays(post, userData);
+//       })
+//       .catch(function (error) {
+//         console.warn(error);
+//       });
+// force event to rerender page
+// const refresherpage = addListener("focus", () => {
+//   setLoading(true);
+//   // checkuserIfstoredandfetchdata();
+//   const getUserAgain = async () => {
+//     const storedUser = await AsyncStorage.getItem("@user");
+//     userDetails = JSON.parse(storedUser);
+//   };
+//   const fetchData = async () => {
+//     let [res1, res2] = await Promise.all([
+//       fetch(`${keys.apiURL}api/home/my/${userDetails._id}`).then((response) =>
+//         response.json()
+//       ),
+//       fetch(`${keys.apiURL}api/work/my/${userDetails._id}`).then((response) =>
+//         response.json()
+//       ),
+//     ]);
+//     mergingArrays(res1, res2);
+//   };
+
+//   if (userDetails) {
+//     fetchData();
+//   } else {
+//     getUserAgain();
+//   }
+
+//   setLoading(true);
+// });
