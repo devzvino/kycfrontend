@@ -13,6 +13,7 @@ import React, {
 import {
   Dimensions,
   Image,
+  Platform,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -372,7 +373,9 @@ const LocationSelect = () => {
                         value={date}
                         mode={mode}
                         is24Hour={true}
-                        display="default"
+                        display={Platform.OS === "ios" ? "spinner" : "default"}
+                        style={{ width: "100%" }}
+                        // timeZoneOffsetInMinutes={0}
                         onChange={onChange}
                       />
                     )}
@@ -382,7 +385,9 @@ const LocationSelect = () => {
                         value={date}
                         mode={mode}
                         is24Hour={true}
-                        display="default"
+                        display={Platform.OS === "ios" ? "spinner" : "default"}
+                        style={{ width: "100%" }}
+                        // timeZoneOffsetInMinutes={0}
                         onChange={onChangeEnd}
                       />
                     )}
