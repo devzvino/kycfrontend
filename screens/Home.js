@@ -99,7 +99,6 @@ const Home = () => {
     let packagedData;
     packagedData = [...home, ...work];
     setTempDisplay(packagedData);
-    console.log(tempDisplay);
   };
 
   // delete home verification card
@@ -119,13 +118,12 @@ const Home = () => {
   };
 
   // force event to rerender page
-  //   const refresherpage = addListener("focus", () => {
-  //     checkingIfUserIsStored();
-  //   });
+  const refresherpage = addListener("focus", () => {
+    checkuserIfstoredandfetchdata();
+  });
 
   useEffect(() => {
     //  getting intomation locations
-    // checkingIfUserIsStored();
     checkuserIfstoredandfetchdata();
     if (!tempDisplay) refresherpage();
     return () => {
@@ -136,60 +134,59 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
       <GlobalHeader title="Home" />
-      {loading ? (
+      {loading && (
         <View
-          style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+          style={{
+            paddingTop: 150,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
           <Text>Loading please wait...</Text>
 
           <ActivityIndicator style={{ marginTop: 20 }} />
         </View>
-      ) : (
-        <>
-          {tempDisplay.length > 0 ? (
-            <SwipeListView
-              contentContainerStyle={{ paddingHorizontal: 15 }}
-              data={tempDisplay}
-              keyExtractor={(item, index) => item._id}
-              renderItem={(item, rowMap) => (
-                <HomeVerificationCard item={item} />
-              )}
-              disableRightSwipe={true}
-              previewOpenDelay={3000}
-              friction={1000}
-              tension={40}
-              leftOpenValue={95}
-              stopLeftSwipe={95}
-              rightOpenValue={-95}
-              renderHiddenItem={(item, rowMap) => (
-                <TouchableOpacity
-                  onPress={() => {
-                    handleDeleteProcess(item.item._id, item.item.title);
-                  }}
-                  style={styles.hiddenButton}
-                >
-                  <Text style={{ color: "white", fontWeight: "bold" }}>
-                    {removing ? "Deleteing" : "Delete"}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            />
-          ) : (
-            <View
-              style={{
-                paddingTop: 150,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text>You have not added your home or work address.</Text>
-            </View>
-          )}
-        </>
       )}
+      <>
+        {tempDisplay.length === 0 ? (
+          <View
+            style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
+          >
+            <Text>You have not added your home or work address.</Text>
+          </View>
+        ) : (
+          <SwipeListView
+            contentContainerStyle={{ paddingHorizontal: 15 }}
+            data={tempDisplay}
+            keyExtractor={(item, index) => item._id}
+            renderItem={(item, rowMap) => <HomeVerificationCard item={item} />}
+            disableRightSwipe={true}
+            previewOpenDelay={3000}
+            friction={1000}
+            tension={40}
+            leftOpenValue={95}
+            stopLeftSwipe={95}
+            rightOpenValue={-95}
+            renderHiddenItem={(item, rowMap) => (
+              <TouchableOpacity
+                onPress={() => {
+                  handleDeleteProcess(item.item._id, item.item.title);
+                }}
+                style={styles.hiddenButton}
+              >
+                <Text style={{ color: "white", fontWeight: "bold" }}>
+                  {removing ? "Deleteing" : "Delete"}
+                </Text>
+              </TouchableOpacity>
+            )}
+          />
+        )}
+      </>
     </SafeAreaView>
   );
 };
+
+// tempDisplay.length === 0 &&
 
 export default Home;
 
@@ -215,7 +212,3 @@ const styles = StyleSheet.create({
     height: 140,
   },
 });
-
-{
-  /* <View style={styles.hiddenContainer}></View> */
-}
