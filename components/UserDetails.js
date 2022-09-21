@@ -58,7 +58,7 @@ const UserDetails = ({
 				setOtpConfrimView(false);
 				setRegConfrimView(false);
 				setLoading(false);
-			}, 2000);
+			}, 50);
 			setLoading(false);
 		}
 	};
@@ -73,8 +73,8 @@ const UserDetails = ({
 			>
 				<View style={{ width: width, height: '65%', alignItems: 'center' }}>
 					<MainInput
-						title={'Firstname(s) (as on your ID)'}
-						placeholder={'e.g. Benard Tafara'}
+						title={'First Name(s) (as on your ID)'}
+						placeholder={'e.g. Phillip Joe'}
 						required
 						onBlur={Keyboard.dismiss}
 						onChange={(value) => {
@@ -85,7 +85,7 @@ const UserDetails = ({
 					/>
 					<MainInput
 						title={'Surname (as on your ID)'}
-						placeholder={'e.g. Zvinokwazvo'}
+						placeholder={'e.g. Jones'}
 						required
 						onBlur={Keyboard.dismiss}
 						onChange={(value) => {
@@ -97,7 +97,7 @@ const UserDetails = ({
 					<MainInput
 						keyboardType="phone-pad"
 						title={'Phone Number'}
-						placeholder={'e.g. 263771234567'}
+						placeholder={'e.g. +263771234567'}
 						required
 						onBlur={Keyboard.dismiss}
 						onChange={(value) => {
@@ -108,7 +108,7 @@ const UserDetails = ({
 					/>
 					<MainInput
 						title={'ID Number'}
-						placeholder={'e.g. 42 251109 S 07'}
+						placeholder={'e.g. 63111111X07'}
 						required
 						onBlur={Keyboard.dismiss}
 						onChange={(value) => {

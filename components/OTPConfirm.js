@@ -41,7 +41,7 @@ const OTPConfirm = ({
 				setOtpConfrimView(false);
 				setRegConfrimView(true);
 				setLoading(false);
-			}, 2000);
+			}, 50);
 			//
 			setLoading(false);
 		} else {

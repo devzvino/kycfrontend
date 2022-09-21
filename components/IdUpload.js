@@ -73,7 +73,7 @@ const IdUpload = ({
       setOtpConfrimView(true);
       setRegConfrimView(false);
       setLoading(false);
-    }, 2000);
+    }, 50);
     setLoading(false);
   };
 

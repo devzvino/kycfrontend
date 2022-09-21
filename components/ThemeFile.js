@@ -59,9 +59,9 @@ export const FontTheme = {
 	motto: {
 		fontFamily: 'Poppins-Medium',
 		color: main,
-		fontSize: 32,
+		fontSize: 30,
 		lineHeight: 32,
-		paddingTop: 10,
+		paddingTop: 0,
 		paddingBottom: 10,
 	},
 
@@ -195,7 +195,9 @@ export const InputTheme = {
 
 export const LogoTheme = {
 	mainLogo: {
-		marginBottom: 50,
+		width:width/1.5,
+		height: height/4,
+		marginTop:100,
 	},
 	miniLogo: {
 		width: width / 1.15,
@@ -213,7 +215,7 @@ export const SectionTheme = {
 		width: width,
 		height: height / 1.5,
 		borderBottomRightRadius: 75,
-		overflow: 'hidden',
+		// overflow: 'hidden',
 		elevation: 0,
 		borderWidth: 0,
 		resizeMode: 'contain',
@@ -222,7 +224,7 @@ export const SectionTheme = {
 
 	welcomeSection1_inner: {
 		width: '80%',
-		paddingTop: 200,
+		
 	},
 	welcomeSection2: {
 		width: width,

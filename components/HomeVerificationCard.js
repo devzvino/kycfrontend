@@ -36,7 +36,7 @@ const HomeVerificationCard = ({ item }) => {
 				)}
 			</View>
 			{/* category */}
-			<Text style={styles.textCoordinate}>Category: {info.title}</Text>
+			<Text style={styles.textCoordinate}>Type: {info.title} Address</Text>
 
 			{/* verification */}
 			{home ? (
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
 	v_container: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		paddingVertical: 8,
+		paddingVertical: 5,
 	},
 	verificationIcon: {
 		width: 18,
@@ -134,13 +134,14 @@ const styles = StyleSheet.create({
 		backgroundColor: '#F8F8F8',
 		borderRadius: 10,
 		paddingHorizontal: 15,
-		paddingTop: 20,
+		paddingTop: 15,
 		paddingBottom: 10,
 		marginBottom: 15,
-		height: 142,
+		
 	},
 	textCoordinate: {
 		color: ColorTheme.grey,
 		fontWeight: '600',
+		textTransform: 'capitalize',
 	},
 });

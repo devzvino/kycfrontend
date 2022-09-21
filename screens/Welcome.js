@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Image, ImageBackground, Linking, Text, View } from 'react-native';
-import mainLogo from '../assets/images/kyc-logo.png';
+import MainLogo from '../components/MainLogo';
 import welcomeBg from '../assets/images/splash-bg.jpg';
 
 //import components
@@ -34,7 +34,7 @@ const WelcomeScreen = () => {
 		<View>
 			<ImageBackground style={SectionTheme.welcomeSection1} source={welcomeBg}>
 				<View style={SectionTheme.welcomeSection1_inner}>
-					<Image source={mainLogo} style={LogoTheme.mainLogo} />
+					<MainLogo style={LogoTheme.mainLogo}/>
 					<Text style={FontTheme.motto}>{appMotto}</Text>
 					<Text style={FontTheme.description}>{appDescription}</Text>
 				</View>

@@ -50,6 +50,7 @@ const GlobalHeader = ({ title, backable }) => {
 						color: '#14142A',
 						fontWeight: 'bold',
 						fontSize: 18,
+						textTransform:'capitalize'
 					}}
 				>
 					{title}

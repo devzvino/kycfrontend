@@ -15,6 +15,8 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import HomeVerificationCard from "../components/HomeVerificationCard";
 import { keys } from "../environmentVariables";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 const Home = () => {
   const { addListener } = useNavigation();
@@ -174,8 +176,8 @@ const Home = () => {
                 }}
                 style={styles.hiddenButton}
               >
-                <Text style={{ color: "white", fontWeight: "bold" }}>
-                  {removing ? "Deleteing" : "Delete"}
+                <Text style={{ color: "Red", fontWeight: "bold" }}>
+                  {removing ? <><MaterialCommunityIcons name="delete-clock" size={24} color="red" /></> : <><MaterialCommunityIcons name="delete" size={24} color="red" /></>}
                 </Text>
               </TouchableOpacity>
             )}
@@ -202,7 +204,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   hiddenButton: {
-    backgroundColor: "red",
+    backgroundColor: "transparent",
     justifyContent: "center",
     alignItems: "flex-end",
     paddingRight: 25,
