@@ -142,7 +142,7 @@ export const ButtonTheme = {
 		elevation: 0,
 	},
 	signUpNavigation: {
-		bottom: 45,
+		bottom: 25,
 		margin: 'auto',
 		width: '80%',
 		alignItems: 'center',
