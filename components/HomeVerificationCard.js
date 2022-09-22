@@ -35,7 +35,7 @@ const HomeVerificationCard = ({ item }) => {
 				)}
 			</View>
 			{/* category */}
-			<Text style={styles.textCoordinate}>Type: {info.title} Address</Text>
+			<Text style={styles.textCoordinate}>{info.title} Address</Text>
 
 			{/* verification */}
 			{home ? (
