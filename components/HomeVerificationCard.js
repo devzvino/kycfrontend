@@ -142,6 +142,5 @@ const styles = StyleSheet.create({
 		color: ColorTheme.grey,
 		fontWeight: '600',
 		textTransform: 'capitalize',
-
 	},
 });
