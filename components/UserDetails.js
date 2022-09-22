@@ -117,7 +117,7 @@ const UserDetails = ({
 						info={id ? null : error}
 						textStyles={FontTheme.errortxt}
 					/>
-					<View style={{paddingVertical:20}}>
+					<View style={{paddingVertical:40}}>
 					</View>
 				</View>
 			</KeyboardAwareScrollView>
