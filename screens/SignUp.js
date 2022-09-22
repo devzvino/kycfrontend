@@ -26,7 +26,7 @@ const SignUp = () => {
 	// let tempData;
 
 	return (
-		<ScrollView contentContainerStyle={{ width: width, height: height }}>
+		<View style={{ width: width, height: height }}>
 			<View
 				style={{
 					width: '100%',
@@ -79,7 +79,7 @@ const SignUp = () => {
 					setRegConfrimView={setRegConfrimView}
 				/>
 			)}
-		</ScrollView>
+		</View>
 	);
 };
 

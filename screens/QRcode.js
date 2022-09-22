@@ -23,7 +23,7 @@ const QRcode = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <GlobalHeader title="QR code" />
+      <GlobalHeader title="QR Code"/>
       <View style={{flexDirection:'column', alignItems:'center', backgroundColor:'#FFFFFF', marginTop: 50}}>
       <QRCode content='https://kycafrica.com' />
 

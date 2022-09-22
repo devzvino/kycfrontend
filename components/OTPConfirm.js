@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Keyboard } from 'react-native';
+import { Text, View, Keyboard, Linking } from 'react-native';
 
 import MainInput from './MainInput';
 import SignUpNavigationButton from './SignUpNavigationButton';
@@ -14,8 +14,21 @@ import {
 //Device Dimenstions
 const { width } = Dimensions.get('screen');
 
-const otpMessage =
-	"Check your SMS for your security code. If you don't receive your security code, please contact support for further assistance.";
+const otpMessage = ()=>{
+	return(<View style={{width:width/1.15,}}>
+		<Text style={{}}>
+			Check your SMS for your security code. If you don't receive your security code, please
+			{" "}<Text 
+			onPress={() => Linking.openURL('https://kycafrica.com')}
+			style={FontTheme.footerLink}>
+			 
+			 
+			contact support for further assistance.	
+			</Text>
+		</Text>	
+	</View>)
+}
+
 
 const OTPConfirm = ({
 	data,
@@ -74,7 +87,7 @@ const OTPConfirm = ({
 					</Text>
 				)}
 
-				<Text style={FontTheme.messagetxt}>{otpMessage}</Text>
+				{otpMessage()}
 			</View>
 
 			<View

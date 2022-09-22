@@ -25,13 +25,12 @@ const HomeVerificationCard = ({ item }) => {
 			<View style={{ flexDirection: 'row', marginTop: 10 }}>
 				{home ? (
 					<>
-						<Text style={styles.textCoordinate}>{home?.lat} , </Text>
-						<Text style={styles.textCoordinate}>{home?.lng}</Text>
+						<Text style={styles.textCoordinate}>{info.surburb}, {info.city} </Text>
+			
 					</>
 				) : (
 					<>
-						<Text style={styles.textCoordinate}>{work?.lat} , </Text>
-						<Text style={styles.textCoordinate}>{work?.lng}</Text>
+						<Text style={styles.textCoordinate}>{info.companyName}, {info.building} </Text>	
 					</>
 				)}
 			</View>
@@ -143,5 +142,6 @@ const styles = StyleSheet.create({
 		color: ColorTheme.grey,
 		fontWeight: '600',
 		textTransform: 'capitalize',
+
 	},
 });

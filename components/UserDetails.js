@@ -66,10 +66,10 @@ const UserDetails = ({
 	return (
 		<View style={{ flex: 1 }}>
 			<KeyboardAwareScrollView
-				viewIsInsideTabBar={true}
-				// extraHeight={200}
+				viewIsInsideTabBar={false}
+				// extraHeight={400}
 				enableOnAndroid={true}
-				// style={{flex:1}}
+
 			>
 				<View style={{ width: width, height: '65%', alignItems: 'center' }}>
 					<MainInput
@@ -117,6 +117,8 @@ const UserDetails = ({
 						info={id ? null : error}
 						textStyles={FontTheme.errortxt}
 					/>
+					<View style={{paddingVertical:20}}>
+					</View>
 				</View>
 			</KeyboardAwareScrollView>
 			<View

@@ -253,7 +253,7 @@ const LocationSelect = () => {
         }}
       >
         <GlobalHeader
-          title={confrimSnapPoint ? "Select Location " : `Add ${title} Address`}
+          title={confrimSnapPoint ? "Select Location " : `Add ${title[0].toUpperCase() + title.substring(1)} Address`}
           backable={true}
         />
       </View>
@@ -373,7 +373,7 @@ const LocationSelect = () => {
                         value={date}
                         mode={mode}
                         is24Hour={true}
-                        display={Platform.OS === "ios" ? "spinner" : "default"}
+                        display={Platform.OS === "ios" ? "default" : "default"}
                         style={{ width: "100%" }}
                         // timeZoneOffsetInMinutes={0}
                         onChange={onChange}
@@ -385,7 +385,7 @@ const LocationSelect = () => {
                         value={date}
                         mode={mode}
                         is24Hour={true}
-                        display={Platform.OS === "ios" ? "spinner" : "default"}
+                        display={Platform.OS === "ios" ? "default" : "default"}
                         style={{ width: "100%" }}
                         // timeZoneOffsetInMinutes={0}
                         onChange={onChangeEnd}
@@ -426,7 +426,7 @@ const LocationSelect = () => {
             ) : (
               <View style={{ width: "100%", alignItems: "center" }}>
                 <Text style={{ color: "#7D7D7D", textAlign: "center" }}>
-                  Please Confirm your location is as pinned on the map above.
+                  Please Confirm you are at your {title} location.
                 </Text>
 
                 <MainButton
