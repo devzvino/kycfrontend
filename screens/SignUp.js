@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Image, View } from "react-native";
 
 import mainLogo from "../assets/images/kyc-logo.png";
+import MainLogo from "../components/MainLogo";
 
 import { Dimensions, ScrollView } from "react-native";
 import IdUpload from "../components/IdUpload";
@@ -39,7 +40,10 @@ const SignUp = () => {
           paddingTop: "10%",
         }}
       >
-        <Image source={mainLogo} style={LogoTheme.miniLogo} />
+        <View style={LogoTheme.miniLogo}>
+          <MainLogo />
+        </View>
+      
       </View>
       {/* Render Form elements here */}
 

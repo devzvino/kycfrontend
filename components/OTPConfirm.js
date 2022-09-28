@@ -15,7 +15,7 @@ import {
 const { width } = Dimensions.get('screen');
 
 const otpMessage = ()=>{
-	return(<View style={{width:width/1.15,}}>
+	return(<View style={{width:width/1.15, marginTop:10}}>
 		<Text style={{}}>
 			Check your SMS for your security code. If you don't receive your security code, please
 			{" "}<Text 
@@ -47,6 +47,14 @@ const OTPConfirm = ({
 	// submit function to api
 	const handleSubmit = () => {
 		setLoading(true);
+		if (!otpCon) {
+			setLoading(false);
+			return setOtpErrMessage(errorMsg1);	
+		} 
+		if (otpCon !== Number(data.otp)){
+			setLoading(false);
+			return setOtpErrMessage('Your OTP does not match')
+		}
 		if (Number(otpCon) === Number(data.otp)) {
 			setTimeout(() => {
 				setUserView(false);
@@ -57,9 +65,10 @@ const OTPConfirm = ({
 			}, 50);
 			//
 			setLoading(false);
-		} else {
+		} 
+		
+		else {
 			setError(errorMsg1);
-			setOtpErrMessage('Your Otp does not match');
 			setLoading(false);
 			console.log(error);
 			//
