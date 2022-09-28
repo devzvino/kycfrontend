@@ -43,6 +43,7 @@ const OTPConfirm = ({
 	const [otpCon, setOtpCon] = useState();
 
 	console.log(data);
+	console.log(typeof(otpCon))
 
 	// submit function to api
 	const handleSubmit = () => {
@@ -51,9 +52,10 @@ const OTPConfirm = ({
 			setLoading(false);
 			return setOtpErrMessage(errorMsg1);	
 		} 
-		if (otpCon !== Number(data.otp)){
+		if (Number(otpCon) !== Number(data.otp)){
 			setLoading(false);
 			return setOtpErrMessage('Your OTP does not match')
+			
 		}
 		if (Number(otpCon) === Number(data.otp)) {
 			setTimeout(() => {
