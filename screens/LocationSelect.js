@@ -25,6 +25,7 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { mapLocationLoading } from "../components/appMessages";
 import FormInputWithLabel from "../components/FormInputWithLabel";
 import GlobalHeader from "../components/GlobalHeader";
+import moment from "moment/moment";
 //import components
 import MainButton from "../components/MainButton";
 import { keys } from "../environmentVariables";
@@ -64,7 +65,12 @@ const LocationSelect = () => {
     setShowStart(Platform.OS === "ios");
 
     let tempDate = new Date(currentDate);
-    let fTime = tempDate.getHours() + ":" + tempDate.getMinutes();
+
+    var minutes = tempDate.getMinutes();
+    minutes = minutes > 9 ? minutes : "0" + minutes;
+
+    // if(thehours.)
+    let fTime = tempDate.getHours() + ":" + minutes;
 
     if (event.type == "set") {
       setStartTime(fTime);
@@ -77,7 +83,9 @@ const LocationSelect = () => {
     setShowEnd(Platform.OS === "ios");
 
     let tempDate = new Date(currentDate);
-    let fTime = tempDate.getHours() + ":" + tempDate.getMinutes();
+    var minutes = tempDate.getMinutes();
+    minutes = minutes > 9 ? minutes : "0" + minutes;
+    let fTime = tempDate.getHours() + ":" + minutes;
     if (event.type == "set") {
       setEndTime(fTime);
     } else {
@@ -345,7 +353,7 @@ const LocationSelect = () => {
                         styles.title,
                       ]}
                     >
-                      What time do you start and end work
+                      Time you start and end work in 24Hrs?
                     </Text>
                     <View
                       style={{
@@ -382,6 +390,7 @@ const LocationSelect = () => {
                       <DateTimePicker
                         testID="dateTimePicker"
                         value={date}
+                        format={"hh:mm a"}
                         mode={mode}
                         is24Hour={true}
                         display={Platform.OS === "ios" ? "default" : "default"}

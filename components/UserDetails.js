@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Image, Keyboard, Text, TextInput, View } from "react-native";
 
-import PhoneInput from "react-native-phone-input";
+// import PhoneInput from "react-native-phone-input";
+import PhoneInput from "react-native-phone-number-input";
 
 import { Dimensions } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { FontTheme, InputTheme } from "../components/ThemeFile";
+import { ColorTheme, FontTheme, InputTheme } from "../components/ThemeFile";
 import { errorMsg1 } from "./appMessages";
 import MainInput from "./MainInput";
 import SignUpNavigationButton from "./SignUpNavigationButton";
@@ -25,6 +26,7 @@ const UserDetails = ({
   setOtpConfrimView,
   setRegConfrimView,
 }) => {
+  const [displayNumber, setDisplayNumber] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [phone, setPhone] = useState();
@@ -46,7 +48,14 @@ const UserDetails = ({
         // 	phone,
         // 	id,
         // };
-        setData({ firstName, surname, phone, id });
+        setData({
+          firstName,
+          surname,
+          phone:
+            phoneRef.current?.getNumberAfterPossiblyEliminatingZero()
+              .formattedNumber,
+          id,
+        });
         setUserView(false);
         setIdUploadView(true);
         setOtpConfrimView(false);
@@ -89,12 +98,15 @@ const UserDetails = ({
           />
 
           {/*  */}
-          {cc ? (
+          {/* {cc ? (
             <View style={{ marginBottom: 0 }}>
               <Text style={FontTheme.inputTitle}>Phone Number</Text>
               <PhoneInput
                 style={InputTheme.signUpInput}
                 ref={phoneRef}
+                onSelectCountry={(e) => {
+                  console.log(e);
+                }}
                 onChangePhoneNumber={(value) => {
                   setPhone(value);
                 }}
@@ -102,9 +114,36 @@ const UserDetails = ({
               />
               <Text style={FontTheme.errortxt}>{phone ? null : error}</Text>
             </View>
-          ) : (
-            <Text>please wait..</Text>
-          )}
+          ) : null} */}
+
+          {/* ?======== */}
+          <View style={{ marginBottom: 0 }}>
+            <Text style={FontTheme.inputTitle}>Phone Number</Text>
+            <PhoneInput
+              containerStyle={[InputTheme.signUpInput, { paddingLeft: 0 }]}
+              textContainerStyle={[InputTheme.signUpInput, { paddingLeft: 0 }]}
+              codeTextStyle={{
+                color: "#666",
+                fontWeight: "400",
+              }}
+              placeholder={" "}
+              disableArrowIcon={true}
+              ref={phoneRef}
+              value={phone}
+              defaultValue={phone}
+              defaultCode={cc}
+              layout="first"
+              onChangeFormattedText={(val) => {
+                setDisplayNumber(val);
+                let noZero =
+                  phoneRef.current?.getNumberAfterPossiblyEliminatingZero();
+                setPhone(noZero.formattedNumber);
+              }}
+            />
+            <Text style={FontTheme.errortxt}>{phone ? null : error}</Text>
+          </View>
+
+          {/* ?======== */}
 
           {/*  */}
           <MainInput
@@ -130,11 +169,11 @@ const UserDetails = ({
           bottom: 0,
         }}
       >
-		<SignUpNavigationButton
-			title={"Continue"}
-			loading={loading}
-			onPress={handleSubmit}
-		/>
+        <SignUpNavigationButton
+          title={"Continue"}
+          loading={loading}
+          onPress={handleSubmit}
+        />
       </View>
     </View>
   );

@@ -81,7 +81,7 @@ const IdUpload = ({
     <View style={{ flex: 1 }}>
       <View style={{ width: width / 1.15, alignSelf: "center" }}>
         <Text style={FontTheme.description}>{uploadWarning}</Text>
-        <View style={{ marginTop: 5, }}>
+        <View style={{ marginTop: 5 }}>
           <IconText
             paraText={"Document should be good condition and clearly visible."}
           />
