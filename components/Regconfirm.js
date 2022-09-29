@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React from "react";
+import React, { useState } from "react";
 import { Dimensions, Image, Text, View } from "react-native";
 import SignUpNavigationButton from "./SignUpNavigationButton";
 import SvgComponent from "./SuccessSvg";
@@ -25,12 +25,14 @@ function RegConfirm({
   setOtpConfrimView,
   setRegConfrimView,
 }) {
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const route = useRoute();
   const { storeUser } = route.params;
 
   // submit function to api
   const handleSubmit = async () => {
+    setLoading(true);
     try {
       const response = await fetch(
         "https://frozen-badlands-79412.herokuapp.com/api/user/",
@@ -54,15 +56,18 @@ function RegConfirm({
 
       if (!response.ok) {
         alert("something when wrong please try again");
+        setLoading(false);
       }
 
       if (response.ok) {
         // save user to local storage
         storeUser(json);
         await AsyncStorage.setItem("@user", JSON.stringify(json));
+        setLoading(false);
       }
     } catch (error) {
       console.log(error.message);
+      setLoading(false);
     }
   };
 
@@ -92,7 +97,11 @@ function RegConfirm({
           bottom: 0,
         }}
       >
-        <SignUpNavigationButton onPress={handleSubmit} title={"Continue"} />
+        <SignUpNavigationButton
+          loading={loading}
+          onPress={handleSubmit}
+          title={"Continue"}
+        />
       </View>
     </View>
   );

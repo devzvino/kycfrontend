@@ -100,6 +100,7 @@ const UserDetails = ({
                 }}
                 initialCountry={cc.toLowerCase()}
               />
+              <Text style={FontTheme.errortxt}>{phone ? null : error}</Text>
             </View>
           ) : (
             <Text>please wait..</Text>

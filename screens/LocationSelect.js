@@ -66,7 +66,11 @@ const LocationSelect = () => {
     let tempDate = new Date(currentDate);
     let fTime = tempDate.getHours() + ":" + tempDate.getMinutes();
 
-    setStartTime(fTime);
+    if (event.type == "set") {
+      setStartTime(fTime);
+    } else {
+      setStartTime(null);
+    }
   };
   const onChangeEnd = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -74,8 +78,11 @@ const LocationSelect = () => {
 
     let tempDate = new Date(currentDate);
     let fTime = tempDate.getHours() + ":" + tempDate.getMinutes();
-
-    setEndTime(fTime);
+    if (event.type == "set") {
+      setEndTime(fTime);
+    } else {
+      setEndTime(null);
+    }
   };
 
   const showModeStartTime = (currentMode) => {
@@ -253,7 +260,11 @@ const LocationSelect = () => {
         }}
       >
         <GlobalHeader
-          title={confrimSnapPoint ? "Select Location " : `Add ${title[0].toUpperCase() + title.substring(1)} Address`}
+          title={
+            confrimSnapPoint
+              ? "Select Location "
+              : `Add ${title[0].toUpperCase() + title.substring(1)} Address`
+          }
           backable={true}
         />
       </View>
@@ -375,7 +386,6 @@ const LocationSelect = () => {
                         is24Hour={true}
                         display={Platform.OS === "ios" ? "default" : "default"}
                         style={{ width: "100%" }}
-                        // timeZoneOffsetInMinutes={0}
                         onChange={onChange}
                       />
                     )}
@@ -387,7 +397,6 @@ const LocationSelect = () => {
                         is24Hour={true}
                         display={Platform.OS === "ios" ? "default" : "default"}
                         style={{ width: "100%" }}
-                        // timeZoneOffsetInMinutes={0}
                         onChange={onChangeEnd}
                       />
                     )}
