@@ -43,7 +43,6 @@ const SignUp = () => {
         <View style={LogoTheme.miniLogo}>
           <MainLogo />
         </View>
-      
       </View>
       {/* Render Form elements here */}
 
