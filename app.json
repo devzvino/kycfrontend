@@ -23,6 +23,7 @@
 		},
 		"android": {
 			"package": "com.rilpix.kycapp",
+			"softwareKeyboardLayoutMode":"pan",
 			"config": {
 				"googleMaps": {
 					"apiKey": "AIzaSyCBmk5fxV__Oh_QoxqXH7XSDnnenX_8Wx0"

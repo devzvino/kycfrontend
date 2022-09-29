@@ -38,7 +38,7 @@ const AddAddress = () => {
 							myId: user._id,
 						})
 					}
-					style={[ButtonTheme.signUpNavigation, styles.btnExt]}
+					style={[ButtonTheme.signUpNavigationMain, styles.btnExt]}
 				>
 					<HomeIcon size={24} color="white" />
 					<Text style={styles.btnTitle}>Home Address</Text>
@@ -50,7 +50,7 @@ const AddAddress = () => {
 							myId: user._id,
 						})
 					}
-					style={[ButtonTheme.signUpNavigation, styles.btnExt]}
+					style={[ButtonTheme.signUpNavigationMain, styles.btnExt]}
 				>
 					<BriefcaseIcon size={24} color="white" />
 					<Text style={styles.btnTitle}>Work Address</Text>

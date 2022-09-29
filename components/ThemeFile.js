@@ -154,6 +154,19 @@ export const ButtonTheme = {
 		color: primary,
 		elevation: 0,
 	},
+	signUpNavigationMain: {
+	
+		margin: 'auto',
+		width: '80%',
+		alignItems: 'center',
+		borderRadius: 10,
+		backgroundColor: main,
+		paddingVertical: 15,
+		elevation: 3,
+		marginTop: 10,
+		color: primary,
+		elevation: 0,
+	},
 };
 
 export const InputTheme = {

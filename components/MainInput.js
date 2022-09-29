@@ -21,6 +21,12 @@ const MainInput=({ onChange,onFocus,onBlur,placeholder, title, info,textStyles,k
         onBlur={onBlur}
         style={InputTheme.signUpInput}
         placeholder={placeholder}
+        underlineColorAndroid="transparent"
+    blurOnSubmit={false} 
+    autoFocus={false} 
+    autoCorrect={false} 
+ 
+  
         ></TextInput>
         <Text style={textStyles}>{info}</Text>
     </View>

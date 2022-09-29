@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Image, Keyboard, Text, TextInput, View } from "react-native";
+import React, { useEffect, useRef, useState, ScrollView } from "react";
+import { Image, Keyboard, ScrollViewComponent, Text, TextInput, View } from "react-native";
 
 // import PhoneInput from "react-native-phone-input";
 import PhoneInput from "react-native-phone-number-input";
@@ -68,10 +68,15 @@ const UserDetails = ({
 
   return (
     <View style={{ flex: 1 }}>
+      {/* <ScrollView > */}
       <KeyboardAwareScrollView
         viewIsInsideTabBar={false}
-        // extraHeight={400}
+        extraHeight={40}
         enableOnAndroid={true}
+        keyboardShouldPersistTaps={"always"}
+        keyboardDismissMode='on-drag'
+        keyboardOpeningTime={0}
+        enableAutomaticScroll={true}
       >
         <View style={{ width: width, height: "65%", alignItems: "center" }}>
           <MainInput
@@ -157,9 +162,10 @@ const UserDetails = ({
             info={id ? null : error}
             textStyles={FontTheme.errortxt}
           />
-          <View style={{ paddingVertical: 40 }}></View>
+          <View style={{ paddingVertical: 80 }}></View>
         </View>
       </KeyboardAwareScrollView>
+      {/* </ScrollView> */}
       <View
         style={{
           width: width,
