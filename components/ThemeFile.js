@@ -40,7 +40,7 @@ export const FontTheme = {
 		fontSize: 17,
 		lineHeight: 32,
 		paddingTop: 10,
-		paddingBottom: 10,
+		paddingBottom: 0,
 	},
 	iconButton: {
 		fontFamily: 'Poppins-Medium',
@@ -142,7 +142,7 @@ export const ButtonTheme = {
 		elevation: 0,
 	},
 	signUpNavigation: {
-		bottom: 25,
+		bottom: '35%',
 		margin: 'auto',
 		width: '80%',
 		alignItems: 'center',

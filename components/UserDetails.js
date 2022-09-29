@@ -130,11 +130,11 @@ const UserDetails = ({
           bottom: 0,
         }}
       >
-        <SignUpNavigationButton
-          title={"Continue"}
-          loading={loading}
-          onPress={handleSubmit}
-        />
+		<SignUpNavigationButton
+			title={"Continue"}
+			loading={loading}
+			onPress={handleSubmit}
+		/>
       </View>
     </View>
   );
