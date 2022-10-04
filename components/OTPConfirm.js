@@ -6,7 +6,7 @@ import SignUpNavigationButton from "./SignUpNavigationButton";
 import { Dimensions } from "react-native";
 import { errorMsg1 } from "./appMessages";
 
-import { FontTheme } from "../components/ThemeFile";
+import { FontTheme,ColorTheme } from "../components/ThemeFile";
 
 //Device Dimenstions
 const { width } = Dimensions.get("screen");
@@ -27,6 +27,49 @@ const otpMessage = () => {
     </View>
   );
 };
+
+
+
+const resendOTP =(data)=>{
+ 
+  const handleOTPRequest = async () => {
+    console.log('====================================');
+    console.log(data.phone);
+    console.log('====================================');
+    const response = await fetch(`${keys.apiURL}api/user/confirm-otp`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        phone: data.phone,
+        otp:data.otp,
+      }),
+    });
+    const json = await response.json();
+    console.log(json);
+    if (!response.ok) {
+      alert("something when wrong please try again");
+    }
+    if (response.ok) {
+      // save user to local storage
+      console.log(json);
+    }
+  };
+
+   return(
+    <View style={{ width: width, paddingLeft:'7%', marginTop: '2%'}} >
+  <Text style={{color:"#000", alignSelf:'flex-start', width:'80%',  }}>
+  Didn't receive an OTP code?{" "}
+  <Text
+          onPress={handleOTPRequest}
+          style={FontTheme.footerLink}
+        >
+          Resend OTP.
+        </Text>
+
+</Text>
+  </View>
+   )
+} 
 
 const OTPConfirm = ({
   data,
@@ -90,8 +133,11 @@ const OTPConfirm = ({
             style={{ color: "red", alignSelf: "flex-start", paddingLeft: 25 }}
           >
             {otpErrMessage}
+            
           </Text>
+         
         )}
+        {resendOTP(data)}
 
         {otpMessage()}
       </View>

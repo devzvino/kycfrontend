@@ -135,8 +135,14 @@ const UserDetails = ({
               containerStyle={[InputTheme.signUpInput, { paddingLeft: 0 }]}
               textContainerStyle={[InputTheme.signUpInput, { paddingLeft: 0 }]}
               codeTextStyle={{
-                color: "#666",
-                fontWeight: "400",
+                fontFamily: 'Poppins-Regular',
+                fontSize: 18,
+                color: 'black',
+              }}
+              textInputStyle={{
+                fontFamily: 'Poppins-Regular',
+                fontSize: 18,
+                color: 'black',
               }}
               placeholder={" "}
               disableArrowIcon={true}
