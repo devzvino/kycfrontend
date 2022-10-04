@@ -1,5 +1,12 @@
 import React, { useEffect, useRef, useState, ScrollView } from "react";
-import { Image, Keyboard, ScrollViewComponent, Text, TextInput, View } from "react-native";
+import {
+  Image,
+  Keyboard,
+  ScrollViewComponent,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 // import PhoneInput from "react-native-phone-input";
 import PhoneInput from "react-native-phone-number-input";
@@ -74,7 +81,7 @@ const UserDetails = ({
         extraHeight={40}
         enableOnAndroid={true}
         keyboardShouldPersistTaps={"always"}
-        keyboardDismissMode='on-drag'
+        keyboardDismissMode="on-drag"
         keyboardOpeningTime={0}
         enableAutomaticScroll={true}
       >
