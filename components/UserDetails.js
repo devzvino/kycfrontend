@@ -81,7 +81,6 @@ const UserDetails = ({
         extraHeight={40}
         enableOnAndroid={true}
         keyboardShouldPersistTaps={"always"}
-        keyboardDismissMode="on-drag"
         keyboardOpeningTime={0}
         enableAutomaticScroll={true}
       >
@@ -90,7 +89,7 @@ const UserDetails = ({
             title={"First Name(s) (as on your ID)"}
             placeholder={"e.g. Phillip Joe"}
             required
-            onBlur={Keyboard.dismiss}
+            // onBlur={Keyboard.dismiss}
             onChange={(value) => {
               setFirstName(value);
             }}
@@ -101,7 +100,7 @@ const UserDetails = ({
             title={"Surname (as on your ID)"}
             placeholder={"e.g. Jones"}
             required
-            onBlur={Keyboard.dismiss}
+            // onBlur={Keyboard.dismiss}
             onChange={(value) => {
               setSurname(value);
             }}
@@ -135,14 +134,14 @@ const UserDetails = ({
               containerStyle={[InputTheme.signUpInput, { paddingLeft: 0 }]}
               textContainerStyle={[InputTheme.signUpInput, { paddingLeft: 0 }]}
               codeTextStyle={{
-                fontFamily: 'Poppins-Regular',
+                fontFamily: "Poppins-Regular",
                 fontSize: 18,
-                color: 'black',
+                color: "black",
               }}
               textInputStyle={{
-                fontFamily: 'Poppins-Regular',
+                fontFamily: "Poppins-Regular",
                 fontSize: 18,
-                color: 'black',
+                color: "black",
               }}
               placeholder={" "}
               disableArrowIcon={true}
@@ -168,7 +167,7 @@ const UserDetails = ({
             title={"ID Number"}
             placeholder={"e.g. 63111111X07"}
             required
-            onBlur={Keyboard.dismiss}
+            // onBlur={Keyboard.dismiss}
             onChange={(value) => {
               setId(value);
             }}

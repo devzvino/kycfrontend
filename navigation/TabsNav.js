@@ -13,6 +13,7 @@ const Tab = createBottomTabNavigator();
 const TabsNav = () => {
   return (
     <Tab.Navigator
+      initialRouteName="AddLocation"
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: "#2FBF00",

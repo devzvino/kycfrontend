@@ -141,7 +141,7 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <GlobalHeader title="Home" />
+      <GlobalHeader title="Dashboard" />
 
       <>
         {!tempDisplay.length ? (
