@@ -7,6 +7,11 @@ import { Dimensions } from "react-native";
 import { errorMsg1 } from "./appMessages";
 
 import { FontTheme,ColorTheme } from "../components/ThemeFile";
+import { keys } from "../environmentVariables";
+import moment from "moment";
+
+
+
 
 //Device Dimenstions
 const { width } = Dimensions.get("screen");
@@ -82,9 +87,42 @@ const OTPConfirm = ({
   const [error, setError] = useState();
   const [otpErrMessage, setOtpErrMessage] = useState();
   const [otpCon, setOtpCon] = useState();
+  const [timer, setTimer] = useState(0);
+  const [timerView, setTimerView] = useState(false);
+  const [countDown, setCountDown] = useState(120000);
+ 
 
-  console.log(data);
-  console.log(typeof otpCon);
+  const timerCulc =(duration, display)=>{
+      // setInterval(()=>{
+      //   setCountDown(countDown)
+      // }, 100)
+    let timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+     let oneMin = 60
+     startTimer(oneMin, display);
+  
+    return (
+      
+      <Text>
+        Your OTP expires in {timer}
+      </Text>
+    )
+    console.log('============Timer========================');
+     console.log(timer(r));
+     console.log('====================================');
+  }
 
   // submit function to api
   const handleSubmit = () => {
@@ -137,7 +175,8 @@ const OTPConfirm = ({
           </Text>
          
         )}
-        {resendOTP(data)}
+        <Text>{countDown}</Text>
+        {timerView? timerCulc() : resendOTP(data)}
 
         {otpMessage()}
       </View>
