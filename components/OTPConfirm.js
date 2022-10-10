@@ -121,7 +121,7 @@ const OTPConfirm = ({
       seconds = seconds < 10 ? "0" + seconds : seconds;
 
       theTime = minutes + ":" + seconds;
-      console.log(theTime);
+
       setCountDown(theTime);
 
       if (--timer < 0) {
