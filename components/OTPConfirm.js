@@ -46,7 +46,7 @@ const resendOTP = (data) => {
       alert("something when wrong please try again");
     }
     if (response.ok) {
-      // save user to local storage
+      startTimer();// save user to local storage
       console.log(json);
     }
   };
@@ -132,7 +132,7 @@ const OTPConfirm = ({
   };
 
   useEffect(() => {
-    let fiveMinutes = 60 * 2;
+    let fiveMinutes = 60 * 1;
     startTimer(fiveMinutes, theTime);
   }, []);
 
@@ -158,7 +158,7 @@ const OTPConfirm = ({
         )}
 
         {!timerView ? (
-          <Text>Your OTP expires in {countDown}</Text>
+          <Text style={{alignSelf:"flex-start", paddingLeft:'7%'}}>Your OTP expires in {countDown}</Text>
         ) : (
           resendOTP(data)
         )}
