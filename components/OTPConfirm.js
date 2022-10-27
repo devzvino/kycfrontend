@@ -32,7 +32,7 @@ const otpMessage = () => {
 
 const resendOTP = (data) => {
   const handleOTPRequest = async () => {
-    const response = await fetch(`${keys.apiURL}api/user/confirm-otp`, {
+    await fetch(`${keys.apiURL}api/user/confirm-otp`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -40,15 +40,6 @@ const resendOTP = (data) => {
         otp: data.otp,
       }),
     });
-    const json = await response.json();
-    console.log(json);
-    if (!response.ok) {
-      alert("something when wrong please try again");
-    }
-    if (response.ok) {
-      startTimer();// save user to local storage
-      console.log(json);
-    }
   };
 
   return (
@@ -131,6 +122,21 @@ const OTPConfirm = ({
     }, 1000);
   };
 
+  // handle resend
+  const handleOTPRequest = async () => {
+    setTimerView(false);
+    let fiveMinutes = 60 * 1;
+    startTimer(fiveMinutes, theTime);
+    await fetch(`${keys.apiURL}api/user/confirm-otp`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        phone: data.phone,
+        otp: data.otp,
+      }),
+    });
+  };
+
   useEffect(() => {
     let fiveMinutes = 60 * 1;
     startTimer(fiveMinutes, theTime);
@@ -158,9 +164,21 @@ const OTPConfirm = ({
         )}
 
         {!timerView ? (
-          <Text style={{alignSelf:"flex-start", paddingLeft:'7%'}}>Your OTP expires in {countDown}</Text>
+          <Text style={{ alignSelf: "flex-start", paddingLeft: "7%" }}>
+            Your OTP expires in {countDown}
+          </Text>
         ) : (
-          resendOTP(data)
+          // resendOTP(data)
+          <View style={{ width: width, paddingLeft: "7%", marginTop: "2%" }}>
+            <Text
+              style={{ color: "#000", alignSelf: "flex-start", width: "80%" }}
+            >
+              Didn't receive an OTP code?{" "}
+              <Text onPress={handleOTPRequest} style={FontTheme.footerLink}>
+                Resend OTP.
+              </Text>
+            </Text>
+          </View>
         )}
 
         {otpMessage()}

@@ -38,7 +38,7 @@ const IdUpload = ({
   console.log(data.phone);
 
   const handleOTPRequest = async () => {
-    const response = await fetch(`${keys.apiURL}api/user/confirm-otp`, {
+    await fetch(`${keys.apiURL}api/user/confirm-otp`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -46,15 +46,6 @@ const IdUpload = ({
         otp,
       }),
     });
-    const json = await response.json();
-    console.log(json);
-    if (!response.ok) {
-      alert("something when wrong please try again");
-    }
-    if (response.ok) {
-      // save user to local storage
-      console.log(json);
-    }
   };
 
   // sumit function to api
