@@ -58,7 +58,7 @@ const UserDetails = ({
         .then((result) => {
           setCompareDate(result);
           let fetcheddata = JSON.parse(compareDate);
-          if (fetcheddata.firstName === firstName.toUpperCase() && fetcheddata.surname === surname) {
+          if (fetcheddata.firstName === firstName.toUpperCase() && fetcheddata.surname === surname.toUpperCase()) {
             //  confirmation complete moving to next page
             setTimeout(() => {
               setData({
