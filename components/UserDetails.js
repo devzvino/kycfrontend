@@ -1,12 +1,5 @@
 import React, { useEffect, useRef, useState, ScrollView } from "react";
-import {
-  Image,
-  Keyboard,
-  ScrollViewComponent,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Image, Keyboard, ScrollViewComponent, Text, TextInput, View } from "react-native";
 
 // import PhoneInput from "react-native-phone-input";
 import PhoneInput from "react-native-phone-number-input";
@@ -27,6 +20,7 @@ const fillFieldError = "This field cannot be empty";
 const UserDetails = ({
   cc,
   data,
+  token,
   setData,
   setUserView,
   setIdUploadView,
@@ -39,6 +33,7 @@ const UserDetails = ({
   const [phone, setPhone] = useState();
   const [firstName, setFirstName] = useState();
   const [surname, setSurname] = useState();
+  const [compareDate, setCompareDate] = useState();
   const [id, setId] = useState();
   const phoneRef = useRef(undefined);
 
@@ -48,30 +43,49 @@ const UserDetails = ({
       setError(errorMsg1);
       setLoading(false);
     } else {
-      setTimeout(() => {
-        // data = {
-        // 	firstName,
-        // 	surname,
-        // 	phone,
-        // 	id,
-        // };
-        setData({
-          firstName,
-          surname,
-          phone:
-            phoneRef.current?.getNumberAfterPossiblyEliminatingZero()
-              .formattedNumber,
-          id,
-        });
-        setUserView(false);
-        setIdUploadView(true);
-        setOtpConfrimView(false);
-        setRegConfrimView(false);
-        setLoading(false);
-      }, 50);
+      // verify submission details
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
+      };
+
+      fetch(`https://verify.kycafrica.com/api/verifyid/${id}`, requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+          setCompareDate(result);
+          let fetcheddata = JSON.parse(compareDate);
+          if (fetcheddata.firstName === firstName.toUpperCase() && fetcheddata.surname === surname) {
+            //  confirmation complete moving to next page
+            setTimeout(() => {
+              setData({
+                firstName,
+                surname,
+                phone: phoneRef.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber,
+                id,
+              });
+              setUserView(false);
+              setIdUploadView(true);
+              setOtpConfrimView(false);
+              setRegConfrimView(false);
+              setLoading(false);
+            }, 50);
+          } else {
+            alert("Invalid information provided");
+          }
+        })
+        .catch((error) => console.log("error", error));
+
       setLoading(false);
     }
   };
+
+  let fetcheddata = JSON.parse(compareDate);
+
+  console.log(fetcheddata);
 
   return (
     <View style={{ flex: 1 }}>
@@ -152,8 +166,7 @@ const UserDetails = ({
               layout="first"
               onChangeFormattedText={(val) => {
                 setDisplayNumber(val);
-                let noZero =
-                  phoneRef.current?.getNumberAfterPossiblyEliminatingZero();
+                let noZero = phoneRef.current?.getNumberAfterPossiblyEliminatingZero();
                 setPhone(noZero.formattedNumber);
               }}
             />
@@ -187,11 +200,7 @@ const UserDetails = ({
           bottom: 0,
         }}
       >
-        <SignUpNavigationButton
-          title={"Continue"}
-          loading={loading}
-          onPress={handleSubmit}
-        />
+        <SignUpNavigationButton title={"Continue"} loading={loading} onPress={handleSubmit} />
       </View>
     </View>
   );

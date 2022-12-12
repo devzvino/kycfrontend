@@ -9,27 +9,42 @@ import * as Localization from "expo-localization";
 import MainButton from "../components/MainButton";
 
 //import styles
-import {
-  ButtonTheme,
-  FontTheme,
-  InputTheme,
-  LogoTheme,
-  SectionTheme,
-} from "../components/ThemeFile";
+import { ButtonTheme, FontTheme, InputTheme, LogoTheme, SectionTheme } from "../components/ThemeFile";
+import { keys } from "../environmentVariables";
 
 //Usable variables
 const footerMessage = "By continuing you agree to our";
 const footerLink = "terms and privacy policy";
 const appMotto = "Smart Know Your Customer Solutions in one Place";
-const appDescription =
-  "This app enables you to verify your Address & National Identity in just a few taps.";
+const appDescription = "This app enables you to verify your Address & National Identity in just a few taps.";
 
 const WelcomeScreen = () => {
   const navigation = useNavigation();
   const [cc, setCC] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [token, setToken] = useState();
   //Handling buttonPress
   const handlePress = () => {
-    navigation.navigate("SignUp", { cc });
+    setLoading(true);
+    // getting the auth token for id verification
+    var requestOptions = {
+      method: "POST",
+      redirect: "follow",
+    };
+
+    fetch(
+      `https://verify.kycafrica.com/api/auth/token?username=${keys.kycUser}&password=${keys.kycPassword}`,
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => {
+        setToken(result);
+        if (token !== null) {
+          navigation.navigate("SignUp", { cc, token });
+        }
+      })
+      .catch((error) => console.log("error", error));
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -51,14 +66,11 @@ const WelcomeScreen = () => {
       </ImageBackground>
       <View style={SectionTheme.welcomeSection2}>
         <View style={SectionTheme.welcomeSection3}>
-          <MainButton title={"Get Started"} onPress={handlePress} />
+          <MainButton title={"Get Started"} onPress={handlePress} loading={loading} />
           <Text style={FontTheme.footerText}>
             {footerMessage}{" "}
             {
-              <Text
-                onPress={() => Linking.openURL("http://google.com")}
-                style={FontTheme.footerLink}
-              >
+              <Text onPress={() => Linking.openURL("http://google.com")} style={FontTheme.footerLink}>
                 {footerLink}
               </Text>
             }
