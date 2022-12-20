@@ -28,6 +28,10 @@ const SignUp = () => {
 
   const [data, setData] = useState({});
 
+  let convertedTo = JSON.parse(params.token);
+
+  let thejwtToken = convertedTo.access_token;
+
   // let tempData;
 
   return (
@@ -51,6 +55,7 @@ const SignUp = () => {
           cc={params.cc}
           setData={setData}
           data={data}
+          token={thejwtToken}
           setUserView={setUserView}
           setIdUploadView={setIdUploadView}
           setOtpConfrimView={setOtpConfrimView}
