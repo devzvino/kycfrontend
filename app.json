@@ -1,42 +1,49 @@
 {
-	"expo": {
-		"name": "KYC AFRICA",
-		"slug": "KYC_AFRICA",
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/icon.png",
-		"userInterfaceStyle": "light",
-		"splash": {
-			"image": "./assets/splash.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#ffffff"
-		},
-		"updates": {
-			"fallbackToCacheTimeout": 0
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"supportsTablet": false,
-			"config": {
-				"googleMapsApiKey": "AIzaSyCBmk5fxV__Oh_QoxqXH7XSDnnenX_8Wx0"
-			}
-		},
-		"android": {
-			"package": "com.rilpix.kycapp",
-			"softwareKeyboardLayoutMode":"pan",
-			"config": {
-				"googleMaps": {
-					"apiKey": "AIzaSyCBmk5fxV__Oh_QoxqXH7XSDnnenX_8Wx0"
-				}
-			},
-			"versionCode": 2,
-			"adaptiveIcon": {
-				"foregroundImage": "./assets/adaptive-icon.png",
-				"backgroundColor": "#FFFFFF"
-			}
-		},
-		"web": {
-			"favicon": "./assets/favicon.png"
-		}
-	}
+  "expo": {
+    "name": "KYC AFRICA",
+    "slug": "KYC_AFRICA",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "config": {
+        "googleMapsApiKey": "AIzaSyCBmk5fxV__Oh_QoxqXH7XSDnnenX_8Wx0"
+      }
+    },
+    "android": {
+      "package": "com.rilpix.kycapp",
+      "softwareKeyboardLayoutMode": "pan",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCBmk5fxV__Oh_QoxqXH7XSDnnenX_8Wx0"
+        }
+      },
+      "versionCode": 2,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ba39433c-bb97-4808-8167-18e1a1b4699e"
+      }
+    }
+  }
 }
