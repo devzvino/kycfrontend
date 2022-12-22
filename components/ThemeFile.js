@@ -212,12 +212,10 @@ export const LogoTheme = {
     marginTop: 100,
   },
   miniLogo: {
-    height: 55,
+    height: '100%',
     resizeMode: "contain",
-    width: 180,
-    marginTop: 50,
-    marginBottom: 20,
-    alignItems: "flex-start",
+    width: 150,
+    marginTop: 30,
   },
 };
 
