@@ -22,7 +22,8 @@ const WelcomeScreen = () => {
   const navigation = useNavigation();
   const [cc, setCC] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [token, setToken] = useState();
+  let token;
+  // const [token, setToken] = useState();
   //Handling buttonPress
   const handlePress = () => {
     setLoading(true);
@@ -38,9 +39,13 @@ const WelcomeScreen = () => {
     )
       .then((response) => response.text())
       .then((result) => {
-        setToken(result);
+        token = JSON.parse(result);
+
         if (token !== null) {
-          navigation.navigate("SignUp", { cc, token });
+          navigation.navigate("SignUp", {
+            cc,
+            token,
+          });
         }
       })
       .catch((error) => console.log("error", error));

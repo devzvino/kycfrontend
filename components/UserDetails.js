@@ -36,6 +36,7 @@ const UserDetails = ({
   const [compareDate, setCompareDate] = useState();
   const [id, setId] = useState();
   const phoneRef = useRef(undefined);
+  let fetcheddata;
 
   const handleSubmit = () => {
     setLoading(true);
@@ -54,10 +55,16 @@ const UserDetails = ({
       };
 
       fetch(`https://verify.kycafrica.com/api/verifyid/${id}`, requestOptions)
-        .then((response) => response.text())
+        .then((response) => {
+          console.log(response.status);
+          if (response.status === 500) {
+            alert("Sorry Please try again later unable to connect to server");
+          }
+          response.text();
+        })
         .then((result) => {
-          setCompareDate(result);
-          let fetcheddata = JSON.parse(compareDate);
+          fetcheddata = JSON.parse(result);
+
           if (fetcheddata.firstName === firstName.toUpperCase() && fetcheddata.surname === surname.toUpperCase()) {
             //  confirmation complete moving to next page
             setTimeout(() => {
@@ -82,10 +89,6 @@ const UserDetails = ({
       setLoading(false);
     }
   };
-
-  let fetcheddata = JSON.parse(compareDate);
-
-  console.log(fetcheddata);
 
   return (
     <View style={{ flex: 1 }}>
