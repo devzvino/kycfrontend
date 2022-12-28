@@ -42,6 +42,7 @@ const WelcomeScreen = () => {
         token = JSON.parse(result);
 
         if (token !== null) {
+          setLoading(false);
           navigation.navigate("SignUp", {
             cc,
             token,
