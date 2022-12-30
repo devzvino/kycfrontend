@@ -83,42 +83,6 @@ const UserDetails = ({
           }
         })
         .catch((error) => console.log("error", error));
-
-      //?=========
-      //?=========
-
-      // https://verify.kycafrica.com/api/verifyid/631218340q75
-      // fetch(`https://verify.kycafrica.com/api/verifyid/631218340q75`, requestOptions)
-      //   .then((response) => {
-      //     response.text();
-      //     if (response.status === 500) {
-      //       return alert("Sorry Please try again later unable to connect to server");
-      //     }
-      //   })
-      //   .then((result) => {
-      //     console.log("results",result);
-      //     fetcheddata = JSON.parse(result);
-      //     if (fetcheddata.firstName === firstName.toUpperCase() && fetcheddata.surname === surname.toUpperCase()) {
-      //       //  confirmation complete moving to next page
-      //       setTimeout(() => {
-      //         setData({
-      //           firstName,
-      //           surname,
-      //           phone: phoneRef.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber,
-      //           id,
-      //         });
-      //         setUserView(false);
-      //         setIdUploadView(true);
-      //         setOtpConfrimView(false);
-      //         setRegConfrimView(false);
-      //         setLoading(false);
-      //       }, 50);
-      //     } else {
-      //       alert("Invalid information provided");
-      //     }
-      //   })
-      //   .catch((error) => console.log("error", error));
-      // !
       setLoading(false);
     }
   };

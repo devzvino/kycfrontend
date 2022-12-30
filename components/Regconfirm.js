@@ -6,25 +6,13 @@ import SvgComponent from "./SuccessSvg";
 
 //App theme styles
 import { useNavigation, useRoute } from "@react-navigation/native";
-import {
-  ButtonTheme,
-  FontTheme,
-  ImageBackgroundTheme,
-  InputTheme,
-  LogoTheme,
-} from "../components/ThemeFile";
+import { ButtonTheme, FontTheme, ImageBackgroundTheme, InputTheme, LogoTheme } from "../components/ThemeFile";
+import { keys } from "../environmentVariables";
 
 //Device Dimensions
 const { width, height } = Dimensions.get("screen");
 
-function RegConfirm({
-  data,
-  setData,
-  setUserView,
-  setIdUploadView,
-  setOtpConfrimView,
-  setRegConfrimView,
-}) {
+function RegConfirm({ data, setData, setUserView, setIdUploadView, setOtpConfrimView, setRegConfrimView }) {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const route = useRoute();
@@ -34,22 +22,19 @@ function RegConfirm({
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const response = await fetch(
-        "https://frozen-badlands-79412.herokuapp.com/api/user/",
-        {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({
-            firstname: data.firstName,
-            surname: data.surname,
-            phone: data.phone,
-            idNumber: data.id,
-            otp: data.otp,
-            idFrontImage: data.idFront.uri,
-            idBackIamge: data.yourPhoto.uri,
-          }),
-        }
-      );
+      const response = await fetch(`${keys.apiURL}api/user/`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          firstname: data.firstName,
+          surname: data.surname,
+          phone: data.phone,
+          idNumber: data.id,
+          otp: data.otp,
+          idFrontImage: data.idFront.uri,
+          idBackIamge: data.yourPhoto.uri,
+        }),
+      });
 
       const json = await response.json();
       console.log(json);
@@ -81,12 +66,9 @@ function RegConfirm({
       }}
     >
       <SvgComponent />
+      <Text style={FontTheme.footText}>You have successfully verified your national identity</Text>
       <Text style={FontTheme.footText}>
-        You have successfully verified your national identity
-      </Text>
-      <Text style={FontTheme.footText}>
-        Please Proceed to add your addresses to start the address verification
-        prosess
+        Please Proceed to add your addresses to start the address verification prosess
       </Text>
       <View
         style={{
@@ -97,11 +79,7 @@ function RegConfirm({
           bottom: 0,
         }}
       >
-        <SignUpNavigationButton
-          loading={loading}
-          onPress={handleSubmit}
-          title={"Continue"}
-        />
+        <SignUpNavigationButton loading={loading} onPress={handleSubmit} title={"Continue"} />
       </View>
     </View>
   );
