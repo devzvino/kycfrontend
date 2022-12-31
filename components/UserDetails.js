@@ -58,11 +58,12 @@ const UserDetails = ({
       fetch(`https://verify.kycafrica.com/api/verifyid/${id}`, requestOptions)
         .then((response) => response.text())
         .then((result) => {
-          if (typeof result === "string") {
+          let feedback = JSON.parse(result);
+
+          if (typeof feedback === "string") {
             alert("Sorry something when wrong, please contact Kyc Africa");
-          } else if (typeof result === "object") {
-            fetcheddata = JSON.parse(result);
-            if (fetcheddata.firstName === firstName.toUpperCase() && fetcheddata.surname === surname.toUpperCase()) {
+          } else if (typeof feedback === "object") {
+            if (feedback.firstName === firstName.toUpperCase() && feedback.surname === surname.toUpperCase()) {
               //  confirmation complete moving to next page
               setTimeout(() => {
                 setData({
