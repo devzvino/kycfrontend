@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, ScrollView } from "react";
-import { Image, Keyboard, ScrollViewComponent, Text, TextInput, View } from "react-native";
+import { Alert, Image, Keyboard, ScrollViewComponent, Text, TextInput, View } from "react-native";
 
 // import PhoneInput from "react-native-phone-input";
 import PhoneInput from "react-native-phone-number-input";
@@ -79,7 +79,7 @@ const UserDetails = ({
                 setLoading(false);
               }, 50);
             } else {
-              alert("Invalid information provided");
+              Alert.alert( "PLEASE NOTE!","You have to provide your Full Name(s) and ID Number EXACTLY as provided on your National ID.");
             }
           }
         })
