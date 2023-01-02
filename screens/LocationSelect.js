@@ -1,25 +1,10 @@
-import BottomSheet from "@gorhom/bottom-sheet";
+import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import axios from "axios";
 import * as Location from "expo-location";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import {
-  Dimensions,
-  Image,
-  Platform,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Dimensions, Image, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { mapLocationLoading } from "../components/appMessages";
@@ -30,8 +15,9 @@ import moment from "moment/moment";
 import MainButton from "../components/MainButton";
 import { keys } from "../environmentVariables";
 import { ColorTheme } from "../components/ThemeFile";
+import { ScrollView } from "react-native-gesture-handler";
 
-const { height, width } = Dimensions.get("screen");
+const { height, width } = Dimensions.get("window");
 
 const LocationSelect = () => {
   const route = useRoute();
@@ -128,14 +114,8 @@ const LocationSelect = () => {
     const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${
       currentLocation.coords.latitude
     },${currentLocation.coords.longitude}&destinations=${
-      coordinates?.latitude
-        ? coordinates.latitude
-        : currentLocation.coords.latitude
-    },${
-      coordinates?.longitude
-        ? coordinates.longitude
-        : currentLocation.coords.longitude
-    }&key=${keys.GOOGLE_API}`;
+      coordinates?.latitude ? coordinates.latitude : currentLocation.coords.latitude
+    },${coordinates?.longitude ? coordinates.longitude : currentLocation.coords.longitude}&key=${keys.GOOGLE_API}`;
     axios
       .get(url)
       .then((response) => {
@@ -257,207 +237,196 @@ const LocationSelect = () => {
   // start of render
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* navigation section */}
-      <View
-        style={{
-          position: "absolute",
-          zIndex: 10,
-          paddingTop: 20,
-          backgroundColor: "white",
-        }}
-      >
-        <GlobalHeader
-          title={
-            confrimSnapPoint
-              ? "Select Location "
-              : `Add ${title[0].toUpperCase() + title.substring(1)} Address`
-          }
-          backable={true}
-        />
-      </View>
+    <KeyboardAwareScrollView
+      enableOnAndroid
+      enableAutomaticScroll
+      extraHeight={100}
+      contentContainerStyle={{
+        flex: 1,
+      }}
+    >
+      <View style={styles.container}>
+        {/* navigation section */}
+        <View
+          style={{
+            position: "absolute",
+            zIndex: 10,
+            paddingTop: 20,
+            backgroundColor: "white",
+          }}
+        >
+          <GlobalHeader
+            title={confrimSnapPoint ? "Select Location " : `Add ${title[0].toUpperCase() + title.substring(1)} Address`}
+            backable={true}
+          />
+        </View>
 
-      {/* map section */}
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        {currentLocation ? (
-          <>
-            <MapView
-              scrollEnabled={false}
-              showsUserLocation
-              onReady
-              maxZoomLevel={20}
-              minZoomLevel={19}
-              style={{ height: height, width: width }}
-              provider={PROVIDER_GOOGLE}
-              initialRegion={{
-                latitude: currentLocation.coords.latitude,
-                longitude: currentLocation.coords.longitude,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
+        {/* map section */}
+        <View
+          style={{
+            height: height,
+            justifyContent: "center",
+            alignItems: "center",
+            position: "absolute",
+            bottom: 0,
+            marginBottom: 150,
+          }}
+        >
+          {currentLocation ? (
+            <>
+              <MapView
+                scrollEnabled={false}
+                showsUserLocation
+                onReady
+                maxZoomLevel={20}
+                minZoomLevel={19}
+                style={{ height: height, width: width }}
+                provider={PROVIDER_GOOGLE}
+                initialRegion={{
+                  latitude: currentLocation.coords.latitude,
+                  longitude: currentLocation.coords.longitude,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+                }}
+                onRegionChange={(x) => {
+                  setCoordinates({
+                    latitude: x.latitude,
+                    longitude: x.longitude,
+                  });
+                }}
+                onRegionChangeComplete={() => updateRegionCenter()}
+              />
+              <Image style={styles.imageMarker} source={require("../assets/icons/map-marker-01.png")} />
+            </>
+          ) : (
+            <Text>{mapLocationLoading}</Text>
+          )}
+        </View>
+
+        {/* bottomsheet section */}
+
+        <BottomSheet
+          animateOnMount={true}
+          // enablePanDownToClose={true}
+          ref={bottomSheetRef}
+          index={1}
+          snapPoints={confrimSnapPoint ? singleSnap : snapPoints}
+          onChange={handleSheetChanges}
+        >
+          <BottomSheetScrollView>
+            <View
+              style={{
+                flex: 1,
+                paddingVertical: 10,
+                paddingHorizontal: 25,
+                alignItems: "center",
               }}
-              onRegionChange={(x) => {
-                setCoordinates({
-                  latitude: x.latitude,
-                  longitude: x.longitude,
-                });
-              }}
-              onRegionChangeComplete={() => updateRegionCenter()}
-            />
-            <Image
-              style={styles.imageMarker}
-              source={require("../assets/icons/map-marker-01.png")}
-            />
-          </>
-        ) : (
-          <Text>{mapLocationLoading}</Text>
-        )}
+            >
+              {!confrimSnapPoint ? (
+                <>
+                  {title === "work" && (
+                    <>
+                      <FormInputWithLabel
+                        label="Company Name"
+                        keyboardType="default"
+                        value={companyName}
+                        onTextChange={setCompanyName}
+                      />
+                      <FormInputWithLabel
+                        label="Building"
+                        keyboardType="default"
+                        value={building}
+                        onTextChange={setBuilding}
+                      />
+                      <Text style={[{ textAlign: "left", width: "100%" }, styles.title]}>
+                        Time you start and end work in 24Hrs?
+                      </Text>
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          width: "100%",
+                          borderRadius: 5,
+                          justifyContent: "space-between",
+                          backgroundColor: "#EFF0F6",
+                        }}
+                      >
+                        <TouchableOpacity onPress={() => showModeStartTime("time")} style={[styles.inputContainer]}>
+                          <Text style={{ color: ColorTheme.main, fontWeight: "bold" }}>
+                            {startTime ? startTime : "Start Time"}
+                          </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => showModeEndTime("time")} style={[styles.inputContainer]}>
+                          <Text style={{ color: ColorTheme.main, fontWeight: "bold" }}>
+                            {endTime ? endTime : "End Time"}
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                      {showStart && (
+                        <DateTimePicker
+                          testID="dateTimePicker"
+                          value={date}
+                          format={"hh:mm a"}
+                          mode={mode}
+                          is24Hour={true}
+                          display={Platform.OS === "ios" ? "default" : "default"}
+                          style={{ width: "100%" }}
+                          onChange={onChange}
+                        />
+                      )}
+                      {showEnd && (
+                        <DateTimePicker
+                          testID="dateTimePicker"
+                          value={date}
+                          mode={mode}
+                          is24Hour={true}
+                          display={Platform.OS === "ios" ? "default" : "default"}
+                          style={{ width: "100%" }}
+                          onChange={onChangeEnd}
+                        />
+                      )}
+                    </>
+                  )}
+
+                  {title === "home" && (
+                    <>
+                      <FormInputWithLabel
+                        title={title}
+                        keyboardType="default"
+                        value={address}
+                        onTextChange={setAddress}
+                      />
+
+                      <FormInputWithLabel
+                        label="Suburb / Area"
+                        keyboardType="default"
+                        value={surburb}
+                        onTextChange={setSurburb}
+                      />
+                      <FormInputWithLabel label="City" keyboardType="default" value={city} onTextChange={setCity} />
+                    </>
+                  )}
+
+                  <MainButton onPress={handleAddAddress} title={loading ? "Please wait..." : "Continue"}></MainButton>
+                </>
+              ) : (
+                <View style={{ width: "100%", alignItems: "center" }}>
+                  <Text style={{ color: "#7D7D7D", textAlign: "center" }}>
+                    Please Confirm you are at your {title} location.
+                  </Text>
+
+                  <MainButton
+                    disabled={loading}
+                    onPress={handleConfirm}
+                    title={loading ? "Please wait..." : "Confirm"}
+                  ></MainButton>
+                </View>
+              )}
+            </View>
+          </BottomSheetScrollView>
+        </BottomSheet>
       </View>
-
-      {/* bottomsheet section */}
-      <BottomSheet
-        animateOnMount={true}
-        // enablePanDownToClose={true}
-        ref={bottomSheetRef}
-        index={1}
-        snapPoints={confrimSnapPoint ? singleSnap : snapPoints}
-        onChange={handleSheetChanges}
-      >
-        <KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
-          <View
-            style={{
-              flex: 1,
-              paddingVertical: 10,
-              paddingHorizontal: 25,
-              alignItems: "center",
-            }}
-          >
-            {!confrimSnapPoint ? (
-              <>
-                {title === "work" && (
-                  <>
-                    <FormInputWithLabel
-                      label="Company Name"
-                      keyboardType="default"
-                      value={companyName}
-                      onTextChange={setCompanyName}
-                    />
-                    <FormInputWithLabel
-                      label="Building"
-                      keyboardType="default"
-                      value={building}
-                      onTextChange={setBuilding}
-                    />
-                    <Text
-                      style={[
-                        { textAlign: "left", width: "100%" },
-                        styles.title,
-                      ]}
-                    >
-                      Time you start and end work in 24Hrs?
-                    </Text>
-                    <View
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                        borderRadius: 5,
-                        justifyContent: "space-between",
-                        backgroundColor: "#EFF0F6",
-                      }}
-                    >
-                      <TouchableOpacity
-                        onPress={() => showModeStartTime("time")}
-                        style={[styles.inputContainer]}
-                      >
-                        <Text
-                          style={{ color: ColorTheme.main, fontWeight: "bold" }}
-                        >
-                          {startTime ? startTime : "Start Time"}
-                        </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        onPress={() => showModeEndTime("time")}
-                        style={[styles.inputContainer]}
-                      >
-                        <Text
-                          style={{ color: ColorTheme.main, fontWeight: "bold" }}
-                        >
-                          {endTime ? endTime : "End Time"}
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                    {showStart && (
-                      <DateTimePicker
-                        testID="dateTimePicker"
-                        value={date}
-                        format={"hh:mm a"}
-                        mode={mode}
-                        is24Hour={true}
-                        display={Platform.OS === "ios" ? "default" : "default"}
-                        style={{ width: "100%" }}
-                        onChange={onChange}
-                      />
-                    )}
-                    {showEnd && (
-                      <DateTimePicker
-                        testID="dateTimePicker"
-                        value={date}
-                        mode={mode}
-                        is24Hour={true}
-                        display={Platform.OS === "ios" ? "default" : "default"}
-                        style={{ width: "100%" }}
-                        onChange={onChangeEnd}
-                      />
-                    )}
-                  </>
-                )}
-
-                {title === "home" && (
-                  <>
-                    <FormInputWithLabel
-                      title={title}
-                      keyboardType="default"
-                      value={address}
-                      onTextChange={setAddress}
-                    />
-
-                    <FormInputWithLabel
-                      label="Surburb / Area"
-                      keyboardType="default"
-                      value={surburb}
-                      onTextChange={setSurburb}
-                    />
-                    <FormInputWithLabel
-                      label="City"
-                      keyboardType="default"
-                      value={city}
-                      onTextChange={setCity}
-                    />
-                  </>
-                )}
-
-                <MainButton
-                  onPress={handleAddAddress}
-                  title={loading ? "Please wait..." : "Continue"}
-                ></MainButton>
-              </>
-            ) : (
-              <View style={{ width: "100%", alignItems: "center" }}>
-                <Text style={{ color: "#7D7D7D", textAlign: "center" }}>
-                  Please Confirm you are at your {title} location.
-                </Text>
-
-                <MainButton
-                  disabled={loading}
-                  onPress={handleConfirm}
-                  title={loading ? "Please wait..." : "Confirm"}
-                ></MainButton>
-              </View>
-            )}
-          </View>
-        </KeyboardAwareScrollView>
-      </BottomSheet>
-    </SafeAreaView>
+    </KeyboardAwareScrollView>
   );
 };
 
