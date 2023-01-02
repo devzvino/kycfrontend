@@ -4,18 +4,16 @@ import axios from "axios";
 import * as Location from "expo-location";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Dimensions, Image, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Image, Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { mapLocationLoading } from "../components/appMessages";
 import FormInputWithLabel from "../components/FormInputWithLabel";
 import GlobalHeader from "../components/GlobalHeader";
-import moment from "moment/moment";
 //import components
 import MainButton from "../components/MainButton";
 import { keys } from "../environmentVariables";
 import { ColorTheme } from "../components/ThemeFile";
-import { ScrollView } from "react-native-gesture-handler";
 
 const { height, width } = Dimensions.get("window");
 
