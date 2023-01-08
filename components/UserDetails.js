@@ -62,6 +62,7 @@ const UserDetails = ({
 
           if (typeof feedback === "string") {
             alert("Sorry something when wrong, please contact Kyc Africa");
+            setLoading(false);
           } else if (typeof feedback === "object") {
             if (feedback.firstName === firstName.toUpperCase() && feedback.surname === surname.toUpperCase()) {
               //  confirmation complete moving to next page
@@ -79,12 +80,18 @@ const UserDetails = ({
                 setLoading(false);
               }, 50);
             } else {
-              Alert.alert( "PLEASE NOTE!","You have to provide your Full Name(s) and ID Number EXACTLY as provided on your National ID.");
+              Alert.alert(
+                "PLEASE NOTE!",
+                "You have to provide your Full Name(s) and ID Number EXACTLY as provided on your National ID."
+              );
+              setLoading(false);
             }
           }
         })
-        .catch((error) => console.log("error", error));
-      setLoading(false);
+        .catch((error) => {
+          console.log("error", error);
+          setLoading(false);
+        });
     }
   };
 

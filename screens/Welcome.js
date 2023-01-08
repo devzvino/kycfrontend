@@ -11,6 +11,7 @@ import MainButton from "../components/MainButton";
 //import styles
 import { ButtonTheme, FontTheme, InputTheme, LogoTheme, SectionTheme } from "../components/ThemeFile";
 import { keys } from "../environmentVariables";
+import ButtonWithText from "../components/ButtonWithText";
 
 //Usable variables
 const footerMessage = "By continuing you agree to our";
@@ -48,9 +49,12 @@ const WelcomeScreen = () => {
             token,
           });
         }
+        setLoading(false);
       })
-      .catch((error) => console.log("error", error));
-    setLoading(false);
+      .catch((error) => {
+        console.log("error", error);
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -73,6 +77,7 @@ const WelcomeScreen = () => {
       <View style={SectionTheme.welcomeSection2}>
         <View style={SectionTheme.welcomeSection3}>
           <MainButton title={"Get Started"} onPress={handlePress} loading={loading} />
+          {/* <ButtonWithText title="Getting Started" onPress={handlePress} loading={loading} /> */}
           <Text style={FontTheme.footerText}>
             {footerMessage}{" "}
             {

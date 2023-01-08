@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, Keyboard, Linking } from "react-native";
+import { Text, View, Keyboard, Linking, ScrollView } from "react-native";
 
 import MainInput from "./MainInput";
 import SignUpNavigationButton from "./SignUpNavigationButton";
@@ -8,7 +8,6 @@ import { errorMsg1 } from "./appMessages";
 
 import { FontTheme, ColorTheme } from "../components/ThemeFile";
 import { keys } from "../environmentVariables";
-import moment from "moment";
 
 //Device Dimenstions
 const { width } = Dimensions.get("screen");
@@ -17,12 +16,8 @@ const otpMessage = () => {
   return (
     <View style={{ width: width / 1.15, marginTop: 10 }}>
       <Text style={{}}>
-        Check your SMS for your security code. If you don't receive your
-        security code, please{" "}
-        <Text
-          onPress={() => Linking.openURL("https://wa.me/263773384668")}
-          style={FontTheme.footerLink}
-        >
+        Check your SMS for your security code. If you don't receive your security code, please{" "}
+        <Text onPress={() => Linking.openURL("https://wa.me/263773384668")} style={FontTheme.footerLink}>
           contact support for further assistance.
         </Text>
       </Text>
@@ -54,13 +49,7 @@ const resendOTP = (data) => {
   );
 };
 
-const OTPConfirm = ({
-  data,
-  setUserView,
-  setIdUploadView,
-  setOtpConfrimView,
-  setRegConfrimView,
-}) => {
+const OTPConfirm = ({ data, setUserView, setIdUploadView, setOtpConfrimView, setRegConfrimView }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [otpErrMessage, setOtpErrMessage] = useState();
@@ -144,44 +133,40 @@ const OTPConfirm = ({
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={{ width: width, height: "65%", alignItems: "center" }}>
-        <MainInput
-          title={"OTP Confirmation Code"}
-          textStyles={FontTheme.errortxt}
-          required
-          info={otpCon ? null : error}
-          onBlur={Keyboard.dismiss}
-          onChange={(value) => {
-            setOtpCon(value);
-          }}
-        />
-        {otpCon === data.otp ? null : (
-          <Text
-            style={{ color: "red", alignSelf: "flex-start", paddingLeft: 25 }}
-          >
-            {otpErrMessage}
-          </Text>
-        )}
+      <View>
+        <ScrollView contentContainerStyle={{ width: width, height: "65%", alignItems: "center" }}>
+          <MainInput
+            title={"OTP Confirmation Code"}
+            textStyles={FontTheme.errortxt}
+            required
+            keyboardType="numeric"
+            info={otpCon ? null : error}
+            onBlur={Keyboard.dismiss}
+            onChange={(value) => {
+              setOtpCon(value);
+            }}
+          />
 
-        {!timerView ? (
-          <Text style={{ alignSelf: "flex-start", paddingLeft: "7%" }}>
-            Your OTP expires in {countDown}
-          </Text>
-        ) : (
-          // resendOTP(data)
-          <View style={{ width: width, paddingLeft: "7%", marginTop: "2%" }}>
-            <Text
-              style={{ color: "#000", alignSelf: "flex-start", width: "80%" }}
-            >
-              Didn't receive an OTP code?{" "}
-              <Text onPress={handleOTPRequest} style={FontTheme.footerLink}>
-                Resend OTP.
+          {otpCon === data.otp ? null : (
+            <Text style={{ color: "red", alignSelf: "flex-start", paddingLeft: 25 }}>{otpErrMessage}</Text>
+          )}
+
+          {!timerView ? (
+            <Text style={{ alignSelf: "flex-start", paddingLeft: "7%" }}>Your OTP expires in {countDown}</Text>
+          ) : (
+            // resendOTP(data)
+            <View style={{ width: width, paddingLeft: "7%", marginTop: "2%" }}>
+              <Text style={{ color: "#000", alignSelf: "flex-start", width: "80%" }}>
+                Didn't receive an OTP code?{" "}
+                <Text onPress={handleOTPRequest} style={FontTheme.footerLink}>
+                  Resend OTP.
+                </Text>
               </Text>
-            </Text>
-          </View>
-        )}
+            </View>
+          )}
 
-        {otpMessage()}
+          {otpMessage()}
+        </ScrollView>
       </View>
 
       <View
@@ -193,11 +178,7 @@ const OTPConfirm = ({
           bottom: 0,
         }}
       >
-        <SignUpNavigationButton
-          title={"Verify"}
-          loading={loading}
-          onPress={handleSubmit}
-        />
+        <SignUpNavigationButton title={"Verify"} loading={loading} onPress={handleSubmit} />
       </View>
     </View>
   );

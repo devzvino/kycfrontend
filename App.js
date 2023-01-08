@@ -6,6 +6,7 @@ import Toast from "react-native-toast-message";
 import "react-native-gesture-handler";
 import StackNavigation from "./navigation/StackNavigation";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 //import fonts
 const theme = {
   ...DefaultTheme,
@@ -15,7 +16,7 @@ const theme = {
   },
 };
 
-const App = () => {
+export default function App() {
   let [fontsLoaded] = useFonts({
     "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
     "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
@@ -36,6 +37,4 @@ const App = () => {
       </GestureHandlerRootView>
     </NavigationContainer>
   );
-};
-
-export default App;
+}
