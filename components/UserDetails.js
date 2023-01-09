@@ -164,6 +164,8 @@ const UserDetails = ({
                 fontFamily: "Poppins-Regular",
                 fontSize: 18,
                 color: "black",
+                lineHeight:0,
+                alignItems:'baseline'
               }}
               placeholder={" "}
               disableArrowIcon={true}
