@@ -159,20 +159,22 @@ const UserDetails = ({
                 fontFamily: "Poppins-Regular",
                 fontSize: 18,
                 color: "black",
+                height: 50,
+                textAlignVertical:'center'
               }}
               textInputStyle={{
                 fontFamily: "Poppins-Regular",
                 fontSize: 18,
                 color: "black",
-                lineHeight:0,
-                alignItems:'baseline'
+                height:55,
+                textAlignVertical:'center'
               }}
-              placeholder={" "}
+              placeholder={"e.g. 772852852 "}
               disableArrowIcon={true}
               ref={phoneRef}
               value={phone}
               defaultValue={phone}
-              defaultCode={cc}
+              defaultCode={"ZW"}
               layout="first"
               onChangeFormattedText={(val) => {
                 setDisplayNumber(val);

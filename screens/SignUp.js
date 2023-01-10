@@ -31,7 +31,7 @@ const SignUp = () => {
   let passedToken = params.token.access_token;
 
   return (
-    <View style={{ width: width, height: height }}>
+    <View style={{ width: width, height: height, marginTop:-20 }}>
       <View
         style={{
           width: "100%",

@@ -170,6 +170,7 @@ export const ButtonTheme = {
 
 export const InputTheme = {
   signUpInput: {
+    
     width: width / 1.15,
     backgroundColor: grey2,
     borderRadius: 5,
@@ -183,7 +184,7 @@ export const InputTheme = {
     flex: 1,
     backgroundColor: grey2,
     borderRadius: 5,
-    height: 55,
+    height: 70,
     paddingLeft: 10,
     fontFamily: "Poppins-Regular",
     fontSize: 18,
