@@ -69,7 +69,7 @@ const WelcomeScreen = () => {
   });
 
   return (
-    <View style={{ width: width, height: height}}>
+    <View style={{ width: width, height: height }}>
       <ImageBackground style={SectionTheme.welcomeSection1} source={welcomeBg}>
         <View style={SectionTheme.welcomeSection1_inner}>
           <MainLogo style={LogoTheme.mainLogo} />
@@ -84,7 +84,7 @@ const WelcomeScreen = () => {
           <Text style={FontTheme.footerText}>
             {footerMessage}{" "}
             {
-              <Text onPress={() => Linking.openURL("http://google.com")} style={FontTheme.footerLink}>
+              <Text onPress={() => Linking.openURL("http://kycafrica.com")} style={FontTheme.footerLink}>
                 {footerLink}
               </Text>
             }
