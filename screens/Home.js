@@ -1,11 +1,4 @@
-import {
-  ActivityIndicator,
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ActivityIndicator, Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import GlobalHeader from "../components/GlobalHeader";
@@ -16,6 +9,7 @@ import HomeVerificationCard from "../components/HomeVerificationCard";
 import { keys } from "../environmentVariables";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useFetchAddresses } from "../hooks/useFetchAddresses";
 
 const Home = () => {
   const { addListener } = useNavigation();
@@ -25,6 +19,7 @@ const Home = () => {
   const [errorMessage, setErrorMessage] = useState();
   const [homeLocation, setHomeLocation] = useState(null);
   const [workLocation, setWorkLocation] = useState(null);
+  const [mergedAddress, setMergedAddress] = useState();
   const [tempDisplay, setTempDisplay] = useState([]);
   let userDetails;
   let post;
@@ -71,15 +66,11 @@ const Home = () => {
       setErrorMessage("Please logout and sign back in");
     }
     //
-    let [res1, res2] = await Promise.all([
-      fetch(`${keys.apiURL}api/home/my/${id}`).then((response) =>
-        response.json()
-      ),
-      fetch(`${keys.apiURL}api/work/my/${id}`).then((response) =>
-        response.json()
-      ),
-    ]);
+    let [res1, res2] = await Promise.all([fetch(`${keys.apiURL}api/home/my/${id}`).then((response) => response.json()), fetch(`${keys.apiURL}api/work/my/${id}`).then((response) => response.json())]);
     mergingArrays(res1, res2);
+    setMergedAddress(res1, res2);
+    AsyncStorage.setItem("@mergedAddresses", JSON.stringify(mergedAddress));
+
     //
     setLoading(false);
   };
@@ -95,11 +86,7 @@ const Home = () => {
   const handleDeleteProcess = async (id, title) => {
     setRemoving(true);
     let newArray;
-    await axios.delete(
-      title === "home"
-        ? `${keys.apiURL}api/home/${id}`
-        : `${keys.apiURL}api/work/${id}`
-    );
+    await axios.delete(title === "home" ? `${keys.apiURL}api/home/${id}` : `${keys.apiURL}api/work/${id}`);
 
     newArray = tempDisplay.filter((i) => i._id !== id);
     setTempDisplay(newArray);
@@ -123,6 +110,8 @@ const Home = () => {
     };
   }, []);
 
+  // async () => await useFetchAddresses();
+
   if (loading) {
     return (
       <View
@@ -145,9 +134,7 @@ const Home = () => {
 
       <>
         {!tempDisplay.length ? (
-          <View
-            style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
-          >
+          <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
             <Text>You have not added your home or work address.</Text>
           </View>
         ) : (
@@ -172,19 +159,11 @@ const Home = () => {
               >
                 {removing ? (
                   <>
-                    <MaterialCommunityIcons
-                      name="delete-clock"
-                      size={24}
-                      color="red"
-                    />
+                    <MaterialCommunityIcons name="delete-clock" size={24} color="red" />
                   </>
                 ) : (
                   <>
-                    <MaterialCommunityIcons
-                      name="delete"
-                      size={24}
-                      color="red"
-                    />
+                    <MaterialCommunityIcons name="delete" size={24} color="red" />
                   </>
                 )}
               </TouchableOpacity>

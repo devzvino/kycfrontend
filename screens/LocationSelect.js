@@ -14,6 +14,7 @@ import GlobalHeader from "../components/GlobalHeader";
 import MainButton from "../components/MainButton";
 import { keys } from "../environmentVariables";
 import { ColorTheme } from "../components/ThemeFile";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { height, width } = Dimensions.get("window");
 

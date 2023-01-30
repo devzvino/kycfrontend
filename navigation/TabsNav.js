@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeIcon, PlusIcon, QrcodeIcon } from "react-native-heroicons/outline";
@@ -7,10 +7,13 @@ import { HomeIcon, PlusIcon, QrcodeIcon } from "react-native-heroicons/outline";
 import Home from "../screens/Home";
 import QRcode from "../screens/QRcode";
 import AddAddress from "../screens/AddAddress";
+import { useFetchAddresses } from "../hooks/useFetchAddresses";
 
 const Tab = createBottomTabNavigator();
 
 const TabsNav = () => {
+  // pull and fetch all addresses list
+
   return (
     <Tab.Navigator
       initialRouteName="AddLocation"

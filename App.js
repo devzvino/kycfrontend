@@ -6,6 +6,7 @@ import Toast from "react-native-toast-message";
 import "react-native-gesture-handler";
 import StackNavigation from "./navigation/StackNavigation";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import GlobalContainerRoot from "./components/GlobalContainerRoot";
 
 //import fonts
 const theme = {
@@ -30,11 +31,13 @@ export default function App() {
   }
 
   return (
+    <GlobalContainerRoot>
     <NavigationContainer theme={theme}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <StackNavigation />
         <Toast />
       </GestureHandlerRootView>
     </NavigationContainer>
+    </GlobalContainerRoot>
   );
 }
