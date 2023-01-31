@@ -58,19 +58,57 @@ const checkCoordinatesInRadius = (coord1, coord2, radius) => {
         databaseSingleAddress = JSON.parse(result);
         // once data is fetch
         let updatedCount = databaseSingleAddress.homeVerificationCount + 1;
-        console.log(updatedCount);
+        // console.log("count", updatedCount);
 
-        return fetch(`https://kycbackendapp.herokuapp.com/api/home/${coord1.id}`, {
-          method: "PATCH",
-          // headers: myHeaders,
-          body: JSON.stringify({
+        if (databaseSingleAddress.homeVerificationCount <= 9) {
+          // * adding second step below
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+
+          var raw = JSON.stringify({
             homeVerificationCount: updatedCount,
-          }),
-          redirect: "follow",
-        })
-          .then((response) => response.text())
-          .then((result) => console.log(result))
-          .catch((error) => console.log("error", error));
+          });
+
+          var requestOptions = {
+            method: "PATCH",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+          };
+
+          fetch(`https://kycbackendapp.herokuapp.com/api/home/${coord1.id}`, requestOptions)
+            .then((response) => response.text())
+            .then((result) => console.log(result))
+            .catch((error) => console.log("error", error));
+          // *
+        }
+
+        // changing state of verification
+        if (databaseSingleAddress.homeVerificationCount === 10 && databaseSingleAddress.homeVerified !== "success") {
+          // * adding second step below
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+
+          var raw = JSON.stringify({
+            homeVerified: "success",
+          });
+
+          var requestOptions = {
+            method: "PATCH",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+          };
+
+          fetch(`https://kycbackendapp.herokuapp.com/api/home/${coord1.id}`, requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+              console.log(result);
+              schedulePushNotification();
+            })
+            .catch((error) => console.log("error", error));
+          // *
+        }
       })
       .catch((error) => console.log("error", error));
     // !
@@ -309,9 +347,9 @@ const GlobalContainerRoot = ({ children }) => {
 async function schedulePushNotification() {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: "You've got mail! 📬",
-      body: "Here is the notification body",
-      data: { data: "goes here" },
+      title: "Verification from KYC",
+      body: "You have been verified on KYC App",
+      data: { data: "" },
     },
     trigger: { seconds: 2 },
   });
