@@ -15,8 +15,6 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const LOCATION_TASK_NAME = "background-location-task";
-
 const requestPermissions = async () => {
   const { status: foregroundStatus } = await Location.requestForegroundPermissionsAsync();
   if (foregroundStatus === "granted") {
@@ -34,10 +32,11 @@ const checkCoordinatesInRadius = (coord1, coord2, radius) => {
   const toRadians = (degree) => (degree * Math.PI) / 180;
   const R = 6371; // Earth's radius in kilometers
 
-  const lat1 = coord1.latitude;
-  const lon1 = coord1.longitude;
+  const lat1 = coord1.lat;
+  const lon1 = coord1.lng;
   const lat2 = coord2.latitude;
   const lon2 = coord2.longitude;
+  let databaseSingleAddress;
 
   const dLat = toRadians(lat2 - lat1);
   const dLon = toRadians(lon2 - lon1);
@@ -48,7 +47,40 @@ const checkCoordinatesInRadius = (coord1, coord2, radius) => {
 
   const distance = R * c;
 
-  return distance <= radius;
+  if (distance <= radius) {
+    //* verify process begins
+    // console.log(coord1.id);
+    // !
+    fetch(`https://kycbackendapp.herokuapp.com/api/home/${coord1.id}`)
+      .then((response) => response.text())
+      .then((result) => {
+        // console.log(result);
+        databaseSingleAddress = JSON.parse(result);
+        // once data is fetch
+        let updatedCount = databaseSingleAddress.homeVerificationCount + 1;
+        console.log(updatedCount);
+
+        return fetch(`https://kycbackendapp.herokuapp.com/api/home/${coord1.id}`, {
+          method: "PATCH",
+          // headers: myHeaders,
+          body: JSON.stringify({
+            homeVerificationCount: updatedCount,
+          }),
+          redirect: "follow",
+        })
+          .then((response) => response.text())
+          .then((result) => console.log(result))
+          .catch((error) => console.log("error", error));
+      })
+      .catch((error) => console.log("error", error));
+    // !
+
+    //* verify process begins
+  } else if (distance > radius) {
+    // console.log("out of range");
+  }
+
+  // return distance <= radius;
 };
 
 // end of checking
@@ -57,35 +89,68 @@ const checkCoordinatesInRadius = (coord1, coord2, radius) => {
 import * as BackgroundFetch from "expo-background-fetch";
 import * as TaskManager from "expo-task-manager";
 
+const LOCATION_TASK_NAME = "background-location-task";
+
+let currentCoords;
+
+TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
+  if (error) {
+    // Error occurred - check `error.message` for more details.
+    return;
+  }
+  if (data) {
+    const { locations } = data;
+    currentCoords = { latitude: locations[0].coords?.latitude, longitude: locations[0].coords?.longitude };
+    // console.log(currentCoords);
+    // do something with the locations captured in the background
+  }
+});
+
+async function registerLocation() {
+  return BackgroundFetch.registerTaskAsync(LOCATION_TASK_NAME, {});
+}
+
 const BACKGROUND_FETCH_TASK = "background-fetch";
-let myLocation;
+
 TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
-  // TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
-  //   if (error) {
-  //     // Error occurred - check `error.message` for more details.
-  //     return;
-  //   }
-  //   if (data) {
-  //     const { locations } = data;
-  //     // do something with the locations captured in the background
-  //   }
-  // });
-  // ?
   const now = Date.now();
+
   let asyncData = await AsyncStorage.getItem("@mergedAddresses");
+  // console.log(asyncData);
   let addressList = JSON.parse(asyncData);
+
   // mapping address list
-  // let { coords } = await Location.getCurrentPositionAsync({});
-  // setCurrentLocation(location);
+  // let location = await Location.getCurrentPositionAsync({});
+  // ?
+  // ?
+
+  // ?
+  // ?
+  // registerLocation();
 
   addressList.map((i) => {
-    let latLngHome = i.homeLatLng ? JSON.parse(i.homeLatLng) : null;
-    let latLngWork = i.workLatLng ? JSON.parse(i.workLatLng) : null;
-    console.log(latLngHome);
-    console.log(latLngWork);
-    // console.log("Location current ", coords);
+    // console.log(i);
+    let latLngHomeAry = i.homeLatLng ? JSON.parse(i.homeLatLng) : "";
+    let latLngWorkAry = i.workLatLng ? JSON.parse(i.workLatLng) : "";
+    let latLngHome = { ...latLngHomeAry, id: i._id };
+    let latLngWork = { ...latLngWorkAry, id: i._id };
 
-    // checkCoordinatesInRadius(coord1, coord2, radius);
+    // console.log(latLngHome);
+    // console.log(latLngWork);
+    // console.log("cc", currentCoords);
+
+    if (currentCoords === "undefined") {
+      registerLocation();
+    }
+
+    if (currentCoords && latLngHome) {
+      // schedulePushNotification();
+      checkCoordinatesInRadius(latLngHome, currentCoords, 50);
+    }
+
+    // if (currentCoords && latLngWork) {
+    //   checkCoordinatesInRadius(latLngHome, currentCoords, 5);
+    // }
   });
   let processedData;
 
@@ -121,16 +186,10 @@ const GlobalContainerRoot = ({ children }) => {
   const notificationListener = useRef();
   const responseListener = useRef();
   const [appStateVisible, setAppStateVisible] = useState();
-  const [currentLocation, setCurrentLocation] = useState();
-
   const [isRegistered, setIsRegistered] = useState(false);
   const [status, setStatus] = useState(null);
 
   const appState = useRef(AppState.currentState);
-
-  // useEffect(() => {
-  //   registerBackgroundFetchAsync();
-  // }, []);
 
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
@@ -283,6 +342,7 @@ async function registerForPushNotificationsAsync() {
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
     console.log(token);
+    console.log(finalStatus);
   } else {
     alert("Must use physical device for Push Notifications");
   }
