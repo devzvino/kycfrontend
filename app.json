@@ -14,17 +14,26 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false,
       "config": {
         "googleMapsApiKey": "AIzaSyCBmk5fxV__Oh_QoxqXH7XSDnnenX_8Wx0"
-      }
+      },
+      "bundleIdentifier": "com.rilpix.kycapp"
     },
     "android": {
       "package": "com.rilpix.kycapp",
       "softwareKeyboardLayoutMode": "pan",
-      "permissions": ["CAMERA", "ACCESS_COARSE_LOCATION", "ACCESS_BACKGROUND_LOCATION", "ACCESS_FINE_LOCATION", "FOREGROUND_SERVICE"],
+      "permissions": [
+        "CAMERA",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "FOREGROUND_SERVICE"
+      ],
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyCBmk5fxV__Oh_QoxqXH7XSDnnenX_8Wx0"

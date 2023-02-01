@@ -110,11 +110,7 @@ const LocationSelect = () => {
 
   // getting new location when map movies
   const updateRegionCenter = async () => {
-    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${
-      currentLocation.coords.latitude
-    },${currentLocation.coords.longitude}&destinations=${
-      coordinates?.latitude ? coordinates.latitude : currentLocation.coords.latitude
-    },${coordinates?.longitude ? coordinates.longitude : currentLocation.coords.longitude}&key=${keys.GOOGLE_API}`;
+    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${currentLocation.coords.latitude},${currentLocation.coords.longitude}&destinations=${coordinates?.latitude ? coordinates.latitude : currentLocation.coords.latitude},${coordinates?.longitude ? coordinates.longitude : currentLocation.coords.longitude}&key=${keys.GOOGLE_API}`;
     axios
       .get(url)
       .then((response) => {
@@ -254,10 +250,7 @@ const LocationSelect = () => {
             backgroundColor: "white",
           }}
         >
-          <GlobalHeader
-            title={confrimSnapPoint ? "Select Location " : `Add ${title[0].toUpperCase() + title.substring(1)} Address`}
-            backable={true}
-          />
+          <GlobalHeader title={confrimSnapPoint ? "Select Location " : `Add ${title[0].toUpperCase() + title.substring(1)} Address`} backable={true} />
         </View>
 
         {/* map section */}
@@ -325,21 +318,9 @@ const LocationSelect = () => {
                 <>
                   {title === "work" && (
                     <>
-                      <FormInputWithLabel
-                        label="Company Name"
-                        keyboardType="default"
-                        value={companyName}
-                        onTextChange={setCompanyName}
-                      />
-                      <FormInputWithLabel
-                        label="Building"
-                        keyboardType="default"
-                        value={building}
-                        onTextChange={setBuilding}
-                      />
-                      <Text style={[{ textAlign: "left", width: "100%" }, styles.title]}>
-                        Time you start and end work in 24Hrs?
-                      </Text>
+                      <FormInputWithLabel label="Company Name" keyboardType="default" value={companyName} onTextChange={setCompanyName} />
+                      <FormInputWithLabel label="Building" keyboardType="default" value={building} onTextChange={setBuilding} />
+                      <Text style={[{ textAlign: "left", width: "100%" }, styles.title]}>Time you start and end work in 24Hrs?</Text>
                       <View
                         style={{
                           display: "flex",
@@ -351,57 +332,22 @@ const LocationSelect = () => {
                         }}
                       >
                         <TouchableOpacity onPress={() => showModeStartTime("time")} style={[styles.inputContainer]}>
-                          <Text style={{ color: ColorTheme.main, fontWeight: "bold" }}>
-                            {startTime ? startTime : "Start Time"}
-                          </Text>
+                          <Text style={{ color: ColorTheme.main, fontWeight: "bold" }}>{startTime ? startTime : "Start Time"}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => showModeEndTime("time")} style={[styles.inputContainer]}>
-                          <Text style={{ color: ColorTheme.main, fontWeight: "bold" }}>
-                            {endTime ? endTime : "End Time"}
-                          </Text>
+                          <Text style={{ color: ColorTheme.main, fontWeight: "bold" }}>{endTime ? endTime : "End Time"}</Text>
                         </TouchableOpacity>
                       </View>
-                      {showStart && (
-                        <DateTimePicker
-                          testID="dateTimePicker"
-                          value={date}
-                          format={"hh:mm a"}
-                          mode={mode}
-                          is24Hour={true}
-                          display={Platform.OS === "ios" ? "default" : "default"}
-                          style={{ width: "100%" }}
-                          onChange={onChange}
-                        />
-                      )}
-                      {showEnd && (
-                        <DateTimePicker
-                          testID="dateTimePicker"
-                          value={date}
-                          mode={mode}
-                          is24Hour={true}
-                          display={Platform.OS === "ios" ? "default" : "default"}
-                          style={{ width: "100%" }}
-                          onChange={onChangeEnd}
-                        />
-                      )}
+                      {showStart && <DateTimePicker testID="dateTimePicker" value={date} format={"hh:mm a"} mode={mode} is24Hour={true} display={Platform.OS === "ios" ? "default" : "default"} style={{ width: "100%" }} onChange={onChange} />}
+                      {showEnd && <DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display={Platform.OS === "ios" ? "default" : "default"} style={{ width: "100%" }} onChange={onChangeEnd} />}
                     </>
                   )}
 
                   {title === "home" && (
                     <>
-                      <FormInputWithLabel
-                        title={title}
-                        keyboardType="default"
-                        value={address}
-                        onTextChange={setAddress}
-                      />
+                      <FormInputWithLabel title={title} keyboardType="default" value={address} onTextChange={setAddress} />
 
-                      <FormInputWithLabel
-                        label="Suburb / Area"
-                        keyboardType="default"
-                        value={surburb}
-                        onTextChange={setSurburb}
-                      />
+                      <FormInputWithLabel label="Suburb / Area" keyboardType="default" value={surburb} onTextChange={setSurburb} />
                       <FormInputWithLabel label="City" keyboardType="default" value={city} onTextChange={setCity} />
                     </>
                   )}
@@ -410,15 +356,9 @@ const LocationSelect = () => {
                 </>
               ) : (
                 <View style={{ width: "100%", alignItems: "center" }}>
-                  <Text style={{ color: "#7D7D7D", textAlign: "center" }}>
-                    Please Confirm you are at your {title} location.
-                  </Text>
+                  <Text style={{ color: "#7D7D7D", textAlign: "center" }}>Please Confirm you are at your {title} location.</Text>
 
-                  <MainButton
-                    disabled={loading}
-                    onPress={handleConfirm}
-                    title={loading ? "Please wait..." : "Confirm"}
-                  ></MainButton>
+                  <MainButton disabled={loading} onPress={handleConfirm} title={loading ? "Please wait..." : "Confirm"}></MainButton>
                 </View>
               )}
             </View>
