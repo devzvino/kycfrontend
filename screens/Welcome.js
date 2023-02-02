@@ -14,7 +14,7 @@ import { keys } from "../environmentVariables";
 // import ButtonWithText from "../components/ButtonWithText";
 import { Dimensions } from "react-native";
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("screen");
 //Usable variables
 const footerMessage = "By continuing you agree to our";
 const footerLink = "terms and privacy policy";
@@ -65,7 +65,7 @@ const WelcomeScreen = () => {
   });
 
   return (
-    <View style={{ width: width, height: height }}>
+    <View style={{ width: width, height: "100%" }}>
       <ImageBackground style={SectionTheme.welcomeSection1} source={welcomeBg}>
         <View style={SectionTheme.welcomeSection1_inner}>
           <MainLogo style={LogoTheme.mainLogo} />

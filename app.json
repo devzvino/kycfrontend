@@ -3,6 +3,9 @@
     "name": "KYC AFRICA",
     "slug": "KYC_AFRICA",
     "version": "1.0.0",
+    "androidStatusBar": {
+      "translucent": true
+    },
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",

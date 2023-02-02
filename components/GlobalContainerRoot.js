@@ -2,15 +2,13 @@
 // time for work is between 8 - 5 pm
 // verfication for home is between 12 to 5 and
 
-import { View, Text, Dimensions } from "react-native";
+import { View, Text, Dimensions, SafeAreaView } from "react-native";
 import React, { useRef, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect } from "react";
 import * as Notifications from "expo-notifications";
 import * as Location from "expo-location";
 import * as Device from "expo-device";
-
-const { height, width } = Dimensions.get("window");
 
 // setting the notification
 Notifications.setNotificationHandler({
@@ -269,6 +267,7 @@ async function unregisterBackgroundFetchAsync() {
 // ===================== BACKGROUND FETCH
 
 import { AppState } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 requestPermissions();
 
@@ -391,7 +390,12 @@ const GlobalContainerRoot = ({ children }) => {
     checkIfAddressIsStored();
   }, []);
 
-  return <View style={{ height: height, flex: 1 }}>{children}</View>;
+  return (
+    <View style={{ flex: 1, height: height }}>
+      <StatusBar style="auto" />
+      {children}
+    </View>
+  );
 };
 
 async function schedulePushNotification() {
@@ -437,4 +441,6 @@ async function registerForPushNotificationsAsync() {
 
   return token;
 }
+
+const { height, width } = Dimensions.get("window");
 export default GlobalContainerRoot;
