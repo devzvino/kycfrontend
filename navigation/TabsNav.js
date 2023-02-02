@@ -16,7 +16,7 @@ const TabsNav = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName="AddLocation"
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: "#2FBF00",

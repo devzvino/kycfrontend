@@ -392,7 +392,7 @@ const GlobalContainerRoot = ({ children }) => {
 
   return (
     <View style={{ flex: 1, height: height }}>
-      <StatusBar style="light" />
+      {/* <StatusBar style="light" /> */}
       {children}
     </View>
   );
