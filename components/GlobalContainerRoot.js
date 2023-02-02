@@ -383,7 +383,7 @@ const GlobalContainerRoot = ({ children }) => {
         // starting the background por
         registerBackgroundFetchAsync();
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -392,7 +392,7 @@ const GlobalContainerRoot = ({ children }) => {
 
   return (
     <View style={{ flex: 1, height: height }}>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
       {children}
     </View>
   );

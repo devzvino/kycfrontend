@@ -43,7 +43,7 @@ const WelcomeScreen = () => {
 
         if (token !== null) {
           setLoading(false);
-          navigation.navigate("SignUp", {
+          navigation.navigate("Login", {
             cc,
             token,
           });
