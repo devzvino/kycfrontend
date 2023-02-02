@@ -17,16 +17,7 @@ const { width, height } = Dimensions.get("screen");
 //Form validation Messages
 const fillFieldError = "This field cannot be empty";
 
-const UserDetails = ({
-  cc,
-  data,
-  token,
-  setData,
-  setUserView,
-  setIdUploadView,
-  setOtpConfrimView,
-  setRegConfrimView,
-}) => {
+const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, setOtpConfrimView, setRegConfrimView }) => {
   const [displayNumber, setDisplayNumber] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
@@ -80,10 +71,7 @@ const UserDetails = ({
                 setLoading(false);
               }, 50);
             } else {
-              Alert.alert(
-                "PLEASE NOTE!",
-                "You have to provide your Full Name(s) and ID Number EXACTLY as provided on your National ID."
-              );
+              Alert.alert("PLEASE NOTE!", "You have to provide your Full Name(s) and ID Number EXACTLY as provided on your National ID.");
               setLoading(false);
             }
           }
@@ -98,14 +86,7 @@ const UserDetails = ({
   return (
     <View style={{ flex: 1 }}>
       {/* <ScrollView > */}
-      <KeyboardAwareScrollView
-        viewIsInsideTabBar={false}
-        extraHeight={40}
-        enableOnAndroid={true}
-        keyboardShouldPersistTaps={"always"}
-        keyboardOpeningTime={0}
-        enableAutomaticScroll={true}
-      >
+      <KeyboardAwareScrollView viewIsInsideTabBar={false} extraHeight={40} enableOnAndroid={true} keyboardShouldPersistTaps={"always"} keyboardOpeningTime={0} enableAutomaticScroll={true}>
         <View style={{ width: width, height: "65%", alignItems: "center" }}>
           <MainInput
             title={"First Name(s) (as on your ID)"}
@@ -160,14 +141,14 @@ const UserDetails = ({
                 fontSize: 18,
                 color: "black",
                 height: 50,
-                textAlignVertical:'center'
+                textAlignVertical: "center",
               }}
               textInputStyle={{
                 fontFamily: "Poppins-Regular",
                 fontSize: 18,
                 color: "black",
-                height:55,
-                textAlignVertical:'center'
+                height: 55,
+                textAlignVertical: "center",
               }}
               placeholder={"e.g. 772852852 "}
               disableArrowIcon={true}

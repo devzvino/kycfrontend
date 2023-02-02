@@ -14,7 +14,7 @@ import { LogoTheme } from "../components/ThemeFile";
 import { useRoute } from "@react-navigation/native";
 
 //Device Dimenstions
-const { width, height } = Dimensions.get("screen");
+const { width, height } = Dimensions.get("window");
 
 const SignUp = () => {
   const { params } = useRoute();
@@ -31,7 +31,7 @@ const SignUp = () => {
   let passedToken = params.token.access_token;
 
   return (
-    <View style={{ width: width, height: height}}>
+    <View style={{ width: width, height: height }}>
       <View
         style={{
           width: "100%",
@@ -46,48 +46,10 @@ const SignUp = () => {
       </View>
       {/* Render Form elements here */}
 
-      {userView && (
-        <UserDetails
-          cc={params.cc}
-          setData={setData}
-          data={data}
-          token={passedToken}
-          setUserView={setUserView}
-          setIdUploadView={setIdUploadView}
-          setOtpConfrimView={setOtpConfrimView}
-          setRegConfrimView={setRegConfrimView}
-        />
-      )}
-      {idUploadView && (
-        <IdUpload
-          setData={setData}
-          data={data}
-          setUserView={setUserView}
-          setIdUploadView={setIdUploadView}
-          setOtpConfrimView={setOtpConfrimView}
-          setRegConfrimView={setRegConfrimView}
-        />
-      )}
-      {otpConfrimView && (
-        <OTPConfirm
-          setData={setData}
-          data={data}
-          setUserView={setUserView}
-          setIdUploadView={setIdUploadView}
-          setOtpConfrimView={setOtpConfrimView}
-          setRegConfrimView={setRegConfrimView}
-        />
-      )}
-      {regConfrimView && (
-        <RegConfirm
-          setData={setData}
-          data={data}
-          setUserView={setUserView}
-          setIdUploadView={setIdUploadView}
-          setOtpConfrimView={setOtpConfrimView}
-          setRegConfrimView={setRegConfrimView}
-        />
-      )}
+      {userView && <UserDetails cc={params.cc} setData={setData} data={data} token={passedToken} setUserView={setUserView} setIdUploadView={setIdUploadView} setOtpConfrimView={setOtpConfrimView} setRegConfrimView={setRegConfrimView} />}
+      {idUploadView && <IdUpload setData={setData} data={data} setUserView={setUserView} setIdUploadView={setIdUploadView} setOtpConfrimView={setOtpConfrimView} setRegConfrimView={setRegConfrimView} />}
+      {otpConfrimView && <OTPConfirm setData={setData} data={data} setUserView={setUserView} setIdUploadView={setIdUploadView} setOtpConfrimView={setOtpConfrimView} setRegConfrimView={setRegConfrimView} />}
+      {regConfrimView && <RegConfirm setData={setData} data={data} setUserView={setUserView} setIdUploadView={setIdUploadView} setOtpConfrimView={setOtpConfrimView} setRegConfrimView={setRegConfrimView} />}
     </View>
   );
 };

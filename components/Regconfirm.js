@@ -62,14 +62,14 @@ function RegConfirm({ data, setData, setUserView, setIdUploadView, setOtpConfrim
         width: width / 1.15,
         alignSelf: "center",
         alignItems: "center",
+        paddingTop: "10%",
+        flexDirection: "column",
         flex: 1,
       }}
     >
       <SvgComponent />
       <Text style={FontTheme.footText}>You have successfully verified your national identity</Text>
-      <Text style={FontTheme.footText}>
-        Please Proceed to add your addresses to start the address verification prosess
-      </Text>
+      <Text style={FontTheme.footText}>Please Proceed to add your addresses to start the address verification prosess</Text>
       <View
         style={{
           width: width,
