@@ -30,30 +30,7 @@ const WelcomeScreen = () => {
   //Handling buttonPress
   const handlePress = () => {
     setLoading(true);
-    // getting the auth token for id verification
-    var requestOptions = {
-      method: "POST",
-      redirect: "follow",
-    };
-
-    fetch(`https://verify.kycafrica.com/api/auth/token?username=${keys.kycUser}&password=${keys.kycPassword}`, requestOptions)
-      .then((response) => response.text())
-      .then((result) => {
-        token = JSON.parse(result);
-
-        if (token !== null) {
-          setLoading(false);
-          navigation.navigate("Login", {
-            cc,
-            token,
-          });
-        }
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log("error", error);
-        setLoading(false);
-      });
+    navigation.navigate("Login")
   };
 
   useEffect(() => {
