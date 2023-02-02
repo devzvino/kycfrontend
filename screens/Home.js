@@ -69,17 +69,32 @@ const Home = () => {
     let [res1, res2] = await Promise.all([fetch(`${keys.apiURL}api/home/my/${id}`).then((response) => response.json()), fetch(`${keys.apiURL}api/work/my/${id}`).then((response) => response.json())]);
     mergingArrays(res1, res2);
     setMergedAddress(res1, res2);
-    AsyncStorage.setItem("@mergedAddresses", JSON.stringify(mergedAddress));
-
     //
     setLoading(false);
   };
+
+  // const setObjectValue = async (value) => {
+  //   try {
+  //     const jsonValue = JSON.stringify(value);
+  //     await AsyncStorage.setItem("@mergedAddresses", jsonValue);
+  //   } catch (e) {
+  //     // save error
+  //   }
+  //   console.log("Done.");
+  // };
 
   const mergingArrays = (home, work) => {
     let packagedData;
     packagedData = [...home, ...work];
     setTempDisplay(packagedData);
-    // console.log(tempDisplay);
+    // setObjectValue(packagedData);
+    const jsonValue = JSON.stringify(packagedData);
+    try {
+      AsyncStorage.setItem("@mergedAddresses", jsonValue);
+      console.log("slower");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // delete home verification card
@@ -102,7 +117,7 @@ const Home = () => {
   });
 
   useEffect(() => {
-    //  getting intomation locations
+    //  getting information locations
     checkuserIfstoredandfetchdata();
     if (!tempDisplay) refresherpage();
     return () => {

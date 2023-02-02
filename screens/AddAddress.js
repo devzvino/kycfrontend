@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { BriefcaseIcon, HomeIcon } from "react-native-heroicons/outline";
 import { SafeAreaView } from "react-native-safe-area-context";
 import GlobalHeader from "../components/GlobalHeader";
@@ -31,9 +31,9 @@ const AddAddress = () => {
   useFetchAddresses();
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: "white", flex: 1, height: height }}>
       <GlobalHeader title="Add New Address" />
-      <View style={{ padding: 15 }}>
+      <View style={{ padding: 15, backgroundColor: "white" }}>
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("AddNewLocation", {
@@ -64,6 +64,8 @@ const AddAddress = () => {
 };
 
 export default AddAddress;
+
+const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   btnTitle: {

@@ -18,19 +18,7 @@ export const ColorTheme = {
   lightBlue: "#EEF9FF",
 };
 
-const {
-  primary,
-  main,
-  orange,
-  green,
-  red,
-  blue,
-  grey,
-  grey2,
-  grey3,
-  lightBlue,
-  grey4,
-} = ColorTheme;
+const { primary, main, orange, green, red, blue, grey, grey2, grey3, lightBlue, grey4 } = ColorTheme;
 
 // componets styles
 export const FontTheme = {
@@ -134,7 +122,7 @@ export const ButtonTheme = {
     alignItems: "center",
     borderRadius: 10,
     backgroundColor: main,
-    paddingVertical: 15,
+    paddingVertical: 10,
     elevation: 3,
     marginTop: 40,
     color: primary,
@@ -170,7 +158,6 @@ export const ButtonTheme = {
 
 export const InputTheme = {
   signUpInput: {
-    
     width: width / 1.15,
     backgroundColor: grey2,
     borderRadius: 5,
@@ -213,7 +200,7 @@ export const LogoTheme = {
     marginTop: 100,
   },
   miniLogo: {
-    height: '100%',
+    height: "100%",
     resizeMode: "contain",
     width: 150,
     marginTop: 30,
@@ -225,7 +212,6 @@ export const SectionTheme = {
     width: width,
     height: height / 1.5,
     borderBottomRightRadius: 75,
-    // overflow: 'hidden',
     elevation: 0,
     borderWidth: 0,
     resizeMode: "contain",

@@ -2,13 +2,15 @@
 // time for work is between 8 - 5 pm
 // verfication for home is between 12 to 5 and
 
-import { View, Text } from "react-native";
+import { View, Text, Dimensions } from "react-native";
 import React, { useRef, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect } from "react";
 import * as Notifications from "expo-notifications";
 import * as Location from "expo-location";
 import * as Device from "expo-device";
+
+const { height, width } = Dimensions.get("window");
 
 // setting the notification
 Notifications.setNotificationHandler({
@@ -325,7 +327,7 @@ const GlobalContainerRoot = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    // checkStatusAsync();
+    checkStatusAsync();
     BackgroundFetch.getStatusAsync();
   }, []);
 
@@ -377,14 +379,10 @@ const GlobalContainerRoot = ({ children }) => {
   const checkIfAddressIsStored = async () => {
     try {
       const addressData = await AsyncStorage.getItem("@mergedAddresses");
-      // ! added code here
-      // ! added code here
+
       if (addressData.length > 0) {
-        // ! added code here
-        // ! added code here
+        // starting the background por
         registerBackgroundFetchAsync();
-        // ! added code here
-        // ! added code here
       }
     } catch (error) {}
   };
@@ -393,7 +391,7 @@ const GlobalContainerRoot = ({ children }) => {
     checkIfAddressIsStored();
   }, []);
 
-  return <>{children}</>;
+  return <View style={{ height: height, flex: 1 }}>{children}</View>;
 };
 
 async function schedulePushNotification() {

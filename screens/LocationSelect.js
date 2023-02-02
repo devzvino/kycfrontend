@@ -24,6 +24,7 @@ const LocationSelect = () => {
   const { title, myId } = route.params;
 
   const [loading, setloading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
   const [confrimSnapPoint, setConfrimSnapPoint] = useState();
   const [coordinates, setCoordinates] = useState(null);
   const [currentLocation, setCurrentLocation] = useState();
@@ -156,15 +157,14 @@ const LocationSelect = () => {
   };
 
   const handleConfirm = async () => {
+    setLoading2(true);
     // validation is all distance are avalable
     if (!feedback.rows[0].elements[0].status === "OK") {
-      setloading(true);
       alert("Please drag the pin to your location");
-      setloading(false);
+      setLoading2(false);
     }
 
     if (feedback.rows[0].elements[0].distance.value < 80) {
-      setloading(true);
       if (title === "home") {
         axios
           .post(`${keys.apiURL}api/home/create`, {
@@ -222,7 +222,6 @@ const LocationSelect = () => {
 
       setloading(false);
     } else {
-      setloading(true);
       alert(`you are not ${title}`);
       setloading(false);
     }
@@ -358,7 +357,7 @@ const LocationSelect = () => {
                 <View style={{ width: "100%", alignItems: "center" }}>
                   <Text style={{ color: "#7D7D7D", textAlign: "center" }}>Please Confirm you are at your {title} location.</Text>
 
-                  <MainButton disabled={loading} onPress={handleConfirm} title={loading ? "Please wait..." : "Confirm"}></MainButton>
+                  <MainButton disabled={loading2} onPress={handleConfirm} title={loading2 ? "Please wait..." : "Confirm"}></MainButton>
                 </View>
               )}
             </View>

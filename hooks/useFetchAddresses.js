@@ -33,7 +33,7 @@ export function useFetchAddresses() {
         mergedAddress
           ? (() => {
               for (let i = 0; mergedAddress.length > i; i++) {
-                console.log("hey");
+                // console.log("hey");
                 AsyncStorage.setItem("@mergedAddresses", JSON.stringify(mergedAddress));
               }
             })()

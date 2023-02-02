@@ -14,8 +14,7 @@ import { keys } from "../environmentVariables";
 // import ButtonWithText from "../components/ButtonWithText";
 import { Dimensions } from "react-native";
 
-
-const { width, height } = Dimensions.get("screen");
+const { width, height } = Dimensions.get("window");
 //Usable variables
 const footerMessage = "By continuing you agree to our";
 const footerLink = "terms and privacy policy";
@@ -37,10 +36,7 @@ const WelcomeScreen = () => {
       redirect: "follow",
     };
 
-    fetch(
-      `https://verify.kycafrica.com/api/auth/token?username=${keys.kycUser}&password=${keys.kycPassword}`,
-      requestOptions
-    )
+    fetch(`https://verify.kycafrica.com/api/auth/token?username=${keys.kycUser}&password=${keys.kycPassword}`, requestOptions)
       .then((response) => response.text())
       .then((result) => {
         token = JSON.parse(result);
