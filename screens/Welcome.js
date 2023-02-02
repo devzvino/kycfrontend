@@ -29,7 +29,6 @@ const WelcomeScreen = () => {
   // const [token, setToken] = useState();
   //Handling buttonPress
   const handlePress = () => {
-    setLoading(true);
     navigation.navigate("Login")
   };
 
@@ -52,7 +51,7 @@ const WelcomeScreen = () => {
       </ImageBackground>
       <View style={SectionTheme.welcomeSection2}>
         <View style={SectionTheme.welcomeSection3}>
-          <MainButton title={"Get Started"} onPress={handlePress} loading={loading} />
+          <MainButton title={"Get Started"} onPress={handlePress} />
           {/* <ButtonWithText title="Getting Started" onPress={handlePress} loading={loading} /> */}
           <Text style={FontTheme.footerText}>
             {footerMessage}{" "}
