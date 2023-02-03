@@ -27,7 +27,7 @@ const StackNavigation = () => {
       if (storedUser !== null) {
         setUser(storedUser);
       }
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -36,10 +36,7 @@ const StackNavigation = () => {
   }, []);
 
   return (
-    <Stack.Navigator
-      screenOptions={{ headerShown: false }}
-      initialRouteName="Welcome"
-    >
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Welcome">
       {user ? (
         // Screens for registred in users
         <Stack.Group>
@@ -50,12 +47,8 @@ const StackNavigation = () => {
         // Auth screens
         <Stack.Group>
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUp}
-            initialParams={{ storeUser: storeUser }}
-          />
+          <Stack.Screen name="Login" component={Login} initialParams={{ storeUser: storeUser }} />
+          <Stack.Screen name="SignUp" component={SignUp} initialParams={{ storeUser: storeUser }} />
         </Stack.Group>
       )}
     </Stack.Navigator>
