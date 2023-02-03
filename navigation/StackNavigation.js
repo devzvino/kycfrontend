@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useEffect, useState } from "react";
 import LocationSelect from "../screens/LocationSelect";
 import Login from "../screens/Login";
+import QRcode from "../screens/QRcode";
 import SignUp from "../screens/SignUp";
 import WelcomeScreen from "../screens/Welcome";
 import TabsNav from "./TabsNav";
@@ -27,7 +28,7 @@ const StackNavigation = () => {
       if (storedUser !== null) {
         setUser(storedUser);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -47,6 +48,7 @@ const StackNavigation = () => {
         // Auth screens
         <Stack.Group>
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
+          <Stack.Screen name="QRcode" component={QRcode} />
           <Stack.Screen name="Login" component={Login} initialParams={{ storeUser: storeUser }} />
           <Stack.Screen name="SignUp" component={SignUp} initialParams={{ storeUser: storeUser }} />
         </Stack.Group>

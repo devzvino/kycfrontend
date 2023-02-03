@@ -12,13 +12,16 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { keys } from "../environmentVariables";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+// import { Puff } from "react-loader-spinner";
 
 const { width, height } = Dimensions.get("window");
 
 const Login = () => {
-  const [firstName, setFirstName] = useState("");
+  const [firstname, setFirstname] = useState("");
   const [id, setId] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loadingLogin, setLoadingLogin] = useState(false);
+  const [loadingSignUp, setLoadingSignUp] = useState(false);
   const [error, setError] = useState();
   const [message, setMessage] = useState();
   const navigation = useNavigation();
@@ -29,7 +32,7 @@ const Login = () => {
   const { storeUser } = route.params;
 
   const handleSignup = () => {
-    setLoading(true);
+    setLoadingSignUp(true);
     // getting the auth token for id verification
     var requestOptions = {
       method: "POST",
@@ -42,17 +45,17 @@ const Login = () => {
         token = JSON.parse(result);
 
         if (token !== null) {
-          setLoading(false);
+          setLoadingSignUp(false);
           navigation.navigate("SignUp", {
             cc,
             token,
           });
         }
-        setLoading(false);
+        setLoadingSignUp(false);
       })
       .catch((error) => {
         console.log("error", error);
-        setLoading(false);
+        setLoadingSignUp(false);
       });
   };
 
@@ -98,25 +101,25 @@ const Login = () => {
 
   const onPress = () => {
     setMessage(null);
-    setLoading(true);
-    if (!id || !firstName) {
+    setLoadingLogin(true);
+    if (!id || !firstname) {
       setMessage("All fields are required");
     }
     axios
       .post(`${keys.apiURL}api/user/login`, {
         idNumber: id,
-        firstname: firstName,
+        firstname: firstname,
       })
       .then((res) => {
         storeUser(res.data);
         AsyncStorage.setItem("@user", JSON.stringify(res.data));
         // console.log(res);
-        setLoading(false);
+        setLoadingLogin(false);
       })
       .catch((error) => {
         console.log(error);
         setMessage(error.response.data.message);
-        setLoading(false);
+        setLoadingLogin(false);
       });
   };
 
@@ -143,12 +146,12 @@ const Login = () => {
         <View style={{ flex: 1 }}>
           <View style={{ width: width, height: "100%", marginTop: 10, alignItems: "center" }}>
             <MainInput
-              title={"First Name(s)"}
-              placeholder={"e.g. Phill Tinashe"}
+              title={"First Name(s)* (as on your Id)"}
+              placeholder={"e.g. Jones"}
               required
               // onBlur={Keyboard.dismiss}
               onChange={(value) => {
-                setFirstName(value);
+                setFirstname(value);
               }}
               info={id ? null : error}
               textStyles={FontTheme.errortxt}
@@ -164,20 +167,36 @@ const Login = () => {
               info={id ? null : error}
               textStyles={FontTheme.errortxt}
             />
-            <TouchableOpacity onPress={() => onPress()} disabled={loading} style={ButtonTheme.LoginNavigation}>
-              {loading ? <ActivityIndicator /> : <Text style={FontTheme.mainButtonFont}>Login</Text>}
+            <TouchableOpacity onPress={() => onPress()} disabled={loadingLogin} style={ButtonTheme.LoginNavigation}>
+              {loadingLogin ? <ActivityIndicator /> : <Text style={FontTheme.mainButtonFont}>Login</Text>}
             </TouchableOpacity>
             <View style={{ width: "80%", height: 2, backgroundColor: "#CBCBCB", marginTop: "8%" }}></View>
             <Text style={{ fontFamily: "Poppins-Regular", marginTop: "5%", fontSize: 16, color: "#7D7D7D" }}>
-              Don't have an account?{" "}
-              <Text onPress={() => handleSignup()} style={{ fontFamily: "Poppins-Bold", marginTop: "5%", fontSize: 16, color: "#00BB56" }}>
-                Sign up
-              </Text>
+              Don't have an account?
+
             </Text>
+            <TouchableOpacity onPress={() => handleSignup()} disabled={loading} style={ButtonTheme.SignUpNavigation}>
+              {loadingSignUp ? <ActivityIndicator />
+                // <Puff
+                //   height="80"
+                //   width="80"
+                //   radius={1}
+                //   color="#4fa94d"
+                //   ariaLabel="puff-loading"
+                //   wrapperStyle={{}}
+                //   wrapperClass=""
+                //   visible={true}
+                // />
+
+
+                : <Text style={FontTheme.mainButtonFont}>Sign Up</Text>}
+            </TouchableOpacity>
           </View>
         </View>
       </View>
+
       {/* log in element */}
+
     </View>
   );
 };

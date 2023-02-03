@@ -1,8 +1,10 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { ColorTheme } from './ThemeFile';
+import { useNavigation } from '@react-navigation/native';
 
 const HomeVerificationCard = ({ item }) => {
+	const navigation = useNavigation();
 	const info = item.item;
 
 	let home;
@@ -17,7 +19,13 @@ const HomeVerificationCard = ({ item }) => {
 	}
 
 	return (
-		<View style={styles.homeCard} key={item._id}>
+		<TouchableOpacity
+			activeOpacity={1}
+			onPress={() => {
+				navigation.navigate("QRcode")
+				console.log("adrr pressed")
+			}}
+			style={styles.homeCard} key={item._id}>
 			<Text style={{ color: ColorTheme.main, fontSize: 24, fontWeight: '600' }}>
 				{home ? info.address : info.building}
 			</Text>
@@ -26,11 +34,11 @@ const HomeVerificationCard = ({ item }) => {
 				{home ? (
 					<>
 						<Text style={styles.textCoordinate}>{info.surburb}, {info.city} </Text>
-			
+
 					</>
 				) : (
 					<>
-						<Text style={styles.textCoordinate}>{info.companyName}, {info.building} </Text>	
+						<Text style={styles.textCoordinate}>{info.companyName}, {info.building} </Text>
 					</>
 				)}
 			</View>
@@ -111,7 +119,7 @@ const HomeVerificationCard = ({ item }) => {
 					)}
 				</>
 			)}
-		</View>
+		</TouchableOpacity>
 	);
 };
 
@@ -136,7 +144,7 @@ const styles = StyleSheet.create({
 		paddingTop: 15,
 		paddingBottom: 10,
 		marginBottom: 15,
-		
+
 	},
 	textCoordinate: {
 		color: ColorTheme.grey,
