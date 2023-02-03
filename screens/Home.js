@@ -154,7 +154,7 @@ const Home = () => {
           </View>
         ) : (
           <SwipeListView
-            contentContainerStyle={{ paddingHorizontal: 15 }}
+            contentContainerStyle={{ paddingHorizontal: 15, backgroundColor: "#FFFFFF" }}
             data={tempDisplay}
             keyExtractor={(item, index) => item._id}
             renderItem={(item, rowMap) => <HomeVerificationCard item={item} />}
