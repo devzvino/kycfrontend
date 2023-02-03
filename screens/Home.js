@@ -145,7 +145,7 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <GlobalHeader title="Dashboard" />
+      <GlobalHeader title="Your Registered Addresses" />
 
       <>
         {!tempDisplay.length ? (
@@ -186,6 +186,9 @@ const Home = () => {
           />
         )}
       </>
+      <View style={{ justifyContent: "center", alignItems: "center", height: "13.7%" }}>
+
+      </View>
     </SafeAreaView>
   );
 };
