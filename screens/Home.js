@@ -12,6 +12,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFetchAddresses } from "../hooks/useFetchAddresses";
 
 const Home = () => {
+
   const { addListener } = useNavigation();
 
   const [loading, setLoading] = useState(false);
@@ -21,6 +22,8 @@ const Home = () => {
   const [workLocation, setWorkLocation] = useState(null);
   const [mergedAddress, setMergedAddress] = useState();
   const [tempDisplay, setTempDisplay] = useState([]);
+
+  const navigation = useNavigation();
   let userDetails;
   let post;
 
@@ -125,6 +128,11 @@ const Home = () => {
     };
   }, []);
 
+  const handlePress = () => {
+    navigation.navigate("QRcode")
+  };
+
+
   // async () => await useFetchAddresses();
 
   if (loading) {
@@ -145,7 +153,7 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <GlobalHeader title="Your Registered Addresses" />
+      <GlobalHeader title=" Registered Addresses" />
 
       <>
         {!tempDisplay.length ? (
@@ -154,7 +162,7 @@ const Home = () => {
           </View>
         ) : (
           <SwipeListView
-            contentContainerStyle={{ paddingHorizontal: 15 }}
+            contentContainerStyle={{ paddingHorizontal: 15, backgroundColor: "#FFFFFF" }}
             data={tempDisplay}
             keyExtractor={(item, index) => item._id}
             renderItem={(item, rowMap) => <HomeVerificationCard item={item} />}
@@ -167,6 +175,8 @@ const Home = () => {
             rightOpenValue={-95}
             renderHiddenItem={(item, rowMap) => (
               <TouchableOpacity
+
+
                 onPress={() => {
                   handleDeleteProcess(item.item._id, item.item.title);
                 }}
@@ -200,6 +210,7 @@ const { width, height } = Dimensions.get("screen");
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FFFFFF"
   },
   hiddenContainer: {
     flex: 1,

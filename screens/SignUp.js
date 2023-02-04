@@ -38,6 +38,7 @@ const SignUp = () => {
           height: "20%",
           marginLeft: "8%",
           paddingTop: "10%",
+          paddingBottom: "10%"
         }}
       >
         <View style={LogoTheme.miniLogo}>
