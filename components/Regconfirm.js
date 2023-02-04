@@ -29,10 +29,10 @@ function RegConfirm({ data, setData, setUserView, setIdUploadView, setOtpConfrim
           firstname: data.firstName,
           surname: data.surname,
           phone: data.phone,
-          idNumber: data.id,
+          idNumber: data.id.toUpperCase(),
           otp: data.otp,
-          idFrontImage: data.idFront.uri,
-          idBackIamge: data.yourPhoto.uri,
+          // idFrontImage: data.idFront.uri,
+          // idBackIamge: data.yourPhoto.uri,
         }),
       });
 

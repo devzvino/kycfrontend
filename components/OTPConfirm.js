@@ -131,6 +131,9 @@ const OTPConfirm = ({ data, setUserView, setIdUploadView, setOtpConfrimView, set
     startTimer(fiveMinutes, theTime);
   }, []);
 
+  console.log(data.otp);
+  console.log(otpCon);
+
   return (
     <View style={{ flex: 1 }}>
       <View>
@@ -147,9 +150,7 @@ const OTPConfirm = ({ data, setUserView, setIdUploadView, setOtpConfrimView, set
             }}
           />
 
-          {otpCon === data.otp ? null : (
-            <Text style={{ color: "red", alignSelf: "flex-start", paddingLeft: 25 }}>{otpErrMessage}</Text>
-          )}
+          {otpCon === data.otp ? null : <Text style={{ color: "red", alignSelf: "flex-start", paddingLeft: 25 }}>{otpErrMessage}</Text>}
 
           {!timerView ? (
             <Text style={{ alignSelf: "flex-start", paddingLeft: "7%" }}>Your OTP expires in {countDown}</Text>

@@ -25,11 +25,13 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
   const [phone, setPhone] = useState();
   const [firstName, setFirstName] = useState();
   const [surname, setSurname] = useState();
-  const [otp, setOtp] = useState(Math.floor(1000 + Math.random() * 9000));
+  const [otp, setOtp] = useState();
   const [compareDate, setCompareDate] = useState();
   const [id, setId] = useState();
   const phoneRef = useRef(undefined);
   let fetcheddata;
+
+  console.log(otp);
 
   const handleOTPRequest = async () => {
     await fetch(`${keys.apiURL}api/user/confirm-otp`, {
@@ -44,7 +46,7 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
 
   // console.log(phone);
   // console.log(phoneRef.current?.state);
-  // console.log(phoneRef.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber);
+  console.log(phoneRef.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber);
   // console.log(otp);
 
   const handleSubmit = () => {
@@ -82,6 +84,7 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
                   surname,
                   phone: phoneRef.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber,
                   id,
+                  otp,
                 });
                 handleOTPRequest();
                 setUserView(false);
@@ -102,6 +105,16 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
         });
     }
   };
+
+  useEffect(() => {
+    if (otp !== null || otp !== undefined) {
+      setOtp(Math.floor(1000 + Math.random() * 9000));
+    }
+
+    return () => {
+      setOtp();
+    };
+  }, []);
 
   return (
     <View style={{ flex: 1 }}>
