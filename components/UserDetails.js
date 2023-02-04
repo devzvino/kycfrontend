@@ -10,6 +10,7 @@ import { ColorTheme, FontTheme, InputTheme } from "../components/ThemeFile";
 import { errorMsg1 } from "./appMessages";
 import MainInput from "./MainInput";
 import SignUpNavigationButton from "./SignUpNavigationButton";
+import { keys } from "../environmentVariables";
 
 //Device Dimenstions
 const { width, height } = Dimensions.get("screen");
@@ -35,11 +36,16 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
-        phone: data.phone,
+        phone: phoneRef.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber,
         otp,
       }),
     });
   };
+
+  // console.log(phone);
+  // console.log(phoneRef.current?.state);
+  // console.log(phoneRef.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber);
+  // console.log(otp);
 
   const handleSubmit = () => {
     setLoading(true);
@@ -69,7 +75,7 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
           } else if (typeof feedback === "object") {
             if (feedback.firstName === firstName.toUpperCase() && feedback.surname === surname.toUpperCase()) {
               //  confirmation complete moving to next page
-              handleOTPRequest();
+
               setTimeout(() => {
                 setData({
                   firstName,
@@ -77,6 +83,7 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
                   phone: phoneRef.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber,
                   id,
                 });
+                handleOTPRequest();
                 setUserView(false);
                 setIdUploadView(false);
                 setOtpConfrimView(true);
@@ -107,7 +114,7 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
             required
             // onBlur={Keyboard.dismiss}
             onChange={(value) => {
-              setFirstName(value);
+              setFirstName(value.trim());
             }}
             info={firstName ? null : error}
             textStyles={FontTheme.errortxt}
@@ -118,7 +125,7 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
             required
             // onBlur={Keyboard.dismiss}
             onChange={(value) => {
-              setSurname(value);
+              setSurname(value.trim());
             }}
             info={surname ? null : error}
             textStyles={FontTheme.errortxt}
@@ -188,7 +195,7 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
             required
             // onBlur={Keyboard.dismiss}
             onChange={(value) => {
-              setId(value);
+              setId(value.trim());
             }}
             info={id ? null : error}
             textStyles={FontTheme.errortxt}

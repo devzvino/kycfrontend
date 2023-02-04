@@ -146,12 +146,12 @@ const Login = () => {
         <View style={{ flex: 1 }}>
           <View style={{ width: width, height: "100%", marginTop: 10, alignItems: "center" }}>
             <MainInput
-              title={"Surname"}
+              title={"Surname (as on your ID)"}
               placeholder={"e.g. Jones"}
               required
               // onBlur={Keyboard.dismiss}
               onChange={(value) => {
-                setFirstname(value);
+                setFirstname(value.trim());
               }}
               info={id ? null : error}
               textStyles={FontTheme.errortxt}
@@ -162,7 +162,7 @@ const Login = () => {
               required
               // onBlur={Keyboard.dismiss}
               onChange={(value) => {
-                setId(value);
+                setId(value.trim());
               }}
               info={id ? null : error}
               textStyles={FontTheme.errortxt}

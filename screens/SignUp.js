@@ -38,7 +38,7 @@ const SignUp = () => {
           height: "20%",
           marginLeft: "8%",
           paddingTop: "10%",
-          paddingBottom: "10%"
+          paddingBottom: "10%",
         }}
       >
         <View style={LogoTheme.miniLogo}>
@@ -48,7 +48,7 @@ const SignUp = () => {
       {/* Render Form elements here */}
 
       {userView && <UserDetails cc={params.cc} setData={setData} data={data} token={passedToken} setUserView={setUserView} setIdUploadView={setIdUploadView} setOtpConfrimView={setOtpConfrimView} setRegConfrimView={setRegConfrimView} />}
-      {idUploadView && <IdUpload setData={setData} data={data} setUserView={setUserView} setIdUploadView={setIdUploadView} setOtpConfrimView={setOtpConfrimView} setRegConfrimView={setRegConfrimView} />}
+      {/* {idUploadView && <IdUpload setData={setData} data={data} setUserView={setUserView} setIdUploadView={setIdUploadView} setOtpConfrimView={setOtpConfrimView} setRegConfrimView={setRegConfrimView} />} */}
       {otpConfrimView && <OTPConfirm setData={setData} data={data} setUserView={setUserView} setIdUploadView={setIdUploadView} setOtpConfrimView={setOtpConfrimView} setRegConfrimView={setRegConfrimView} />}
       {regConfrimView && <RegConfirm setData={setData} data={data} setUserView={setUserView} setIdUploadView={setIdUploadView} setOtpConfrimView={setOtpConfrimView} setRegConfrimView={setRegConfrimView} />}
     </View>
