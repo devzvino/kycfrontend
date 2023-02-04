@@ -186,9 +186,7 @@ const Home = () => {
           />
         )}
       </>
-      <View style={{ justifyContent: "center", alignItems: "center", height: "13.7%" }}>
-
-      </View>
+      <View style={{ justifyContent: "center", alignItems: "center", height: "13.7%" }}></View>
     </SafeAreaView>
   );
 };

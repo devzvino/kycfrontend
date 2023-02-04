@@ -143,8 +143,8 @@ const Login = () => {
         <View style={{ flex: 1 }}>
           <View style={{ width: width, height: "100%", marginTop: 10, alignItems: "center" }}>
             <MainInput
-              title={"First Name(s)"}
-              placeholder={"e.g. Phill Tinashe"}
+              title={"Surname"}
+              placeholder={"e.g. Doe"}
               required
               // onBlur={Keyboard.dismiss}
               onChange={(value) => {

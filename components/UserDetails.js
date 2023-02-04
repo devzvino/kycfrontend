@@ -24,10 +24,22 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
   const [phone, setPhone] = useState();
   const [firstName, setFirstName] = useState();
   const [surname, setSurname] = useState();
+  const [otp, setOtp] = useState(Math.floor(1000 + Math.random() * 9000));
   const [compareDate, setCompareDate] = useState();
   const [id, setId] = useState();
   const phoneRef = useRef(undefined);
   let fetcheddata;
+
+  const handleOTPRequest = async () => {
+    await fetch(`${keys.apiURL}api/user/confirm-otp`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        phone: data.phone,
+        otp,
+      }),
+    });
+  };
 
   const handleSubmit = () => {
     setLoading(true);
@@ -57,6 +69,7 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
           } else if (typeof feedback === "object") {
             if (feedback.firstName === firstName.toUpperCase() && feedback.surname === surname.toUpperCase()) {
               //  confirmation complete moving to next page
+              handleOTPRequest();
               setTimeout(() => {
                 setData({
                   firstName,
@@ -65,8 +78,8 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
                   id,
                 });
                 setUserView(false);
-                setIdUploadView(true);
-                setOtpConfrimView(false);
+                setIdUploadView(false);
+                setOtpConfrimView(true);
                 setRegConfrimView(false);
                 setLoading(false);
               }, 50);
