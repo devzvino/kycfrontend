@@ -93,6 +93,9 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
                 setRegConfrimView(false);
                 setLoading(false);
               }, 50);
+            } else if (feedback.message) {
+              Alert.alert("PLEASE NOTE!", "Please try again in a few minutes, something went wrong");
+              setLoading(false);
             } else {
               Alert.alert("PLEASE NOTE!", "You have to provide your Full Name(s) and ID Number EXACTLY as provided on your National ID.");
               setLoading(false);
