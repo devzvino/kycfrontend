@@ -31,8 +31,6 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
   const phoneRef = useRef(undefined);
   let fetcheddata;
 
-  console.log(otp);
-
   const handleOTPRequest = async () => {
     await fetch(`${keys.apiURL}api/user/confirm-otp`, {
       method: "POST",
@@ -46,7 +44,7 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
 
   // console.log(phone);
   // console.log(phoneRef.current?.state);
-  console.log(phoneRef.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber);
+  // console.log(phoneRef.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber);
   // console.log(otp);
 
   const handleSubmit = () => {
@@ -56,56 +54,91 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
       setError(errorMsg1);
       setLoading(false);
     } else {
-      // verify submission details
+      // validation
       var myHeaders = new Headers();
-      myHeaders.append("Authorization", `Bearer ${token}`);
+      myHeaders.append("Content-Type", "application/json");
+
+      var raw = JSON.stringify({
+        idNumber: id,
+      });
 
       var requestOptions = {
-        method: "GET",
+        method: "POST",
         headers: myHeaders,
+        body: raw,
         redirect: "follow",
       };
 
-      fetch(`https://verify.kycafrica.com/api/verifyid/${id}`, requestOptions)
+      fetch("https://kycbackendapp.herokuapp.com/api/user/check/", requestOptions)
         .then((response) => response.text())
         .then((result) => {
-          let feedback = JSON.parse(result);
-
-          if (typeof feedback === "string") {
-            alert("Sorry something when wrong, please contact Kyc Africa");
+          // console.log(result);
+          let message = JSON.parse(result);
+          if (message.message === "true") {
+            Alert.alert("PLEASE NOTE!", "This account already exist, Please login");
             setLoading(false);
-          } else if (typeof feedback === "object") {
-            if (feedback.firstName === firstName.toUpperCase() && feedback.surname === surname.toUpperCase()) {
-              //  confirmation complete moving to next page
+            return;
+          } else {
+            //! other code
+            // verify submission details
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", `Bearer ${token}`);
 
-              setTimeout(() => {
-                setData({
-                  firstName,
-                  surname,
-                  phone: phoneRef.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber,
-                  id,
-                  otp,
-                });
-                handleOTPRequest();
-                setUserView(false);
-                setIdUploadView(false);
-                setOtpConfrimView(true);
-                setRegConfrimView(false);
+            var requestOptions = {
+              method: "GET",
+              headers: myHeaders,
+              redirect: "follow",
+            };
+
+            fetch(`https://verify.kycafrica.com/api/verifyid/${id}`, requestOptions)
+              .then((response) => response.text())
+              .then((result) => {
+                let feedback = JSON.parse(result);
+
+                if (typeof feedback === "string") {
+                  alert("Sorry something when wrong, please contact Kyc Africa");
+                  setLoading(false);
+                } else if (typeof feedback === "object") {
+                  if (feedback.firstName === firstName.toUpperCase() && feedback.surname === surname.toUpperCase()) {
+                    //  confirmation complete moving to next page
+
+                    setTimeout(() => {
+                      setData({
+                        firstName,
+                        surname,
+                        phone: phoneRef.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber,
+                        id,
+                        otp,
+                      });
+                      handleOTPRequest();
+                      setUserView(false);
+                      setIdUploadView(false);
+                      setOtpConfrimView(true);
+                      setRegConfrimView(false);
+                      setLoading(false);
+                    }, 50);
+                  } else if (feedback.message) {
+                    Alert.alert("PLEASE NOTE!", "Please try again in a few minutes, something went wrong");
+                    setLoading(false);
+                  } else {
+                    Alert.alert("PLEASE NOTE!", "You have to provide your Full Name(s) and ID Number EXACTLY as provided on your National ID.");
+                    setLoading(false);
+                  }
+                }
+              })
+              .catch((error) => {
+                console.log("error", error);
                 setLoading(false);
-              }, 50);
-            } else if (feedback.message) {
-              Alert.alert("PLEASE NOTE!", "Please try again in a few minutes, something went wrong");
-              setLoading(false);
-            } else {
-              Alert.alert("PLEASE NOTE!", "You have to provide your Full Name(s) and ID Number EXACTLY as provided on your National ID.");
-              setLoading(false);
-            }
+              });
+
+            //! other code
           }
         })
         .catch((error) => {
           console.log("error", error);
           setLoading(false);
         });
+      // validation
     }
   };
 
