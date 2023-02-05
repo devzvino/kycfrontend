@@ -94,7 +94,7 @@ const Home = () => {
     const jsonValue = JSON.stringify(packagedData);
     try {
       AsyncStorage.setItem("@mergedAddresses", jsonValue);
-      console.log("slower");
+
     } catch (error) {
       console.log(error);
     }
@@ -128,9 +128,6 @@ const Home = () => {
     };
   }, []);
 
-  const handlePress = () => {
-    navigation.navigate("QRcode")
-  };
 
 
   // async () => await useFetchAddresses();
@@ -196,7 +193,9 @@ const Home = () => {
           />
         )}
       </>
-      <View style={{ justifyContent: "center", alignItems: "center", height: "13.7%" }}></View>
+      <View style={{ justifyContent: "center", alignItems: "center", height: "13.7%" }}>
+
+      </View>
     </SafeAreaView>
   );
 };
