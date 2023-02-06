@@ -45,7 +45,9 @@ const checkCoordinatesInRadius = (coord1, coord2, radius) => {
   const dLat = toRadians(lat2 - lat1);
   const dLon = toRadians(lon2 - lon1);
 
-  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
 
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
@@ -142,7 +144,7 @@ const checkCoordinatesInRadius = (coord1, coord2, radius) => {
       }
 
       // * updating total count
-      if (databaseSingleAddress.homeVerificationCount < 10) {
+      if (databaseSingleAddress.homeVerificationCount < 10 && databaseSingleAddress.homeVerificationCount <= 20) {
         // adding total counts to verification
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -383,7 +385,7 @@ const GlobalContainerRoot = ({ children }) => {
         // starting the background por
         registerBackgroundFetchAsync();
       }
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {
