@@ -144,8 +144,11 @@ const checkCoordinatesInRadius = (coord1, coord2, radius) => {
       }
 
       // * updating total count
-      if (databaseSingleAddress.homeVerificationCount < 10 && databaseSingleAddress.homeVerificationCount <= 20) {
+      if (databaseSingleAddress.homeVerificationCount < 10 && databaseSingleAddress.homeTotalCount <= 19) {
         // adding total counts to verification
+        console.log("====", databaseSingleAddress);
+        console.log("coords2====", coord2);
+
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -166,6 +169,32 @@ const checkCoordinatesInRadius = (coord1, coord2, radius) => {
             //!!!!!! console.log(result);
           })
           .catch((error) => console.log("error", error));
+
+        // todo implement logging report state
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const stringedCoords = JSON.stringify(coord2);
+
+        var reportRaw = JSON.stringify({
+          user: databaseSingleAddress.user_id,
+          homeid: databaseSingleAddress._id,
+          workid: null,
+          currentLocation: stringedCoords,
+        });
+
+        var requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: reportRaw,
+          redirect: "follow",
+        };
+
+        fetch("https://kycbackendapp.herokuapp.com/api/report/create", requestOptions)
+          .then((response) => response.text())
+          .then((result) => console.log(result))
+          .catch((error) => console.log("error", error));
+        //todo implement logging report state
       }
       //
     })
