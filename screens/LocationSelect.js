@@ -163,7 +163,7 @@ const LocationSelect = () => {
 
   const handleConfirm = async () => {
     setLoading2(true);
-    // validation is all distance are avalable
+    // validation is all distance are available
     if (!feedback.rows[0].elements[0].status === "OK") {
       alert("Please drag the pin to your location");
       setLoading2(false);
@@ -320,7 +320,7 @@ const LocationSelect = () => {
             <View
               style={{
                 flex: 1,
-                backgroundColor: "red",
+
                 paddingVertical: 10,
                 paddingHorizontal: 25,
                 alignItems: "center",
@@ -351,10 +351,10 @@ const LocationSelect = () => {
                       <FormInputWithLabel
                         label="Area/Suburb"
                         keyboardType="default"
-                        value={suburbw}
-                        onTextChange={setSuburbw}
+                        value={suburb}
+                        onTextChange={setSuburb}
                       />
-                      <FormInputWithLabel label="City" keyboardType="default" value={cityw} onTextChange={setCityw} />
+                      <FormInputWithLabel label="City" keyboardType="default" value={city} onTextChange={setCity} />
                       <Text style={[{ textAlign: "left", width: "100%" }, styles.title]}>
                         Time you start and end work in 24Hrs?
                       </Text>
@@ -424,8 +424,8 @@ const LocationSelect = () => {
                       <FormInputWithLabel
                         label="Suburb / Area"
                         keyboardType="default"
-                        value={surburb}
-                        onTextChange={setSurburb}
+                        value={suburb}
+                        onTextChange={setSuburb}
                       />
                       <FormInputWithLabel label="City" keyboardType="default" value={city} onTextChange={setCity} />
                     </>
