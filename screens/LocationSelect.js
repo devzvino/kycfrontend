@@ -29,13 +29,14 @@ const LocationSelect = () => {
   const [coordinates, setCoordinates] = useState(null);
   const [currentLocation, setCurrentLocation] = useState();
 
-  const [address, setAddress] = useState();
-  const [surburb, setSurburb] = useState();
+  const [houseNo, setHouseNo] = useState();
+  const [suburb, setSuburb] = useState();
   const [companyName, setCompanyName] = useState();
   const [building, setBuilding] = useState();
+  const [streetName, setStreetName] = useState();
+  const [city, setCity] = useState();
   const [workingHours, setWorkingHours] = useState();
   const [errMsg, setErrMsg] = useState(null);
-  const [city, setCity] = useState();
 
   //date and time
   const [date, setDate] = useState(new Date());
@@ -111,7 +112,11 @@ const LocationSelect = () => {
 
   // getting new location when map movies
   const updateRegionCenter = async () => {
-    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${currentLocation.coords.latitude},${currentLocation.coords.longitude}&destinations=${coordinates?.latitude ? coordinates.latitude : currentLocation.coords.latitude},${coordinates?.longitude ? coordinates.longitude : currentLocation.coords.longitude}&key=${keys.GOOGLE_API}`;
+    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${
+      currentLocation.coords.latitude
+    },${currentLocation.coords.longitude}&destinations=${
+      coordinates?.latitude ? coordinates.latitude : currentLocation.coords.latitude
+    },${coordinates?.longitude ? coordinates.longitude : currentLocation.coords.longitude}&key=${keys.GOOGLE_API}`;
     axios
       .get(url)
       .then((response) => {
@@ -127,7 +132,7 @@ const LocationSelect = () => {
   const bottomSheetRef = useRef(<BottomSheet />, null);
 
   // variables
-  const snapPoints = useMemo(() => ["10%", "60%"], []);
+  const snapPoints = useMemo(() => ["5%", "90%"], []);
   const singleSnap = useMemo(() => ["10%", "25%"], []);
 
   const handleSheetChanges = useCallback((index) => {
@@ -137,13 +142,13 @@ const LocationSelect = () => {
   // handleAddAddress
   const handleAddAddress = () => {
     if (title === "home") {
-      if (!address || !surburb || !city) {
+      if (!streetName || !houseNo || !suburb || !city) {
         alert("Please fill in the form");
         return;
       }
     }
     if (title === "work") {
-      if (!companyName || !building || !startTime || !endTime) {
+      if (!companyName || !streetName || !suburb || !city || !building || !startTime || !endTime) {
         alert("Please fill in the form");
         return;
       }
@@ -171,8 +176,9 @@ const LocationSelect = () => {
             title: title,
             user_id: myId,
             userInfo: myId,
-            address: address,
-            surburb: surburb,
+            houseNo: houseNo,
+            streetName: streetName,
+            suburb: suburb,
             city: city,
             homeLatLng: JSON.stringify({
               lat: currentLocation.coords.latitude,
@@ -197,6 +203,9 @@ const LocationSelect = () => {
             user_id: myId,
             userInfo: myId,
             companyName: companyName,
+            streetName: streetName,
+            suburb: suburb,
+            city: city,
             building: building,
             workingHours: JSON.stringify({
               startTime: startTime,
@@ -249,7 +258,10 @@ const LocationSelect = () => {
             backgroundColor: "white",
           }}
         >
-          <GlobalHeader title={confrimSnapPoint ? "Select Location " : `Add ${title[0].toUpperCase() + title.substring(1)} Address`} backable={true} />
+          <GlobalHeader
+            title={confrimSnapPoint ? "Select Location " : `Add ${title[0].toUpperCase() + title.substring(1)} Address`}
+            backable={true}
+          />
         </View>
 
         {/* map section */}
@@ -308,6 +320,7 @@ const LocationSelect = () => {
             <View
               style={{
                 flex: 1,
+                backgroundColor: "red",
                 paddingVertical: 10,
                 paddingHorizontal: 25,
                 alignItems: "center",
@@ -317,9 +330,34 @@ const LocationSelect = () => {
                 <>
                   {title === "work" && (
                     <>
-                      <FormInputWithLabel label="Company Name" keyboardType="default" value={companyName} onTextChange={setCompanyName} />
-                      <FormInputWithLabel label="Building" keyboardType="default" value={building} onTextChange={setBuilding} />
-                      <Text style={[{ textAlign: "left", width: "100%" }, styles.title]}>Time you start and end work in 24Hrs?</Text>
+                      <FormInputWithLabel
+                        label="Company Name"
+                        keyboardType="default"
+                        value={companyName}
+                        onTextChange={setCompanyName}
+                      />
+                      <FormInputWithLabel
+                        label="Building"
+                        keyboardType="default"
+                        value={building}
+                        onTextChange={setBuilding}
+                      />
+                      <FormInputWithLabel
+                        label="Street Name"
+                        keyboardType="default"
+                        value={streetName}
+                        onTextChange={setStreetName}
+                      />
+                      <FormInputWithLabel
+                        label="Area/Suburb"
+                        keyboardType="default"
+                        value={suburbw}
+                        onTextChange={setSuburbw}
+                      />
+                      <FormInputWithLabel label="City" keyboardType="default" value={cityw} onTextChange={setCityw} />
+                      <Text style={[{ textAlign: "left", width: "100%" }, styles.title]}>
+                        Time you start and end work in 24Hrs?
+                      </Text>
                       <View
                         style={{
                           display: "flex",
@@ -331,22 +369,64 @@ const LocationSelect = () => {
                         }}
                       >
                         <TouchableOpacity onPress={() => showModeStartTime("time")} style={[styles.inputContainer]}>
-                          <Text style={{ color: ColorTheme.main, fontWeight: "bold" }}>{startTime ? startTime : "Start Time"}</Text>
+                          <Text style={{ color: ColorTheme.main, fontWeight: "bold" }}>
+                            {startTime ? startTime : "Start Time"}
+                          </Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => showModeEndTime("time")} style={[styles.inputContainer]}>
-                          <Text style={{ color: ColorTheme.main, fontWeight: "bold" }}>{endTime ? endTime : "End Time"}</Text>
+                          <Text style={{ color: ColorTheme.main, fontWeight: "bold" }}>
+                            {endTime ? endTime : "End Time"}
+                          </Text>
                         </TouchableOpacity>
                       </View>
-                      {showStart && <DateTimePicker testID="dateTimePicker" value={date} format={"hh:mm a"} mode={mode} is24Hour={true} display={Platform.OS === "ios" ? "default" : "default"} style={{ width: "100%" }} onChange={onChange} />}
-                      {showEnd && <DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display={Platform.OS === "ios" ? "default" : "default"} style={{ width: "100%" }} onChange={onChangeEnd} />}
+                      {showStart && (
+                        <DateTimePicker
+                          testID="dateTimePicker"
+                          value={date}
+                          format={"hh:mm a"}
+                          mode={mode}
+                          is24Hour={true}
+                          display={Platform.OS === "ios" ? "default" : "default"}
+                          style={{ width: "100%" }}
+                          onChange={onChange}
+                        />
+                      )}
+                      {showEnd && (
+                        <DateTimePicker
+                          testID="dateTimePicker"
+                          value={date}
+                          mode={mode}
+                          is24Hour={true}
+                          display={Platform.OS === "ios" ? "default" : "default"}
+                          style={{ width: "100%" }}
+                          onChange={onChangeEnd}
+                        />
+                      )}
                     </>
                   )}
 
                   {title === "home" && (
                     <>
-                      <FormInputWithLabel title={title} keyboardType="default" value={address} onTextChange={setAddress} />
+                      <FormInputWithLabel
+                        label="House Number"
+                        keyboardType="default"
+                        value={houseNo}
+                        onTextChange={setHouseNo}
+                      />
 
-                      <FormInputWithLabel label="Suburb / Area" keyboardType="default" value={surburb} onTextChange={setSurburb} />
+                      <FormInputWithLabel
+                        label="Street Name"
+                        keyboardType="default"
+                        value={streetName}
+                        onTextChange={setStreetName}
+                      />
+
+                      <FormInputWithLabel
+                        label="Suburb / Area"
+                        keyboardType="default"
+                        value={surburb}
+                        onTextChange={setSurburb}
+                      />
                       <FormInputWithLabel label="City" keyboardType="default" value={city} onTextChange={setCity} />
                     </>
                   )}
@@ -355,9 +435,15 @@ const LocationSelect = () => {
                 </>
               ) : (
                 <View style={{ width: "100%", alignItems: "center" }}>
-                  <Text style={{ color: "#7D7D7D", textAlign: "center" }}>Please Confirm you are at your {title} location.</Text>
+                  <Text style={{ color: "#7D7D7D", textAlign: "center" }}>
+                    Please Confirm you are at your {title} location.
+                  </Text>
 
-                  <MainButton disabled={loading2} onPress={handleConfirm} title={loading2 ? "Please wait..." : "Confirm"}></MainButton>
+                  <MainButton
+                    disabled={loading2}
+                    onPress={handleConfirm}
+                    title={loading2 ? "Please wait..." : "Confirm"}
+                  ></MainButton>
                 </View>
               )}
             </View>
