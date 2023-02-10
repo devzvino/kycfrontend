@@ -1,3 +1,4 @@
+import { placeholder } from 'deprecated-react-native-prop-types/DeprecatedTextInputPropTypes';
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
@@ -7,6 +8,7 @@ const FormInputWithLabel = ({
 	keyboardType,
 	value,
 	onTextChange,
+	placeholder
 }) => {
 	return (
 		<View style={styles.imputContainer}>
@@ -18,6 +20,7 @@ const FormInputWithLabel = ({
 				style={styles.input}
 				value={value}
 				onChangeText={onTextChange}
+				placeholder={placeholder}
 			/>
 		</View>
 	);

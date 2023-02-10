@@ -112,11 +112,9 @@ const LocationSelect = () => {
 
   // getting new location when map movies
   const updateRegionCenter = async () => {
-    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${
-      currentLocation.coords.latitude
-    },${currentLocation.coords.longitude}&destinations=${
-      coordinates?.latitude ? coordinates.latitude : currentLocation.coords.latitude
-    },${coordinates?.longitude ? coordinates.longitude : currentLocation.coords.longitude}&key=${keys.GOOGLE_API}`;
+    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${currentLocation.coords.latitude
+      },${currentLocation.coords.longitude}&destinations=${coordinates?.latitude ? coordinates.latitude : currentLocation.coords.latitude
+      },${coordinates?.longitude ? coordinates.longitude : currentLocation.coords.longitude}&key=${keys.GOOGLE_API}`;
     axios
       .get(url)
       .then((response) => {
@@ -335,26 +333,36 @@ const LocationSelect = () => {
                         keyboardType="default"
                         value={companyName}
                         onTextChange={setCompanyName}
+                        placeholder={'e.g. KYC Africa (Pvt) Ltd '}
                       />
                       <FormInputWithLabel
                         label="Building"
                         keyboardType="default"
                         value={building}
                         onTextChange={setBuilding}
+                        placeholder={'e.g. Joina City'}
                       />
                       <FormInputWithLabel
-                        label="Street Name"
+                        label="Street Address"
                         keyboardType="default"
                         value={streetName}
                         onTextChange={setStreetName}
+                        placeholder={'e.g. 54 Jason Moyo Ave'}
                       />
                       <FormInputWithLabel
                         label="Area/Suburb"
                         keyboardType="default"
                         value={suburb}
                         onTextChange={setSuburb}
+                        placeholder={'e.g. CBD'}
                       />
-                      <FormInputWithLabel label="City" keyboardType="default" value={city} onTextChange={setCity} />
+                      <FormInputWithLabel
+                        label="City"
+                        keyboardType="default"
+                        value={city}
+                        onTextChange={setCity}
+                        placeholder={'e.g. Harare'}
+                      />
                       <Text style={[{ textAlign: "left", width: "100%" }, styles.title]}>
                         Time you start and end work in 24Hrs?
                       </Text>
@@ -412,6 +420,8 @@ const LocationSelect = () => {
                         keyboardType="default"
                         value={houseNo}
                         onTextChange={setHouseNo}
+                        placeholder={'e.g. Flat 239'}
+
                       />
 
                       <FormInputWithLabel
@@ -419,6 +429,7 @@ const LocationSelect = () => {
                         keyboardType="default"
                         value={streetName}
                         onTextChange={setStreetName}
+                        placeholder={'e.g. Glancore Road'}
                       />
 
                       <FormInputWithLabel
@@ -426,8 +437,15 @@ const LocationSelect = () => {
                         keyboardType="default"
                         value={suburb}
                         onTextChange={setSuburb}
+                        placeholder={'e.g. Queensdale'}
                       />
-                      <FormInputWithLabel label="City" keyboardType="default" value={city} onTextChange={setCity} />
+                      <FormInputWithLabel
+                        label="City"
+                        keyboardType="default"
+                        value={city}
+                        onTextChange={setCity}
+                        placeholder={'e.g. Harare'}
+                      />
                     </>
                   )}
 

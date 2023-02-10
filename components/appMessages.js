@@ -5,4 +5,4 @@ export const errorMsg1 = 'To proceed, this field cannot be empty';
 export const greetings = '';
 
 //map messages
-export const mapLocationLoading= 'Please wait while we get your current location...'
+export const mapLocationLoading = 'Getting your current location...'
