@@ -29,7 +29,7 @@ const HomeVerificationCard = ({ item }) => {
       key={item._id}
     >
       <Text style={{ color: ColorTheme.main, fontSize: 24, fontWeight: "600" }}>
-        {home ? info.streetName : info.building}
+        {home ? info.houseNo + " " + info.streetName : info.building}
       </Text>
       {/* coordinates */}
       <View style={{ flexDirection: "row", marginTop: 10 }}>
