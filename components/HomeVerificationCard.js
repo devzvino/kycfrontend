@@ -58,8 +58,11 @@ const HomeVerificationCard = ({ item }) => {
         {/*  */}
       </View>
       <View>
-        <Text style={{ color: ColorTheme.main, fontSize: 18, fontWeight: "600" }}>
-          {home ? info.houseNo + " " + info.streetName : info.building}
+        <Text style={{ color: 'black', fontSize: 18, fontWeight: "600" }}>
+          {home ? info.houseNo : info.building}
+        </Text>
+        <Text style={{ color: 'black', fontSize: 18, fontWeight: "600" }}>
+          {home ? info.streetName : info.streetName}
         </Text>
         {/* coordinates */}
         <View style={{ flexDirection: "row", marginTop: 2 }}>
@@ -72,7 +75,7 @@ const HomeVerificationCard = ({ item }) => {
           ) : (
             <>
               <Text style={styles.textCoordinate}>
-                {info.companyName}, {info.building}{" "}
+                {info.companyName}, {info.city}{" "}
               </Text>
             </>
           )}
