@@ -118,7 +118,7 @@ const Login = () => {
       })
       .catch((error) => {
         console.log(error);
-        setMessage(error.response.data.message);
+        setMessage("You don't have an account. Please REGISTER below.");
         setLoadingLogin(false);
       });
   };
@@ -187,7 +187,7 @@ const Login = () => {
                 //   visible={true}
                 // />
 
-                <Text style={FontTheme.mainButtonFont}>Sign Up</Text>
+                <Text style={FontTheme.mainButtonFont}>Register</Text>
               )}
             </TouchableOpacity>
           </View>
