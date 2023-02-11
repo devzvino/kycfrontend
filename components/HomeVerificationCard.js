@@ -28,72 +28,105 @@ const HomeVerificationCard = ({ item }) => {
       style={styles.homeCard}
       key={item._id}
     >
+<<<<<<< HEAD
       <Text style={{ color: ColorTheme.main, fontSize: 18, fontWeight: "600" }}>
         {home ? info.houseNo + " " + info.streetName : info.building}
       </Text>
       {/* coordinates */}
       <View style={{ flexDirection: "row", marginTop: 10 }}>
+=======
+      <View style={{ height: "100%", marginRight: 10 }}>
+        {/*  */}
+>>>>>>> origin/main
         {home ? (
           <>
-            <Text style={styles.textCoordinate}>
-              {info.suburb}, {info.city}{" "}
-            </Text>
+            {info.homeVerified === "pending" && (
+              <View style={{ width: 20, height: "100%", backgroundColor: ColorTheme.orange }}></View>
+            )}
+            {info.homeVerified === "failed" && (
+              <View style={{ width: 20, height: "100%", backgroundColor: ColorTheme.red }}></View>
+            )}
+            {info.homeVerified === "success" && (
+              <View style={{ width: 20, height: "100%", backgroundColor: ColorTheme.main }}></View>
+            )}
           </>
         ) : (
           <>
-            <Text style={styles.textCoordinate}>
-              {info.companyName}, {info.building}{" "}
-            </Text>
+            {info.workVerified === "pending" && (
+              <View style={{ width: 20, height: "100%", backgroundColor: ColorTheme.orange }}></View>
+            )}
+            {info.workVerified === "failed" && (
+              <View style={{ width: 20, height: "100%", backgroundColor: ColorTheme.red }}></View>
+            )}
+            {info.workVerified === "success" && (
+              <View style={{ width: 20, height: "100%", backgroundColor: ColorTheme.main }}></View>
+            )}
+          </>
+        )}
+        {/*  */}
+      </View>
+      <View>
+        <Text style={{ color: ColorTheme.main, fontSize: 24, fontWeight: "600" }}>
+          {home ? info.houseNo + " " + info.streetName : info.building}
+        </Text>
+        {/* coordinates */}
+        <View style={{ flexDirection: "row", marginTop: 10 }}>
+          {home ? (
+            <>
+              <Text style={styles.textCoordinate}>
+                {info.suburb}, {info.city}{" "}
+              </Text>
+            </>
+          ) : (
+            <>
+              <Text style={styles.textCoordinate}>
+                {info.companyName}, {info.building}{" "}
+              </Text>
+            </>
+          )}
+        </View>
+        {/* category */}
+        <Text style={styles.textCoordinate}>{info.title} Address</Text>
+
+        {/* verification */}
+        {home ? (
+          <>
+            {info.homeVerified === "pending" && (
+              <View style={styles.v_container}>
+                <Text style={{ fontWeight: "600", color: ColorTheme.orange }}>Pending Verification</Text>
+              </View>
+            )}
+            {info.homeVerified === "failed" && (
+              <View style={styles.v_container}>
+                <Text style={{ fontWeight: "600", color: ColorTheme.red }}>Verification Failed</Text>
+              </View>
+            )}
+            {info.homeVerified === "success" && (
+              <View style={styles.v_container}>
+                <Text style={{ fontWeight: "600", color: ColorTheme.main }}>Verified</Text>
+              </View>
+            )}
+          </>
+        ) : (
+          <>
+            {info.workVerified === "pending" && (
+              <View style={styles.v_container}>
+                <Text style={{ fontWeight: "600", color: ColorTheme.orange }}>Pending Verification</Text>
+              </View>
+            )}
+            {info.workVerified === "failed" && (
+              <View style={styles.v_container}>
+                <Text style={{ fontWeight: "600", color: ColorTheme.red }}>Verification Failed</Text>
+              </View>
+            )}
+            {info.workVerified === "success" && (
+              <View style={styles.v_container}>
+                <Text style={{ fontWeight: "600", color: ColorTheme.main }}>Verified</Text>
+              </View>
+            )}
           </>
         )}
       </View>
-      {/* category */}
-      <Text style={styles.textCoordinate}>{info.title} Address</Text>
-
-      {/* verification */}
-      {home ? (
-        <>
-          {info.homeVerified === "pending" && (
-            <View style={styles.v_container}>
-              <Image style={styles.verificationIcon} source={require("../assets/icons/verification_pending.png")} />
-              <Text style={{ fontWeight: "600", color: ColorTheme.orange }}>Pending Verification</Text>
-            </View>
-          )}
-          {info.homeVerified === "failed" && (
-            <View style={styles.v_container}>
-              <Image style={styles.verificationIcon} source={require("../assets/icons/verification_failed.png")} />
-              <Text style={{ fontWeight: "600", color: ColorTheme.red }}>Verification Failed</Text>
-            </View>
-          )}
-          {info.homeVerified === "success" && (
-            <View style={styles.v_container}>
-              <Image style={styles.verificationIcon} source={require("../assets/icons/verification_success.png")} />
-              <Text style={{ fontWeight: "600", color: ColorTheme.main }}>Verified</Text>
-            </View>
-          )}
-        </>
-      ) : (
-        <>
-          {info.workVerified === "pending" && (
-            <View style={styles.v_container}>
-              <Image style={styles.verificationIcon} source={require("../assets/icons/verification_pending.png")} />
-              <Text style={{ fontWeight: "600", color: ColorTheme.orange }}>Pending Verification</Text>
-            </View>
-          )}
-          {info.workVerified === "failed" && (
-            <View style={styles.v_container}>
-              <Image style={styles.verificationIcon} source={require("../assets/icons/verification_failed.png")} />
-              <Text style={{ fontWeight: "600", color: ColorTheme.red }}>Verification Failed</Text>
-            </View>
-          )}
-          {info.workVerified === "success" && (
-            <View style={styles.v_container}>
-              <Image style={styles.verificationIcon} source={require("../assets/icons/verification_success.png")} />
-              <Text style={{ fontWeight: "600", color: ColorTheme.main }}>Verified</Text>
-            </View>
-          )}
-        </>
-      )}
     </TouchableOpacity>
   );
 };
@@ -115,10 +148,12 @@ const styles = StyleSheet.create({
   homeCard: {
     backgroundColor: "#F8F8F8",
     borderRadius: 10,
-    paddingHorizontal: 15,
-    paddingTop: 15,
-    paddingBottom: 10,
     marginBottom: 15,
+    display: "flex",
+    alignItems: "center",
+    overflow: "hidden",
+    flexDirection: "row",
+    height: 110,
   },
   textCoordinate: {
     color: ColorTheme.grey,
