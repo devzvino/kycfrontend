@@ -28,16 +28,8 @@ const HomeVerificationCard = ({ item }) => {
       style={styles.homeCard}
       key={item._id}
     >
-<<<<<<< HEAD
-      <Text style={{ color: ColorTheme.main, fontSize: 18, fontWeight: "600" }}>
-        {home ? info.houseNo + " " + info.streetName : info.building}
-      </Text>
-      {/* coordinates */}
-      <View style={{ flexDirection: "row", marginTop: 10 }}>
-=======
       <View style={{ height: "100%", marginRight: 10 }}>
         {/*  */}
->>>>>>> origin/main
         {home ? (
           <>
             {info.homeVerified === "pending" && (
@@ -66,11 +58,11 @@ const HomeVerificationCard = ({ item }) => {
         {/*  */}
       </View>
       <View>
-        <Text style={{ color: ColorTheme.main, fontSize: 24, fontWeight: "600" }}>
+        <Text style={{ color: ColorTheme.main, fontSize: 18, fontWeight: "600" }}>
           {home ? info.houseNo + " " + info.streetName : info.building}
         </Text>
         {/* coordinates */}
-        <View style={{ flexDirection: "row", marginTop: 10 }}>
+        <View style={{ flexDirection: "row", marginTop: 2 }}>
           {home ? (
             <>
               <Text style={styles.textCoordinate}>
