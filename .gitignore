@@ -10,7 +10,7 @@ npm-debug.*
 *.orig.*
 web-build/
 #environmentVariables.js
-
+*.apk
 # macOS
 .DS_Store
 
