@@ -140,12 +140,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 5,
   },
-  // verificationIcon: {
-  //   width: 18,
-  //   height: 18,
-  //   resizeMode: "contain",
-  //   marginRight: 5,
-  // },
+  verificationIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: "contain",
+    marginRight: 5,
+  },
   homeCard: {
     backgroundColor: "#F8F8F8",
     borderRadius: 10,
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     overflow: "hidden",
     flexDirection: "row",
-    height: 110,
+    height: 120,
   },
   textCoordinate: {
     color: ColorTheme.grey,

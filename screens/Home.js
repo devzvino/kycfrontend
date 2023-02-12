@@ -171,20 +171,28 @@ const Home = () => {
             rightOpenValue={-95}
             renderHiddenItem={(item, rowMap) => (
               <TouchableOpacity
+                Vi
                 onPress={() => {
                   handleDeleteProcess(item.item._id, item.item.title);
                 }}
-                style={styles.hiddenButton}
+                style={[styles.hiddenButton,]}
               >
-                {removing ? (
-                  <>
-                    <MaterialCommunityIcons name="delete-clock" size={24} color="red" />
-                  </>
-                ) : (
-                  <>
-                    <MaterialCommunityIcons name="delete" size={24} color="red" />
-                  </>
-                )}
+                <View
+                  style={{ color: '#ffffff', backgroundColor: 'red', height: 120, width: 85, borderRadius: 10, display: "flex", justifyContent: 'center', alignItems: "center" }}
+                >
+                  {removing ? (
+
+
+                    <ActivityIndicator
+                      color={"#FFFFFF"}
+
+                    />
+
+
+                  ) : (
+                    <Text style={{ color: '#ffffff', }}>Delete</Text>
+                  )}
+                </View>
               </TouchableOpacity>
             )}
           />
@@ -215,11 +223,13 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     justifyContent: "center",
     alignItems: "flex-end",
-    paddingRight: 25,
+
+
     borderRadius: 10,
     marginRight: 1,
-    height: "100%",
-    height: 140,
+    height: 120,
+
+
   },
 });
 

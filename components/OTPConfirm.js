@@ -9,6 +9,9 @@ import { errorMsg1 } from "./appMessages";
 import { FontTheme, ColorTheme } from "../components/ThemeFile";
 import { keys } from "../environmentVariables";
 
+import CountDownTimer from 'react-native-countdown-timer-hooks';
+import { useRef } from "react";
+
 //Device Dimenstions
 const { width } = Dimensions.get("screen");
 
@@ -16,7 +19,7 @@ const otpMessage = () => {
   return (
     <View style={{ width: width / 1.15, marginTop: 10 }}>
       <Text style={{}}>
-        Check your SMS for your OTP. If you don't receive your, please{" "}
+        Check your SMS for your OTP. If you don't receive an OTP please{" "}
         <Text onPress={() => Linking.openURL("https://wa.me/263773384668")} style={FontTheme.footerLink}>
           contact support for further assistance.
         </Text>
@@ -57,7 +60,23 @@ const OTPConfirm = ({ data, setUserView, setIdUploadView, setOtpConfrimView, set
   const [timer, setTimer] = useState(0);
   const [timerView, setTimerView] = useState(false);
   const [countDown, setCountDown] = useState();
+
   let theTime;
+
+  // Timer References
+  const refTimer = useRef();
+
+  // For keeping a track on the Timer
+  const [timerEnd, setTimerEnd] = useState(false);
+
+  const timerCallbackFunc = (timerFlag) => {
+    // Setting timer flag to finished
+    setTimerEnd(timerFlag);
+    console.warn(
+      'You can alert the user by letting him know that Timer is out.',
+    );
+  };
+
 
   // submit function to api
   const handleSubmit = () => {
@@ -153,7 +172,28 @@ const OTPConfirm = ({ data, setUserView, setIdUploadView, setOtpConfrimView, set
           {otpCon === data.otp ? null : <Text style={{ color: "red", alignSelf: "flex-start", paddingLeft: 25 }}>{otpErrMessage}</Text>}
 
           {!timerView ? (
-            <Text style={{ alignSelf: "flex-start", paddingLeft: "7%" }}>Your OTP expires in {countDown}</Text>
+            <View style={{ display: "flex", flexDirection: 'row', alignItems: "flex-start", width: width, paddingLeft: '7%' }}>
+              <Text style={{ alignSelf: "flex-start", display: "flex", justifyContent: "center" }}>Your OTP expires in {' '}
+
+
+              </Text>
+              <CountDownTimer
+                ref={refTimer}
+                timestamp={60}
+                timerCallback={timerCallbackFunc}
+                // containerStyle={{
+                //   marginBottom:,
+
+                //   backgroundColor: '#2196f3',
+                // }}
+                textStyle={{
+
+
+                  fontWeight: '500',
+
+                }}
+              />
+            </View>
           ) : (
             // resendOTP(data)
             <View style={{ width: width, paddingLeft: "7%", marginTop: "2%" }}>
