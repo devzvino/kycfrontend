@@ -22,9 +22,9 @@ const QRcode = () => {
   // })
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: "#ffffff" }]}>
       <GlobalHeader title="Share Certificate" />
-      <View style={{ flexDirection: 'column', alignItems: 'center', backgroundColor: '#FFFFFF', marginTop: 50 }}>
+      <View style={{ flexDirection: 'column', alignItems: 'center', backgroundColor: '#FFFFFF', marginTop: 20 }}>
         <QRCode content='https://kycafrica.com' />
 
 
@@ -33,6 +33,7 @@ const QRcode = () => {
         <MainButton
           title={'Full KYC Certificate'} />
         <MainButton
+
           title={'Id Verification'} />
         <MainButton
           title={'Address Verification'} />
