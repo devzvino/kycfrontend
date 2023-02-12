@@ -25,7 +25,9 @@ const QRcode = () => {
     <SafeAreaView style={[styles.container, { backgroundColor: "#ffffff" }]}>
       <GlobalHeader title="Share Certificate" />
       <View style={{ flexDirection: 'column', alignItems: 'center', backgroundColor: '#FFFFFF', marginTop: 20 }}>
-        <QRCode content='https://kycafrica.com' />
+        <QRCode
+
+          content='https://kycafrica.com' />
 
 
       </View>
