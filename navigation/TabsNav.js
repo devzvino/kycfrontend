@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { HomeIcon, PlusIcon, QrcodeIcon } from "react-native-heroicons/outline";
+import { HomeIcon, PlusIcon, ShareIcon } from "react-native-heroicons/outline";
 
 //import Screens
 import Home from "../screens/Home";
@@ -89,8 +89,8 @@ const TabsNav = () => {
                 justifyContent: "center",
               }}
             >
-              <QrcodeIcon color={color} size={30} />
-              <Text style={{ color: `${color}`, fontSize: 18 }}> QR Code</Text>
+              <ShareIcon color={color} size={30} />
+              <Text style={{ color: `${color}`, fontSize: 18 }}> Share</Text>
             </View>
           ),
         }}

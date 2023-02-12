@@ -23,18 +23,22 @@ const QRcode = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <GlobalHeader title="QR Code"/>
-      <View style={{flexDirection:'column', alignItems:'center', backgroundColor:'#FFFFFF', marginTop: 50}}>
-      <QRCode content='https://kycafrica.com' />
+      <GlobalHeader title="Share Certificate" />
+      <View style={{ flexDirection: 'column', alignItems: 'center', backgroundColor: '#FFFFFF', marginTop: 50 }}>
+        <QRCode content='https://kycafrica.com' />
 
-      
+
       </View>
-      <View style={{alignItems:'center'}}>
-      <MainButton
-      title={'Share Certificate'}/>
+      <View style={{ alignItems: 'center' }}>
+        <MainButton
+          title={'Full KYC Certificate'} />
+        <MainButton
+          title={'Id Verification'} />
+        <MainButton
+          title={'Address Verification'} />
       </View>
-     
-      
+
+
     </SafeAreaView>
   );
 };

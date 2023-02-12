@@ -67,38 +67,44 @@ const HomeVerificationCard = ({ item }) => {
         {/* coordinates */}
         <View style={{ flexDirection: "row", marginTop: 2 }}>
           {home ? (
-            <>
+            <View>
               <Text style={styles.textCoordinate}>
-                {info.suburb}, {info.city}{" "}
+                {info.suburb}
               </Text>
-            </>
+              <Text style={[styles.textCoordinate, { textTransform: 'uppercase' }]}>
+                {info.city}
+              </Text>
+            </View>
           ) : (
-            <>
+            <View>
               <Text style={styles.textCoordinate}>
-                {info.companyName}, {info.city}{" "}
+                {info.companyName}
               </Text>
-            </>
+              <Text style={[styles.textCoordinate, { textTransform: 'uppercase' }]}>
+                {info.city}
+              </Text>
+            </View>
           )}
         </View>
         {/* category */}
-        <Text style={styles.textCoordinate}>{info.title} Address</Text>
+        {/* <Text style={styles.textCoordinate}>{info.title} Address</Text> */}
 
         {/* verification */}
         {home ? (
           <>
             {info.homeVerified === "pending" && (
               <View style={styles.v_container}>
-                <Text style={{ fontWeight: "600", color: ColorTheme.orange }}>Pending Verification</Text>
+                <Text style={{ fontWeight: "600", color: ColorTheme.orange }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Pending Verification</Text>
               </View>
             )}
             {info.homeVerified === "failed" && (
               <View style={styles.v_container}>
-                <Text style={{ fontWeight: "600", color: ColorTheme.red }}>Verification Failed</Text>
+                <Text style={{ fontWeight: "600", color: ColorTheme.red }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Failed</Text>
               </View>
             )}
             {info.homeVerified === "success" && (
               <View style={styles.v_container}>
-                <Text style={{ fontWeight: "600", color: ColorTheme.main }}>Verified</Text>
+                <Text style={{ fontWeight: "600", color: ColorTheme.main }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verified</Text>
               </View>
             )}
           </>
@@ -106,17 +112,17 @@ const HomeVerificationCard = ({ item }) => {
           <>
             {info.workVerified === "pending" && (
               <View style={styles.v_container}>
-                <Text style={{ fontWeight: "600", color: ColorTheme.orange }}>Pending Verification</Text>
+                <Text style={{ fontWeight: "600", color: ColorTheme.orange }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Pending Verification</Text>
               </View>
             )}
             {info.workVerified === "failed" && (
               <View style={styles.v_container}>
-                <Text style={{ fontWeight: "600", color: ColorTheme.red }}>Verification Failed</Text>
+                <Text style={{ fontWeight: "600", color: ColorTheme.red }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Failed</Text>
               </View>
             )}
             {info.workVerified === "success" && (
               <View style={styles.v_container}>
-                <Text style={{ fontWeight: "600", color: ColorTheme.main }}>Verified</Text>
+                <Text style={{ fontWeight: "600", color: ColorTheme.main }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verified</Text>
               </View>
             )}
           </>
@@ -134,12 +140,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 5,
   },
-  verificationIcon: {
-    width: 18,
-    height: 18,
-    resizeMode: "contain",
-    marginRight: 5,
-  },
+  // verificationIcon: {
+  //   width: 18,
+  //   height: 18,
+  //   resizeMode: "contain",
+  //   marginRight: 5,
+  // },
   homeCard: {
     backgroundColor: "#F8F8F8",
     borderRadius: 10,
