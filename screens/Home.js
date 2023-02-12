@@ -12,7 +12,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFetchAddresses } from "../hooks/useFetchAddresses";
 
 const Home = () => {
-
   const { addListener } = useNavigation();
 
   const [loading, setLoading] = useState(false);
@@ -69,7 +68,10 @@ const Home = () => {
       setErrorMessage("Please logout and sign back in");
     }
     //
-    let [res1, res2] = await Promise.all([fetch(`${keys.apiURL}api/home/my/${id}`).then((response) => response.json()), fetch(`${keys.apiURL}api/work/my/${id}`).then((response) => response.json())]);
+    let [res1, res2] = await Promise.all([
+      fetch(`${keys.apiURL}api/home/my/${id}`).then((response) => response.json()),
+      fetch(`${keys.apiURL}api/work/my/${id}`).then((response) => response.json()),
+    ]);
     mergingArrays(res1, res2);
     setMergedAddress(res1, res2);
     //
@@ -94,7 +96,6 @@ const Home = () => {
     const jsonValue = JSON.stringify(packagedData);
     try {
       AsyncStorage.setItem("@mergedAddresses", jsonValue);
-
     } catch (error) {
       console.log(error);
     }
@@ -127,8 +128,6 @@ const Home = () => {
       setTempDisplay([]);
     };
   }, []);
-
-
 
   // async () => await useFetchAddresses();
 
@@ -172,8 +171,6 @@ const Home = () => {
             rightOpenValue={-95}
             renderHiddenItem={(item, rowMap) => (
               <TouchableOpacity
-
-
                 onPress={() => {
                   handleDeleteProcess(item.item._id, item.item.title);
                 }}
@@ -193,9 +190,7 @@ const Home = () => {
           />
         )}
       </>
-      <View style={{ justifyContent: "center", alignItems: "center", height: "13.7%" }}>
-
-      </View>
+      <View style={{ justifyContent: "center", alignItems: "center", height: "13.7%" }}></View>
     </SafeAreaView>
   );
 };
@@ -209,7 +204,7 @@ const { width, height } = Dimensions.get("screen");
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF"
+    backgroundColor: "#FFFFFF",
   },
   hiddenContainer: {
     flex: 1,
