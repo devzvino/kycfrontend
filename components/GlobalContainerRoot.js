@@ -52,163 +52,308 @@ const checkCoordinatesInRadius = (coord1, coord2, radius) => {
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
   const distance = R * c;
-  // console.log("distance", distance);
-  // console.log("radius", radius);
-  // console.log("radius", radius, "<=", "distance", distance);
 
-  // if (distance <= radius) {
-  //* verify process begins
-  fetch(`https://kycbackendapp.herokuapp.com/api/home/${coord1.id}`)
-    .then((response) => response.text())
-    .then((result) => {
-      // console.log(result);
-      databaseSingleAddress = JSON.parse(result);
-      // once data is fetch
-      let totalHomeCount = databaseSingleAddress.homeTotalCount + 1;
-      let updatedCount = databaseSingleAddress.homeVerificationCount + 1;
+  if (coord1.title === "home") {
+    // ? home verifications
+    fetch(`https://kycbackendapp.herokuapp.com/api/home/${coord1.id}`)
+      .then((response) => response.text())
+      .then((result) => {
+        databaseSingleAddress = JSON.parse(result);
+        // once data is fetch
 
-      if (databaseSingleAddress.homeVerificationCount <= 9 && distance <= radius) {
-        // * adding second step below
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
+        // handle count for all ends
+        let totalHomeCount = databaseSingleAddress.homeTotalCount + 1;
+        let totalWorkCount = databaseSingleAddress.workTotalCount + 1;
 
-        var raw = JSON.stringify({
-          homeVerificationCount: updatedCount,
-        });
+        let updatedWorkCount = databaseSingleAddress.workVerificationCount + 1;
+        let updatedCount = databaseSingleAddress.homeVerificationCount + 1;
 
-        var requestOptions = {
-          method: "PATCH",
-          headers: myHeaders,
-          body: raw,
-          redirect: "follow",
-        };
+        // console.log(totalHomeCount);
+        // console.log(updatedCount);
 
-        fetch(`https://kycbackendapp.herokuapp.com/api/home/${coord1.id}`, requestOptions)
-          .then((response) => response.text())
-          .then((result) => {
-            !!!!!!console.log(result);
-          })
-          .catch((error) => console.log("error", error));
-        // *
-      }
+        if (databaseSingleAddress.homeVerificationCount <= 19 && distance <= radius) {
+          // * adding second step below
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
 
-      // changing state of verification
-      if (databaseSingleAddress.homeVerificationCount === 10 && databaseSingleAddress.homeVerified !== "success") {
-        // if (databaseSingleAddress.homeVerificationCount) {
-        // * adding second step below
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
+          var raw = JSON.stringify({
+            homeVerificationCount: updatedCount,
+          });
 
-        var raw = JSON.stringify({
-          homeVerified: "success",
-        });
+          var requestOptions = {
+            method: "PATCH",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+          };
 
-        var requestOptions = {
-          method: "PATCH",
-          headers: myHeaders,
-          body: raw,
-          redirect: "follow",
-        };
+          fetch(`https://kycbackendapp.herokuapp.com/api/home/${coord1.id}`, requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+              // !!!!!!console.log(result);
+            })
+            .catch((error) => console.log("error", error));
+          // *
+        }
 
-        fetch(`https://kycbackendapp.herokuapp.com/api/home/${coord1.id}`, requestOptions)
-          .then((response) => response.text())
-          .then((result) => {
-            // console.log(result);
-            schedulePushNotification();
-          })
-          .catch((error) => console.log("error", error));
-        // *
-      } else if (databaseSingleAddress.homeTotalCount === 20 && databaseSingleAddress.homeVerified !== "success") {
-        //! setting the rejected state
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
+        // changing state of verification
+        if (databaseSingleAddress.homeVerificationCount === 20 && databaseSingleAddress.homeVerified !== "success") {
+          // if (databaseSingleAddress.homeVerificationCount) {
+          // * adding second step below
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
 
-        var raw = JSON.stringify({
-          homeVerified: "failed",
-        });
+          var raw = JSON.stringify({
+            homeVerified: "success",
+          });
 
-        var requestOptions = {
-          method: "PATCH",
-          headers: myHeaders,
-          body: raw,
-          redirect: "follow",
-        };
+          var requestOptions = {
+            method: "PATCH",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+          };
 
-        fetch(`https://kycbackendapp.herokuapp.com/api/home/${coord1.id}`, requestOptions)
-          .then((response) => response.text())
-          .then((result) => {
-            // console.log(result);
-            // schedulePushNotification();
-          })
-          .catch((error) => console.log("error", error));
-      }
+          fetch(`https://kycbackendapp.herokuapp.com/api/home/${coord1.id}`, requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+              // console.log(result);
+              schedulePushNotification();
+            })
+            .catch((error) => console.log("error", error));
+          // *
+        } else if (databaseSingleAddress.homeTotalCount === 20 && databaseSingleAddress.homeVerified !== "success") {
+          //! setting the rejected state
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
 
-      // * updating total count
-      if (databaseSingleAddress.homeVerificationCount < 10 && databaseSingleAddress.homeTotalCount <= 19) {
-        // adding total counts to verification
-        console.log("====", databaseSingleAddress);
-        console.log("coords2====", coord2);
+          var raw = JSON.stringify({
+            homeVerified: "failed",
+          });
 
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
+          var requestOptions = {
+            method: "PATCH",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+          };
 
-        var raw = JSON.stringify({
-          homeTotalCount: totalHomeCount,
-        });
+          fetch(`https://kycbackendapp.herokuapp.com/api/home/${coord1.id}`, requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+              // console.log(result);
+              // schedulePushNotification();
+            })
+            .catch((error) => console.log("error", error));
+        }
 
-        var requestOptions = {
-          method: "PATCH",
-          headers: myHeaders,
-          body: raw,
-          redirect: "follow",
-        };
+        // * updating total count
+        if (databaseSingleAddress.homeVerificationCount < 20 && databaseSingleAddress.homeTotalCount < 20) {
+          // adding total counts to verification
+          // console.log("====", databaseSingleAddress);
+          // console.log("coords2====", coord2);
 
-        fetch(`https://kycbackendapp.herokuapp.com/api/home/${coord1.id}`, requestOptions)
-          .then((response) => response.text())
-          .then((result) => {
-            //!!!!!! console.log(result);
-          })
-          .catch((error) => console.log("error", error));
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
 
-        // todo implement logging report state
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
+          var raw = JSON.stringify({
+            homeTotalCount: totalHomeCount,
+          });
 
-        const stringedCoords = JSON.stringify(coord2);
+          var requestOptions = {
+            method: "PATCH",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+          };
 
-        var reportRaw = JSON.stringify({
-          user: databaseSingleAddress.user_id,
-          homeid: databaseSingleAddress._id,
-          workid: null,
-          currentLocation: stringedCoords,
-        });
+          fetch(`https://kycbackendapp.herokuapp.com/api/home/${coord1.id}`, requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+              //!!!!!! console.log(result);
+            })
+            .catch((error) => console.log("error", error));
 
-        var requestOptions = {
-          method: "POST",
-          headers: myHeaders,
-          body: reportRaw,
-          redirect: "follow",
-        };
+          // todo implement logging report state
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
 
-        fetch("https://kycbackendapp.herokuapp.com/api/report/create", requestOptions)
-          .then((response) => response.text())
-          .then((result) => console.log(result))
-          .catch((error) => console.log("error", error));
-        //todo implement logging report state
-      }
-      //
-    })
-    .catch((error) => console.log("error", error));
-  // !
+          const stringedCoords = JSON.stringify(coord2);
 
-  //* verify process begins
-  // }
-  // else if (distance > radius) {
-  //   // console.log("out of range");
-  //   // ***** // add total count within database
-  // }
+          var reportRaw = JSON.stringify({
+            user: databaseSingleAddress.user_id,
+            homeid: databaseSingleAddress._id,
+            workid: null,
+            currentLocation: stringedCoords,
+          });
 
-  // return distance <= radius;
+          var requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: reportRaw,
+            redirect: "follow",
+          };
+
+          fetch("https://kycbackendapp.herokuapp.com/api/report/create", requestOptions)
+            .then((response) => response.text())
+            .then((result) => console.log(result))
+            .catch((error) => console.log("error", error));
+          //todo implement logging report state
+        }
+        //
+      })
+      .catch((error) => console.log("error", error));
+  } else if (coord1.title === "work") {
+    // ? work verifications
+    fetch(`https://kycbackendapp.herokuapp.com/api/work/${coord1.id}`)
+      .then((response) => response.text())
+      .then((result) => {
+        databaseSingleAddress = JSON.parse(result);
+        // once data is fetch
+
+        // handle count for all ends
+
+        let totalWorkCount = databaseSingleAddress.workTotalCount + 1;
+        let updatedCount = databaseSingleAddress.workVerificationCount + 1;
+
+        // console.log(totalHomeCount);
+        // console.log(updatedCount);
+
+        if (databaseSingleAddress.workVerificationCount <= 19 && distance <= radius) {
+          // * adding second step below
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+
+          var raw = JSON.stringify({
+            workVerificationCount: updatedCount,
+          });
+
+          var requestOptions = {
+            method: "PATCH",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+          };
+
+          fetch(`https://kycbackendapp.herokuapp.com/api/work/${coord1.id}`, requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+              // !!!!!!console.log(result);
+            })
+            .catch((error) => console.log("error", error));
+          // *
+        }
+
+        // changing state of verification
+        if (databaseSingleAddress.workVerificationCount === 20 && databaseSingleAddress.workVerified !== "success") {
+          // if (databaseSingleAddress.homeVerificationCount) {
+          // * adding second step below
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+
+          var raw = JSON.stringify({
+            workVerified: "success",
+          });
+
+          var requestOptions = {
+            method: "PATCH",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+          };
+
+          fetch(`https://kycbackendapp.herokuapp.com/api/work/${coord1.id}`, requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+              // console.log(result);
+              schedulePushNotification();
+            })
+            .catch((error) => console.log("error", error));
+          // *
+        } else if (databaseSingleAddress.workTotalCount === 20 && databaseSingleAddress.workVerified !== "success") {
+          //! setting the rejected state
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+
+          var raw = JSON.stringify({
+            workVerified: "failed",
+          });
+
+          var requestOptions = {
+            method: "PATCH",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+          };
+
+          fetch(`https://kycbackendapp.herokuapp.com/api/work/${coord1.id}`, requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+              // console.log(result);
+              // schedulePushNotification();
+            })
+            .catch((error) => console.log("error", error));
+        }
+
+        // * updating total count
+        if (databaseSingleAddress.workVerificationCount < 20 && databaseSingleAddress.workTotalCount < 20) {
+          // adding total counts to verification
+          // console.log("====", databaseSingleAddress);
+          // console.log("coords2====", coord2);
+
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+
+          var raw = JSON.stringify({
+            workTotalCount: totalWorkCount,
+          });
+
+          var requestOptions = {
+            method: "PATCH",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+          };
+
+          fetch(`https://kycbackendapp.herokuapp.com/api/work/${coord1.id}`, requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+              //!!!!!! console.log(result);
+            })
+            .catch((error) => console.log("error", error));
+
+          // todo implement logging report state
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+
+          const stringedCoords = JSON.stringify(coord2);
+
+          var reportRaw = JSON.stringify({
+            user: databaseSingleAddress.user_id,
+            homeid: null,
+            workid: databaseSingleAddress._id,
+            currentLocation: stringedCoords,
+          });
+
+          var requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: reportRaw,
+            redirect: "follow",
+          };
+
+          fetch("https://kycbackendapp.herokuapp.com/api/report/create", requestOptions)
+            .then((response) => response.text())
+            .then((result) => console.log(result))
+            .catch((error) => console.log("error", error));
+          //todo implement logging report state
+        }
+        //
+      })
+      .catch((error) => console.log("error", error));
+  } else {
+    console.log("coords not available");
+  }
 };
 
 // ===================== BACKGROUND FETCH
@@ -253,8 +398,8 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
     // console.log(i);
     let latLngHomeAry = i.homeLatLng ? JSON.parse(i.homeLatLng) : "";
     let latLngWorkAry = i.workLatLng ? JSON.parse(i.workLatLng) : "";
-    let latLngHome = { ...latLngHomeAry, id: i._id };
-    let latLngWork = { ...latLngWorkAry, id: i._id };
+    let latLngHome = { ...latLngHomeAry, id: i._id, title: "home" };
+    let latLngWork = { ...latLngWorkAry, id: i._id, title: "work" };
 
     // console.log(latLngHome);
     // console.log(latLngWork);
@@ -268,9 +413,9 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
       checkCoordinatesInRadius(latLngHome, currentCoords, 0.02);
     }
 
-    // if (currentCoords && latLngWork) {
-    //   checkCoordinatesInRadius(latLngHome, currentCoords, 5);
-    // }
+    if (currentCoords && latLngWork) {
+      checkCoordinatesInRadius(latLngWork, currentCoords, 0.02);
+    }
   });
 
   let processedData;
@@ -299,6 +444,7 @@ async function unregisterBackgroundFetchAsync() {
 
 import { AppState } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import { log } from "react-native-reanimated";
 
 requestPermissions();
 

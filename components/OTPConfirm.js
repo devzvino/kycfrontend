@@ -16,7 +16,7 @@ const otpMessage = () => {
   return (
     <View style={{ width: width / 1.15, marginTop: 10 }}>
       <Text style={{}}>
-        Check your SMS for your security code. If you don't receive your security code, please{" "}
+        Check your SMS for your OTP. If you don't receive your, please{" "}
         <Text onPress={() => Linking.openURL("https://wa.me/263773384668")} style={FontTheme.footerLink}>
           contact support for further assistance.
         </Text>
