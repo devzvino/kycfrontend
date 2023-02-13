@@ -159,7 +159,7 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
         <View style={{ width: width, height: "65%", alignItems: "center" }}>
           <MainInput
             title={"First Name(s) (as on your ID)"}
-            placeholder={"e.g. Phillip Joe"}
+            placeholder={"Benard Tafara "}
             required
             // onBlur={Keyboard.dismiss}
             onChange={(value) => {
@@ -170,7 +170,7 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
           />
           <MainInput
             title={"Surname (as on your ID)"}
-            placeholder={"e.g. Jones"}
+            placeholder={"Chikosi"}
             required
             // onBlur={Keyboard.dismiss}
             onChange={(value) => {
@@ -219,7 +219,7 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
                 height: 55,
                 textAlignVertical: "center",
               }}
-              placeholder={"e.g. 772852852 "}
+              placeholder={"772852852 "}
               disableArrowIcon={true}
               ref={phoneRef}
               value={phone}
@@ -240,7 +240,7 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
           {/*  */}
           <MainInput
             title={"ID Number"}
-            placeholder={"e.g. 63111111X07"}
+            placeholder={"63111111X07"}
             required
             // onBlur={Keyboard.dismiss}
             onChange={(value) => {

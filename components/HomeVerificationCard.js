@@ -94,7 +94,7 @@ const HomeVerificationCard = ({ item }) => {
           <>
             {info.homeVerified === "pending" && (
               <View style={styles.v_container}>
-                <Text style={{ fontWeight: "600", color: ColorTheme.orange }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Pending Verification</Text>
+                <Text style={{ fontWeight: "600", color: ColorTheme.orange }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Pending</Text>
               </View>
             )}
             {info.homeVerified === "failed" && (
@@ -104,7 +104,7 @@ const HomeVerificationCard = ({ item }) => {
             )}
             {info.homeVerified === "success" && (
               <View style={styles.v_container}>
-                <Text style={{ fontWeight: "600", color: ColorTheme.main }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verified</Text>
+                <Text style={{ fontWeight: "600", color: ColorTheme.main }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Successful</Text>
               </View>
             )}
           </>
@@ -112,7 +112,7 @@ const HomeVerificationCard = ({ item }) => {
           <>
             {info.workVerified === "pending" && (
               <View style={styles.v_container}>
-                <Text style={{ fontWeight: "600", color: ColorTheme.orange }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Pending Verification</Text>
+                <Text style={{ fontWeight: "600", color: ColorTheme.orange }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Pending</Text>
               </View>
             )}
             {info.workVerified === "failed" && (
@@ -122,7 +122,7 @@ const HomeVerificationCard = ({ item }) => {
             )}
             {info.workVerified === "success" && (
               <View style={styles.v_container}>
-                <Text style={{ fontWeight: "600", color: ColorTheme.main }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verified</Text>
+                <Text style={{ fontWeight: "600", color: ColorTheme.main }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Successful</Text>
               </View>
             )}
           </>

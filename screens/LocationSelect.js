@@ -333,35 +333,35 @@ const LocationSelect = () => {
                         keyboardType="default"
                         value={companyName}
                         onTextChange={setCompanyName}
-                        placeholder={'e.g. KYC Africa (Pvt) Ltd '}
+                        placeholder={'KYC Africa (Pvt) Ltd '}
                       />
                       <FormInputWithLabel
                         label="Building"
                         keyboardType="default"
                         value={building}
                         onTextChange={setBuilding}
-                        placeholder={'e.g. Joina City'}
+                        placeholder={'Joina City'}
                       />
                       <FormInputWithLabel
                         label="Street Address"
                         keyboardType="default"
                         value={streetName}
                         onTextChange={setStreetName}
-                        placeholder={'e.g. 54 Jason Moyo Ave'}
+                        placeholder={'54 Jason Moyo Ave'}
                       />
                       <FormInputWithLabel
-                        label="Area/Suburb"
+                        label="Area / Suburb"
                         keyboardType="default"
                         value={suburb}
                         onTextChange={setSuburb}
-                        placeholder={'e.g. CBD'}
+                        placeholder={'CBD'}
                       />
                       <FormInputWithLabel
                         label="City"
                         keyboardType="default"
                         value={city}
                         onTextChange={setCity}
-                        placeholder={'e.g. Harare'}
+                        placeholder={'Harare'}
                       />
                       <Text style={[{ textAlign: "left", width: "100%" }, styles.title]}>
                         Time you start and end work in 24Hrs?
@@ -420,7 +420,7 @@ const LocationSelect = () => {
                         keyboardType="default"
                         value={houseNo}
                         onTextChange={setHouseNo}
-                        placeholder={'e.g. Flat 239'}
+                        placeholder={'7878'}
 
                       />
 
@@ -429,7 +429,7 @@ const LocationSelect = () => {
                         keyboardType="default"
                         value={streetName}
                         onTextChange={setStreetName}
-                        placeholder={'e.g. Glancore Road'}
+                        placeholder={'Mangwende Drive'}
                       />
 
                       <FormInputWithLabel
@@ -437,14 +437,14 @@ const LocationSelect = () => {
                         keyboardType="default"
                         value={suburb}
                         onTextChange={setSuburb}
-                        placeholder={'e.g. Queensdale'}
+                        placeholder={'Kuwadzana'}
                       />
                       <FormInputWithLabel
                         label="City"
                         keyboardType="default"
                         value={city}
                         onTextChange={setCity}
-                        placeholder={'e.g. Harare'}
+                        placeholder={'Harare'}
                       />
                     </>
                   )}

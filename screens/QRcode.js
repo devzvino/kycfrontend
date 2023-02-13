@@ -1,14 +1,16 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { QRCode } from "react-native-custom-qr-codes";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Touchable } from "react-native-web";
 import { useEffect, useState } from "react/cjs/react.production.min";
 import GlobalHeader from "../components/GlobalHeader";
 import MainButton from "../components/MainButton";
 
 
 const QRcode = () => {
+  const { width, height } = Dimensions.get("window");
   // const [userDetails, setuserDetails] = useState();
 
   // const getUserDetails= async()=>{
@@ -31,14 +33,58 @@ const QRcode = () => {
 
 
       </View>
-      <View style={{ alignItems: 'center' }}>
-        <MainButton
-          title={'Full KYC Certificate'} />
-        <MainButton
+      <View style={{ alignItems: 'center', marginTop: 20 }}>
+        <TouchableOpacity style={{
+          backgroundColor: "#2FBF00",
+          borderRadius: 5,
+          marginBottom: 15,
+          display: "flex",
+          alignItems: "center",
+          paddingBottom: 20,
+          paddingTop: 20,
 
-          title={'Id Verification'} />
-        <MainButton
-          title={'Address Verification'} />
+          width: width * 0.8
+
+        }}>
+          <Text style={{ fontSize: 18, color: '#FFFFFF', fontWeight: '600', textTransform: 'uppercase' }}>
+            Full KYC Certificate
+          </Text>
+
+        </TouchableOpacity>
+        <TouchableOpacity style={{
+          backgroundColor: "#2FBF00",
+          borderRadius: 5,
+          marginBottom: 15,
+          display: "flex",
+          alignItems: "center",
+          paddingBottom: 20,
+          paddingTop: 20,
+          width: width * 0.8,
+
+
+        }}>
+          <Text style={{ fontSize: 18, color: '#FFFFFF', fontWeight: '600', textTransform: 'uppercase' }}>
+            Verified ID Certificate
+          </Text>
+
+        </TouchableOpacity>
+        <TouchableOpacity style={{
+          backgroundColor: "#2FBF00",
+          borderRadius: 5,
+          marginBottom: 15,
+          display: "flex",
+          alignItems: "center",
+          paddingBottom: 20,
+          paddingTop: 20,
+          width: width * 0.8
+
+        }}>
+          <Text style={{ fontSize: 18, color: '#FFFFFF', fontWeight: '600', textTransform: 'uppercase' }}>
+            Verified Address Certificate
+          </Text>
+
+        </TouchableOpacity>
+
       </View>
 
 
