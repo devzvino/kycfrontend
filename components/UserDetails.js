@@ -18,7 +18,16 @@ const { width, height } = Dimensions.get("screen");
 //Form validation Messages
 const fillFieldError = "This field cannot be empty";
 
-const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, setOtpConfrimView, setRegConfrimView }) => {
+const UserDetails = ({
+  cc,
+  data,
+  token,
+  setData,
+  setUserView,
+  setIdUploadView,
+  setOtpConfrimView,
+  setRegConfrimView,
+}) => {
   const [displayNumber, setDisplayNumber] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
@@ -121,7 +130,10 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
                     Alert.alert("PLEASE NOTE!", "Please try again in a few minutes, something went wrong");
                     setLoading(false);
                   } else {
-                    Alert.alert("PLEASE NOTE!", "You have to provide your Full Name(s) and ID Number EXACTLY as provided on your National ID.");
+                    Alert.alert(
+                      "PLEASE NOTE!",
+                      "You have to provide your Full Name(s) and ID Number EXACTLY as provided on your National ID."
+                    );
                     setLoading(false);
                   }
                 }
@@ -155,11 +167,18 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
   return (
     <View style={{ flex: 1 }}>
       {/* <ScrollView > */}
-      <KeyboardAwareScrollView viewIsInsideTabBar={false} extraHeight={40} enableOnAndroid={true} keyboardShouldPersistTaps={"always"} keyboardOpeningTime={0} enableAutomaticScroll={true}>
+      <KeyboardAwareScrollView
+        viewIsInsideTabBar={false}
+        extraHeight={40}
+        enableOnAndroid={true}
+        keyboardShouldPersistTaps={"always"}
+        keyboardOpeningTime={0}
+        enableAutomaticScroll={true}
+      >
         <View style={{ width: width, height: "65%", alignItems: "center" }}>
           <MainInput
             title={"First Name(s) (as on your ID)"}
-            placeholder={"Benard Tafara "}
+            placeholder={""}
             required
             // onBlur={Keyboard.dismiss}
             onChange={(value) => {
@@ -170,7 +189,7 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
           />
           <MainInput
             title={"Surname (as on your ID)"}
-            placeholder={"Chikosi"}
+            placeholder={""}
             required
             // onBlur={Keyboard.dismiss}
             onChange={(value) => {
@@ -239,7 +258,7 @@ const UserDetails = ({ cc, data, token, setData, setUserView, setIdUploadView, s
 
           {/*  */}
           <MainInput
-            title={"ID Number"}
+            title={"National ID Number"}
             placeholder={"63111111X07"}
             required
             // onBlur={Keyboard.dismiss}

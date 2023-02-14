@@ -39,7 +39,10 @@ const Login = () => {
       redirect: "follow",
     };
 
-    fetch(`https://verify.kycafrica.com/api/auth/token?username=${keys.kycUser}&password=${keys.kycPassword}`, requestOptions)
+    fetch(
+      `https://verify.kycafrica.com/api/auth/token?username=${keys.kycUser}&password=${keys.kycPassword}`,
+      requestOptions
+    )
       .then((response) => response.text())
       .then((result) => {
         token = JSON.parse(result);
@@ -139,7 +142,16 @@ const Login = () => {
       </View>
       <View style={{ flex: 1, alignItems: "center" }}>
         {message && (
-          <View style={{ marginTop: 10, width: "90%", justifyContent: "center", backgroundColor: "#f0000030", padding: 10, borderRadius: 5 }}>
+          <View
+            style={{
+              marginTop: 10,
+              width: "90%",
+              justifyContent: "center",
+              backgroundColor: "#f0000030",
+              padding: 10,
+              borderRadius: 5,
+            }}
+          >
             <Text>{message}</Text>
           </View>
         )}
@@ -157,7 +169,7 @@ const Login = () => {
               textStyles={FontTheme.errortxt}
             />
             <MainInput
-              title={"ID Number"}
+              title={"National ID Number"}
               placeholder={"63111111X07"}
               required
               // onBlur={Keyboard.dismiss}
@@ -171,7 +183,9 @@ const Login = () => {
               {loadingLogin ? <ActivityIndicator /> : <Text style={FontTheme.mainButtonFont}>Login</Text>}
             </TouchableOpacity>
             <View style={{ width: "80%", height: 2, backgroundColor: "#CBCBCB", marginTop: "8%" }}></View>
-            <Text style={{ fontFamily: "Poppins-Regular", marginTop: "5%", fontSize: 16, color: "#7D7D7D" }}>Don't have an account?</Text>
+            <Text style={{ fontFamily: "Poppins-Regular", marginTop: "5%", fontSize: 16, color: "#7D7D7D" }}>
+              Don't have an account?
+            </Text>
             <TouchableOpacity onPress={() => handleSignup()} disabled={loading} style={ButtonTheme.SignUpNavigation}>
               {loadingSignUp ? (
                 <ActivityIndicator />
