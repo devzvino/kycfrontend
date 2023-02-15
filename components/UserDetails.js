@@ -263,7 +263,7 @@ const UserDetails = ({
             required
             // onBlur={Keyboard.dismiss}
             onChange={(value) => {
-              setId(value.trim());
+              setId(value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase());
             }}
             info={id ? null : error}
             textStyles={FontTheme.errortxt}
