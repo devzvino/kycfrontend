@@ -159,7 +159,7 @@ const Login = () => {
           <View style={{ width: width, height: "100%", marginTop: 10, alignItems: "center" }}>
             <MainInput
               title={"Surname (as on your ID)"}
-              placeholder={"Chikosi"}
+              placeholder={""}
               required
               // onBlur={Keyboard.dismiss}
               onChange={(value) => {
@@ -170,7 +170,7 @@ const Login = () => {
             />
             <MainInput
               title={"National ID Number"}
-              placeholder={"63111111X07"}
+              placeholder={""}
               required
               // onBlur={Keyboard.dismiss}
               onChange={(value) => {
