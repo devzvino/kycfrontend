@@ -10,6 +10,7 @@ import { keys } from "../environmentVariables";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFetchAddresses } from "../hooks/useFetchAddresses";
+import { ColorTheme } from "../components/ThemeFile";
 
 const Home = () => {
   const { addListener } = useNavigation();
@@ -148,17 +149,19 @@ const Home = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { display: 'flex', flexDirection: 'column', justifyContent: 'center' }]}>
       <GlobalHeader title=" Registered Addresses" />
 
       <>
+        <Text style={{ marginBottom: 10, marginLeft: '5%', marginRight: '5%', color: ColorTheme.grey4, fontSize: 18, fontWeight: 'bold', lineHeight: 25 }}>Your address is verified in the background. Please ensure that you location is ON and set to 'Always Allow'. </Text>
+        <View style={{ backgroundColor: ColorTheme.grey3, width: width * 0.9, height: 0.5, marginTop: 10, marginLeft: '5%', marginRight: '5%' }}></View>
         {!tempDisplay.length ? (
           <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-            <Text>You have not added your home or work address.</Text>
+            <Text>You have not added your home or work address. </Text>
           </View>
         ) : (
           <SwipeListView
-            contentContainerStyle={{ paddingHorizontal: 15, backgroundColor: "#FFFFFF" }}
+            contentContainerStyle={{ paddingHorizontal: 15, backgroundColor: "#FFFFFF", paddingTop: 20 }}
             data={tempDisplay}
             keyExtractor={(item, index) => item._id}
             renderItem={(item, rowMap) => <HomeVerificationCard item={item} />}
@@ -199,7 +202,7 @@ const Home = () => {
         )}
       </>
       <View style={{ justifyContent: "center", alignItems: "center", height: "13.7%" }}></View>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 };
 

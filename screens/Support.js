@@ -1,9 +1,11 @@
-import { View, Text, Dimensions, ScrollViewComponent, ScrollView, Linking } from 'react-native'
+import { View, Text, Dimensions, Linking } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import GlobalHeader from '../components/GlobalHeader';
 import { ColorTheme, FontTheme } from '../components/ThemeFile';
 import WhatsApp from '../components/WhatsApp';
+import { ScrollView } from 'react-native-gesture-handler';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const Support = () => {
     const { height, width } = Dimensions.get("window");
@@ -32,28 +34,34 @@ const Support = () => {
                 </View>
 
                 <Text style={{ marginBottom: 15, color: ColorTheme.main, fontSize: 17, lineHeight: 20, fontWeight: 'bold' }}>Frequently Asked Questions (FAQs) </Text>
-                <ScrollView >
-                    <View style={{ borderColor: ColorTheme.grey2, borderWidth: 2, padding: 10, borderRadius: 10, marginBottom: 10 }}>
-                        <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 15, lineHeight: 20, fontWeight: 'bold' }}>How Long does it take to Verify an Address? </Text>
-                        <Text style={{ color: ColorTheme.grey, fontSize: 15, lineHeight: 20 }}>KYC Africa verifies your address over a period of three consecutive days. If the address location retains a positive result you will get Verification Successful, but if the location fails our verification criteria it will return a Verification Failed result  </Text>
-                    </View>
-                    <View style={{ borderColor: ColorTheme.grey2, borderWidth: 2, padding: 10, borderRadius: 10, marginBottom: 10 }}>
-                        <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 15, lineHeight: 20, fontWeight: 'bold' }}>How Long does it take to Verify an Address? </Text>
-                        <Text style={{ color: ColorTheme.grey, fontSize: 15, lineHeight: 20 }}>KYC Africa verifies your address over a period of three consecutive days. If the address location retains a positive result you will get Verification Successful, but if the location fails our verification criteria it will return a Verification Failed result  </Text>
-                    </View>
-                    <View style={{ borderColor: ColorTheme.grey2, borderWidth: 2, padding: 10, borderRadius: 10, marginBottom: 10 }}>
-                        <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 15, lineHeight: 20, fontWeight: 'bold' }}>How Long does it take to Verify an Address? </Text>
-                        <Text style={{ color: ColorTheme.grey, fontSize: 15, lineHeight: 20 }}>KYC Africa verifies your address over a period of three consecutive days. If the address location retains a positive result you will get Verification Successful, but if the location fails our verification criteria it will return a Verification Failed result  </Text>
-                    </View>
-                    <View style={{ borderColor: ColorTheme.grey2, borderWidth: 2, padding: 10, borderRadius: 10, marginBottom: 10 }}>
-                        <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 15, lineHeight: 20, fontWeight: 'bold' }}>How Long does it take to Verify an Address? </Text>
-                        <Text style={{ color: ColorTheme.grey, fontSize: 15, lineHeight: 20 }}>KYC Africa verifies your address over a period of three consecutive days. If the address location retains a positive result you will get Verification Successful, but if the location fails our verification criteria it will return a Verification Failed result  </Text>
-                    </View>
-                    <View style={{ height: height * 0.18 }}>
+                <KeyboardAwareScrollView
 
+
+                >
+                    <View>
+                        <View style={{ borderColor: ColorTheme.grey2, borderWidth: 2, padding: 10, borderRadius: 10, marginBottom: 10 }}>
+                            <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 15, lineHeight: 20, fontWeight: 'bold' }}>How Long does it take to Verify an Address? </Text>
+                            <Text style={{ color: ColorTheme.grey, fontSize: 15, lineHeight: 20 }}>KYC Africa verifies your address over a period of three consecutive days. If the address location retains a positive result you will get a Verification Successful notification, but if the location fails our verification criteria it will return a Verification Failed result  </Text>
+                        </View>
+                        <View style={{ borderColor: ColorTheme.grey2, borderWidth: 2, padding: 10, borderRadius: 10, marginBottom: 10 }}>
+                            <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 15, lineHeight: 20, fontWeight: 'bold' }}>How do I share my verifcation Certificates? </Text>
+                            <Text style={{ color: ColorTheme.grey, fontSize: 15, lineHeight: 20 }}>KYC Africa verifies your address over a period of three consecutive days. If the address location retains a positive result you will get a Verification Successful notification, but if the location fails our verification criteria it will return a Verification Failed result  </Text>
+                        </View>
+                        <View style={{ borderColor: ColorTheme.grey2, borderWidth: 2, padding: 10, borderRadius: 10, marginBottom: 10 }}>
+                            <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 15, lineHeight: 20, fontWeight: 'bold' }}>How much data does it take to verify? </Text>
+                            <Text style={{ color: ColorTheme.grey, fontSize: 15, lineHeight: 20 }}>KYC Africa verifies your address over a period of three consecutive days. If the address location retains a positive result you will get a Verification Successful notification, but if the location fails our verification criteria it will return a Verification Failed result  </Text>
+                        </View>
+                        <View style={{ borderColor: ColorTheme.grey2, borderWidth: 2, padding: 10, borderRadius: 10, marginBottom: 10 }}>
+                            <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 15, lineHeight: 20, fontWeight: 'bold' }}>Who has access to my location data? </Text>
+                            <Text style={{ color: ColorTheme.grey, fontSize: 15, lineHeight: 20 }}>KYC Africa verifies your address over a period of three consecutive days. If the address location retains a positive result you will get a Verification Successful notification, but if the location fails our verification criteria it will return a Verification Failed result  </Text>
+                        </View>
+                        <View style={{ height: height * 0.18 }}>
+
+                        </View>
                     </View>
 
-                </ScrollView>
+
+                </KeyboardAwareScrollView>
 
 
             </View>
