@@ -7,6 +7,8 @@ import { Touchable } from "react-native-web";
 import { useEffect, useState } from "react/cjs/react.production.min";
 import GlobalHeader from "../components/GlobalHeader";
 import MainButton from "../components/MainButton";
+import { ColorTheme } from "../components/ThemeFile";
+import kycLogo from '../assets/icon.png';
 
 
 const QRcode = () => {
@@ -26,8 +28,12 @@ const QRcode = () => {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: "#ffffff" }]}>
       <GlobalHeader title="Share Certificate" />
-      <View style={{ flexDirection: 'column', alignItems: 'center', backgroundColor: '#FFFFFF', marginTop: 20 }}>
+      <View style={{ flexDirection: 'column', alignItems: 'center', backgroundColor: '#FFFFFF', marginTop: 20, display: 'flex' }}>
         <QRCode
+          size={320}
+          codeStyle='circle'
+          logo={kycLogo}
+          logoSize={95}
 
           content='https://kycafrica.com' />
 
@@ -35,8 +41,9 @@ const QRcode = () => {
       </View>
       <View style={{ alignItems: 'center', marginTop: 20 }}>
         <TouchableOpacity style={{
-          backgroundColor: "#2FBF00",
-          borderRadius: 5,
+          borderColor: ColorTheme.grey2,
+          borderWidth: 2,
+          borderRadius: 10,
           marginBottom: 15,
           display: "flex",
           alignItems: "center",
@@ -46,14 +53,15 @@ const QRcode = () => {
           width: width * 0.8
 
         }}>
-          <Text style={{ fontSize: 18, color: '#FFFFFF', fontWeight: '600', textTransform: 'uppercase' }}>
+          <Text style={{ fontSize: 18, color: ColorTheme.main, fontWeight: '600', }}>
             Full KYC Certificate
           </Text>
 
         </TouchableOpacity>
         <TouchableOpacity style={{
-          backgroundColor: "#2FBF00",
-          borderRadius: 5,
+          borderColor: ColorTheme.grey2,
+          borderWidth: 2,
+          borderRadius: 10,
           marginBottom: 15,
           display: "flex",
           alignItems: "center",
@@ -63,14 +71,15 @@ const QRcode = () => {
 
 
         }}>
-          <Text style={{ fontSize: 18, color: '#FFFFFF', fontWeight: '600', textTransform: 'uppercase' }}>
+          <Text style={{ fontSize: 18, color: ColorTheme.main, fontWeight: '600', textTransform: 'capitalize' }}>
             Verified ID Certificate
           </Text>
 
         </TouchableOpacity>
         <TouchableOpacity style={{
-          backgroundColor: "#2FBF00",
-          borderRadius: 5,
+          borderColor: ColorTheme.grey2,
+          borderWidth: 2,
+          borderRadius: 10,
           marginBottom: 15,
           display: "flex",
           alignItems: "center",
@@ -79,7 +88,7 @@ const QRcode = () => {
           width: width * 0.8
 
         }}>
-          <Text style={{ fontSize: 18, color: '#FFFFFF', fontWeight: '600', textTransform: 'uppercase' }}>
+          <Text style={{ fontSize: 18, color: ColorTheme.main, fontWeight: '600', textTransform: 'capitalize' }}>
             Verified Address Certificate
           </Text>
 

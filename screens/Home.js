@@ -178,7 +178,7 @@ const Home = () => {
                 style={[styles.hiddenButton,]}
               >
                 <View
-                  style={{ color: '#ffffff', backgroundColor: 'red', height: 120, width: 85, borderRadius: 10, display: "flex", justifyContent: 'center', alignItems: "center" }}
+                  style={{ color: '#ffffff', backgroundColor: 'red', height: 100, width: 85, borderRadius: 10, display: "flex", justifyContent: 'center', alignItems: "center" }}
                 >
                   {removing ? (
 
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 10,
     marginRight: 1,
-    height: 120,
+    height: 100,
 
 
   },

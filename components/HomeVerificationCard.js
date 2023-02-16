@@ -33,25 +33,25 @@ const HomeVerificationCard = ({ item }) => {
         {home ? (
           <>
             {info.homeVerified === "pending" && (
-              <View style={{ width: 20, height: "100%", backgroundColor: ColorTheme.orange }}></View>
+              <View style={{ width: 10, height: "100%", backgroundColor: ColorTheme.orange }}></View>
             )}
             {info.homeVerified === "failed" && (
-              <View style={{ width: 20, height: "100%", backgroundColor: ColorTheme.red }}></View>
+              <View style={{ width: 10, height: "100%", backgroundColor: ColorTheme.red }}></View>
             )}
             {info.homeVerified === "success" && (
-              <View style={{ width: 20, height: "100%", backgroundColor: ColorTheme.main }}></View>
+              <View style={{ width: 10, height: "100%", backgroundColor: ColorTheme.main }}></View>
             )}
           </>
         ) : (
           <>
             {info.workVerified === "pending" && (
-              <View style={{ width: 20, height: "100%", backgroundColor: ColorTheme.orange }}></View>
+              <View style={{ width: 10, height: "100%", backgroundColor: ColorTheme.orange }}></View>
             )}
             {info.workVerified === "failed" && (
-              <View style={{ width: 20, height: "100%", backgroundColor: ColorTheme.red }}></View>
+              <View style={{ width: 10, height: "100%", backgroundColor: ColorTheme.red }}></View>
             )}
             {info.workVerified === "success" && (
-              <View style={{ width: 20, height: "100%", backgroundColor: ColorTheme.main }}></View>
+              <View style={{ width: 10, height: "100%", backgroundColor: ColorTheme.main }}></View>
             )}
           </>
         )}
@@ -66,7 +66,7 @@ const HomeVerificationCard = ({ item }) => {
         </Text>
         {/* coordinates */}
         <View style={{ flexDirection: "row", marginTop: 2 }}>
-          {home ? (
+          {/* {home ? (
             <View>
               <Text style={styles.textCoordinate}>
                 {info.suburb}
@@ -84,7 +84,7 @@ const HomeVerificationCard = ({ item }) => {
                 {info.city}
               </Text>
             </View>
-          )}
+          )} */}
         </View>
         {/* category */}
         {/* <Text style={styles.textCoordinate}>{info.title} Address</Text> */}
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     overflow: "hidden",
     flexDirection: "row",
-    height: 120,
+    height: 100,
   },
   textCoordinate: {
     color: ColorTheme.grey,

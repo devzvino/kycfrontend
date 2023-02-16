@@ -11,7 +11,7 @@ export const ColorTheme = {
   green: "#00BB56",
   red: "#FF0000",
   blue: "#3190FF",
-  grey: "#7D7D7D",
+  grey: "#4E4E4E",
   grey2: "#EFF0F6",
   grey3: "#CCCCCC",
   grey4: "#808080",
@@ -228,7 +228,7 @@ export const LogoTheme = {
   miniLogo: {
     height: "100%",
     resizeMode: "contain",
-    width: 150,
+    width: 120,
     marginTop: 30,
   },
 };

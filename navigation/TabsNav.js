@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { HomeIcon, PlusIcon, ShareIcon } from "react-native-heroicons/outline";
+import Support from '../screens/Support'
+import { HomeIcon, ShareIcon, LocationMarkerIcon, QuestionMarkCircleIcon, InformationCircleIcon, DotsHorizontalIcon } from "react-native-heroicons/solid";
 
 //import Screens
 import Home from "../screens/Home";
@@ -33,28 +34,88 @@ const TabsNav = () => {
           borderTopWidth: 0,
           borderTopLeftRadius: 15,
           borderTopRightRadius: 15,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
         },
       }}
     >
+
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={AddAddress}
         options={{
           tabBarIcon: ({ color }) => (
             <View
               style={{
-                flexDirection: "row",
+                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
-              <HomeIcon color={color} size={30} />
-              <Text style={{ color: `${color}`, fontSize: 18 }}> Home</Text>
+              <HomeIcon color={color} size={25} />
+              <Text style={{ color: `${color}`, fontSize: 14 }}> Home</Text>
             </View>
           ),
         }}
       />
       <Tab.Screen
+        name="Addreses"
+        component={Home}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <View
+              style={{
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+
+              }}
+            >
+              <LocationMarkerIcon color={color} style={'solid'} size={25} />
+              <Text style={{ color: `${color}`, fontSize: 14 }}>Address</Text>
+            </View>
+          ),
+        }}
+      />
+      {/* <Tab.Screen
+        name="Account"
+        component={Home}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <View
+              style={{
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <UserIcon color={color} size={25} />
+              <Text style={{ color: `${color}`, fontSize: 14 }}>Account</Text>
+            </View>
+          ),
+        }}
+      /> */}
+      <Tab.Screen
+        name="Support"
+        component={Support}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <View
+              style={{
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <QuestionMarkCircleIcon color={color} size={25} />
+              <Text style={{ color: `${color}`, fontSize: 14 }}>Support</Text>
+            </View>
+          ),
+        }}
+      />
+
+      {/* <Tab.Screen
         name="AddLocation"
         component={AddAddress}
         options={{
@@ -76,21 +137,21 @@ const TabsNav = () => {
             </View>
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
-        name="QRcode"
+        name="More"
         component={QRcode}
         options={{
           tabBarIcon: ({ color }) => (
             <View
               style={{
-                flexDirection: "row",
+                flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
-              <ShareIcon color={color} size={30} />
-              <Text style={{ color: `${color}`, fontSize: 18 }}> Share</Text>
+              <DotsHorizontalIcon color={color} size={25} />
+              <Text style={{ color: `${color}`, fontSize: 14 }}>More</Text>
             </View>
           ),
         }}
