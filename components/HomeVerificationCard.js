@@ -58,10 +58,10 @@ const HomeVerificationCard = ({ item }) => {
         {/*  */}
       </View>
       <View>
-        <Text style={{ color: 'black', fontSize: 18, fontWeight: "600" }}>
+        <Text style={{ color: 'black', fontSize: 18, fontWeight: "800", color: ColorTheme.green }}>
           {home ? info.houseNo : info.building}
         </Text>
-        <Text style={{ color: 'black', fontSize: 18, fontWeight: "600" }}>
+        <Text style={{ color: 'black', fontSize: 18, fontWeight: "800", color: ColorTheme.green }}>
           {home ? info.streetName : info.streetName}
         </Text>
         {/* coordinates */}

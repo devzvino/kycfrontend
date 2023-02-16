@@ -28,6 +28,10 @@ const Login = () => {
   const [cc, setCC] = useState(null);
   let token;
 
+  // console.log('====================================');
+  // console.log(id);
+  // console.log('====================================');
+
   const route = useRoute();
   const { storeUser } = route.params;
 
@@ -174,7 +178,8 @@ const Login = () => {
               required
               // onBlur={Keyboard.dismiss}
               onChange={(value) => {
-                setId(value.trim());
+                setId(value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase());
+
               }}
               info={id ? null : error}
               textStyles={FontTheme.errortxt}
