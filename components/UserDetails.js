@@ -259,7 +259,7 @@ const UserDetails = ({
           {/*  */}
           <MainInput
             title={"National ID Number"}
-            placeholder={"63111111X07"}
+            placeholder={""}
             required
             // onBlur={Keyboard.dismiss}
             onChange={(value) => {
