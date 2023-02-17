@@ -6,6 +6,7 @@ import LocationSelect from "../screens/LocationSelect";
 import Login from "../screens/Login";
 import QRcode from "../screens/QRcode";
 import SignUp from "../screens/SignUp";
+import Support from "../screens/Support";
 import WelcomeScreen from "../screens/Welcome";
 import TabsNav from "./TabsNav";
 
@@ -48,7 +49,8 @@ const StackNavigation = () => {
         // Auth screens
         <Stack.Group>
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen name="QRcode" component={QRcode} />
+          <Stack.Screen name="More" component={QRcode} />
+          <Stack.Screen name="Support" component={Support} />
           <Stack.Screen name="Login" component={Login} initialParams={{ storeUser: storeUser }} />
           <Stack.Screen name="SignUp" component={SignUp} initialParams={{ storeUser: storeUser }} />
         </Stack.Group>

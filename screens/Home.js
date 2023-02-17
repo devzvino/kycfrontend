@@ -153,7 +153,7 @@ const Home = () => {
       <GlobalHeader title=" Registered Addresses" />
 
       <>
-        <Text style={{ marginBottom: 10, marginLeft: '5%', marginRight: '5%', color: ColorTheme.grey4, fontSize: 18, fontWeight: 'bold', lineHeight: 25 }}>Your address is verified in the background. Please ensure that you location is ON and set to 'Always Allow'. </Text>
+        <Text style={{ marginBottom: 10, marginLeft: '5%', marginRight: '5%', color: ColorTheme.grey4, fontSize: 14, lineHeight: 20 }}>Your address is verified in the background. Please ensure that you location is ON and set to 'Always Allow'. </Text>
         <View style={{ backgroundColor: ColorTheme.grey3, width: width * 0.9, height: 0.5, marginTop: 10, marginLeft: '5%', marginRight: '5%' }}></View>
         {!tempDisplay.length ? (
           <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>

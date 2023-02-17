@@ -40,7 +40,7 @@ const AddAddress = () => {
     <SafeAreaView style={{ backgroundColor: "white", flex: 1, height: height, display: 'flex', alignItems: 'center' }}>
       <GlobalHeader title="Home" />
       <View style={{ padding: 15, width: width * 0.95 }}>
-        <Text style={{ marginBottom: 20, fontWeight: 'bold', fontSize: 18, color: '#4E4E4E' }}>+ New Address</Text>
+        <Text style={{ marginBottom: 20, fontWeight: 'bold', fontSize: 18, color: '#4E4E4E' }}>+ Address</Text>
         <View style={{ backgroundColor: "white", display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
           <TouchableOpacity
             onPress={() =>
@@ -79,7 +79,7 @@ const AddAddress = () => {
             //     myId: user._id,
             //   })
             // }
-            style={{ borderColor: ColorTheme.grey2, borderWidth: 2, width: '40%', padding: 20, borderRadius: 10, alignItems: 'center', marginRight: 20, justifyContent: 'center' }}
+            style={{ borderColor: ColorTheme.grey2, borderWidth: 2, width: '40%', padding: 30, borderRadius: 10, alignItems: 'center', marginRight: 20, justifyContent: 'center' }}
           >
             <BookOpenIcon size={30} color={ColorTheme.main} />
             <Text style={{ color: ColorTheme.main, fontSize: 12, fontWeight: 'bold' }}>Passport</Text>
@@ -109,7 +109,7 @@ const AddAddress = () => {
             //     myId: user._id,
             //   })
             // }
-            style={{ borderColor: ColorTheme.grey2, borderWidth: 2, width: '40%', padding: 20, borderRadius: 10, alignItems: 'center', marginRight: 20, justifyContent: 'center' }}
+            style={{ borderColor: ColorTheme.grey2, borderWidth: 2, width: '40%', padding: 30, borderRadius: 10, alignItems: 'center', marginRight: 20, justifyContent: 'center' }}
           >
             <PlusIcon size={30} color={ColorTheme.main} />
             <Text style={{ color: ColorTheme.main, fontSize: 12, fontWeight: 'bold' }}>Add</Text>

@@ -22,7 +22,7 @@ const HomeVerificationCard = ({ item }) => {
     <TouchableOpacity
       activeOpacity={1}
       onPress={() => {
-        navigation.navigate("QRcode");
+        navigation.navigate("More");
         console.log("adrr pressed");
       }}
       style={styles.homeCard}

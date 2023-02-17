@@ -1,11 +1,11 @@
-import { View, Text, Dimensions, Linking } from 'react-native'
+import { View, Text, Dimensions, Linking, Image } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import GlobalHeader from '../components/GlobalHeader';
 import { ColorTheme, FontTheme } from '../components/ThemeFile';
-import WhatsApp from '../components/WhatsApp';
-import { ScrollView } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+
 
 const Support = () => {
     const { height, width } = Dimensions.get("window");
@@ -21,12 +21,12 @@ const Support = () => {
 
                     </Text>
                     <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', alignContent: 'center' }}>
-                        <View style={{ display: 'flex', alignItems: '' }}>
+                        {/* <View style={{ display: 'flex', alignItems: '' }}>
                             <WhatsApp />
-                        </View>
+                        </View> */}
 
 
-                        <Text onPress={() => Linking.openURL("https://wa.me/263773384668")} style={{ color: ColorTheme.main, marginLeft: 10, fontWeight: 'bold', display: 'flex', alignContent: 'center', fontSize: 15, }}>
+                        <Text onPress={() => Linking.openURL("https://wa.me/263773384668")} style={{ color: ColorTheme.main, fontWeight: 'bold', display: 'flex', alignContent: 'center', fontSize: 15, }}>
                             Please contact support via WhatsApp for further assistance.
                         </Text>
                     </View>

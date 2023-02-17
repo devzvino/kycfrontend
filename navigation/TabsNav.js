@@ -25,15 +25,15 @@ const TabsNav = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: "#ebebeb",
-          height: 100,
+          height: 60,
           position: "absolute",
           bottom: 0,
           left: 0,
           right: 0,
           elevation: 0,
           borderTopWidth: 0,
-          borderTopLeftRadius: 15,
-          borderTopRightRadius: 15,
+          borderTopLeftRadius: 5,
+          borderTopRightRadius: 5,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'

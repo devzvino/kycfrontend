@@ -26,14 +26,14 @@ const QRcode = () => {
   // })
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: "#ffffff" }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: "#ffffff", flex: 1 }]}>
       <GlobalHeader title="Share Certificate" />
       <View style={{ flexDirection: 'column', alignItems: 'center', backgroundColor: '#FFFFFF', marginTop: 20, display: 'flex' }}>
         <QRCode
-          size={320}
+          size={270}
           codeStyle='circle'
           logo={kycLogo}
-          logoSize={95}
+          logoSize={50}
 
           content='https://kycafrica.com' />
 
@@ -47,8 +47,8 @@ const QRcode = () => {
           marginBottom: 15,
           display: "flex",
           alignItems: "center",
-          paddingBottom: 20,
-          paddingTop: 20,
+          paddingBottom: '3%',
+          paddingTop: '3%',
 
           width: width * 0.8
 
@@ -65,8 +65,8 @@ const QRcode = () => {
           marginBottom: 15,
           display: "flex",
           alignItems: "center",
-          paddingBottom: 20,
-          paddingTop: 20,
+          paddingBottom: '3%',
+          paddingTop: '3%',
           width: width * 0.8,
 
 
@@ -83,8 +83,8 @@ const QRcode = () => {
           marginBottom: 15,
           display: "flex",
           alignItems: "center",
-          paddingBottom: 20,
-          paddingTop: 20,
+          paddingBottom: '3%',
+          paddingTop: '3%',
           width: width * 0.8
 
         }}>
