@@ -13,9 +13,9 @@ const Support = () => {
         <SafeAreaView style={{ backgroundColor: "white", flex: 1, height: height, display: 'flex', alignItems: 'flex-start' }}>
             <GlobalHeader title="Home" />
             <View style={{ paddingHorizontal: '5%', overflow: 'scroll' }}>
-                <View style={{ padding: 15, backgroundColor: ColorTheme.grey2, marginBottom: 30, borderRadius: 10 }}>
-                    <Text style={{ marginBottom: 15, color: ColorTheme.grey, fontSize: 16, lineHeight: 20 }}>KYC Africa verifies your ID Number & Addresses in the background. </Text>
-                    <Text style={{ marginBottom: 15, color: ColorTheme.grey, fontSize: 16, lineHeight: 20 }}>Please make sure that you set location permissions to <Text style={{ fontWeight: 'bold', fontSize: 16, lineHeight: 20 }}>Always Allow</Text>. For better and accurate resuts keep your data on during the verification process</Text>
+                <View style={{ padding: 15, backgroundColor: '#F8F8F8', marginBottom: 30, borderRadius: 10 }}>
+                    {/* <Text style={{ marginBottom: 15, color: ColorTheme.grey, fontSize: 16, lineHeight: 20 }}>KYC Africa verifies your ID Number & Addresses in the background. </Text>
+                    <Text style={{ marginBottom: 15, color: ColorTheme.grey, fontSize: 16, lineHeight: 20 }}>Please make sure that you set location permissions to <Text style={{ fontWeight: 'bold', fontSize: 16, lineHeight: 20 }}>Always Allow</Text>. For better and accurate resuts keep your data on during the verification process</Text> */}
                     <Text style={{ marginBottom: 15, color: ColorTheme.grey, fontSize: 16, lineHeight: 20 }}>
                         If you are having any problems with the application, our team is available to assist you. {" "}
 
@@ -27,13 +27,13 @@ const Support = () => {
 
 
                         <Text onPress={() => Linking.openURL("https://wa.me/263773384668")} style={{ color: ColorTheme.main, fontWeight: 'bold', display: 'flex', alignContent: 'center', fontSize: 15, }}>
-                            Please contact support via WhatsApp for further assistance.
+                            Click Here for Assistance Via WhatsApp.
                         </Text>
                     </View>
 
                 </View>
 
-                <Text style={{ marginBottom: 15, color: ColorTheme.main, fontSize: 17, lineHeight: 20, fontWeight: 'bold' }}>Frequently Asked Questions (FAQs) </Text>
+                <Text style={{ marginBottom: 15, fontSize: 17, lineHeight: 20, fontWeight: 'bold' }}>Frequently Asked Questions (FAQs) </Text>
                 <KeyboardAwareScrollView
 
 

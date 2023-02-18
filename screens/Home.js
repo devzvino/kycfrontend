@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFetchAddresses } from "../hooks/useFetchAddresses";
 import { ColorTheme } from "../components/ThemeFile";
+import { BriefcaseIcon, HomeIcon } from "react-native-heroicons/solid";
 
 const Home = () => {
   const { addListener } = useNavigation();
@@ -22,6 +23,7 @@ const Home = () => {
   const [workLocation, setWorkLocation] = useState(null);
   const [mergedAddress, setMergedAddress] = useState();
   const [tempDisplay, setTempDisplay] = useState([]);
+  const [user, setUser] = useState();
 
   const navigation = useNavigation();
   let userDetails;
@@ -113,6 +115,15 @@ const Home = () => {
     checkuserIfstoredandfetchdata();
     setRemoving(false);
   };
+  //function to check user 
+  const checkingIfUserIsStored = async () => {
+    try {
+      const storedUser = await AsyncStorage.getItem("@user");
+      if (storedUser !== null) {
+        setUser(JSON.parse(storedUser));
+      }
+    } catch (error) { }
+  };
 
   // force event to rerender page
   const refresherpage = addListener("focus", () => {
@@ -123,6 +134,7 @@ const Home = () => {
 
   useEffect(() => {
     //  getting information locations
+    checkingIfUserIsStored();
     checkuserIfstoredandfetchdata();
     if (!tempDisplay) refresherpage();
     return () => {
@@ -130,78 +142,135 @@ const Home = () => {
     };
   }, []);
 
+  useFetchAddresses();
+
   // async () => await useFetchAddresses();
 
-  if (loading) {
-    return (
-      <View
-        style={{
-          paddingTop: 150,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Text>Loading please wait...</Text>
+  // if (loading) {
+  //   return (
+  //     <View
+  //       style={{
+  //         paddingTop: 150,
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //       }}
+  //     >
+  //       <Text>Loading please wait...</Text>
 
-        <ActivityIndicator style={{ marginTop: 20 }} />
-      </View>
-    );
-  }
+  //       <ActivityIndicator style={{ marginTop: 20 }} />
+  //     </View>
+  //   );
+  // }
 
   return (
-    <SafeAreaView style={[styles.container, { display: 'flex', flexDirection: 'column', justifyContent: 'center' }]}>
+    <SafeAreaView style={[styles.container, { display: 'flex', flexDirection: 'column' }]}>
       <GlobalHeader title=" Registered Addresses" />
 
       <>
-        <Text style={{ marginBottom: 10, marginLeft: '5%', marginRight: '5%', color: ColorTheme.grey4, fontSize: 14, lineHeight: 20 }}>Your address is verified in the background. Please ensure that you location is ON and set to 'Always Allow'. </Text>
-        <View style={{ backgroundColor: ColorTheme.grey3, width: width * 0.9, height: 0.5, marginTop: 10, marginLeft: '5%', marginRight: '5%' }}></View>
-        {!tempDisplay.length ? (
-          <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-            <Text>You have not added your home or work address. </Text>
+        <View style={{ marginHorizontal: '5%', paddingBottom: 20, paddingHorizontal: 0, width: width * 0.95, }}>
+          <Text style={{ marginBottom: 20, fontWeight: 'bold', fontSize: 18, color: '#4E4E4E' }}>Address</Text>
+          <View style={{ backgroundColor: "white", display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("AddNewLocation", {
+                  title: "home",
+                  myId: user._id,
+                })
+              }
+              style={{ borderColor: ColorTheme.grey2, borderRightWidth: 3, borderBottomWidth: 3, borderLeftWidth: 1, borderTopWidth: 1, width: '40%', padding: 30, borderRadius: 5, alignItems: 'center', marginRight: 20, justifyContent: 'center' }}
+            >
+              <HomeIcon size={30} color={ColorTheme.main} />
+              <Text style={styles.btnTitle}>Home</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("AddNewLocation", {
+                  title: "work",
+                  myId: user._id,
+                })
+              }
+              style={{ borderColor: ColorTheme.grey2, borderRightWidth: 3, borderBottomWidth: 3, borderLeftWidth: 1, borderTopWidth: 1, width: '40%', padding: 30, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}
+            >
+              <BriefcaseIcon size={30} color={ColorTheme.main} />
+              <Text style={styles.btnTitle}>Work</Text>
+            </TouchableOpacity>
           </View>
-        ) : (
-          <SwipeListView
-            contentContainerStyle={{ paddingHorizontal: 15, backgroundColor: "#FFFFFF", paddingTop: 20 }}
-            data={tempDisplay}
-            keyExtractor={(item, index) => item._id}
-            renderItem={(item, rowMap) => <HomeVerificationCard item={item} />}
-            disableRightSwipe={true}
-            previewOpenDelay={3000}
-            friction={1000}
-            tension={40}
-            leftOpenValue={95}
-            stopLeftSwipe={95}
-            rightOpenValue={-95}
-            renderHiddenItem={(item, rowMap) => (
-              <TouchableOpacity
-                Vi
-                onPress={() => {
-                  handleDeleteProcess(item.item._id, item.item.title);
-                }}
-                style={[styles.hiddenButton,]}
-              >
-                <View
-                  style={{ color: '#ffffff', backgroundColor: 'red', height: 100, width: 85, borderRadius: 10, display: "flex", justifyContent: 'center', alignItems: "center" }}
-                >
-                  {removing ? (
+
+        </View>
+        <View style={{ marginHorizontal: '5%', padding: 15, backgroundColor: '#F8F8F8', width: width * 0.9, marginBottom: 5, borderRadius: 10 }}>
+          <Text style={{ color: ColorTheme.grey, fontSize: 16, lineHeight: 20 }}>KYC Africa verifies your Addresses in the background, make sure that you set location permissions to <Text style={{ fontWeight: 'bold', fontSize: 16, lineHeight: 20 }}>Always Allow</Text> </Text>
+          {/* <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 16, lineHeight: 20, }}>Please make sure that you set location permissions to <Text style={{ fontWeight: 'bold', fontSize: 16, lineHeight: 20 }}>Always Allow</Text></Text> */}
+        </View>
 
 
-                    <ActivityIndicator
-                      color={"#FFFFFF"}
-
-                    />
+        <View style={{ backgroundColor: ColorTheme.grey3, width: width * 0.9, height: 0.5, marginTop: 10, marginLeft: '5%', marginRight: '5%' }}></View>
 
 
-                  ) : (
-                    <Text style={{ color: '#ffffff', }}>Delete</Text>
+        {loading ? <View
+          style={{
+            paddingTop: 150,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text>Loading please wait...</Text>
+
+          <ActivityIndicator style={{ marginTop: 20 }} />
+        </View> :
+          <>
+            {!tempDisplay.length ? (
+              <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
+                <Text>You have not added your home or work address. </Text>
+              </View>
+            )
+
+              :
+              (
+                <SwipeListView
+                  contentContainerStyle={{ paddingHorizontal: 15, height: height * 0.6, backgroundColor: "#FFF", paddingTop: 20 }}
+                  data={tempDisplay}
+                  keyExtractor={(item, index) => item._id}
+                  renderItem={(item, rowMap) => <HomeVerificationCard item={item} />}
+                  disableRightSwipe={true}
+                  previewOpenDelay={3000}
+                  friction={1000}
+                  tension={40}
+                  leftOpenValue={95}
+                  stopLeftSwipe={95}
+                  rightOpenValue={-95}
+                  renderHiddenItem={(item, rowMap) => (
+                    <TouchableOpacity
+                      Vi
+                      onPress={() => {
+                        handleDeleteProcess(item.item._id, item.item.title);
+                      }}
+                      style={[styles.hiddenButton,]}
+                    >
+                      <View
+                        style={{ color: '#ffffff', backgroundColor: 'red', height: 100, width: 85, borderRadius: 10, display: "flex", justifyContent: 'center', alignItems: "center" }}
+                      >
+                        {removing ? (
+
+
+                          <ActivityIndicator
+                            color={"#FFFFFF"}
+
+                          />
+
+
+                        ) : (
+                          <Text style={{ color: '#ffffff', }}>Delete</Text>
+                        )}
+                      </View>
+                    </TouchableOpacity>
                   )}
-                </View>
-              </TouchableOpacity>
-            )}
-          />
-        )}
+                />)}
+          </>}
+
+
+
       </>
-      <View style={{ justifyContent: "center", alignItems: "center", height: "13.7%" }}></View>
+      <View style={{ justifyContent: "center", alignItems: "center", height: "5%" }}></View>
     </SafeAreaView >
   );
 };

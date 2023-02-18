@@ -71,7 +71,7 @@ const QRcode = () => {
 
 
         }}>
-          <Text style={{ fontSize: 18, color: ColorTheme.main, fontWeight: '600', textTransform: 'capitalize' }}>
+          <Text style={{ fontSize: 18, color: ColorTheme.main, fontWeight: '600', }}>
             Verified ID Certificate
           </Text>
 

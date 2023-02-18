@@ -2,13 +2,15 @@ import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Support from '../screens/Support'
-import { HomeIcon, ShareIcon, LocationMarkerIcon, QuestionMarkCircleIcon, InformationCircleIcon, DotsHorizontalIcon } from "react-native-heroicons/solid";
+import { HomeIcon, FolderIcon, LocationMarkerIcon, QuestionMarkCircleIcon, InformationCircleIcon, DotsHorizontalIcon } from "react-native-heroicons/solid";
 
 //import Screens
 import Home from "../screens/Home";
 import QRcode from "../screens/QRcode";
 import AddAddress from "../screens/AddAddress";
 import { useFetchAddresses } from "../hooks/useFetchAddresses";
+import { ColorTheme } from "../components/ThemeFile";
+import Documents from "../screens/Documents";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,7 +26,7 @@ const TabsNav = () => {
         tabBarInactiveTintColor: "#808080",
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: "#ebebeb",
+          backgroundColor: '#F8F8F8',
           height: 60,
           position: "absolute",
           bottom: 0,
@@ -54,7 +56,7 @@ const TabsNav = () => {
               }}
             >
               <HomeIcon color={color} size={25} />
-              <Text style={{ color: `${color}`, fontSize: 14 }}> Home</Text>
+              <Text style={{ color: `${color}`, fontSize: 12 }}> Home</Text>
             </View>
           ),
         }}
@@ -73,7 +75,26 @@ const TabsNav = () => {
               }}
             >
               <LocationMarkerIcon color={color} style={'solid'} size={25} />
-              <Text style={{ color: `${color}`, fontSize: 14 }}>Address</Text>
+              <Text style={{ color: `${color}`, fontSize: 12 }}>Address</Text>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Documents"
+        component={Documents}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <View
+              style={{
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+
+              }}
+            >
+              <FolderIcon color={color} style={'solid'} size={25} />
+              <Text style={{ color: `${color}`, fontSize: 12 }}>Documents</Text>
             </View>
           ),
         }}
@@ -109,7 +130,7 @@ const TabsNav = () => {
               }}
             >
               <QuestionMarkCircleIcon color={color} size={25} />
-              <Text style={{ color: `${color}`, fontSize: 14 }}>Support</Text>
+              <Text style={{ color: `${color}`, fontSize: 12 }}>Support</Text>
             </View>
           ),
         }}
