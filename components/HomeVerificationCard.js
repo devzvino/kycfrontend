@@ -59,32 +59,29 @@ const HomeVerificationCard = ({ item }) => {
       </View>
       <View>
         <Text style={{ color: 'black', fontSize: 18, fontWeight: "800", color: ColorTheme.grey }}>
-          {home ? info.houseNo : info.building}
+          {home ? info.houseNo + ',' + ' ' + info.streetName : info.building + ',' + ' ' + info.streetName}
         </Text>
-        <Text style={{ color: 'black', fontSize: 18, fontWeight: "800", color: ColorTheme.grey }}>
+        {/* <Text style={{ color: 'black', fontSize: 18, fontWeight: "800", color: ColorTheme.grey }}>
           {home ? info.streetName : info.streetName}
-        </Text>
+        </Text> */}
         {/* coordinates */}
         <View style={{ flexDirection: "row", marginTop: 2 }}>
-          {/* {home ? (
+          {home ? (
             <View>
-              <Text style={styles.textCoordinate}>
-                {info.suburb}
-              </Text>
               <Text style={[styles.textCoordinate, { textTransform: 'uppercase' }]}>
-                {info.city}
+                {info.suburb},{' '} {info.city}
               </Text>
+
             </View>
           ) : (
             <View>
-              <Text style={styles.textCoordinate}>
-                {info.companyName}
-              </Text>
               <Text style={[styles.textCoordinate, { textTransform: 'uppercase' }]}>
-                {info.city}
+                {info.companyName},{" "} {info.city}
               </Text>
+
+
             </View>
-          )} */}
+          )}
         </View>
         {/* category */}
         {/* <Text style={styles.textCoordinate}>{info.title} Address</Text> */}

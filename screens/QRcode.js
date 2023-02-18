@@ -41,8 +41,7 @@ const QRcode = () => {
       </View>
       <View style={{ alignItems: 'center', marginTop: 20 }}>
         <TouchableOpacity style={{
-          borderColor: ColorTheme.grey2,
-          borderWidth: 2,
+          borderColor: ColorTheme.grey2, borderRightWidth: 3, borderBottomWidth: 3, borderLeftWidth: 1, borderTopWidth: 1,
           borderRadius: 10,
           marginBottom: 15,
           display: "flex",
@@ -59,8 +58,7 @@ const QRcode = () => {
 
         </TouchableOpacity>
         <TouchableOpacity style={{
-          borderColor: ColorTheme.grey2,
-          borderWidth: 2,
+          borderColor: ColorTheme.grey2, borderRightWidth: 3, borderBottomWidth: 3, borderLeftWidth: 1, borderTopWidth: 1,
           borderRadius: 10,
           marginBottom: 15,
           display: "flex",
@@ -77,8 +75,7 @@ const QRcode = () => {
 
         </TouchableOpacity>
         <TouchableOpacity style={{
-          borderColor: ColorTheme.grey2,
-          borderWidth: 2,
+          borderColor: ColorTheme.grey2, borderRightWidth: 3, borderBottomWidth: 3, borderLeftWidth: 1, borderTopWidth: 1,
           borderRadius: 10,
           marginBottom: 15,
           display: "flex",

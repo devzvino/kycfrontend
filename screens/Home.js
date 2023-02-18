@@ -198,7 +198,7 @@ const Home = () => {
 
         </View>
         <View style={{ marginHorizontal: '5%', padding: 15, backgroundColor: '#F8F8F8', width: width * 0.9, marginBottom: 5, borderRadius: 10 }}>
-          <Text style={{ color: ColorTheme.grey, fontSize: 16, lineHeight: 20 }}>KYC Africa verifies your Addresses in the background, make sure that you set location permissions to <Text style={{ fontWeight: 'bold', fontSize: 16, lineHeight: 20 }}>Always Allow</Text> </Text>
+          <Text style={{ color: ColorTheme.grey, fontSize: 14, lineHeight: 20 }}><Text style={{ fontWeight: 'bold', lineHeight: 20 }}>NOTE: </Text>KYC AFRICA verifies your Addresses in the background, make sure that you set location permissions to <Text style={{ fontWeight: 'bold', lineHeight: 20 }}>Always Allow</Text>.</Text>
           {/* <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 16, lineHeight: 20, }}>Please make sure that you set location permissions to <Text style={{ fontWeight: 'bold', fontSize: 16, lineHeight: 20 }}>Always Allow</Text></Text> */}
         </View>
 
