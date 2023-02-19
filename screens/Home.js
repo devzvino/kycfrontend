@@ -303,6 +303,12 @@ const styles = StyleSheet.create({
 
 
   },
+  btnTitle: {
+    color: ColorTheme.main,
+    fontSize: 18,
+    fontWeight: "bold",
+    marginLeft: 5,
+  },
 });
 
 // fetch(`${keys.apiURL}api/home/my/${userDetails._id}`)

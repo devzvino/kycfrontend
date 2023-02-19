@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import GlobalHeader from '../components/GlobalHeader';
 import { ColorTheme, FontTheme } from '../components/ThemeFile';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { BookOpenIcon, IdentificationIcon, PlusIcon } from 'react-native-heroicons/solid';
+import { BookOpenIcon, IdentificationIcon, PlusIcon, HandIcon, PencilIcon } from 'react-native-heroicons/solid';
 
 
 
@@ -51,7 +51,7 @@ const Documents = () => {
                     {/* <View style={{ backgroundColor: ColorTheme.grey3, width: width * 0.85, height: 1, marginTop: 20 }}></View> */}
                 </View>
                 <View style={{ padding: 10, paddingHorizontal: 0, width: width * 0.95 }}>
-                    <Text style={{ marginBottom: 20, fontWeight: 'bold', fontSize: 18, color: '#4E4E4E', }}>Educational Certificates</Text>
+                    <Text style={{ marginBottom: 20, fontWeight: 'bold', fontSize: 18, color: '#4E4E4E', }}>Certificates</Text>
                     <View style={{ backgroundColor: "white", display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
                         <TouchableOpacity
                             // onPress={() =>
@@ -64,6 +64,18 @@ const Documents = () => {
                         >
                             <PlusIcon size={30} color={ColorTheme.main} />
                             <Text style={{ color: ColorTheme.main, fontSize: 12, fontWeight: 'bold' }}>Add</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            // onPress={() =>
+                            //   navigation.navigate("AddNewLocation", {
+                            //     title: "home",
+                            //     myId: user._id,
+                            //   })
+                            // }
+                            style={{ borderColor: ColorTheme.grey2, borderRightWidth: 3, borderBottomWidth: 3, borderLeftWidth: 1, borderTopWidth: 1, width: '40%', padding: 20, borderRadius: 5, alignItems: 'center', marginRight: 20, justifyContent: 'center' }}
+                        >
+                            <PencilIcon size={30} color={ColorTheme.main} />
+                            <Text style={{ color: ColorTheme.main, fontSize: 12, fontWeight: 'bold' }}>Sign Documents</Text>
                         </TouchableOpacity>
 
                     </View>

@@ -56,7 +56,7 @@ const AddAddress = () => {
           dataInfo={user?.idNumber}
         />
         <InfoRow
-          section={'Verified Phone No.'}
+          section={'Verified Phone No'}
           dataInfo={user?.phone}
         />
         <InfoRow

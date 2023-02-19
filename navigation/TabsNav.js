@@ -23,7 +23,7 @@ const TabsNav = () => {
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: "#2FBF00",
-        tabBarInactiveTintColor: "#808080",
+        tabBarInactiveTintColor: '#9f9f9f',
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: '#F8F8F8',
