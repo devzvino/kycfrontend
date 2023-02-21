@@ -112,9 +112,11 @@ const LocationSelect = () => {
 
   // getting new location when map movies
   const updateRegionCenter = async () => {
-    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${currentLocation.coords.latitude
-      },${currentLocation.coords.longitude}&destinations=${coordinates?.latitude ? coordinates.latitude : currentLocation.coords.latitude
-      },${coordinates?.longitude ? coordinates.longitude : currentLocation.coords.longitude}&key=${keys.GOOGLE_API}`;
+    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${
+      currentLocation.coords.latitude
+    },${currentLocation.coords.longitude}&destinations=${
+      coordinates?.latitude ? coordinates.latitude : currentLocation.coords.latitude
+    },${coordinates?.longitude ? coordinates.longitude : currentLocation.coords.longitude}&key=${keys.GOOGLE_API}`;
     axios
       .get(url)
       .then((response) => {
@@ -185,7 +187,7 @@ const LocationSelect = () => {
           })
           .then((res) => {
             if (res.status === 200) {
-              navigation.navigate("Home");
+              navigation.navigate("Addreses");
             } else {
               alert("Sorry could not verify you, please try again later");
             }
@@ -216,7 +218,7 @@ const LocationSelect = () => {
           })
           .then((res) => {
             if (res.status === 200) {
-              navigation.navigate("Home");
+              navigation.navigate("Addreses");
             } else {
               alert("Sorry could not verify you, please try again later");
             }
@@ -333,35 +335,35 @@ const LocationSelect = () => {
                         keyboardType="default"
                         value={companyName}
                         onTextChange={setCompanyName}
-                        placeholder={'KYC Africa (Pvt) Ltd '}
+                        placeholder={"KYC Africa (Pvt) Ltd "}
                       />
                       <FormInputWithLabel
                         label="Building"
                         keyboardType="default"
                         value={building}
                         onTextChange={setBuilding}
-                        placeholder={'Joina City'}
+                        placeholder={"Joina City"}
                       />
                       <FormInputWithLabel
                         label="Street Address"
                         keyboardType="default"
                         value={streetName}
                         onTextChange={setStreetName}
-                        placeholder={'54 Jason Moyo Ave'}
+                        placeholder={"54 Jason Moyo Ave"}
                       />
                       <FormInputWithLabel
                         label="Area / Suburb"
                         keyboardType="default"
                         value={suburb}
                         onTextChange={setSuburb}
-                        placeholder={'CBD'}
+                        placeholder={"CBD"}
                       />
                       <FormInputWithLabel
                         label="City"
                         keyboardType="default"
                         value={city}
                         onTextChange={setCity}
-                        placeholder={'Harare'}
+                        placeholder={"Harare"}
                       />
                       <Text style={[{ textAlign: "left", width: "100%" }, styles.title]}>
                         Time you start and end work in 24Hrs?
@@ -420,8 +422,7 @@ const LocationSelect = () => {
                         keyboardType="default"
                         value={houseNo}
                         onTextChange={setHouseNo}
-                        placeholder={'7878'}
-
+                        placeholder={"7878"}
                       />
 
                       <FormInputWithLabel
@@ -429,7 +430,7 @@ const LocationSelect = () => {
                         keyboardType="default"
                         value={streetName}
                         onTextChange={setStreetName}
-                        placeholder={'Mangwende Drive'}
+                        placeholder={"Mangwende Drive"}
                       />
 
                       <FormInputWithLabel
@@ -437,14 +438,14 @@ const LocationSelect = () => {
                         keyboardType="default"
                         value={suburb}
                         onTextChange={setSuburb}
-                        placeholder={'Kuwadzana'}
+                        placeholder={"Kuwadzana"}
                       />
                       <FormInputWithLabel
                         label="City"
                         keyboardType="default"
                         value={city}
                         onTextChange={setCity}
-                        placeholder={'Harare'}
+                        placeholder={"Harare"}
                       />
                     </>
                   )}

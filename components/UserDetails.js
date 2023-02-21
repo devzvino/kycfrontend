@@ -63,7 +63,9 @@ const UserDetails = ({
       setError(errorMsg1);
       setLoading(false);
     } else {
-      // validation
+      //
+
+      // ? validation
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
 
@@ -88,60 +90,89 @@ const UserDetails = ({
             setLoading(false);
             return;
           } else {
-            //! other code
-            // verify submission details
-            var myHeaders = new Headers();
-            myHeaders.append("Authorization", `Bearer ${token}`);
+            let url = "https://kycbackendapp.herokuapp.com/api/user/checkphone/";
 
-            var requestOptions = {
-              method: "GET",
-              headers: myHeaders,
-              redirect: "follow",
+            let options = {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                phone: phoneRef.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber,
+              }),
             };
 
-            fetch(`https://verify.kycafrica.com/api/verifyid/${id}`, requestOptions)
-              .then((response) => response.text())
-              .then((result) => {
-                let feedback = JSON.parse(result);
-
-                if (typeof feedback === "string") {
-                  alert("Sorry something when wrong, please contact Kyc Africa");
+            fetch(url, options)
+              .then((res) => res.json())
+              .then((json) => {
+                if (json.message === "true") {
+                  Alert.alert("PLEASE NOTE!", "This phone number already exist");
                   setLoading(false);
-                } else if (typeof feedback === "object") {
-                  if (feedback.firstName === firstName.toUpperCase() && feedback.surname === surname.toUpperCase()) {
-                    //  confirmation complete moving to next page
+                  return;
+                } else {
+                  //
+                  var myHeaders = new Headers();
+                  myHeaders.append("Authorization", `Bearer ${token}`);
 
-                    setTimeout(() => {
-                      setData({
-                        firstName,
-                        surname,
-                        phone: phoneRef.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber,
-                        id,
-                        otp,
-                      });
-                      handleOTPRequest();
-                      setUserView(false);
-                      setIdUploadView(false);
-                      setOtpConfrimView(true);
-                      setRegConfrimView(false);
+                  var requestOptions = {
+                    method: "GET",
+                    headers: myHeaders,
+                    redirect: "follow",
+                  };
+
+                  fetch(`https://verify.kycafrica.com/api/verifyid/${id}`, requestOptions)
+                    .then((response) => response.text())
+                    .then((result) => {
+                      let feedback = JSON.parse(result);
+
+                      if (typeof feedback === "string") {
+                        alert("Sorry something when wrong, please contact Kyc Africa");
+                        setLoading(false);
+                      } else if (typeof feedback === "object") {
+                        if (
+                          feedback.firstName === firstName.toUpperCase() &&
+                          feedback.surname === surname.toUpperCase()
+                        ) {
+                          //  confirmation complete moving to next page
+
+                          setTimeout(() => {
+                            setData({
+                              firstName,
+                              surname,
+                              phone: phoneRef.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber,
+                              id,
+                              otp,
+                            });
+                            handleOTPRequest();
+                            setUserView(false);
+                            setIdUploadView(false);
+                            setOtpConfrimView(true);
+                            setRegConfrimView(false);
+                            setLoading(false);
+                          }, 50);
+                        } else if (feedback.message) {
+                          Alert.alert("PLEASE NOTE!", "Please try again in a few minutes, something went wrong");
+                          setLoading(false);
+                        } else {
+                          Alert.alert(
+                            "PLEASE NOTE!",
+                            "You have to provide your Full Name(s) and ID Number EXACTLY as provided on your National ID."
+                          );
+                          setLoading(false);
+                        }
+                      }
+                    })
+                    .catch((error) => {
+                      console.log("error", error);
                       setLoading(false);
-                    }, 50);
-                  } else if (feedback.message) {
-                    Alert.alert("PLEASE NOTE!", "Please try again in a few minutes, something went wrong");
-                    setLoading(false);
-                  } else {
-                    Alert.alert(
-                      "PLEASE NOTE!",
-                      "You have to provide your Full Name(s) and ID Number EXACTLY as provided on your National ID."
-                    );
-                    setLoading(false);
-                  }
+                    });
+                  //
                 }
               })
-              .catch((error) => {
-                console.log("error", error);
+              .catch((err) => {
+                console.error("error:" + err);
                 setLoading(false);
               });
+
+            // ?
 
             //! other code
           }
@@ -263,7 +294,7 @@ const UserDetails = ({
             required
             // onBlur={Keyboard.dismiss}
             onChange={(value) => {
-              setId(value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase());
+              setId(value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase());
             }}
             info={id ? null : error}
             textStyles={FontTheme.errortxt}

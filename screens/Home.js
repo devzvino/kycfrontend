@@ -33,35 +33,9 @@ const Home = () => {
   let checkedUser = {};
   let id;
 
-  //   const checkingIfUserIsStored = async () => {
-  //     setLoading(true);
-  //     const storedUser = await AsyncStorage.getItem("@user");
-  //     const userDetails = JSON.parse(storedUser);
-  //     if (userDetails) {
-  //       checkedUser = userDetails;
-  //       id = checkedUser._id;
-  //     } else {
-  //       setErrorMessage("Please logout and sign back in");
-  //     }
-  //     const responseh = await fetch(`${keys.apiURL}api/home/my/${id}`);
-  //     const jsonh = await responseh.json();
-  //     setHomeLocation(jsonh);
-
-  //     const responsew = await fetch(`${keys.apiURL}api/work/my/${id}`);
-  //     const jsonw = await responsew.json();
-  //     setWorkLocation(jsonw);
-  //     //
-  //     mergingArrays(jsonh, jsonw);
-
-  //     setLoading(false);
-  //   };
-
   const checkuserIfstoredandfetchdata = async () => {
     setLoading(true);
-    // if (!userDetails) {
-    //   const storedUser = await AsyncStorage.getItem("@user");
-    //   userDetails = JSON.parse(storedUser);
-    // }
+
     const storedUser = await AsyncStorage.getItem("@user");
     userDetails = JSON.parse(storedUser);
     if (userDetails) {
@@ -80,16 +54,6 @@ const Home = () => {
     //
     setLoading(false);
   };
-
-  // const setObjectValue = async (value) => {
-  //   try {
-  //     const jsonValue = JSON.stringify(value);
-  //     await AsyncStorage.setItem("@mergedAddresses", jsonValue);
-  //   } catch (e) {
-  //     // save error
-  //   }
-  //   console.log("Done.");
-  // };
 
   const mergingArrays = (home, work) => {
     let packagedData;
@@ -115,14 +79,14 @@ const Home = () => {
     checkuserIfstoredandfetchdata();
     setRemoving(false);
   };
-  //function to check user 
+  //function to check user
   const checkingIfUserIsStored = async () => {
     try {
       const storedUser = await AsyncStorage.getItem("@user");
       if (storedUser !== null) {
         setUser(JSON.parse(storedUser));
       }
-    } catch (error) { }
+    } catch (error) {}
   };
 
   // force event to rerender page
@@ -133,7 +97,11 @@ const Home = () => {
   });
 
   useEffect(() => {
-    //  getting information locations
+    (async () => {
+      const storedData = await AsyncStorage.getItem("@mergedAddresses");
+      console.log(storedData);
+    })();
+
     checkingIfUserIsStored();
     checkuserIfstoredandfetchdata();
     if (!tempDisplay) refresherpage();
@@ -163,13 +131,15 @@ const Home = () => {
   // }
 
   return (
-    <SafeAreaView style={[styles.container, { display: 'flex', flexDirection: 'column' }]}>
+    <SafeAreaView style={[styles.container, { display: "flex", flexDirection: "column" }]}>
       <GlobalHeader title=" Registered Addresses" />
 
       <>
-        <View style={{ marginHorizontal: '5%', paddingBottom: 20, paddingHorizontal: 0, width: width * 0.95, }}>
-          <Text style={{ marginBottom: 20, fontWeight: 'bold', fontSize: 18, color: '#4E4E4E' }}>Add Address</Text>
-          <View style={{ backgroundColor: "white", display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
+        <View style={{ marginHorizontal: "5%", paddingBottom: 20, paddingHorizontal: 0, width: width * 0.95 }}>
+          <Text style={{ marginBottom: 20, fontWeight: "bold", fontSize: 18, color: "#4E4E4E" }}>Add Address</Text>
+          <View
+            style={{ backgroundColor: "white", display: "flex", flexDirection: "row", justifyContent: "flex-start" }}
+          >
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate("AddNewLocation", {
@@ -177,7 +147,19 @@ const Home = () => {
                   myId: user._id,
                 })
               }
-              style={{ borderColor: ColorTheme.grey2, borderRightWidth: 3, borderBottomWidth: 3, borderLeftWidth: 1, borderTopWidth: 1, width: '40%', padding: 30, borderRadius: 5, alignItems: 'center', marginRight: 20, justifyContent: 'center' }}
+              style={{
+                borderColor: ColorTheme.grey2,
+                borderRightWidth: 3,
+                borderBottomWidth: 3,
+                borderLeftWidth: 1,
+                borderTopWidth: 1,
+                width: "40%",
+                padding: 30,
+                borderRadius: 5,
+                alignItems: "center",
+                marginRight: 20,
+                justifyContent: "center",
+              }}
             >
               <HomeIcon size={30} color={ColorTheme.main} />
               <Text style={styles.btnTitle}>Home</Text>
@@ -189,89 +171,124 @@ const Home = () => {
                   myId: user._id,
                 })
               }
-              style={{ borderColor: ColorTheme.grey2, borderRightWidth: 3, borderBottomWidth: 3, borderLeftWidth: 1, borderTopWidth: 1, width: '40%', padding: 30, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}
+              style={{
+                borderColor: ColorTheme.grey2,
+                borderRightWidth: 3,
+                borderBottomWidth: 3,
+                borderLeftWidth: 1,
+                borderTopWidth: 1,
+                width: "40%",
+                padding: 30,
+                borderRadius: 5,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             >
               <BriefcaseIcon size={30} color={ColorTheme.main} />
               <Text style={styles.btnTitle}>Work</Text>
             </TouchableOpacity>
           </View>
-
         </View>
-        <View style={{ marginHorizontal: '5%', padding: 15, backgroundColor: '#F8F8F8', width: width * 0.9, marginBottom: 5, borderRadius: 10 }}>
-          <Text style={{ color: ColorTheme.grey, fontSize: 14, lineHeight: 20 }}><Text style={{ fontWeight: 'bold', lineHeight: 20 }}>NOTE: </Text>KYC AFRICA verifies your Addresses in the background, make sure that you set location permissions to <Text style={{ fontWeight: 'bold', lineHeight: 20 }}>Always Allow</Text>.</Text>
+        <View
+          style={{
+            marginHorizontal: "5%",
+            padding: 15,
+            backgroundColor: "#F8F8F8",
+            width: width * 0.9,
+            marginBottom: 5,
+            borderRadius: 10,
+          }}
+        >
+          <Text style={{ color: ColorTheme.grey, fontSize: 14, lineHeight: 20 }}>
+            <Text style={{ fontWeight: "bold", lineHeight: 20 }}>NOTE: </Text>KYC AFRICA verifies your Addresses in the
+            background, make sure that you set location permissions to{" "}
+            <Text style={{ fontWeight: "bold", lineHeight: 20 }}>Always Allow</Text>.
+          </Text>
           {/* <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 16, lineHeight: 20, }}>Please make sure that you set location permissions to <Text style={{ fontWeight: 'bold', fontSize: 16, lineHeight: 20 }}>Always Allow</Text></Text> */}
         </View>
 
-
-        <View style={{ backgroundColor: ColorTheme.grey3, width: width * 0.9, height: 0.5, marginTop: 10, marginLeft: '5%', marginRight: '5%' }}></View>
-
-
-        {loading ? <View
+        <View
           style={{
-            paddingTop: 150,
-            justifyContent: "center",
-            alignItems: "center",
+            backgroundColor: ColorTheme.grey3,
+            width: width * 0.9,
+            height: 0.5,
+            marginTop: 10,
+            marginLeft: "5%",
+            marginRight: "5%",
           }}
-        >
-          <Text>Loading please wait...</Text>
+        ></View>
 
-          <ActivityIndicator style={{ marginTop: 20 }} />
-        </View> :
+        {loading ? (
+          <View
+            style={{
+              paddingTop: 150,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text>Loading please wait...</Text>
+
+            <ActivityIndicator style={{ marginTop: 20 }} />
+          </View>
+        ) : (
           <>
             {!tempDisplay.length ? (
               <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
                 <Text>You have not added your home or work address. </Text>
               </View>
-            )
-
-              :
-              (
-                <SwipeListView
-                  contentContainerStyle={{ paddingHorizontal: 15, height: height * 0.6, backgroundColor: "#FFF", paddingTop: 20 }}
-                  data={tempDisplay}
-                  keyExtractor={(item, index) => item._id}
-                  renderItem={(item, rowMap) => <HomeVerificationCard item={item} />}
-                  disableRightSwipe={true}
-                  previewOpenDelay={3000}
-                  friction={1000}
-                  tension={40}
-                  leftOpenValue={95}
-                  stopLeftSwipe={95}
-                  rightOpenValue={-95}
-                  renderHiddenItem={(item, rowMap) => (
-                    <TouchableOpacity
-                      Vi
-                      onPress={() => {
-                        handleDeleteProcess(item.item._id, item.item.title);
+            ) : (
+              <SwipeListView
+                contentContainerStyle={{
+                  paddingHorizontal: 15,
+                  height: height * 0.6,
+                  backgroundColor: "#FFF",
+                  paddingTop: 20,
+                }}
+                data={tempDisplay}
+                keyExtractor={(item, index) => item._id}
+                renderItem={(item, rowMap) => <HomeVerificationCard item={item} />}
+                disableRightSwipe={true}
+                previewOpenDelay={3000}
+                friction={1000}
+                tension={40}
+                leftOpenValue={95}
+                stopLeftSwipe={95}
+                rightOpenValue={-95}
+                renderHiddenItem={(item, rowMap) => (
+                  <TouchableOpacity
+                    Vi
+                    onPress={() => {
+                      handleDeleteProcess(item.item._id, item.item.title);
+                    }}
+                    style={[styles.hiddenButton]}
+                  >
+                    <View
+                      style={{
+                        color: "#ffffff",
+                        backgroundColor: "red",
+                        height: 100,
+                        width: 85,
+                        borderRadius: 10,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
                       }}
-                      style={[styles.hiddenButton,]}
                     >
-                      <View
-                        style={{ color: '#ffffff', backgroundColor: 'red', height: 100, width: 85, borderRadius: 10, display: "flex", justifyContent: 'center', alignItems: "center" }}
-                      >
-                        {removing ? (
-
-
-                          <ActivityIndicator
-                            color={"#FFFFFF"}
-
-                          />
-
-
-                        ) : (
-                          <Text style={{ color: '#ffffff', }}>Delete</Text>
-                        )}
-                      </View>
-                    </TouchableOpacity>
-                  )}
-                />)}
-          </>}
-
-
-
+                      {removing ? (
+                        <ActivityIndicator color={"#FFFFFF"} />
+                      ) : (
+                        <Text style={{ color: "#ffffff" }}>Delete</Text>
+                      )}
+                    </View>
+                  </TouchableOpacity>
+                )}
+              />
+            )}
+          </>
+        )}
       </>
       <View style={{ justifyContent: "center", alignItems: "center", height: "5%" }}></View>
-    </SafeAreaView >
+    </SafeAreaView>
   );
 };
 
@@ -296,12 +313,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-end",
 
-
     borderRadius: 10,
     marginRight: 1,
     height: 100,
-
-
   },
   btnTitle: {
     color: ColorTheme.main,
