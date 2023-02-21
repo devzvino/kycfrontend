@@ -44,6 +44,7 @@ const StackNavigation = () => {
         <Stack.Group>
           <Stack.Screen name="TabsNav" component={TabsNav} />
           <Stack.Screen name="AddNewLocation" component={LocationSelect} />
+          <Stack.Screen name="Login" component={Login} initialParams={{ storeUser: storeUser }} />
         </Stack.Group>
       ) : (
         // Auth screens
