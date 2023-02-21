@@ -168,7 +168,7 @@ const Home = () => {
 
       <>
         <View style={{ marginHorizontal: '5%', paddingBottom: 20, paddingHorizontal: 0, width: width * 0.95, }}>
-          <Text style={{ marginBottom: 20, fontWeight: 'bold', fontSize: 18, color: '#4E4E4E' }}>Address</Text>
+          <Text style={{ marginBottom: 20, fontWeight: 'bold', fontSize: 18, color: '#4E4E4E' }}>Add Address</Text>
           <View style={{ backgroundColor: "white", display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
             <TouchableOpacity
               onPress={() =>

@@ -21,7 +21,7 @@ const Documents = () => {
                     <Text style={{ color: ColorTheme.grey, fontSize: 16, lineHeight: 20, textAlign: 'center' }}>KYC Africa verifies the authenticity of your documents in the background</Text>
                 </View> */}
                 <View style={{ padding: 10, paddingHorizontal: 0, width: width * 0.95 }}>
-                    <Text style={{ marginBottom: 20, fontWeight: 'bold', fontSize: 18, color: '#4E4E4E' }}>Identification Document</Text>
+                    <Text style={{ marginBottom: 20, fontWeight: 'bold', fontSize: 18, color: '#4E4E4E' }}>Add Identification Document</Text>
                     <View style={{ backgroundColor: "white", display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
                         <TouchableOpacity
                             // onPress={() =>
@@ -51,7 +51,7 @@ const Documents = () => {
                     {/* <View style={{ backgroundColor: ColorTheme.grey3, width: width * 0.85, height: 1, marginTop: 20 }}></View> */}
                 </View>
                 <View style={{ padding: 10, paddingHorizontal: 0, width: width * 0.95 }}>
-                    <Text style={{ marginBottom: 20, fontWeight: 'bold', fontSize: 18, color: '#4E4E4E', }}>Certificates</Text>
+                    <Text style={{ marginBottom: 20, fontWeight: 'bold', fontSize: 18, color: '#4E4E4E', }}>Add Certificates</Text>
                     <View style={{ backgroundColor: "white", display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
                         <TouchableOpacity
                             // onPress={() =>

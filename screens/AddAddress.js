@@ -23,10 +23,7 @@ const AddAddress = () => {
   const navigation = useNavigation();
 
   const [user, setUser] = useState();
-  console.log('====================================');
-  console.log(user);
 
-  console.log('====================================');
   const checkingIfUserIsStored = async () => {
     try {
       const storedUser = await AsyncStorage.getItem("@user");
@@ -48,8 +45,11 @@ const AddAddress = () => {
       <GlobalHeader title="Home" />
       <View style={{ borderColor: ColorTheme.grey2, borderRightWidth: 2, borderBottomWidth: 2, borderLeftWidth: 1, borderTopWidth: 1, width: '90%', paddingHorizontal: 0, borderRadius: 5, alignItems: 'center', paddingVertical: '5%', marginBottom: '5%', display: 'flex', justifyContent: 'flex-start' }}>
 
-        <Text style={{ fontSize: 10, width: '95%', fontWeight: 'bold', marginBottom: '2%', textTransform: 'uppercase', color: ColorTheme.grey4 }}>KYC Africa Verification Details</Text>
-        <Text style={{ fontSize: 20, width: '95%', fontWeight: 'bold', marginBottom: '5%', color: 'black', textTransform: 'uppercase' }}>{user?.firstname + " " + user?.surname}</Text>
+        <Text style={{ fontSize: 10, width: '95%', fontWeight: 'bold', marginBottom: '1%', textTransform: 'uppercase', color: ColorTheme.grey4 }}>KYC Africa Verification Details</Text>
+        <Text style={{ fontSize: 20, width: '95%', fontWeight: 'bold', marginBottom: '5%', color: 'black', textTransform: 'capitalize' }}>
+          {user?.firstname + " " + user?.surname}
+          {/* Constentino Guvheya Nyikadzino Chiwenga */}
+        </Text>
 
         <InfoRow
           section={'Verified National ID'}

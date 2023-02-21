@@ -192,6 +192,7 @@ export const InputTheme = {
     fontFamily: "Poppins-Regular",
     fontSize: 18,
     color: "black",
+    
   },
   phoneInput: {
     flex: 1,

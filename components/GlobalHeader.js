@@ -59,7 +59,7 @@ const GlobalHeader = ({ title, backable }) => {
 
 				{backable ? (
 					<TouchableOpacity onPress={() => navigation.goBack()} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-						<ArrowLeftIcon size={24} color="#14142A" />
+						<ArrowLeftIcon size={22} color='#9f9f9f' />
 
 					</TouchableOpacity>
 				) : (

@@ -30,6 +30,7 @@ const MainInput = ({ onChange, onFocus, onBlur, placeholder, title, info, textSt
         blurOnSubmit={false}
         autoFocus={false}
         autoCorrect={false}
+        placeholderTextColor='#9f9f9f'
       ></TextInput>
       <Text style={textStyles}>{info}</Text>
     </View>
