@@ -68,6 +68,8 @@ const checkCoordinatesInRadius = (coord1, coord2, radius) => {
         let updatedWorkCount = databaseSingleAddress.workVerificationCount + 1;
         let updatedCount = databaseSingleAddress.homeVerificationCount + 1;
 
+        let { userInfo } = databaseSingleAddress;
+
         // console.log(totalHomeCount);
         // console.log(updatedCount);
 
@@ -183,6 +185,7 @@ const checkCoordinatesInRadius = (coord1, coord2, radius) => {
           var reportRaw = JSON.stringify({
             user: databaseSingleAddress.user_id,
             homeid: databaseSingleAddress._id,
+            username: userInfo.firstname + " " + userInfo.surname,
             workid: null,
             currentLocation: stringedCoords,
           });
@@ -330,6 +333,7 @@ const checkCoordinatesInRadius = (coord1, coord2, radius) => {
 
           var reportRaw = JSON.stringify({
             user: databaseSingleAddress.user_id,
+            username: userInfo.firstname + " " + userInfo.surname,
             homeid: null,
             workid: databaseSingleAddress._id,
             currentLocation: stringedCoords,
