@@ -192,7 +192,7 @@ export const InputTheme = {
     fontFamily: "Poppins-Regular",
     fontSize: 18,
     color: "black",
-    
+
   },
   phoneInput: {
     flex: 1,
@@ -226,6 +226,12 @@ export const LogoTheme = {
     height: height / 4,
     marginTop: 100,
   },
+  mainLogoOnboard: {
+    width: width * 0.5,
+    height: height * 0.15,
+    marginTop: '30%',
+    alignSelf: "flex-start",
+  },
   miniLogo: {
     height: "100%",
     resizeMode: "contain",
@@ -236,9 +242,9 @@ export const LogoTheme = {
 
 export const SectionTheme = {
   welcomeSection1: {
-    width: width,
-    height: height / 1.5,
-    borderBottomRightRadius: 75,
+    // width: width,
+    height: height * 0.65,
+    // borderBottomRightRadius: 10,
     elevation: 0,
     borderWidth: 0,
     resizeMode: "contain",
@@ -247,6 +253,7 @@ export const SectionTheme = {
 
   welcomeSection1_inner: {
     width: "80%",
+    alignItems: "center",
   },
   welcomeSection2: {
     width: width,
@@ -257,10 +264,11 @@ export const SectionTheme = {
   welcomeSection3: {
     width: width,
     height: "100%",
+    display: 'flex',
     alignItems: "center",
     backgroundColor: primary,
     borderTopLeftRadius: 75,
-    paddingTop: "13%",
+    paddingTop: "15%",
   },
 };
 

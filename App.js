@@ -36,8 +36,8 @@ export default function App() {
 
   return (
     <GlobalContainerRoot>
-      <NavigationContainer theme={theme}>
-        <GestureHandlerRootView style={{ flex: 1 }}>
+      <NavigationContainer theme={theme} swipeEnabled={true}>
+        <GestureHandlerRootView style={{ flex: 1 }} >
           <StackNavigation />
           <Toast />
         </GestureHandlerRootView>

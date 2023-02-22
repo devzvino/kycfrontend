@@ -41,8 +41,8 @@ const WelcomeScreen = () => {
   });
 
   return (
-    <View style={{ width: width, height: "100%" }}>
-      <ImageBackground style={SectionTheme.welcomeSection1} source={welcomeBg}>
+    <View style={{ width: width, height: "100%", backgroundColor: "#ffffff" }}>
+      <ImageBackground style={[SectionTheme.welcomeSection1, { borderBottomRightRadius: 75, overflow: 'hidden', width: width }]} source={welcomeBg}>
         <View style={SectionTheme.welcomeSection1_inner}>
           <MainLogo style={LogoTheme.mainLogo} />
           <Text style={FontTheme.motto}>{appMotto}</Text>

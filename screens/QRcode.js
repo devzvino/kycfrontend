@@ -20,7 +20,7 @@ const QRcode = () => {
   const handleLogout = async () => {
     setLoading(true);
     // await AsyncStorage.removeItem("@user");
-    // AsyncStorage.clear();
+    AsyncStorage.clear();
     // navigation.
     setLoading(false);
   };
