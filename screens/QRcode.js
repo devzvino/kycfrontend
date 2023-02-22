@@ -33,7 +33,42 @@ const QRcode = () => {
     );
   };
 
-  const html = `
+
+
+  console.log(PdfData);
+  let html;
+  const gatheringAllUserLocations = () => {
+    setLoading(true);
+    let fetchOk = (...args) =>
+      fetch(...args).then((res) =>
+        res.ok
+          ? res
+          : res.json().then((data) => {
+            throw Object.assign(new Error(data.error_message), { name: res.statusText });
+          })
+      );
+    Promise.all(
+      [
+        `https://kycbackendapp.herokuapp.com/api/home/my/${userId._id}`,
+        `https://kycbackendapp.herokuapp.com/api/work/my/${userId._id}`,
+      ].map((url) => fetchOk(url).then((r) => r.json()))
+    )
+      .then(([d1, d2]) => {
+        setClientHomeLocations(d1);
+        setClientWorkLocations(d2);
+
+        // logging print info into the context
+        setPdfData([
+          {
+            details: userId,
+            home: d1,
+            work: d2,
+          },
+        ]);
+
+        //++++++++++++++++++++++++++++++++++++
+
+        html = `
      <html style="margin:0 !important">
      <head>
      <style>
@@ -73,7 +108,7 @@ const QRcode = () => {
               </div>
               <div style="flex: 1;">
                 ${() => (render) =>
-                  <QRCode size={270} codeStyle="circle" logo={kycLogo} logoSize={40} content={"hey"} />}
+            <QRCode size={270} codeStyle="circle" logo={kycLogo} logoSize={40} content={"hey"} />}
               </div>
             </div>
         </div>
@@ -81,11 +116,10 @@ const QRcode = () => {
         <div style="border-top: 1px dotted green; padding-top:10px; margin-top:10px">
           <p style="color:green;">${PdfData[0].details.firstname}'s Home Locations</p>
           <div style="background-color: #f6f6f6;  border-radius: 5px; padding:10px;  box-shadow:inset 5px 0px 0px 0px green;>
-          ${
-            PdfData[0].home.length > 0
-              ? PdfData[0].home
-                  .map(
-                    (home) => `<div> 
+          ${PdfData[0].home.length > 0
+            ? PdfData[0].home
+              .map(
+                (home) => `<div> 
             <p style="font-size: 0.875rem;">Address : ${home.streetName}</p> 
             <p style="font-size: 0.875rem;">Surburb : ${home.suburb}</p> 
             <p style="font-size: 0.875rem;">City : ${home.city}</p> 
@@ -94,9 +128,9 @@ const QRcode = () => {
             <p style="font-size: 0.875rem;">Positive Verification Checks : ${home.homeTotalCount}</p> 
             <p style="font-size: 0.875rem;">Total Verification Checks: : ${home.homeVerificationCount}</p> 
           </div>`
-                  )
-                  .join("")
-              : `<p>${PdfData[0].details.firstname} ${PdfData[0].details.surname} has not set any home locations.</p>`
+              )
+              .join("")
+            : `<p>${PdfData[0].details.firstname} ${PdfData[0].details.surname} has not set any home locations.</p>`
           } 
           </div>
         </div>
@@ -104,11 +138,10 @@ const QRcode = () => {
         <div style="border-top: 1px dotted green; padding-top:10px; margin-top:10px">
           <p style="color:green;">${PdfData[0].details.firstname}'s Work Locations</p>
           <div>
-          ${
-            PdfData[0].work.length > 0
-              ? PdfData[0].work
-                  .map(
-                    (work) => `<div> 
+          ${PdfData[0].work.length > 0
+            ? PdfData[0].work
+              .map(
+                (work) => `<div> 
             <p>Address : ${work.streetName}</p> 
             <p>Surburb : ${work.suburb}</p> 
             <p>City : ${work.city}</p> 
@@ -117,9 +150,9 @@ const QRcode = () => {
             <p>Positive Verification Checks : ${work.workTotalCount}</p> 
             <p>Total Verification Checks: : ${work.workVerificationCount}</p> 
           </div>`
-                  )
-                  .join("")
-              : `<p>${PdfData[0].details.firstname} ${PdfData[0].details.surname} has not set any work locations.</p>`
+              )
+              .join("")
+            : `<p>${PdfData[0].details.firstname} ${PdfData[0].details.surname} has not set any work locations.</p>`
           } 
           </div>
         </div>
@@ -127,36 +160,8 @@ const QRcode = () => {
      </html>
   `;
 
-  console.log(PdfData);
 
-  const gatheringAllUserLocations = () => {
-    setLoading(true);
-    let fetchOk = (...args) =>
-      fetch(...args).then((res) =>
-        res.ok
-          ? res
-          : res.json().then((data) => {
-              throw Object.assign(new Error(data.error_message), { name: res.statusText });
-            })
-      );
-    Promise.all(
-      [
-        `https://kycbackendapp.herokuapp.com/api/home/my/${userId._id}`,
-        `https://kycbackendapp.herokuapp.com/api/work/my/${userId._id}`,
-      ].map((url) => fetchOk(url).then((r) => r.json()))
-    )
-      .then(([d1, d2]) => {
-        setClientHomeLocations(d1);
-        setClientWorkLocations(d2);
-
-        // logging print info into the context
-        setPdfData([
-          {
-            details: userId,
-            home: d1,
-            work: d2,
-          },
-        ]);
+        //++++++++++++++++++++++++++++++++++++
 
         setLoading(false);
       })
@@ -165,7 +170,7 @@ const QRcode = () => {
 
   const generateKycPdf = async () => {
     // generating
-    await gatheringAllUserLocations();
+    gatheringAllUserLocations();
     const file = await printToFileAsync({
       html: html,
       base64: false,
