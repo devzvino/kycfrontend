@@ -15,10 +15,10 @@ const Onboarding1 = () => {
     return (
         <View style={{ width: width, height: "100%", backgroundColor: "#ffffff" }}>
             <ImageBackground style={[SectionTheme.welcomeSection1, { borderBottomRightRadius: 40, borderBottomLeftRadius: 40, alignItems: "center", overflow: 'hidden', width: width, height: height * 0.8 }]} source={welcomeBg}>
-                <View style={SectionTheme.welcomeSection1_inner}>
+                <View style={[SectionTheme.welcomeSection1_inner, { alignItems: "center", }]}>
                     <MainLogo style={LogoTheme.mainLogoOnboard} />
                     {/* <Text style={FontTheme.motto}>{appMotto}</Text> */}
-                    <Image source={require('../assets/images/LocationAccess.png')} style={{ height: '40%', width: '70%', marginBottom: '3%' }} />
+                    <Image source={require('../assets/images/LocationAccess.png')} style={{ height: '35%', width: '60%', marginBottom: '5%' }} />
                     <Text style={{ color: ColorTheme.grey, fontSize: 16, lineHeight: 25, fontFamily: 'Poppins-Regular', }}>
                         KYC AFRICA verifies your Addresses in the
                         background, make sure that you set location permissions to{" "}
@@ -43,7 +43,7 @@ const Onboarding1 = () => {
                             onPress={
                                 () => {
 
-                                    navigation.navigate('Welcome')
+                                    navigation.navigate('Login')
                                 }}
                         >Skip</Text>
                         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: width * 0.35 }}>

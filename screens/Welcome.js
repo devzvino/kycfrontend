@@ -29,7 +29,7 @@ const WelcomeScreen = () => {
   // const [token, setToken] = useState();
   //Handling buttonPress
   const handlePress = () => {
-    navigation.navigate("Login")
+    navigation.navigate("Onboarding1")
   };
 
   useEffect(() => {

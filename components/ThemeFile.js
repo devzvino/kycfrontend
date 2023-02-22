@@ -253,7 +253,7 @@ export const SectionTheme = {
 
   welcomeSection1_inner: {
     width: "80%",
-    alignItems: "center",
+
   },
   welcomeSection2: {
     width: width,

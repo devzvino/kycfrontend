@@ -42,7 +42,7 @@ const StackNavigation = () => {
 
   return (
 
-    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={!user ? "Onboarding1" : "TabsNav"} swipeEnabled={true}>
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={!user ? "Welcome" : "TabsNav"} swipeEnabled={true}>
       {user ? (
         // Screens for registered in users
         <Stack.Group>
