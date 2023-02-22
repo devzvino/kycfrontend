@@ -15,10 +15,81 @@ import MainButton from "../components/MainButton";
 import { keys } from "../environmentVariables";
 import { ColorTheme } from "../components/ThemeFile";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as BackgroundFetch from 'expo-background-fetch';
+import * as TaskManager from 'expo-task-manager';
+// import * as Location from 'expo-location';
+
 
 const { height, width } = Dimensions.get("window");
 
+
+const BACKGROUND_FETCH_TASK = 'background-fetch';
+
+TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
+  const now = Date.now();
+
+  console.log(`Got background fetch call at date: ${new Date(now).toISOString()}`);
+
+  // Be sure to return the successful result type!
+  return BackgroundFetch.BackgroundFetchResult.NewData;
+});
+
 const LocationSelect = () => {
+  //GET PERMITION TO LOCATION
+
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    requestPermissions();
+    (async () => {
+
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
+  const LOCATION_TASK_NAME = "background-location-task";
+
+  const requestPermissions = async () => {
+    const { status: foregroundStatus } = await Location.requestForegroundPermissionsAsync();
+    if (foregroundStatus === "granted") {
+      const { status: backgroundStatus } = await Location.requestBackgroundPermissionsAsync();
+      if (backgroundStatus === "granted") {
+        await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
+          accuracy: Location.Accuracy.Balanced,
+        });
+      }
+    }
+  };
+
+
+
+
+  //===============================================
+
+
+  async function registerBackgroundFetchAsync() {
+    return BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
+      minimumInterval: 60, // 15 minutes
+      stopOnTerminate: false, // android only,
+      startOnBoot: true, // android only
+    });
+  }
+
+  const [isRegistered, setIsRegistered] = React.useState(false);
+  const [status, setStatus] = React.useState(null);
+
+
+
+
+
   const route = useRoute();
   const navigation = useNavigation();
   const { title, myId } = route.params;
@@ -112,11 +183,9 @@ const LocationSelect = () => {
 
   // getting new location when map movies
   const updateRegionCenter = async () => {
-    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${
-      currentLocation.coords.latitude
-    },${currentLocation.coords.longitude}&destinations=${
-      coordinates?.latitude ? coordinates.latitude : currentLocation.coords.latitude
-    },${coordinates?.longitude ? coordinates.longitude : currentLocation.coords.longitude}&key=${keys.GOOGLE_API}`;
+    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${currentLocation.coords.latitude
+      },${currentLocation.coords.longitude}&destinations=${coordinates?.latitude ? coordinates.latitude : currentLocation.coords.latitude
+      },${coordinates?.longitude ? coordinates.longitude : currentLocation.coords.longitude}&key=${keys.GOOGLE_API}`;
     axios
       .get(url)
       .then((response) => {
@@ -236,6 +305,29 @@ const LocationSelect = () => {
     }
   };
 
+  const checkStatusAsync = async () => {
+    const status = await BackgroundFetch.getStatusAsync();
+    const isRegistered = await TaskManager.isTaskRegisteredAsync(BACKGROUND_FETCH_TASK);
+    setStatus(status);
+    setIsRegistered(isRegistered);
+  };
+
+  const toggleFetchTask = async () => {
+
+    await registerBackgroundFetchAsync();
+    checkStatusAsync();
+  };
+
+  useEffect(() => {
+    toggleFetchTask();
+    checkStatusAsync();
+
+    return () => {
+
+    }
+  }, [])
+
+
   // end of functions
   // start of render
 
@@ -335,35 +427,35 @@ const LocationSelect = () => {
                         keyboardType="default"
                         value={companyName}
                         onTextChange={setCompanyName}
-                        placeholder={"KYC Africa (Pvt) Ltd "}
+                      // placeholder={"KYC Africa (Pvt) Ltd "}
                       />
                       <FormInputWithLabel
                         label="Building"
                         keyboardType="default"
                         value={building}
                         onTextChange={setBuilding}
-                        placeholder={"Joina City"}
+                      // placeholder={"Joina City"}
                       />
                       <FormInputWithLabel
                         label="Street Address"
                         keyboardType="default"
                         value={streetName}
                         onTextChange={setStreetName}
-                        placeholder={"54 Jason Moyo Ave"}
+                      // placeholder={"54 Jason Moyo Ave"}
                       />
                       <FormInputWithLabel
                         label="Area / Suburb"
                         keyboardType="default"
                         value={suburb}
                         onTextChange={setSuburb}
-                        placeholder={"CBD"}
+                      // placeholder={"CBD"}
                       />
                       <FormInputWithLabel
                         label="City"
                         keyboardType="default"
                         value={city}
                         onTextChange={setCity}
-                        placeholder={"Harare"}
+                      // placeholder={"Harare"}
                       />
                       <Text style={[{ textAlign: "left", width: "100%" }, styles.title]}>
                         Time you start and end work in 24Hrs?
@@ -422,7 +514,7 @@ const LocationSelect = () => {
                         keyboardType="default"
                         value={houseNo}
                         onTextChange={setHouseNo}
-                        placeholder={"7878"}
+                      // placeholder={"7878"}
                       />
 
                       <FormInputWithLabel
@@ -430,7 +522,7 @@ const LocationSelect = () => {
                         keyboardType="default"
                         value={streetName}
                         onTextChange={setStreetName}
-                        placeholder={"Mangwende Drive"}
+                      // placeholder={"Mangwende Drive"}
                       />
 
                       <FormInputWithLabel
@@ -438,14 +530,14 @@ const LocationSelect = () => {
                         keyboardType="default"
                         value={suburb}
                         onTextChange={setSuburb}
-                        placeholder={"Kuwadzana"}
+                      // placeholder={"Kuwadzana"}
                       />
                       <FormInputWithLabel
                         label="City"
                         keyboardType="default"
                         value={city}
                         onTextChange={setCity}
-                        placeholder={"Harare"}
+                      // placeholder={"Harare"}
                       />
                     </>
                   )}

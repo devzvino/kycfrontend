@@ -76,10 +76,10 @@ const Onboarding3 = () => {
                         <Text onPress={
                             () => {
 
-                                navigation.navigate('Welcome')
+                                navigation.navigate('Login')
                             }
 
-                        } style={{ fontFamily: 'Poppins-SemiBold' }}>Next</Text>
+                        } style={{ fontFamily: 'Poppins-SemiBold' }}>Done</Text>
                     </View>
                 </View>
 
