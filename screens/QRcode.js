@@ -12,7 +12,6 @@ import { useNavigation } from "@react-navigation/native";
 import { printToFileAsync } from "expo-print";
 import * as Sharing from "expo-sharing";
 import moment from "moment";
-import { render } from "react-dom";
 
 const QRcode = () => {
   // navigation process
@@ -25,15 +24,7 @@ const QRcode = () => {
 
   const [PdfData, setPdfData] = useState("");
 
-  const QRCodeDisplay = (name) => {
-    return (
-      <View>
-        <QRCode size={270} codeStyle="circle" logo={kycLogo} logoSize={40} content={name} />;
-      </View>
-    );
-  };
-
-
+  const element = <QRCode size={270} codeStyle="circle" logo={kycLogo} logoSize={40} content={"name"} />;
 
   console.log(PdfData);
   let html;
@@ -44,8 +35,8 @@ const QRcode = () => {
         res.ok
           ? res
           : res.json().then((data) => {
-            throw Object.assign(new Error(data.error_message), { name: res.statusText });
-          })
+              throw Object.assign(new Error(data.error_message), { name: res.statusText });
+            })
       );
     Promise.all(
       [
@@ -102,13 +93,12 @@ const QRcode = () => {
                 </div>
                 <p>Registered on: ${moment(PdfData[0].details.createdAt).format("lll")}</p>
                 <p style="font-size: 0.875rem;">
-                  This is the date when ${PdfData[0].details.firstname} ${PdfData[0].details.surname} 
+                  This is the date when ${PdfData[0]?.details.firstname} ${PdfData[0]?.details.surname} 
                   registered on the KYC Africa National Identity & Address Verification Platform / System.
                 </p>
               </div>
               <div style="flex: 1;">
-                ${() => (render) =>
-            <QRCode size={270} codeStyle="circle" logo={kycLogo} logoSize={40} content={"hey"} />}
+                ${element}
               </div>
             </div>
         </div>
@@ -116,10 +106,11 @@ const QRcode = () => {
         <div style="border-top: 1px dotted green; padding-top:10px; margin-top:10px">
           <p style="color:green;">${PdfData[0].details.firstname}'s Home Locations</p>
           <div style="background-color: #f6f6f6;  border-radius: 5px; padding:10px;  box-shadow:inset 5px 0px 0px 0px green;>
-          ${PdfData[0].home.length > 0
-            ? PdfData[0].home
-              .map(
-                (home) => `<div> 
+          ${
+            PdfData[0].home.length > 0
+              ? PdfData[0].home
+                  .map(
+                    (home) => `<div> 
             <p style="font-size: 0.875rem;">Address : ${home.streetName}</p> 
             <p style="font-size: 0.875rem;">Surburb : ${home.suburb}</p> 
             <p style="font-size: 0.875rem;">City : ${home.city}</p> 
@@ -128,9 +119,9 @@ const QRcode = () => {
             <p style="font-size: 0.875rem;">Positive Verification Checks : ${home.homeTotalCount}</p> 
             <p style="font-size: 0.875rem;">Total Verification Checks: : ${home.homeVerificationCount}</p> 
           </div>`
-              )
-              .join("")
-            : `<p>${PdfData[0].details.firstname} ${PdfData[0].details.surname} has not set any home locations.</p>`
+                  )
+                  .join("")
+              : `<p>${PdfData[0].details.firstname} ${PdfData[0].details.surname} has not set any home locations.</p>`
           } 
           </div>
         </div>
@@ -138,10 +129,11 @@ const QRcode = () => {
         <div style="border-top: 1px dotted green; padding-top:10px; margin-top:10px">
           <p style="color:green;">${PdfData[0].details.firstname}'s Work Locations</p>
           <div>
-          ${PdfData[0].work.length > 0
-            ? PdfData[0].work
-              .map(
-                (work) => `<div> 
+          ${
+            PdfData[0].work.length > 0
+              ? PdfData[0]?.work
+                  .map(
+                    (work) => `<div> 
             <p>Address : ${work.streetName}</p> 
             <p>Surburb : ${work.suburb}</p> 
             <p>City : ${work.city}</p> 
@@ -150,16 +142,15 @@ const QRcode = () => {
             <p>Positive Verification Checks : ${work.workTotalCount}</p> 
             <p>Total Verification Checks: : ${work.workVerificationCount}</p> 
           </div>`
-              )
-              .join("")
-            : `<p>${PdfData[0].details.firstname} ${PdfData[0].details.surname} has not set any work locations.</p>`
+                  )
+                  .join("")
+              : `<p>${PdfData[0].details.firstname} ${PdfData[0].details.surname} has not set any work locations.</p>`
           } 
           </div>
         </div>
       </body>
      </html>
   `;
-
 
         //++++++++++++++++++++++++++++++++++++
 
