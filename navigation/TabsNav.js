@@ -56,7 +56,7 @@ const TabsNav = () => {
               }}
             >
               <HomeIcon color={color} size={25} />
-              <Text style={{ color: `${color}`, fontSize: 12 }}> Home</Text>
+              <Text style={{ color: `${color}`, fontSize: 12, fontFamily: 'Poppins-Regular', }}> Home</Text>
             </View>
           ),
         }}
@@ -75,7 +75,7 @@ const TabsNav = () => {
               }}
             >
               <LocationMarkerIcon color={color} style={'solid'} size={25} />
-              <Text style={{ color: `${color}`, fontSize: 12 }}>Address</Text>
+              <Text style={{ color: `${color}`, fontSize: 12, fontFamily: 'Poppins-Regular', }}>Address</Text>
             </View>
           ),
         }}
@@ -94,7 +94,7 @@ const TabsNav = () => {
               }}
             >
               <FolderIcon color={color} style={'solid'} size={25} />
-              <Text style={{ color: `${color}`, fontSize: 12 }}>Documents</Text>
+              <Text style={{ color: `${color}`, fontSize: 12, fontFamily: 'Poppins-Regular', }}>Documents</Text>
             </View>
           ),
         }}
@@ -130,7 +130,7 @@ const TabsNav = () => {
               }}
             >
               <QuestionMarkCircleIcon color={color} size={25} />
-              <Text style={{ color: `${color}`, fontSize: 12 }}>Support</Text>
+              <Text style={{ color: `${color}`, fontSize: 12, fontFamily: 'Poppins-Regular', }}>Support</Text>
             </View>
           ),
         }}
@@ -172,7 +172,7 @@ const TabsNav = () => {
               }}
             >
               <DotsHorizontalIcon color={color} size={25} />
-              <Text style={{ color: `${color}`, fontSize: 14 }}>More</Text>
+              <Text style={{ color: `${color}`, fontSize: 14, fontFamily: 'Poppins-Regular', }}>More</Text>
             </View>
           ),
         }}

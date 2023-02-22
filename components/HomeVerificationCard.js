@@ -58,17 +58,17 @@ const HomeVerificationCard = ({ item }) => {
         {/*  */}
       </View>
       <View>
-        <Text style={{ color: 'black', fontSize: 18, fontWeight: "800", color: ColorTheme.grey }}>
+        <Text style={{ color: 'black', fontSize: 18, fontFamily: 'Poppins-SemiBold', color: ColorTheme.grey }}>
           {home ? info.houseNo + ',' + ' ' + info.streetName : info.building + ',' + ' ' + info.streetName}
         </Text>
         {/* <Text style={{ color: 'black', fontSize: 18, fontWeight: "800", color: ColorTheme.grey }}>
           {home ? info.streetName : info.streetName}
         </Text> */}
         {/* coordinates */}
-        <View style={{ flexDirection: "row", marginTop: 2 }}>
+        <View style={{ flexDirection: "row", }}>
           {home ? (
             <View>
-              <Text style={[styles.textCoordinate, { textTransform: 'uppercase' }]}>
+              <Text style={[styles.textCoordinate, { textTransform: 'uppercase', fontFamily: 'Poppins-Regular', }]}>
                 {info.suburb},{' '} {info.city}
               </Text>
 
@@ -91,17 +91,17 @@ const HomeVerificationCard = ({ item }) => {
           <>
             {info.homeVerified === "pending" && (
               <View style={styles.v_container}>
-                <Text style={{ fontWeight: "600", color: ColorTheme.orange }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Pending</Text>
+                <Text style={{ fontFamily: 'Poppins-SemiBold', color: ColorTheme.orange }}><Text style={{ fontFamily: 'Poppins-Regular', color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Pending</Text>
               </View>
             )}
             {info.homeVerified === "failed" && (
               <View style={styles.v_container}>
-                <Text style={{ fontWeight: "600", color: ColorTheme.red }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Failed</Text>
+                <Text style={{ fontFamily: 'Poppins-SemiBold', color: ColorTheme.red }}><Text style={{ fontFamily: 'Poppins-Regular', color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Failed</Text>
               </View>
             )}
             {info.homeVerified === "success" && (
               <View style={styles.v_container}>
-                <Text style={{ fontWeight: "600", color: ColorTheme.main }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Successful</Text>
+                <Text style={{ fontFamily: 'Poppins-SemiBold', color: ColorTheme.main }}><Text style={{ fontFamily: 'Poppins-Regular', color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Successful</Text>
               </View>
             )}
           </>
@@ -109,17 +109,17 @@ const HomeVerificationCard = ({ item }) => {
           <>
             {info.workVerified === "pending" && (
               <View style={styles.v_container}>
-                <Text style={{ fontWeight: "600", color: ColorTheme.orange }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Pending</Text>
+                <Text style={{ fontFamily: 'Poppins-SemiBold', color: ColorTheme.orange }}><Text style={{ fontFamily: 'Poppins-Regular', color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Pending</Text>
               </View>
             )}
             {info.workVerified === "failed" && (
               <View style={styles.v_container}>
-                <Text style={{ fontWeight: "600", color: ColorTheme.red }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Failed</Text>
+                <Text style={{ fontFamily: 'Poppins-SemiBold', color: ColorTheme.red }}><Text style={{ fontFamily: 'Poppins-Regular', color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Failed</Text>
               </View>
             )}
             {info.workVerified === "success" && (
               <View style={styles.v_container}>
-                <Text style={{ fontWeight: "600", color: ColorTheme.main }}><Text style={{ fontWeight: "600", color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Successful</Text>
+                <Text style={{ fontFamily: 'Poppins-SemiBold', color: ColorTheme.main }}><Text style={{ fontFamily: 'Poppins-Regular', color: ColorTheme.grey, textTransform: "capitalize" }} >{info.title} Address:</Text> Verification Successful</Text>
               </View>
             )}
           </>
@@ -135,14 +135,14 @@ const styles = StyleSheet.create({
   v_container: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 5,
+
   },
-  verificationIcon: {
-    width: 18,
-    height: 18,
-    resizeMode: "contain",
-    marginRight: 5,
-  },
+  // verificationIcon: {
+  //   width: 18,
+  //   height: 18,
+  //   resizeMode: "contain",
+  //   marginRight: 5,
+  // },
   homeCard: {
     backgroundColor: "#F8F8F8",
     borderRadius: 10,
@@ -153,9 +153,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 100,
   },
-  textCoordinate: {
-    color: ColorTheme.grey,
-    fontWeight: "600",
-    textTransform: "capitalize",
-  },
+  // textCoordinate: {
+  //   color: ColorTheme.grey,
+  //   fontWeight: "600",
+  //   textTransform: "capitalize",
+  // },
 });

@@ -31,7 +31,7 @@ const AddAddress = () => {
       if (storedUser !== null) {
         setUser(JSON.parse(storedUser));
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -46,8 +46,8 @@ const AddAddress = () => {
       <View
         style={{
           borderColor: ColorTheme.grey2,
-          borderRightWidth: 2,
-          borderBottomWidth: 2,
+          borderRightWidth: 1,
+          borderBottomWidth: 1,
           borderLeftWidth: 1,
           borderTopWidth: 1,
           width: "90%",
@@ -62,12 +62,14 @@ const AddAddress = () => {
       >
         <Text
           style={{
-            fontSize: 10,
+            fontSize: 12,
             width: "95%",
-            fontWeight: "bold",
-            marginBottom: "1%",
+            // fontWeight: "bold",
+            fontFamily: 'Poppins-SemiBold',
+            marginBottom: "0%",
             textTransform: "uppercase",
             color: ColorTheme.grey4,
+            marginLeft: '5%'
           }}
         >
           KYC Africa Verification Details
@@ -76,10 +78,12 @@ const AddAddress = () => {
           style={{
             fontSize: 20,
             width: "95%",
-            fontWeight: "bold",
-            marginBottom: "5%",
-            color: "black",
+            // fontWeight: "bold",
+            marginBottom: "3%",
+            color: ColorTheme.main,
+            fontFamily: 'Poppins-SemiBold',
             textTransform: "capitalize",
+            marginLeft: '5%'
           }}
         >
           {user?.firstname + " " + user?.surname}
@@ -103,10 +107,11 @@ const AddAddress = () => {
           alignContent: "center",
           justifyContent: "center",
           paddingRight: "5%",
+
         }}
       >
-        <QrcodeIcon color={"#FFF"} size={18} />
-        <Text style={{ marginLeft: "3%", fontWeight: "bold", color: "#FFF" }}>Scan QR Code</Text>
+        <QrcodeIcon color={"#FFF"} size={25} />
+        <Text style={{ marginLeft: "3%", color: "#FFF", fontFamily: 'Poppins-Regular', }}>Scan QR Code</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

@@ -37,7 +37,7 @@ const QRcode = () => {
           display: "flex",
         }}
       >
-        <QRCode size={270} codeStyle="circle" logo={kycLogo} logoSize={50} content="https://kycafrica.com" />
+        <QRCode size={270} codeStyle="circle" logo={kycLogo} logoSize={40} content="https://kycafrica.com" />
       </View>
       <View style={{ alignItems: "center", marginTop: 20 }}>
         <TouchableOpacity
@@ -57,7 +57,7 @@ const QRcode = () => {
             width: width * 0.8,
           }}
         >
-          <Text style={{ fontSize: 18, color: ColorTheme.main, fontWeight: "600" }}>Full KYC Certificate</Text>
+          <Text style={{ fontSize: 18, color: ColorTheme.main, fontFamily: 'Poppins-SemiBold' }}>Full KYC Certificate</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
@@ -75,7 +75,7 @@ const QRcode = () => {
             width: width * 0.8,
           }}
         >
-          <Text style={{ fontSize: 18, color: ColorTheme.main, fontWeight: "600" }}>Verified ID Certificate</Text>
+          <Text style={{ fontSize: 18, color: ColorTheme.main, fontFamily: 'Poppins-SemiBold' }}>Verified National ID</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
@@ -93,8 +93,8 @@ const QRcode = () => {
             width: width * 0.8,
           }}
         >
-          <Text style={{ fontSize: 18, color: ColorTheme.main, fontWeight: "600", textTransform: "capitalize" }}>
-            Verified Address Certificate
+          <Text style={{ fontSize: 18, color: ColorTheme.main, fontFamily: 'Poppins-SemiBold', textTransform: "capitalize" }}>
+            Verified Proof of Residence
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -106,7 +106,7 @@ const QRcode = () => {
             borderRadius: 5,
             alignItems: "center",
             paddingVertical: "3%",
-            marginTop: "3%",
+            marginTop: "1%",
             alignContent: "center",
             justifyContent: "center",
             paddingRight: "5%",
@@ -116,7 +116,7 @@ const QRcode = () => {
           {loading ? (
             <Text> Logging Out...</Text>
           ) : (
-            <Text style={{ fontSize: 18, color: "#fff", fontWeight: "600", textTransform: "capitalize" }}>Log Out</Text>
+            <Text style={{ fontSize: 18, color: "#fff", textTransform: "capitalize", fontFamily: 'Poppins-SemiBold' }}>Log Out</Text>
           )}
         </TouchableOpacity>
       </View>

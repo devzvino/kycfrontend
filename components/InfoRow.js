@@ -3,10 +3,10 @@ import React from 'react'
 
 const InfoRow = ({ section, dataInfo }) => {
     return (
-        <View style={{ display: 'flex', flexDirection: 'row', marginBottom: '2%' }}>
-            <Text style={{ width: '38%' }}>{section}:</Text>
+        <View style={{ display: 'flex', flexDirection: 'row', marginBottom: '1%' }}>
+            <Text style={{ width: '45%', fontFamily: 'Poppins-Regular', }}>{section}:</Text>
 
-            <Text style={{ fontWeight: 'bold', width: '55%', paddingStart: '3%' }}>{dataInfo}</Text>
+            <Text style={{ width: '45%', paddingStart: '2%', fontFamily: 'Poppins-SemiBold', }}>{dataInfo}</Text>
         </View>
     )
 }

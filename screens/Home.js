@@ -86,7 +86,7 @@ const Home = () => {
       if (storedUser !== null) {
         setUser(JSON.parse(storedUser));
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   // force event to rerender page
@@ -136,7 +136,7 @@ const Home = () => {
 
       <>
         <View style={{ marginHorizontal: "5%", paddingBottom: 20, paddingHorizontal: 0, width: width * 0.95 }}>
-          <Text style={{ marginBottom: 20, fontWeight: "bold", fontSize: 18, color: "#4E4E4E" }}>Add Address</Text>
+          <Text style={{ marginBottom: 20, fontSize: 18, color: "#4E4E4E", fontFamily: 'Poppins-SemiBold', }}>Add Address</Text>
           <View
             style={{ backgroundColor: "white", display: "flex", flexDirection: "row", justifyContent: "flex-start" }}
           >
@@ -162,7 +162,7 @@ const Home = () => {
               }}
             >
               <HomeIcon size={30} color={ColorTheme.main} />
-              <Text style={styles.btnTitle}>Home</Text>
+              <Text style={[styles.btnTitle, { fontFamily: 'Poppins-SemiBold', }]}>Home</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
@@ -185,7 +185,7 @@ const Home = () => {
               }}
             >
               <BriefcaseIcon size={30} color={ColorTheme.main} />
-              <Text style={styles.btnTitle}>Work</Text>
+              <Text style={[styles.btnTitle, { fontFamily: 'Poppins-SemiBold', }]}>Work</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -199,10 +199,10 @@ const Home = () => {
             borderRadius: 10,
           }}
         >
-          <Text style={{ color: ColorTheme.grey, fontSize: 14, lineHeight: 20 }}>
-            <Text style={{ fontWeight: "bold", lineHeight: 20 }}>NOTE: </Text>KYC AFRICA verifies your Addresses in the
+          <Text style={{ color: ColorTheme.grey, fontSize: 14, lineHeight: 20, fontFamily: 'Poppins-Regular', }}>
+            <Text style={{ fontFamily: 'Poppins-SemiBold', lineHeight: 20 }}>NOTE: </Text>KYC AFRICA verifies your Addresses in the
             background, make sure that you set location permissions to{" "}
-            <Text style={{ fontWeight: "bold", lineHeight: 20 }}>Always Allow</Text>.
+            <Text style={{ fontFamily: 'Poppins-SemiBold', lineHeight: 20 }}>Always Allow</Text>.
           </Text>
           {/* <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 16, lineHeight: 20, }}>Please make sure that you set location permissions to <Text style={{ fontWeight: 'bold', fontSize: 16, lineHeight: 20 }}>Always Allow</Text></Text> */}
         </View>
@@ -224,9 +224,10 @@ const Home = () => {
               paddingTop: 150,
               justifyContent: "center",
               alignItems: "center",
+              // fontFamily: 'Poppins-SemiBold',
             }}
           >
-            <Text>Loading please wait...</Text>
+            <Text style={{ fontFamily: 'Poppins-Regular', }} >Loading please wait...</Text>
 
             <ActivityIndicator style={{ marginTop: 20 }} />
           </View>
@@ -234,7 +235,7 @@ const Home = () => {
           <>
             {!tempDisplay.length ? (
               <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-                <Text>You have not added your home or work address. </Text>
+                <Text style={{ fontFamily: 'Poppins-Regular', }}>You have not added your home or work address. </Text>
               </View>
             ) : (
               <SwipeListView
@@ -277,7 +278,7 @@ const Home = () => {
                       {removing ? (
                         <ActivityIndicator color={"#FFFFFF"} />
                       ) : (
-                        <Text style={{ color: "#ffffff" }}>Delete</Text>
+                        <Text style={{ color: "#ffffff", fontFamily: 'Poppins-Regular', }}>Delete</Text>
                       )}
                     </View>
                   </TouchableOpacity>
@@ -320,7 +321,7 @@ const styles = StyleSheet.create({
   btnTitle: {
     color: ColorTheme.main,
     fontSize: 18,
-    fontWeight: "bold",
+    // fontWeight: "bold",
     marginLeft: 5,
   },
 });

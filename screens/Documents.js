@@ -21,7 +21,7 @@ const Documents = () => {
                     <Text style={{ color: ColorTheme.grey, fontSize: 16, lineHeight: 20, textAlign: 'center' }}>KYC Africa verifies the authenticity of your documents in the background</Text>
                 </View> */}
                 <View style={{ padding: 10, paddingHorizontal: 0, width: width * 0.95 }}>
-                    <Text style={{ marginBottom: 20, fontWeight: 'bold', fontSize: 18, color: '#4E4E4E' }}>Add Identification Document</Text>
+                    <Text style={{ marginBottom: 20, fontFamily: 'Poppins-SemiBold', fontSize: 18, color: '#4E4E4E' }}>Add Identification Document</Text>
                     <View style={{ backgroundColor: "white", display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
                         <TouchableOpacity
                             // onPress={() =>
@@ -33,7 +33,7 @@ const Documents = () => {
                             style={{ borderColor: ColorTheme.grey2, borderRightWidth: 3, borderBottomWidth: 3, borderLeftWidth: 1, borderTopWidth: 1, width: '40%', padding: 30, borderRadius: 5, alignItems: 'center', marginRight: 20, justifyContent: 'center' }}
                         >
                             <BookOpenIcon size={30} color={ColorTheme.main} />
-                            <Text style={{ color: ColorTheme.main, fontSize: 12, fontWeight: 'bold' }}>Passport</Text>
+                            <Text style={{ color: ColorTheme.main, fontSize: 12, fontFamily: 'Poppins-SemiBold' }}>Passport</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             // onPress={() =>
@@ -45,13 +45,13 @@ const Documents = () => {
                             style={{ borderColor: ColorTheme.grey2, borderRightWidth: 3, borderBottomWidth: 3, borderLeftWidth: 1, borderTopWidth: 1, width: '40%', padding: 10, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}
                         >
                             <IdentificationIcon size={30} color={ColorTheme.main} />
-                            <Text style={{ color: ColorTheme.main, fontSize: 12, fontWeight: 'bold' }}>Driver's Licence</Text>
+                            <Text style={{ color: ColorTheme.main, fontSize: 12, fontFamily: 'Poppins-SemiBold' }}>Driver's Licence</Text>
                         </TouchableOpacity>
                     </View>
                     {/* <View style={{ backgroundColor: ColorTheme.grey3, width: width * 0.85, height: 1, marginTop: 20 }}></View> */}
                 </View>
                 <View style={{ padding: 10, paddingHorizontal: 0, width: width * 0.95 }}>
-                    <Text style={{ marginBottom: 20, fontWeight: 'bold', fontSize: 18, color: '#4E4E4E', }}>Add Certificates</Text>
+                    <Text style={{ marginBottom: 20, fontFamily: 'Poppins-SemiBold', fontSize: 18, color: '#4E4E4E', }}>Add Certificates</Text>
                     <View style={{ backgroundColor: "white", display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
                         <TouchableOpacity
                             // onPress={() =>
@@ -63,7 +63,7 @@ const Documents = () => {
                             style={{ borderColor: ColorTheme.grey2, borderRightWidth: 3, borderBottomWidth: 3, borderLeftWidth: 1, borderTopWidth: 1, width: '40%', padding: 30, borderRadius: 5, alignItems: 'center', marginRight: 20, justifyContent: 'center' }}
                         >
                             <PlusIcon size={30} color={ColorTheme.main} />
-                            <Text style={{ color: ColorTheme.main, fontSize: 12, fontWeight: 'bold' }}>Add</Text>
+                            <Text style={{ color: ColorTheme.main, fontSize: 12, fontFamily: 'Poppins-SemiBold' }}>Add</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             // onPress={() =>
@@ -75,7 +75,7 @@ const Documents = () => {
                             style={{ borderColor: ColorTheme.grey2, borderRightWidth: 3, borderBottomWidth: 3, borderLeftWidth: 1, borderTopWidth: 1, width: '40%', padding: 20, borderRadius: 5, alignItems: 'center', marginRight: 20, justifyContent: 'center' }}
                         >
                             <PencilIcon size={30} color={ColorTheme.main} />
-                            <Text style={{ color: ColorTheme.main, fontSize: 12, fontWeight: 'bold' }}>Sign Documents</Text>
+                            <Text style={{ color: ColorTheme.main, fontSize: 12, fontFamily: 'Poppins-SemiBold' }}>Sign Documents</Text>
                         </TouchableOpacity>
 
                     </View>
@@ -84,7 +84,7 @@ const Documents = () => {
                 </View>
                 <View style={{ backgroundColor: ColorTheme.grey, width: width * 0.9, height: 0.5, marginTop: 10, marginRight: '5%' }}></View>
                 <View style={{ width: width * 0.9, marginTop: 10, marginRight: '5%' }}>
-                    <Text style={{ marginBottom: 15, paddingHorizontal: '10%', paddingTop: '30%', color: ColorTheme.grey, fontSize: 14, color: '#000000', lineHeight: 20, textAlign: 'center' }}>Your have not added any documents.</Text>
+                    <Text style={{ marginBottom: 15, paddingHorizontal: '10%', paddingTop: '30%', color: ColorTheme.grey, fontSize: 14, color: '#000000', fontFamily: 'Poppins-Regular', lineHeight: 20, textAlign: 'center' }}>Your have not added any documents.</Text>
                 </View>
 
 
