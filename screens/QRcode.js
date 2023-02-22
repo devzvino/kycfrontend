@@ -20,7 +20,7 @@ const QRcode = () => {
   const handleLogout = async () => {
     setLoading(true);
     // await AsyncStorage.removeItem("@user");
-    AsyncStorage.clear();
+    // AsyncStorage.clear();
     // navigation.
     setLoading(false);
   };
@@ -99,14 +99,6 @@ const QRcode = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            // borderColor: ColorTheme.grey2, borderRightWidth: 3, borderBottomWidth: 3, borderLeftWidth: 1, borderTopWidth: 1,
-            // borderRadius: 5,
-            // marginBottom: 15,
-            // display: "flex",
-            // alignItems: "center",
-            // paddingBottom: '3%',
-            // paddingTop: '3%',
-            // width: width * 0.8
             display: "flex",
             backgroundColor: ColorTheme.main,
             flexDirection: "row",
