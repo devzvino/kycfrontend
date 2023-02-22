@@ -51,11 +51,6 @@ const UserDetails = ({
     });
   };
 
-  // console.log(phone);
-  // console.log(phoneRef.current?.state);
-  // console.log(phoneRef.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber);
-  // console.log(otp);
-
   const handleSubmit = () => {
     setLoading(true);
 

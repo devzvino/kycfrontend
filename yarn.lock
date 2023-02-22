@@ -3557,6 +3557,16 @@ expo-notifications@~0.17.0:
     fs-extra "^9.1.0"
     uuid "^3.4.0"
 
+expo-print@~11.2.0:
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/expo-print/-/expo-print-11.2.0.tgz#6a80d78acd32d2dcb74cb080637fdea8ae6d47b8"
+  integrity sha512-sWTBKpvvZ3CWCSxugKu5RgbIDyxNt5b+NmofHx8DgJcTVswaaAd/NCexkmSKHNkaWamt6DbO83bDd4KJNxKgtQ==
+
+expo-sharing@~10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/expo-sharing/-/expo-sharing-10.2.0.tgz#527a143d7365998ab77cb44a84b81c793e51dc4e"
+  integrity sha512-IM5L5gNHHgIKlxxxv/uXPyw+N9zeHQBdDxtFgrTBlEU+Sx4/PwtBIb9hHmFHR7Hz+hDK2nxFpEEuYlvapkNd0Q==
+
 expo-splash-screen@~0.15.0, expo-splash-screen@~0.15.1:
   version "0.15.1"
   resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.15.1.tgz#bdfb2434bda7fb1cde97e029fc7a791d7b3e3125"
