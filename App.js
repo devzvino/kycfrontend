@@ -10,6 +10,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import GlobalContainerRoot from "./components/GlobalContainerRoot";
 import { LogBox } from "react-native";
 import { UserContext } from "./context/UserContext";
+import { HasLocationContext } from "./context/HasLocationContext";
 
 LogBox.ignoreAllLogs(true);
 
@@ -24,6 +25,7 @@ const theme = {
 
 export default function App() {
   const [user, setUser] = useState(null);
+  const [hasLocation, sethasLocation] = useState(false);
   let [fontsLoaded] = useFonts({
     "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
     "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
@@ -38,14 +40,16 @@ export default function App() {
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <GlobalContainerRoot>
-        <NavigationContainer theme={theme}>
-          <GestureHandlerRootView style={{ flex: 1 }}>
-            <StackNavigation />
-            <Toast />
-          </GestureHandlerRootView>
-        </NavigationContainer>
-      </GlobalContainerRoot>
+      <HasLocationContext.Provider value={{ hasLocation, sethasLocation }}>
+        <GlobalContainerRoot>
+          <NavigationContainer theme={theme}>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+              <StackNavigation />
+              <Toast />
+            </GestureHandlerRootView>
+          </NavigationContainer>
+        </GlobalContainerRoot>
+      </HasLocationContext.Provider>
     </UserContext.Provider>
   );
 }

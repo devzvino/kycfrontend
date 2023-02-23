@@ -16,6 +16,9 @@ import { BriefcaseIcon, HomeIcon } from "react-native-heroicons/solid";
 import * as BackgroundFetch from "expo-background-fetch";
 import * as TaskManager from "expo-task-manager";
 import { UserContext } from "../context/UserContext";
+import { HasLocationContext } from "../context/HasLocationContext";
+
+import { locationCords } from "./GetLocation";
 
 //Verify location
 
@@ -418,6 +421,8 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
 });
 
 const Home = () => {
+  const { sethasLocation } = useContext(HasLocationContext)
+
   const { addListener } = useNavigation();
 
   const [loading, setLoading] = useState(false);
@@ -428,10 +433,20 @@ const Home = () => {
   const [mergedAddress, setMergedAddress] = useState();
   const [tempDisplay, setTempDisplay] = useState([]);
   const { user } = useContext(UserContext);
-
   const navigation = useNavigation();
   let userDetails;
   let post;
+
+  // useEffect(() => {
+  //   locationCords = null
+  //   return () => {
+
+  //   }
+  // }, [])
+
+
+
+
 
   // aggregated locations
   let id;
@@ -489,6 +504,7 @@ const Home = () => {
   });
 
   useEffect(() => {
+
     (async () => {
       const storedData = await AsyncStorage.getItem("@mergedAddresses");
       console.log(storedData);
@@ -535,9 +551,9 @@ const Home = () => {
           >
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate("AddNewLocation", {
+                navigation.navigate("GetLocation", {
                   title: "home",
-                  myId: user._id,
+
                 })
               }
               style={{
@@ -559,9 +575,9 @@ const Home = () => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate("AddNewLocation", {
+                navigation.navigate("GetLocation", {
                   title: "work",
-                  myId: user._id,
+
                 })
               }
               style={{

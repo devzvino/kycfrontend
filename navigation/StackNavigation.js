@@ -10,6 +10,7 @@ import SignUp from "../screens/SignUp";
 import WelcomeScreen from "../screens/Welcome";
 import TabsNav from "./TabsNav";
 import { UserContext } from "../context/UserContext";
+import GetLocation from "../screens/GetLocation";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +23,7 @@ const StackNavigation = () => {
       if (storedUser !== null) {
         setUser(JSON.parse(storedUser));
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -40,6 +41,7 @@ const StackNavigation = () => {
         <Stack.Group>
           <Stack.Screen name="TabsNav" component={TabsNav} />
           <Stack.Screen name="AddNewLocation" component={LocationSelect} />
+          <Stack.Screen name="GetLocation" component={GetLocation} />
         </Stack.Group>
       ) : (
         // Auth screens
@@ -50,6 +52,7 @@ const StackNavigation = () => {
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="SignUp" component={SignUp} />
+
         </Stack.Group>
       )}
     </Stack.Navigator>
