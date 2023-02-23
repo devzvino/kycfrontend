@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import AppLoading from "expo-app-loading";
 import * as SplashScreen from "expo-splash-screen";
@@ -9,6 +9,7 @@ import StackNavigation from "./navigation/StackNavigation";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import GlobalContainerRoot from "./components/GlobalContainerRoot";
 import { LogBox } from "react-native";
+import { UserContext } from "./context/UserContext";
 
 LogBox.ignoreAllLogs(true);
 
@@ -22,6 +23,7 @@ const theme = {
 };
 
 export default function App() {
+  const [user, setUser] = useState(null);
   let [fontsLoaded] = useFonts({
     "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
     "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
@@ -36,12 +38,14 @@ export default function App() {
 
   return (
     <GlobalContainerRoot>
-      <NavigationContainer theme={theme} >
-        <GestureHandlerRootView style={{ flex: 1 }} >
-          <StackNavigation />
-          <Toast />
-        </GestureHandlerRootView>
-      </NavigationContainer>
+      <UserContext.Provider value={{ user, setUser }}>
+        <NavigationContainer theme={theme}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <StackNavigation />
+            <Toast />
+          </GestureHandlerRootView>
+        </NavigationContainer>
+      </UserContext.Provider>
     </GlobalContainerRoot>
   );
 }

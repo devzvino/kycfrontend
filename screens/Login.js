@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { Dimensions } from "react-native";
 import { ButtonTheme, FontTheme, LogoTheme } from "../components/ThemeFile";
 import MainLogo from "../components/MainLogo";
@@ -12,6 +12,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { keys } from "../environmentVariables";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { UserContext } from "../context/UserContext";
 // import { Puff } from "react-loader-spinner";
 
 const { width, height } = Dimensions.get("window");
@@ -28,12 +29,8 @@ const Login = () => {
   const [cc, setCC] = useState(null);
   let token;
 
-  // console.log('====================================');
-  // console.log(id);
-  // console.log('====================================');
-
   const route = useRoute();
-  const { storeUser } = route.params;
+  const { setUser } = useContext(UserContext);
 
   const handleSignup = () => {
     setLoadingSignUp(true);
@@ -66,46 +63,6 @@ const Login = () => {
       });
   };
 
-  //   const onPress = () => {
-  //     setLoading(true);
-  //     setMessage(false);
-
-  //     if (!id || !firstName) {
-  //       setMessage("All fields are required");
-  //       setLoading(false);
-  //       return;
-  //     }
-
-  //     var myHeaders = new Headers();
-  //     myHeaders.append("Content-Type", "application/json");
-
-  //     var raw = JSON.stringify({
-  //       idNumber: id.toUpperCase(),
-  //       firstname: firstName,
-  //     });
-
-  //     var requestOptions = {
-  //       method: "POST",
-  //       headers: myHeaders,
-  //       body: raw,
-  //       redirect: "follow",
-  //     };
-
-  //     fetch(`${keys.apiURL}api/user/login`, requestOptions)
-  //       .then((response) => response.text())
-  //       .then(async (result) => {
-  //         console.log(result);
-  //         await AsyncStorage.setItem("@user", JSON.stringify(result));
-  //         setLoading(false);
-  //       })
-  //       .catch((error) => {
-  //         console.log("error", error);
-  //         setMessage(error.response.data.message);
-  //         setLoading(false);
-  //       });
-  //   };
-  //
-
   const onPress = () => {
     setMessage(null);
     setLoadingLogin(true);
@@ -118,9 +75,8 @@ const Login = () => {
         firstname: firstname,
       })
       .then((res) => {
-        storeUser(res.data);
+        setUser(res.data);
         AsyncStorage.setItem("@user", JSON.stringify(res.data));
-        // console.log(res);
         setLoadingLogin(false);
       })
       .catch((error) => {
@@ -178,8 +134,7 @@ const Login = () => {
               required
               // onBlur={Keyboard.dismiss}
               onChange={(value) => {
-                setId(value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase());
-
+                setId(value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase());
               }}
               info={id ? null : error}
               textStyles={FontTheme.errortxt}

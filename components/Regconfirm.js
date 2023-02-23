@@ -1,13 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Dimensions, Image, Text, View } from "react-native";
 import SignUpNavigationButton from "./SignUpNavigationButton";
 import SvgComponent from "./SuccessSvg";
 
 //App theme styles
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { ButtonTheme, FontTheme, ImageBackgroundTheme, InputTheme, LogoTheme } from "../components/ThemeFile";
+import { FontTheme } from "../components/ThemeFile";
 import { keys } from "../environmentVariables";
+import { UserContext } from "../context/UserContext";
 
 //Device Dimensions
 const { width, height } = Dimensions.get("screen");
@@ -16,7 +17,7 @@ function RegConfirm({ data, setData, setUserView, setIdUploadView, setOtpConfrim
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const route = useRoute();
-  const { storeUser } = route.params;
+  const { setUser } = useContext(UserContext);
 
   // submit function to api
   const handleSubmit = async () => {
@@ -46,7 +47,7 @@ function RegConfirm({ data, setData, setUserView, setIdUploadView, setOtpConfrim
 
       if (response.ok) {
         // save user to local storage
-        storeUser(json);
+        setUser(json);
         await AsyncStorage.setItem("@user", JSON.stringify(json));
         setLoading(false);
       }
@@ -69,7 +70,9 @@ function RegConfirm({ data, setData, setUserView, setIdUploadView, setOtpConfrim
     >
       <SvgComponent />
       <Text style={FontTheme.footText}>You have successfully verified your national identity</Text>
-      <Text style={FontTheme.footText}>Please Proceed to add your addresses to start the address verification prosess</Text>
+      <Text style={FontTheme.footText}>
+        Please Proceed to add your addresses to start the address verification prosess
+      </Text>
       <View
         style={{
           width: width,

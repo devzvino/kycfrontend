@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View, Button, ActivityIndicator } from "react-native";
 import { QRCode } from "react-native-custom-qr-codes";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -9,25 +9,24 @@ import MainButton from "../components/MainButton";
 import { ColorTheme } from "../components/ThemeFile";
 import kycLogo from "../assets/icon.png";
 import { useNavigation } from "@react-navigation/native";
-import { printToFileAsync } from "expo-print";
+import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
 import moment from "moment";
+import { UserContext } from "../context/UserContext";
 
 const QRcode = () => {
   // navigation process
+  const { user, setUser } = useContext(UserContext);
   const navigation = useNavigation();
   const { width, height } = Dimensions.get("window");
   const [loading, setLoading] = useState(false);
+  const [outLoading, setOutLoading] = useState(false);
   const [clientHomeLocations, setClientHomeLocations] = useState([]);
   const [clientWorkLocations, setClientWorkLocations] = useState([]);
   const [userId, setUserId] = useState();
+  const [id, setId] = useState("63f4a7763a64a516a679eb5b");
 
-  const [PdfData, setPdfData] = useState("");
-
-  // const element = <QRCode size={270} codeStyle="circle" logo={kycLogo} logoSize={40} content={"name"} />;
-
-  // console.log(PdfData);
-  console.log(PdfData[0]);
+  const [PdfData, setPdfData] = useState([]);
 
   //   let html = `
   //   <html style="margin:0 !important">
@@ -68,9 +67,7 @@ const QRcode = () => {
   //              </p>
   //            </div>
   //            <div style="flex: 1;">
-  //            ${React.renderToString(
-  //              <QRCode size={270} codeStyle="circle" logo={kycLogo} logoSize={40} content={"name"} />
-  //            )}
+  //            <p>Qr code here</p>
   //            </div>
   //          </div>
   //      </div>
@@ -136,8 +133,8 @@ const QRcode = () => {
       );
     Promise.all(
       [
-        `https://kycbackendapp.herokuapp.com/api/home/my/${userId._id}`,
-        `https://kycbackendapp.herokuapp.com/api/work/my/${userId._id}`,
+        `https://kycbackendapp.herokuapp.com/api/home/my/${id}`,
+        `https://kycbackendapp.herokuapp.com/api/work/my/${id}`,
       ].map((url) => fetchOk(url).then((r) => r.json()))
     )
       .then(([d1, d2]) => {
@@ -156,36 +153,18 @@ const QRcode = () => {
         setLoading(false);
       })
       .catch((e) => console.error(e));
-    generateKycPdf();
   };
 
-  const generateKycPdf = async () => {
-    // generating
-    await gatheringAllUserLocations();
-
-    const file = await printToFileAsync({
-      html: html,
-      base64: false,
-    });
-
-    await Sharing.shareAsync(file.uri);
-  };
+  const generateKycPdf = async () => {};
 
   const handleLogout = async () => {
-    setLoading(true);
-    // await AsyncStorage.removeItem("@user");
-    AsyncStorage.clear();
-    // navigation.
-    setLoading(false);
+    setOutLoading(true);
+    await AsyncStorage.removeItem("@user");
+    setUser();
+    setOutLoading(false);
   };
 
-  useEffect(() => {
-    (async () => {
-      const storedUser = await AsyncStorage.getItem("@user");
-      const user = JSON.parse(storedUser);
-      setUserId(user);
-    })();
-  }, []);
+  console.log("PdfData", PdfData);
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: "#ffffff", flex: 1 }]}>
@@ -204,7 +183,7 @@ const QRcode = () => {
       <View style={{ alignItems: "center", marginTop: 20 }}>
         <TouchableOpacity
           disabled={loading}
-          onPress={() => generateKycPdf()}
+          onPress={generateKycPdf}
           style={{
             borderColor: ColorTheme.grey2,
             borderRightWidth: 3,
@@ -288,7 +267,7 @@ const QRcode = () => {
           }}
           onPress={handleLogout}
         >
-          {loading ? (
+          {outLoading ? (
             <Text> Logging Out...</Text>
           ) : (
             <Text style={{ fontSize: 18, color: "#fff", textTransform: "capitalize", fontFamily: "Poppins-SemiBold" }}>
@@ -306,3 +285,10 @@ export default QRcode;
 const styles = StyleSheet.create({
   flex: 1,
 });
+
+// const file = await printToFileAsync({
+//   html: html,
+//   base64: false,
+// });
+
+// await Sharing.shareAsync(file.uri);
