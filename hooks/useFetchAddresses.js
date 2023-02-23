@@ -1,7 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../context/UserContext";
 
 export function useFetchAddresses() {
+  const { user } = useContext(UserContext);
   let id;
 
   const [addressHome, setAddressHome] = useState([]);
@@ -10,10 +12,7 @@ export function useFetchAddresses() {
 
   // getting single user details based on id
   const getAllData = async () => {
-    // get user id from async storage
-    const storedUser = await AsyncStorage.getItem("@user");
-    let asyncData = JSON.parse(storedUser);
-    id = asyncData._id;
+    id = user._id;
 
     let fetchOk = (...args) =>
       fetch(...args).then((res) =>
@@ -24,7 +23,12 @@ export function useFetchAddresses() {
             })
       );
 
-    Promise.all([`https://kycbackendapp.herokuapp.com/api/home/my/${id}`, `https://kycbackendapp.herokuapp.com/api/work/my/${id}`].map((url) => fetchOk(url).then((r) => r.json())))
+    Promise.all(
+      [
+        `https://kycbackendapp.herokuapp.com/api/home/my/${id}`,
+        `https://kycbackendapp.herokuapp.com/api/work/my/${id}`,
+      ].map((url) => fetchOk(url).then((r) => r.json()))
+    )
       .then(([d1, d2]) => {
         setAddressHome(d1);
         setAddressWork(d2);

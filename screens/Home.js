@@ -1,6 +1,6 @@
 import { ActivityIndicator, Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import GlobalHeader from "../components/GlobalHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -15,7 +15,7 @@ import { BriefcaseIcon, HomeIcon } from "react-native-heroicons/solid";
 // ===================== BACKGROUND FETCH
 import * as BackgroundFetch from "expo-background-fetch";
 import * as TaskManager from "expo-task-manager";
-
+import { UserContext } from "../context/UserContext";
 
 //Verify location
 
@@ -417,9 +417,6 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
   return BackgroundFetch.BackgroundFetchResult.NewData;
 });
 
-
-
-
 const Home = () => {
   const { addListener } = useNavigation();
 
@@ -430,24 +427,20 @@ const Home = () => {
   const [workLocation, setWorkLocation] = useState(null);
   const [mergedAddress, setMergedAddress] = useState();
   const [tempDisplay, setTempDisplay] = useState([]);
-  const [user, setUser] = useState();
+  const { user } = useContext(UserContext);
 
   const navigation = useNavigation();
   let userDetails;
   let post;
 
   // aggregated locations
-  let checkedUser = {};
   let id;
 
   const checkuserIfstoredandfetchdata = async () => {
     setLoading(true);
 
-    const storedUser = await AsyncStorage.getItem("@user");
-    userDetails = JSON.parse(storedUser);
-    if (userDetails) {
-      checkedUser = userDetails;
-      id = checkedUser._id;
+    if (user) {
+      id = user._id;
     } else {
       setErrorMessage("Please logout and sign back in");
     }
@@ -487,14 +480,6 @@ const Home = () => {
     setRemoving(false);
   };
   //function to check user
-  const checkingIfUserIsStored = async () => {
-    try {
-      const storedUser = await AsyncStorage.getItem("@user");
-      if (storedUser !== null) {
-        setUser(JSON.parse(storedUser));
-      }
-    } catch (error) { }
-  };
 
   // force event to rerender page
   const refresherpage = addListener("focus", () => {
@@ -509,7 +494,6 @@ const Home = () => {
       console.log(storedData);
     })();
 
-    checkingIfUserIsStored();
     checkuserIfstoredandfetchdata();
     if (!tempDisplay) refresherpage();
     return () => {
@@ -543,13 +527,14 @@ const Home = () => {
 
       <>
         <View style={{ marginHorizontal: "5%", paddingBottom: 20, paddingHorizontal: 0, width: width * 0.95 }}>
-          <Text style={{ marginBottom: 20, fontSize: 18, color: "#4E4E4E", fontFamily: 'Poppins-SemiBold', }}>Add Address</Text>
+          <Text style={{ marginBottom: 20, fontSize: 18, color: "#4E4E4E", fontFamily: "Poppins-SemiBold" }}>
+            Add Address
+          </Text>
           <View
             style={{ backgroundColor: "white", display: "flex", flexDirection: "row", justifyContent: "flex-start" }}
           >
             <TouchableOpacity
               onPress={() =>
-
                 navigation.navigate("AddNewLocation", {
                   title: "home",
                   myId: user._id,
@@ -570,16 +555,14 @@ const Home = () => {
               }}
             >
               <HomeIcon size={30} color={ColorTheme.main} />
-              <Text style={[styles.btnTitle, { fontFamily: 'Poppins-SemiBold', }]}>Home</Text>
+              <Text style={[styles.btnTitle, { fontFamily: "Poppins-SemiBold" }]}>Home</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
-
                 navigation.navigate("AddNewLocation", {
                   title: "work",
                   myId: user._id,
                 })
-
               }
               style={{
                 borderColor: ColorTheme.grey2,
@@ -595,7 +578,7 @@ const Home = () => {
               }}
             >
               <BriefcaseIcon size={30} color={ColorTheme.main} />
-              <Text style={[styles.btnTitle, { fontFamily: 'Poppins-SemiBold', }]}>Work</Text>
+              <Text style={[styles.btnTitle, { fontFamily: "Poppins-SemiBold" }]}>Work</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -609,10 +592,10 @@ const Home = () => {
             borderRadius: 10,
           }}
         >
-          <Text style={{ color: ColorTheme.grey, fontSize: 14, lineHeight: 20, fontFamily: 'Poppins-Regular', }}>
-            <Text style={{ fontFamily: 'Poppins-SemiBold', lineHeight: 20 }}>NOTE: </Text>KYC AFRICA verifies your Addresses in the
-            background, make sure that you set location permissions to{" "}
-            <Text style={{ fontFamily: 'Poppins-SemiBold', lineHeight: 20 }}>Always Allow</Text>.
+          <Text style={{ color: ColorTheme.grey, fontSize: 14, lineHeight: 20, fontFamily: "Poppins-Regular" }}>
+            <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>NOTE: </Text>KYC AFRICA verifies your
+            Addresses in the background, make sure that you set location permissions to{" "}
+            <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>Always Allow</Text>.
           </Text>
           {/* <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 16, lineHeight: 20, }}>Please make sure that you set location permissions to <Text style={{ fontWeight: 'bold', fontSize: 16, lineHeight: 20 }}>Always Allow</Text></Text> */}
         </View>
@@ -637,7 +620,7 @@ const Home = () => {
               // fontFamily: 'Poppins-SemiBold',
             }}
           >
-            <Text style={{ fontFamily: 'Poppins-Regular', }} >Loading please wait...</Text>
+            <Text style={{ fontFamily: "Poppins-Regular" }}>Loading please wait...</Text>
 
             <ActivityIndicator style={{ marginTop: 20 }} />
           </View>
@@ -645,7 +628,7 @@ const Home = () => {
           <>
             {!tempDisplay.length ? (
               <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-                <Text style={{ fontFamily: 'Poppins-Regular', }}>You have not added your home or work address. </Text>
+                <Text style={{ fontFamily: "Poppins-Regular" }}>You have not added your home or work address. </Text>
               </View>
             ) : (
               <SwipeListView
@@ -688,7 +671,7 @@ const Home = () => {
                       {removing ? (
                         <ActivityIndicator color={"#FFFFFF"} />
                       ) : (
-                        <Text style={{ color: "#ffffff", fontFamily: 'Poppins-Regular', }}>Delete</Text>
+                        <Text style={{ color: "#ffffff", fontFamily: "Poppins-Regular" }}>Delete</Text>
                       )}
                     </View>
                   </TouchableOpacity>

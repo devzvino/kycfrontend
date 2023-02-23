@@ -37,15 +37,15 @@ export default function App() {
   }
 
   return (
-    <GlobalContainerRoot>
-      <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser }}>
+      <GlobalContainerRoot>
         <NavigationContainer theme={theme}>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <StackNavigation />
             <Toast />
           </GestureHandlerRootView>
         </NavigationContainer>
-      </UserContext.Provider>
-    </GlobalContainerRoot>
+      </GlobalContainerRoot>
+    </UserContext.Provider>
   );
 }

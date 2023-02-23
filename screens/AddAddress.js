@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { QRCode } from "react-native-custom-qr-codes";
 import {
@@ -18,25 +18,11 @@ import { useFetchAddresses } from "../hooks/useFetchAddresses";
 import kycLogo from "../assets/icon.png";
 import InfoRow from "../components/InfoRow";
 import moment from "moment";
+import { UserContext } from "../context/UserContext";
 
 const AddAddress = () => {
   const { height, width } = Dimensions.get("window");
-  const [user, setUser] = useState();
-
-  const checkingIfUserIsStored = async () => {
-    const addresses = await AsyncStorage.getItem("@mergedAddresses");
-    console.log(addresses);
-    try {
-      const storedUser = await AsyncStorage.getItem("@user");
-      if (storedUser !== null) {
-        setUser(JSON.parse(storedUser));
-      }
-    } catch (error) { }
-  };
-
-  useEffect(() => {
-    checkingIfUserIsStored();
-  }, []);
+  const { user, setUser } = useContext(UserContext);
 
   useFetchAddresses();
 
@@ -65,11 +51,11 @@ const AddAddress = () => {
             fontSize: 12,
             width: "95%",
             // fontWeight: "bold",
-            fontFamily: 'Poppins-SemiBold',
+            fontFamily: "Poppins-SemiBold",
             marginBottom: "0%",
             textTransform: "uppercase",
             color: ColorTheme.grey4,
-            marginLeft: '5%'
+            marginLeft: "5%",
           }}
         >
           KYC Africa Verification Details
@@ -81,9 +67,9 @@ const AddAddress = () => {
             // fontWeight: "bold",
             marginBottom: "3%",
             color: ColorTheme.main,
-            fontFamily: 'Poppins-SemiBold',
+            fontFamily: "Poppins-SemiBold",
             textTransform: "capitalize",
-            marginLeft: '5%'
+            marginLeft: "5%",
           }}
         >
           {user?.firstname + " " + user?.surname}
@@ -107,11 +93,10 @@ const AddAddress = () => {
           alignContent: "center",
           justifyContent: "center",
           paddingRight: "5%",
-
         }}
       >
         <QrcodeIcon color={"#FFF"} size={25} />
-        <Text style={{ marginLeft: "3%", color: "#FFF", fontFamily: 'Poppins-Regular', }}>Scan QR Code</Text>
+        <Text style={{ marginLeft: "3%", color: "#FFF", fontFamily: "Poppins-Regular" }}>Scan QR Code</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
