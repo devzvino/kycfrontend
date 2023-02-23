@@ -4892,16 +4892,6 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
-lodash.chunk@*:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/lodash.chunk/-/lodash.chunk-4.2.0.tgz#66e5ce1f76ed27b4303d8c6512e8d1216e8106bc"
-  integrity sha512-ZzydJKfUHJwHa+hF5X66zLFCBrWn5GeF28OHEr4WVWtNDXlQ/IjWKPBiikqKo2ne0+v6JgCgJ0GzJp8k8bHC7w==
-
-lodash.clamp@*:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/lodash.clamp/-/lodash.clamp-4.0.3.tgz#5c24bedeeeef0753560dc2b4cb4671f90a6ddfaa"
-  integrity sha512-HvzRFWjtcguTW7yd8NJBshuNaCa8aqNFtnswdT7f/cMd/1YKy5Zzoq4W/Oxvnx9l7aeY258uSdDfM793+eLsVg==
-
 lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
@@ -4911,11 +4901,6 @@ lodash.isequal@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
   integrity sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==
-
-lodash.sortby@*:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
-  integrity sha512-HDWXG8isMntAyRF5vZ7xKuEvOhT4AhlRt/3czTSjvGUxjYCBVRQY48ViDHyfYz9VIoBkW4TMGQNapx+l3RUwdA==
 
 lodash.throttle@^4.1.1:
   version "4.1.1"
@@ -6369,16 +6354,6 @@ react-native@0.68.2:
     use-subscription ">=1.0.0 <1.6.0"
     whatwg-fetch "^3.0.0"
     ws "^6.1.4"
-
-react-navigation-fluid-transitions@^0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/react-navigation-fluid-transitions/-/react-navigation-fluid-transitions-0.3.2.tgz#8cb68a5102432756f80a0862d314b1720ac66501"
-  integrity sha512-2n7M5QU0vdzclPAOEKPefJ4/0nn8UpKyZYIDl/Y6wXWttLImZ5vMTYU2tR8fgxdCennj+rVkVZI2SND2ftIv/g==
-  dependencies:
-    lodash.chunk "*"
-    lodash.clamp "*"
-    lodash.sortby "*"
-    prop-types "*"
 
 react-refresh@^0.4.0:
   version "0.4.3"

@@ -63,8 +63,7 @@
     "react-native-svg": "12.3.0",
     "react-native-swipe-list-view": "^3.2.9",
     "react-native-toast-message": "^2.1.5",
-    "react-native-web": "0.17.7",
-    "react-navigation-fluid-transitions": "^0.3.2"
+    "react-native-web": "0.17.7"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
