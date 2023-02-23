@@ -5,6 +5,7 @@ import { ButtonTheme, ColorTheme, FontTheme, LogoTheme, SectionTheme } from '../
 import welcomeBg from '../assets/images/splash-bg.jpg'
 import MainLogo from '../components/MainLogo';
 import { useNavigation } from '@react-navigation/native';
+import { Transition } from 'react-navigation-fluid-transitions';
 
 const Onboarding2 = () => {
     const navigation = useNavigation();
@@ -26,16 +27,6 @@ const Onboarding2 = () => {
             </ImageBackground>
             <View style={[SectionTheme.welcomeSection2, { backgroundColor: 'white', height: height * 0.2 }]}>
                 <View style={[SectionTheme.welcomeSection3, { height: '100%' }]}>
-                    {/* <TouchableOpacity onPress={
-                    () => {
-                        console.log('====================================');
-                        console.log('clicked Onboarding1');
-                        console.log('====================================');
-                        navigation.navigate('Onboarding2')
-                    }
-                } style={ButtonTheme.mainButton}>
-                    <Text style={FontTheme.mainButtonFont}>Next</Text>
-                </TouchableOpacity> */}
                     <View style={{ backgroundColor: "#fff", width: width, marginTop: '13%', width: width * 0.8, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Text style={{ fontFamily: 'Poppins-SemiBold', }}
                             onPress={
@@ -45,33 +36,35 @@ const Onboarding2 = () => {
                                 }}
                         >Skip</Text>
                         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: width * 0.35 }}>
-                            <TouchableOpacity style={{ backgroundColor: ColorTheme.main, height: 10, width: 30, borderRadius: 10, opacity: 0.3 }}
-                                onPress={
-                                    () => {
+                            <Transition appear='right' disappear='left'>
+                                <TouchableOpacity style={{ backgroundColor: ColorTheme.main, height: 10, width: 30, borderRadius: 10, opacity: 0.3 }}
+                                    onPress={
+                                        () => {
 
-                                        navigation.navigate('Onboarding1')
-                                    }}
-                            >
+                                            navigation.navigate('Onboarding1')
+                                        }}
+                                >
 
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{ backgroundColor: ColorTheme.main, height: 10, width: 30, borderRadius: 10, opacity: 1 }}
-                                onPress={
-                                    () => {
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{ backgroundColor: ColorTheme.main, height: 10, width: 45, borderRadius: 10, opacity: 1 }}
+                                    onPress={
+                                        () => {
 
-                                        navigation.navigate('Onboarding2')
-                                    }}
+                                            navigation.navigate('Onboarding2')
+                                        }}
 
 
-                            >
+                                >
 
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{ backgroundColor: ColorTheme.main, height: 10, width: 30, borderRadius: 10, opacity: 0.3 }}
-                                onPress={
-                                    () => {
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{ backgroundColor: ColorTheme.main, height: 10, width: 30, borderRadius: 10, opacity: 0.3 }}
+                                    onPress={
+                                        () => {
 
-                                        navigation.navigate('Onboarding3')
-                                    }}>
-                            </TouchableOpacity>
+                                            navigation.navigate('Onboarding3')
+                                        }}>
+                                </TouchableOpacity>
+                            </Transition>
                         </View>
                         <Text onPress={
                             () => {
