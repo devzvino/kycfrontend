@@ -11,6 +11,7 @@ import WelcomeScreen from "../screens/Welcome";
 import TabsNav from "./TabsNav";
 import { UserContext } from "../context/UserContext";
 import GetLocation from "../screens/GetLocation";
+import Scanner from "../screens/Scanner";
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +43,8 @@ const StackNavigation = () => {
           <Stack.Screen name="TabsNav" component={TabsNav} />
           <Stack.Screen name="AddNewLocation" component={LocationSelect} />
           <Stack.Screen name="GetLocation" component={GetLocation} />
+          <Stack.Screen name="ScanCode" component={Scanner} />
+
         </Stack.Group>
       ) : (
         // Auth screens

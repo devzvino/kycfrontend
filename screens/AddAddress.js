@@ -21,6 +21,7 @@ import moment from "moment";
 import { UserContext } from "../context/UserContext";
 
 const AddAddress = () => {
+  const navigation = useNavigation();
   const { height, width } = Dimensions.get("window");
   const { user, setUser } = useContext(UserContext);
 
@@ -94,9 +95,12 @@ const AddAddress = () => {
           justifyContent: "center",
           paddingRight: "5%",
         }}
+        onPress={() => {
+          navigation.navigate('ScanCode')
+        }}
       >
         <QrcodeIcon color={"#FFF"} size={25} />
-        <Text style={{ marginLeft: "3%", color: "#FFF", fontFamily: "Poppins-Regular" }}>Scan QR Code</Text>
+        <Text style={{ marginLeft: "3%", color: "#FFF", fontFamily: "Poppins-Regular" }}>Verify KYC AFRICA Code</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

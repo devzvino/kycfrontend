@@ -27,7 +27,7 @@ const TabsNav = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: '#F8F8F8',
-          height: 60,
+          paddingVertical: "2%",
           position: "absolute",
           bottom: 0,
           left: 0,

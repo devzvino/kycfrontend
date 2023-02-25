@@ -30,8 +30,8 @@ const QRcode = () => {
         res.ok
           ? res
           : res.json().then((data) => {
-              throw Object.assign(new Error(data.error_message), { name: res.statusText });
-            })
+            throw Object.assign(new Error(data.error_message), { name: res.statusText });
+          })
       );
     Promise.all(
       [
@@ -95,13 +95,12 @@ const QRcode = () => {
        <div style="border-top: 1px dotted green; padding-top:10px; margin-top:10px">
          <p style="color:green;">${user.firstname}'s Home Locations</p>
          <div>
-         ${
-           PdfData[0].length > 0
-             ? PdfData[0]
-                 .map(
-                   (
-                     home
-                   ) => `<div style="background-color: #f6f6f6;  border-radius: 5px; padding:10px;  box-shadow:inset 5px 0px 0px 0px green; margin-bottom:10px;>
+         ${PdfData[0].length > 0
+        ? PdfData[0]
+          .map(
+            (
+              home
+            ) => `<div style="background-color: #f6f6f6;  border-radius: 5px; padding:10px;  box-shadow:inset 5px 0px 0px 0px green; margin-bottom:10px;>
            <p style="font-size: 0.875rem;">Address : ${home.streetName}</p>
            <p style="font-size: 0.875rem;">Surburb : ${home.suburb}</p>
            <p style="font-size: 0.875rem;">City : ${home.city}</p>
@@ -110,23 +109,22 @@ const QRcode = () => {
            <p style="font-size: 0.875rem;">Positive Verification Checks : ${home.homeTotalCount}</p>
            <p style="font-size: 0.875rem;">Total Verification Checks: : ${home.homeVerificationCount}</p>
          </div>`
-                 )
-                 .join("")
-             : `<p>${user.firstname} ${user.surname} has not set any home locations.</p>`
-         }
+          )
+          .join("")
+        : `<p>${user.firstname} ${user.surname} has not set any home locations.</p>`
+      }
          </div>
        </div>
 
        <div style="border-top: 1px dotted green; padding-top:10px; margin-top:10px">
          <p style="color:green;">${user.firstname}'s Work Locations</p>
          <div>
-         ${
-           PdfData[1].length > 0
-             ? PdfData[1]?.work
-                 .map(
-                   (
-                     work
-                   ) => `<div style="background-color: #f6f6f6;  border-radius: 5px; padding:10px;  box-shadow:inset 5px 0px 0px 0px green; margin-bottom:10px;>
+         ${PdfData[1].length > 0
+        ? PdfData[1]?.work
+          .map(
+            (
+              work
+            ) => `<div style="background-color: #f6f6f6;  border-radius: 5px; padding:10px;  box-shadow:inset 5px 0px 0px 0px green; margin-bottom:10px;>
            <p>Address : ${work.streetName}</p>
            <p>Surburb : ${work.suburb}</p>
            <p>City : ${work.city}</p>
@@ -135,10 +133,10 @@ const QRcode = () => {
            <p>Positive Verification Checks : ${work.workTotalCount}</p>
            <p>Total Verification Checks: : ${work.workVerificationCount}</p>
          </div>`
-                 )
-                 .join("")
-             : `<p>${user.firstname} ${user.surname} has not set any work locations.</p>`
-         }
+          )
+          .join("")
+        : `<p>${user.firstname} ${user.surname} has not set any work locations.</p>`
+      }
          </div>
        </div>
        </div>
@@ -154,6 +152,7 @@ const QRcode = () => {
     await Sharing.shareAsync(file.uri);
     setLoading(false);
   };
+
 
   const handleLogout = async () => {
     setOutLoading(true);
@@ -174,16 +173,17 @@ const QRcode = () => {
           flexDirection: "column",
           alignItems: "center",
           backgroundColor: "#FFFFFF",
-          marginTop: 20,
+          marginTop: 0,
           display: "flex",
         }}
       >
-        <QRCode size={270} codeStyle="circle" logo={kycLogo} logoSize={40} content="https://kycafrica.com" />
+        <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 16, color: ColorTheme.grey4, marginBottom: 20 }}>Share Your KYC Details </Text>
+        <QRCode size={270} content={`KYCAID_${user._id}`} />
+        {/* <Text style={{ fontFamily: "Poppins-SemiBold", }}>KYC AFRICA ID: {user._id} </Text> */}
       </View>
       <View style={{ alignItems: "center", marginTop: 20 }}>
-        <TouchableOpacity
-          disabled={loading}
-          onPress={generateKycPdf}
+        {/* <TouchableOpacity
+
           style={{
             borderColor: ColorTheme.grey2,
             borderRightWidth: 3,
@@ -202,6 +202,37 @@ const QRcode = () => {
         >
           <Text style={{ fontSize: 18, color: ColorTheme.main, fontFamily: "Poppins-SemiBold" }}>
             {loading ? <ActivityIndicator /> : "Full KYC Certificate"}
+          </Text>
+        </TouchableOpacity> */}
+
+        <TouchableOpacity
+          disabled={loading}
+          onPress={generateKycPdf}
+          style={{
+            borderColor: ColorTheme.grey2,
+            borderRightWidth: 3,
+            borderBottomWidth: 3,
+            borderLeftWidth: 1,
+            borderTopWidth: 1,
+            borderRadius: 5,
+            marginBottom: 15,
+            display: "flex",
+            alignItems: "center",
+            paddingBottom: "3%",
+            paddingTop: "3%",
+            width: width * 0.8,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 18,
+              color: ColorTheme.main,
+              fontFamily: "Poppins-SemiBold",
+              // textTransform: "capitalize",
+            }}
+          >
+            {loading ? <ActivityIndicator /> : "Verified Proof of Residence"}
+
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -226,33 +257,6 @@ const QRcode = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            borderColor: ColorTheme.grey2,
-            borderRightWidth: 3,
-            borderBottomWidth: 3,
-            borderLeftWidth: 1,
-            borderTopWidth: 1,
-            borderRadius: 5,
-            marginBottom: 15,
-            display: "flex",
-            alignItems: "center",
-            paddingBottom: "3%",
-            paddingTop: "3%",
-            width: width * 0.8,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 18,
-              color: ColorTheme.main,
-              fontFamily: "Poppins-SemiBold",
-              textTransform: "capitalize",
-            }}
-          >
-            Verified Proof of Residence
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
             display: "flex",
             backgroundColor: ColorTheme.main,
             flexDirection: "row",
@@ -263,14 +267,14 @@ const QRcode = () => {
             marginTop: "1%",
             alignContent: "center",
             justifyContent: "center",
-            paddingRight: "5%",
+            // paddingRight: "5%",
           }}
           onPress={handleLogout}
         >
           {outLoading ? (
-            <Text> Logging Out...</Text>
+            <Text style={{ fontSize: 18, color: "#fff", textTransform: "capitalize", fontFamily: "Poppins-SemiBold", textAlign: 'center' }}> Logging Out...</Text>
           ) : (
-            <Text style={{ fontSize: 18, color: "#fff", textTransform: "capitalize", fontFamily: "Poppins-SemiBold" }}>
+            <Text style={{ fontSize: 18, color: "#fff", textTransform: "capitalize", fontFamily: "Poppins-SemiBold", textAlign: 'center' }}>
               Log Out
             </Text>
           )}

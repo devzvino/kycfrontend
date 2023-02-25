@@ -422,6 +422,13 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
 
 const Home = () => {
   const { sethasLocation } = useContext(HasLocationContext)
+  useEffect(() => {
+    sethasLocation()
+    return () => {
+    };
+
+  }, [])
+
 
   const { addListener } = useNavigation();
 
@@ -437,12 +444,7 @@ const Home = () => {
   let userDetails;
   let post;
 
-  // useEffect(() => {
-  //   locationCords = null
-  //   return () => {
 
-  //   }
-  // }, [])
 
 
 
@@ -550,11 +552,13 @@ const Home = () => {
             style={{ backgroundColor: "white", display: "flex", flexDirection: "row", justifyContent: "flex-start" }}
           >
             <TouchableOpacity
-              onPress={() =>
+              onPress={() => {
+                sethasLocation()
                 navigation.navigate("GetLocation", {
                   title: "home",
 
                 })
+              }
               }
               style={{
                 borderColor: ColorTheme.grey2,
@@ -574,11 +578,13 @@ const Home = () => {
               <Text style={[styles.btnTitle, { fontFamily: "Poppins-SemiBold" }]}>Home</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() =>
+              onPress={() => {
+                sethasLocation()
                 navigation.navigate("GetLocation", {
                   title: "work",
 
                 })
+              }
               }
               style={{
                 borderColor: ColorTheme.grey2,
@@ -609,9 +615,10 @@ const Home = () => {
           }}
         >
           <Text style={{ color: ColorTheme.grey, fontSize: 14, lineHeight: 20, fontFamily: "Poppins-Regular" }}>
-            <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>NOTE: </Text>KYC AFRICA verifies your
-            Addresses in the background, make sure that you set location permissions to{" "}
-            <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>Always Allow</Text>.
+            <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>INSTRUCTION: </Text>When adding an address, make sure that you select {" "}
+            <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>While Using the app</Text> followed by
+            {" "}
+            <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>Allow All The Time</Text>.
           </Text>
           {/* <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 16, lineHeight: 20, }}>Please make sure that you set location permissions to <Text style={{ fontWeight: 'bold', fontSize: 16, lineHeight: 20 }}>Always Allow</Text></Text> */}
         </View>

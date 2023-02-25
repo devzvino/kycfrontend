@@ -25,7 +25,7 @@ const theme = {
 
 export default function App() {
   const [user, setUser] = useState(null);
-  const [hasLocation, sethasLocation] = useState(false);
+  const [hasLocation, sethasLocation] = useState(null);
   let [fontsLoaded] = useFonts({
     "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
     "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),

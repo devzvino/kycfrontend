@@ -17,37 +17,64 @@ import { useEffect } from 'react'
 import { HasLocationContext } from '../context/HasLocationContext'
 import axios from 'axios'
 
-let locationCords = null
+// let locationCords = null
 
 const { height, width } = Dimensions.get("window");
 
+// backgroundFetch
 
-export const GetLocationCords = () => {
+
+const GetLocationCords = () => {
     const { hasLocation, sethasLocation } = useContext(HasLocationContext)
     const route = useRoute();
     const { title } = route.params;
 
     const navigation = useNavigation();
 
-
-
     const [location, setLocation] = useState(null);
-    // const [hasLocation, sethasLocation] = useState(false)
-    locationCords = location
+
+    const [loading, setLoading] = useState(false);
+
+
+    //GET PERMITION TO LOCATION
+    useEffect(() => {
+        requestPermissions();
+        (async () => {
+
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                setErrorMsg('Permission to access location was denied');
+                return;
+            }
+        })();
+    }, []);
+
+    const LOCATION_TASK_NAME = "background-location-task";
+
+    const requestPermissions = async () => {
+        const { status: foregroundStatus } = await Location.requestForegroundPermissionsAsync();
+        if (foregroundStatus === "granted") {
+            const { status: backgroundStatus } = await Location.requestBackgroundPermissionsAsync();
+            if (backgroundStatus === "granted") {
+                await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
+                    accuracy: Location.Accuracy.Balanced,
+                });
+            }
+        }
+    };
+
+    //===============================================
+
 
 
 
 
     const handleGetLocation = async () => {
+        setLoading(true)
         let location = await Location.getCurrentPositionAsync({});
         setLocation(location);
-        // sethasLocation(true)
-        // userHasLocation = true
-        if (location) {
-            setInterval(() => {
-                sethasLocation(true)
-            }, 2000)
-        }
+        sethasLocation(location)
+        setLocation(null)
 
 
     }
@@ -57,14 +84,14 @@ export const GetLocationCords = () => {
             <GlobalHeader
             />
 
-            {location ? <Text style={{ backgroundColor: 'rgba(47, 191, 0, 0.2)', paddingHorizontal: 20, paddingVertical: 5, borderRadius: 5, fontFamily: 'Poppins-SemiBold', color: ColorTheme.main }}>We have saved your location</Text> : null}
+
             <Text style={{ marginBottom: 15, marginTop: 30, color: ColorTheme.grey, textAlign: 'center', width: width * 0.90, fontSize: 16, lineHeight: 23, fontFamily: 'Poppins-Regular' }}>
-                Please note that you have to be at your {title} location to add an address.  {" "}
+                Please note that <Text style={{ fontFamily: 'Poppins-SemiBold' }}>you have to be at {title} to add your {title} address. </Text>  {" "}
             </Text>
-            <Text style={{ marginBottom: 30, color: ColorTheme.grey, textAlign: 'center', width: width * 0.90, fontSize: 16, lineHeight: 23, fontFamily: 'Poppins-SemiBold' }}>
-                Are you currently at your {title} location?
-            </Text>
-            <View style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', width: '80%' }}>
+            {!loading ? <Text style={{ marginBottom: 30, color: ColorTheme.grey, textAlign: 'center', width: width * 0.90, fontSize: 16, lineHeight: 23, fontFamily: 'Poppins-SemiBold' }}>
+                Are you currently at <Text style={{ textTransform: 'capitalize', fontFamily: 'Poppins-Bold' }}>{title}</Text>?
+            </Text> : <></>}
+            {loading ? <></> : <View style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', width: '80%' }}>
                 <TouchableOpacity
                     style={{
                         display: "flex",
@@ -88,7 +115,7 @@ export const GetLocationCords = () => {
                 <TouchableOpacity
                     style={{
                         display: "flex",
-                        backgroundColor: ColorTheme.grey4,
+                        backgroundColor: '#9f9f9f',
                         flexDirection: "row",
                         width: "45%",
                         borderRadius: 5,
@@ -107,7 +134,7 @@ export const GetLocationCords = () => {
                         No
                     </Text>
                 </TouchableOpacity>
-            </View>
+            </View>}
         </View>
     )
 }
@@ -139,6 +166,10 @@ export const GetLocationDetails = () => {
     const [showEnd, setShowEnd] = useState(false);
     const [endTime, setEndTime] = useState();
     const [startTime, setStartTime] = useState();
+
+    console.log('============in location details========================');
+    console.log(hasLocation);
+    console.log('==============#####======================');
 
 
     // handling date
@@ -186,6 +217,7 @@ export const GetLocationDetails = () => {
 
     // handleAddAddress confirmation
     const handleConfirm = async () => {
+
         if (title === "home") {
             if (!streetName || !houseNo || !suburb || !city) {
                 alert("Please fill in the form");
@@ -199,7 +231,7 @@ export const GetLocationDetails = () => {
             }
         }
 
-        setLoading2(true);
+
 
         // // validation is all distance are available
         // if (!feedback.rows[0].elements[0].status === "OK") {
@@ -209,6 +241,7 @@ export const GetLocationDetails = () => {
 
         // if (feedback.rows[0].elements[0].distance.value < 80) {
         if (title === "home") {
+            setLoading2(true);
             axios
                 .post(`${keys.apiURL}api/home/create`, {
                     title: title,
@@ -219,15 +252,17 @@ export const GetLocationDetails = () => {
                     suburb: suburb,
                     city: city,
                     homeLatLng: JSON.stringify({
-                        lat: locationCords.coords.latitude,
-                        lng: locationCords.coords.longitude,
+                        lat: hasLocation.coords.latitude,
+                        lng: hasLocation.coords.longitude,
                     }),
                 })
                 .then((res) => {
                     if (res.status === 200) {
-                        locationCords = null
-                        sethasLocation(true)
+                        sethasLocation(null)
+                        setLoading2(false)
+
                         navigation.navigate("Addreses");
+
 
                     } else {
                         alert("Sorry could not verify you, please try again later");
@@ -255,14 +290,16 @@ export const GetLocationDetails = () => {
                         endTime: endTime,
                     }),
                     workLatLng: JSON.stringify({
-                        lat: locationCords.coords.latitude,
-                        lng: locationCords.coords.longitude,
+                        lat: hasLocation.coords.latitude,
+                        lng: hasLocation.coords.longitude,
                     }),
                 })
                 .then((res) => {
                     if (res.status === 200) {
+                        sethasLocation(null)
+                        setLoading2(false)
 
-                        sethasLocation(true)
+
                         navigation.navigate("Addreses");
 
 
@@ -284,6 +321,10 @@ export const GetLocationDetails = () => {
         // }
     };
 
+    // const resetHasLocation = () => {
+    //     sethasLocation()
+    // }
+
 
 
 
@@ -293,6 +334,7 @@ export const GetLocationDetails = () => {
             <GlobalHeader
             // backable
             />
+            {hasLocation ? <Text style={{ textAlign: 'center', backgroundColor: 'rgba(47, 191, 0, 0.1)', marginBottom: '5%', paddingHorizontal: 20, paddingVertical: 5, borderRadius: 5, fontFamily: 'Poppins-SemiBold', color: ColorTheme.main, width: width * 0.9 }}>We have saved your {title} location. Please provide your {title} address details below. </Text> : null}
             <KeyboardAwareScrollView
                 enableOnAndroid
                 enableAutomaticScroll
@@ -422,10 +464,14 @@ export const GetLocationDetails = () => {
                         </>
                     )}
 
-                    <MainButton onPress={handleConfirm} title={loading ? "Please wait..." : "Confirm"}></MainButton>
+                    <MainButton onPress={
+                        handleConfirm
+                        // resetHasLocation()
+
+                    } title={loading2 ? "Please wait..." : "Confirm"}></MainButton>
                 </>
             </KeyboardAwareScrollView>
-        </View>
+        </View >
     )
 }
 
