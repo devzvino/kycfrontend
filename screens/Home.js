@@ -16,6 +16,9 @@ import { BriefcaseIcon, HomeIcon } from "react-native-heroicons/solid";
 import * as BackgroundFetch from "expo-background-fetch";
 import * as TaskManager from "expo-task-manager";
 import { UserContext } from "../context/UserContext";
+import { HasLocationContext } from "../context/HasLocationContext";
+
+import { locationCords } from "./GetLocation";
 
 //Verify location
 
@@ -418,6 +421,15 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
 });
 
 const Home = () => {
+  const { sethasLocation } = useContext(HasLocationContext)
+  useEffect(() => {
+    sethasLocation()
+    return () => {
+    };
+
+  }, [])
+
+
   const { addListener } = useNavigation();
 
   const [loading, setLoading] = useState(false);
@@ -428,10 +440,15 @@ const Home = () => {
   const [mergedAddress, setMergedAddress] = useState();
   const [tempDisplay, setTempDisplay] = useState([]);
   const { user } = useContext(UserContext);
-
   const navigation = useNavigation();
   let userDetails;
   let post;
+
+
+
+
+
+
 
   // aggregated locations
   let id;
@@ -489,6 +506,7 @@ const Home = () => {
   });
 
   useEffect(() => {
+
     (async () => {
       const storedData = await AsyncStorage.getItem("@mergedAddresses");
       console.log(storedData);
@@ -534,11 +552,13 @@ const Home = () => {
             style={{ backgroundColor: "white", display: "flex", flexDirection: "row", justifyContent: "flex-start" }}
           >
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("AddNewLocation", {
+              onPress={() => {
+                sethasLocation()
+                navigation.navigate("GetLocation", {
                   title: "home",
-                  myId: user._id,
+
                 })
+              }
               }
               style={{
                 borderColor: ColorTheme.grey2,
@@ -558,11 +578,13 @@ const Home = () => {
               <Text style={[styles.btnTitle, { fontFamily: "Poppins-SemiBold" }]}>Home</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("AddNewLocation", {
+              onPress={() => {
+                sethasLocation()
+                navigation.navigate("GetLocation", {
                   title: "work",
-                  myId: user._id,
+
                 })
+              }
               }
               style={{
                 borderColor: ColorTheme.grey2,
@@ -593,9 +615,10 @@ const Home = () => {
           }}
         >
           <Text style={{ color: ColorTheme.grey, fontSize: 14, lineHeight: 20, fontFamily: "Poppins-Regular" }}>
-            <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>NOTE: </Text>KYC AFRICA verifies your
-            Addresses in the background, make sure that you set location permissions to{" "}
-            <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>Always Allow</Text>.
+            <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>INSTRUCTION: </Text>When adding an address, make sure that you select {" "}
+            <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>While Using the app</Text> followed by
+            {" "}
+            <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>Allow All The Time</Text>.
           </Text>
           {/* <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 16, lineHeight: 20, }}>Please make sure that you set location permissions to <Text style={{ fontWeight: 'bold', fontSize: 16, lineHeight: 20 }}>Always Allow</Text></Text> */}
         </View>

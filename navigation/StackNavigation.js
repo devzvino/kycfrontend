@@ -10,7 +10,8 @@ import SignUp from "../screens/SignUp";
 import WelcomeScreen from "../screens/Welcome";
 import TabsNav from "./TabsNav";
 import { UserContext } from "../context/UserContext";
-import { TransitionSpecs } from "@react-navigation/stack";
+import GetLocation from "../screens/GetLocation";
+import Scanner from "../screens/Scanner";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,70 +42,18 @@ const StackNavigation = () => {
         <Stack.Group>
           <Stack.Screen name="TabsNav" component={TabsNav} />
           <Stack.Screen name="AddNewLocation" component={LocationSelect} />
+          <Stack.Screen name="GetLocation" component={GetLocation} />
+          <Stack.Screen name="ScanCode" component={Scanner} />
         </Stack.Group>
       ) : (
         // Auth screens
         <Stack.Group>
-          <Stack.Screen
-            name="Onboarding1"
-            component={Onboarding1}
-            options={{
-              transitionSpec: {
-                open: TransitionSpecs.FadeOutToBottomAndroidSpec,
-                close: TransitionSpecs.FadeOutToBottomAndroidSpec,
-              },
-            }}
-          />
-          <Stack.Screen
-            name="Onboarding2"
-            component={Onboarding2}
-            options={{
-              transitionSpec: {
-                open: TransitionSpecs.FadeOutToBottomAndroidSpec,
-                close: TransitionSpecs.FadeOutToBottomAndroidSpec,
-              },
-            }}
-          />
-          <Stack.Screen
-            name="Onboarding3"
-            component={Onboarding3}
-            options={{
-              transitionSpec: {
-                open: TransitionSpecs.FadeOutToBottomAndroidSpec,
-                close: TransitionSpecs.FadeOutToBottomAndroidSpec,
-              },
-            }}
-          />
-          <Stack.Screen
-            name="Welcome"
-            component={WelcomeScreen}
-            options={{
-              transitionSpec: {
-                open: TransitionSpecs.FadeOutToBottomAndroidSpec,
-                close: TransitionSpecs.FadeOutToBottomAndroidSpec,
-              },
-            }}
-          />
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              transitionSpec: {
-                open: TransitionSpecs.FadeOutToBottomAndroidSpec,
-                close: TransitionSpecs.FadeOutToBottomAndroidSpec,
-              },
-            }}
-          />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUp}
-            options={{
-              transitionSpec: {
-                open: TransitionSpecs.FadeOutToBottomAndroidSpec,
-                close: TransitionSpecs.FadeOutToBottomAndroidSpec,
-              },
-            }}
-          />
+          <Stack.Screen name="Onboarding1" component={Onboarding1} />
+          <Stack.Screen name="Onboarding2" component={Onboarding2} />
+          <Stack.Screen name="Onboarding3" component={Onboarding3} />
+          <Stack.Screen name="Welcome" component={WelcomeScreen} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SignUp" component={SignUp} />
         </Stack.Group>
       )}
     </Stack.Navigator>

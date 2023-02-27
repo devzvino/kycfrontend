@@ -91,8 +91,9 @@ const LocationSelect = () => {
 
 
   const route = useRoute();
+  const { title } = route.params;
   const navigation = useNavigation();
-  const { title, myId } = route.params;
+  c
 
   const [loading, setloading] = useState(false);
   const [loading2, setLoading2] = useState(false);
