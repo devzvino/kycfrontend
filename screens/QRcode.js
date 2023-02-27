@@ -1,9 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState, useEffect, useContext } from "react";
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View, Button, ActivityIndicator } from "react-native";
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from "react-native";
 import { QRCode } from "react-native-custom-qr-codes";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Touchable } from "react-native-web";
 import GlobalHeader from "../components/GlobalHeader";
 import MainButton from "../components/MainButton";
 import { ColorTheme } from "../components/ThemeFile";
