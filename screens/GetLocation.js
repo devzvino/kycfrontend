@@ -1,4 +1,4 @@
-import { View, Text, Dimensions, Touchable, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, Dimensions, Touchable, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -80,7 +80,8 @@ const GetLocationCords = () => {
     }
 
     return (
-        <View style={{ backgroundColor: "white", display: 'flex', alignItems: 'center' }} >
+
+        <View style={{ backgroundColor: "white", height: height, display: 'flex', alignItems: 'center' }} >
             <GlobalHeader
             />
 
@@ -89,9 +90,12 @@ const GetLocationCords = () => {
                 Please note that <Text style={{ fontFamily: 'Poppins-SemiBold' }}>you have to be at {title} to add your {title} address. </Text>  {" "}
             </Text>
             {!loading ? <Text style={{ marginBottom: 30, color: ColorTheme.grey, textAlign: 'center', width: width * 0.90, fontSize: 16, lineHeight: 23, fontFamily: 'Poppins-SemiBold' }}>
-                Are you currently at <Text style={{ textTransform: 'capitalize', fontFamily: 'Poppins-Bold' }}>{title}</Text>?
+                Are you currently <Text style={{ textTransform: 'capitalize', fontFamily: 'Poppins-Bold' }}>{title}</Text>?
             </Text> : <></>}
-            {loading ? <></> : <View style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', width: '80%' }}>
+
+
+
+            {loading ? <><ActivityIndicator /></> : <View style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', width: '80%' }}>
                 <TouchableOpacity
                     style={{
                         display: "flex",
@@ -115,7 +119,7 @@ const GetLocationCords = () => {
                 <TouchableOpacity
                     style={{
                         display: "flex",
-                        backgroundColor: '#9f9f9f',
+                        backgroundColor: '#ff0000',
                         flexDirection: "row",
                         width: "45%",
                         borderRadius: 5,
@@ -135,7 +139,11 @@ const GetLocationCords = () => {
                     </Text>
                 </TouchableOpacity>
             </View>}
+            <View style={{ backgroundColor: "white", flex: 1, }}>
+
+            </View>
         </View>
+
     )
 }
 

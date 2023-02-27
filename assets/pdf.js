@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+export const html = `
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -145,3 +145,6 @@
     </section>
   </body>
 </html>
+
+
+`
