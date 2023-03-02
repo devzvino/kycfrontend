@@ -19,6 +19,8 @@ import { manipulateAsync } from "expo-image-manipulator";
 
 export const kyc_logo = require("./kyc-logo.png");
 
+const { width, height } = Dimensions.get("window");
+
 fetchImageData = async (uri) => {
   // fetch Base64 string of image data
   const data = await FileSystem.readAsStringAsync("file://" + uri, {
@@ -31,7 +33,7 @@ const QRcode = () => {
   // navigation process
   const { user, setUser } = useContext(UserContext);
   const navigation = useNavigation();
-  const { width, height } = Dimensions.get("window");
+
   const [loading, setLoading] = useState(false);
   const [outLoading, setOutLoading] = useState(false);
 
@@ -55,9 +57,6 @@ const QRcode = () => {
       .then(([d1, d2]) => {
         // logging print info into the context
         setPdfData([d1, d2]);
-        console.log("====================================");
-        console.log(PdfData);
-        console.log("====================================");
       })
       .catch((e) => console.error(e));
   };
@@ -269,13 +268,10 @@ const QRcode = () => {
 
   useEffect(() => {
     gatheringAllUserLocations();
-    console.log("====================================");
-    console.log(user);
-    console.log("====================================");
   }, []);
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: "#ffffff", flex: 1 }]}>
+    <SafeAreaView style={{ backgroundColor: "white", display: "flex", flex: 1, flexDirection: "column" }}>
       <GlobalHeader title="Share Certificate" />
       <View
         style={{

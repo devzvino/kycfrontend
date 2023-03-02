@@ -421,14 +421,11 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
 });
 
 const Home = () => {
-  const { sethasLocation } = useContext(HasLocationContext)
+  const { sethasLocation } = useContext(HasLocationContext);
   useEffect(() => {
-    sethasLocation()
-    return () => {
-    };
-
-  }, [])
-
+    sethasLocation();
+    return () => {};
+  }, []);
 
   const { addListener } = useNavigation();
 
@@ -443,12 +440,6 @@ const Home = () => {
   const navigation = useNavigation();
   let userDetails;
   let post;
-
-
-
-
-
-
 
   // aggregated locations
   let id;
@@ -506,7 +497,6 @@ const Home = () => {
   });
 
   useEffect(() => {
-
     (async () => {
       const storedData = await AsyncStorage.getItem("@mergedAddresses");
       console.log(storedData);
@@ -540,7 +530,7 @@ const Home = () => {
   // }
 
   return (
-    <SafeAreaView style={[styles.container, { display: "flex", flexDirection: "column" }]}>
+    <SafeAreaView style={{ display: "flex", flex: 1, flexDirection: "column" }}>
       <GlobalHeader title=" Registered Addresses" />
 
       <>
@@ -553,13 +543,11 @@ const Home = () => {
           >
             <TouchableOpacity
               onPress={() => {
-                sethasLocation()
+                sethasLocation();
                 navigation.navigate("GetLocation", {
                   title: "home",
-
-                })
-              }
-              }
+                });
+              }}
               style={{
                 borderColor: ColorTheme.grey2,
                 borderRightWidth: 3,
@@ -579,13 +567,11 @@ const Home = () => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                sethasLocation()
+                sethasLocation();
                 navigation.navigate("GetLocation", {
                   title: "work",
-
-                })
-              }
-              }
+                });
+              }}
               style={{
                 borderColor: ColorTheme.grey2,
                 borderRightWidth: 3,
@@ -615,9 +601,9 @@ const Home = () => {
           }}
         >
           <Text style={{ color: ColorTheme.grey, fontSize: 14, lineHeight: 20, fontFamily: "Poppins-Regular" }}>
-            <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>INSTRUCTION: </Text>When adding an address, make sure that you select {" "}
-            <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>While Using the app</Text> followed by
-            {" "}
+            <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>INSTRUCTION: </Text>When adding an address,
+            make sure that you select{" "}
+            <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>While Using the app</Text> followed by{" "}
             <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>Allow All The Time</Text>.
           </Text>
           {/* <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 16, lineHeight: 20, }}>Please make sure that you set location permissions to <Text style={{ fontWeight: 'bold', fontSize: 16, lineHeight: 20 }}>Always Allow</Text></Text> */}

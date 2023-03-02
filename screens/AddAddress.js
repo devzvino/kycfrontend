@@ -20,9 +20,10 @@ import InfoRow from "../components/InfoRow";
 import moment from "moment";
 import { UserContext } from "../context/UserContext";
 
+const { height, width } = Dimensions.get("window");
+
 const AddAddress = () => {
   const navigation = useNavigation();
-  const { height, width } = Dimensions.get("window");
   const { user, setUser } = useContext(UserContext);
 
   useFetchAddresses();
@@ -96,7 +97,7 @@ const AddAddress = () => {
           paddingRight: "5%",
         }}
         onPress={() => {
-          navigation.navigate('ScanCode')
+          navigation.navigate("ScanCode");
         }}
       >
         <QrcodeIcon color={"#FFF"} size={25} />
@@ -107,8 +108,6 @@ const AddAddress = () => {
 };
 
 export default AddAddress;
-
-const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   btnTitle: {

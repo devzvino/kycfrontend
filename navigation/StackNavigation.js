@@ -19,42 +19,35 @@ const StackNavigation = () => {
   const { user, setUser } = useContext(UserContext);
 
   const checkingIfUserIsStored = async () => {
-    try {
-      const storedUser = await AsyncStorage.getItem("@user");
-      if (storedUser !== null) {
-        setUser(JSON.parse(storedUser));
-      }
-    } catch (error) {}
+    const storedUser = await AsyncStorage.getItem("@user");
+    if (storedUser !== null) {
+      setUser(JSON.parse(storedUser));
+    }
   };
 
   useEffect(() => {
-    checkingIfUserIsStored();
+    if (!user) checkingIfUserIsStored();
+    return () => null;
   }, []);
 
   return (
-    <Stack.Navigator
-      screenOptions={{ headerShown: false }}
-      initialRouteName={!user ? "Welcome" : "TabsNav"}
-      swipeEnabled={true}
-    >
-      {user ? (
-        // Screens for registered in users
-        <Stack.Group>
-          <Stack.Screen name="TabsNav" component={TabsNav} />
-          <Stack.Screen name="AddNewLocation" component={LocationSelect} />
-          <Stack.Screen name="GetLocation" component={GetLocation} />
-          <Stack.Screen name="ScanCode" component={Scanner} />
-        </Stack.Group>
-      ) : (
-        // Auth screens
-        <Stack.Group>
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={"Welcome"}>
+      {user === null ? (
+        <>
           <Stack.Screen name="Onboarding1" component={Onboarding1} />
           <Stack.Screen name="Onboarding2" component={Onboarding2} />
           <Stack.Screen name="Onboarding3" component={Onboarding3} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="SignUp" component={SignUp} />
-        </Stack.Group>
+          <Stack.Screen name="Login" component={Login} options={{ animationTypeForReplace: user ? "pop" : "push" }} />
+          <Stack.Screen name="SignUp" component={SignUp} options={{ animationTypeForReplace: user ? "pop" : "push" }} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="TabsNav" component={TabsNav} />
+          <Stack.Screen name="AddNewLocation" component={LocationSelect} />
+          <Stack.Screen name="GetLocation" component={GetLocation} />
+          <Stack.Screen name="ScanCode" component={Scanner} />
+        </>
       )}
     </Stack.Navigator>
   );

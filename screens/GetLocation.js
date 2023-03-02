@@ -18,11 +18,9 @@ import { HasLocationContext } from "../context/HasLocationContext";
 import axios from "axios";
 
 // let locationCords = null
-
 const { height, width } = Dimensions.get("window");
 
 // backgroundFetch
-
 const GetLocationCords = () => {
   const { hasLocation, sethasLocation } = useContext(HasLocationContext);
   const route = useRoute();

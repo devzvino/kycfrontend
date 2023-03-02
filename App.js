@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import AppLoading from "expo-app-loading";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
@@ -19,7 +19,7 @@ const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: "transparent",
+    background: "white",
   },
 };
 
@@ -39,17 +39,15 @@ export default function App() {
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      <HasLocationContext.Provider value={{ hasLocation, sethasLocation }}>
-        <GlobalContainerRoot>
-          <NavigationContainer theme={theme}>
-            <GestureHandlerRootView style={{ flex: 1 }}>
-              <StackNavigation />
-              <Toast />
-            </GestureHandlerRootView>
-          </NavigationContainer>
-        </GlobalContainerRoot>
-      </HasLocationContext.Provider>
-    </UserContext.Provider>
+    <NavigationContainer theme={theme}>
+      <UserContext.Provider value={{ user, setUser }}>
+        <HasLocationContext.Provider value={{ hasLocation, sethasLocation }}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <StackNavigation />
+            <Toast />
+          </GestureHandlerRootView>
+        </HasLocationContext.Provider>
+      </UserContext.Provider>
+    </NavigationContainer>
   );
 }
