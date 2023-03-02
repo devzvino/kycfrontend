@@ -1,35 +1,23 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import React, { useContext, useEffect, useState } from "react";
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { QRCode } from "react-native-custom-qr-codes";
-import {
-  BriefcaseIcon,
-  HomeIcon,
-  IdentificationIcon,
-  BookOpenIcon,
-  QrcodeIcon,
-  PlusIcon,
-} from "react-native-heroicons/solid";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useContext } from "react";
+import { ActivityIndicator, Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { QrcodeIcon } from "react-native-heroicons/solid";
 import GlobalHeader from "../components/GlobalHeader";
-import { ButtonTheme, ColorTheme } from "../components/ThemeFile";
+import { ColorTheme } from "../components/ThemeFile";
 import { useFetchAddresses } from "../hooks/useFetchAddresses";
-import kycLogo from "../assets/icon.png";
+
 import InfoRow from "../components/InfoRow";
 import moment from "moment";
 import { UserContext } from "../context/UserContext";
 
-const { height, width } = Dimensions.get("window");
-
 const AddAddress = () => {
   const navigation = useNavigation();
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useFetchAddresses();
 
   return (
-    <SafeAreaView style={{ backgroundColor: "white", flex: 1, height: height, display: "flex", alignItems: "center" }}>
+    <View style={{ backgroundColor: "white", flex: 1, alignItems: "center" }}>
       <GlobalHeader title="Home" />
       <View
         style={{
@@ -52,7 +40,6 @@ const AddAddress = () => {
           style={{
             fontSize: 12,
             width: "95%",
-            // fontWeight: "bold",
             fontFamily: "Poppins-SemiBold",
             marginBottom: "0%",
             textTransform: "uppercase",
@@ -103,7 +90,7 @@ const AddAddress = () => {
         <QrcodeIcon color={"#FFF"} size={25} />
         <Text style={{ marginLeft: "3%", color: "#FFF", fontFamily: "Poppins-Regular" }}>Verify KYC AFRICA Code</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 };
 

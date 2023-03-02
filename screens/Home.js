@@ -3,7 +3,6 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import GlobalHeader from "../components/GlobalHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { SwipeListView } from "react-native-swipe-list-view";
 import HomeVerificationCard from "../components/HomeVerificationCard";
 import { keys } from "../environmentVariables";
@@ -511,26 +510,8 @@ const Home = () => {
 
   useFetchAddresses();
 
-  // async () => await useFetchAddresses();
-
-  // if (loading) {
-  //   return (
-  //     <View
-  //       style={{
-  //         paddingTop: 150,
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //       }}
-  //     >
-  //       <Text>Loading please wait...</Text>
-
-  //       <ActivityIndicator style={{ marginTop: 20 }} />
-  //     </View>
-  //   );
-  // }
-
   return (
-    <SafeAreaView style={{ display: "flex", flex: 1, flexDirection: "column" }}>
+    <View style={{ backgroundColor: "white", flex: 1 }}>
       <GlobalHeader title=" Registered Addresses" />
 
       <>
@@ -606,19 +587,9 @@ const Home = () => {
             <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>While Using the app</Text> followed by{" "}
             <Text style={{ fontFamily: "Poppins-SemiBold", lineHeight: 20 }}>Allow All The Time</Text>.
           </Text>
-          {/* <Text style={{ marginBottom: 5, color: ColorTheme.grey, fontSize: 16, lineHeight: 20, }}>Please make sure that you set location permissions to <Text style={{ fontWeight: 'bold', fontSize: 16, lineHeight: 20 }}>Always Allow</Text></Text> */}
         </View>
 
-        <View
-          style={{
-            backgroundColor: ColorTheme.grey3,
-            width: width * 0.9,
-            height: 0.5,
-            marginTop: 10,
-            marginLeft: "5%",
-            marginRight: "5%",
-          }}
-        ></View>
+        <View style={styles.barLine}></View>
 
         {loading ? (
           <View
@@ -691,20 +662,22 @@ const Home = () => {
         )}
       </>
       <View style={{ justifyContent: "center", alignItems: "center", height: "5%" }}></View>
-    </SafeAreaView>
+    </View>
   );
 };
-
-// tempDisplay.length === 0 &&
 
 export default Home;
 
 const { width, height } = Dimensions.get("screen");
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFFFFF",
+  barLine: {
+    backgroundColor: ColorTheme.grey3,
+    width: width * 0.9,
+    height: 0.5,
+    marginTop: 10,
+    marginLeft: "5%",
+    marginRight: "5%",
   },
   hiddenContainer: {
     flex: 1,
@@ -723,64 +696,6 @@ const styles = StyleSheet.create({
   btnTitle: {
     color: ColorTheme.main,
     fontSize: 18,
-    // fontWeight: "bold",
     marginLeft: 5,
   },
 });
-
-// fetch(`${keys.apiURL}api/home/my/${userDetails._id}`)
-//       .then(function (response) {
-//         if (response.ok) {
-//           return response.json();
-//         } else {
-//           return Promise.reject(response);
-//         }
-//       })
-//       .then(function (data) {
-//         // Store the post data to a variable
-//         post = data;
-
-//         // Fetch another API
-//         return fetch(`${keys.apiURL}api/work/my/${userDetails._id}`);
-//       })
-//       .then(function (response) {
-//         if (response.ok) {
-//           return response.json();
-//         } else {
-//           return Promise.reject(response);
-//         }
-//       })
-//       .then(function (userData) {
-//         mergingArrays(post, userData);
-//       })
-//       .catch(function (error) {
-//         console.warn(error);
-//       });
-// force event to rerender page
-// const refresherpage = addListener("focus", () => {
-//   setLoading(true);
-//   // checkuserIfstoredandfetchdata();
-//   const getUserAgain = async () => {
-//     const storedUser = await AsyncStorage.getItem("@user");
-//     userDetails = JSON.parse(storedUser);
-//   };
-//   const fetchData = async () => {
-//     let [res1, res2] = await Promise.all([
-//       fetch(`${keys.apiURL}api/home/my/${userDetails._id}`).then((response) =>
-//         response.json()
-//       ),
-//       fetch(`${keys.apiURL}api/work/my/${userDetails._id}`).then((response) =>
-//         response.json()
-//       ),
-//     ]);
-//     mergingArrays(res1, res2);
-//   };
-
-//   if (userDetails) {
-//     fetchData();
-//   } else {
-//     getUserAgain();
-//   }
-
-//   setLoading(true);
-// });

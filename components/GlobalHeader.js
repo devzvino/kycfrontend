@@ -21,7 +21,7 @@ const GlobalHeader = ({ title, backable }) => {
         height: height * 0.1,
         zIndex: 10,
         paddingHorizontal: "5%",
-
+        marginTop: "10%",
         paddingBottom: 0,
         backgroundColor: "#ffffff",
         marginBottom: 10,

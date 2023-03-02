@@ -2,7 +2,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState, useEffect, useContext } from "react";
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from "react-native";
 import { QRCode } from "react-native-custom-qr-codes";
-import { SafeAreaView } from "react-native-safe-area-context";
 import GlobalHeader from "../components/GlobalHeader";
 import MainButton from "../components/MainButton";
 import { ColorTheme } from "../components/ThemeFile";
@@ -271,7 +270,7 @@ const QRcode = () => {
   }, []);
 
   return (
-    <SafeAreaView style={{ backgroundColor: "white", display: "flex", flex: 1, flexDirection: "column" }}>
+    <View style={{ backgroundColor: "white", flex: 1 }}>
       <GlobalHeader title="Share Certificate" />
       <View
         style={{
@@ -286,7 +285,6 @@ const QRcode = () => {
           Share Your KYC Details{" "}
         </Text>
         <QRCode size={270} content={`KYCAID_${user._id}`} />
-        {/* <Text style={{ fontFamily: "Poppins-SemiBold", }}>KYC AFRICA ID: {user._id} </Text> */}
       </View>
       <View style={{ alignItems: "center", marginTop: 20 }}>
         {/* <TouchableOpacity
@@ -341,7 +339,7 @@ const QRcode = () => {
             {loading ? <ActivityIndicator /> : "Verified Proof of Residence"}
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             borderColor: ColorTheme.grey2,
             borderRightWidth: 3,
@@ -360,7 +358,7 @@ const QRcode = () => {
           <Text style={{ fontSize: 18, color: ColorTheme.main, fontFamily: "Poppins-SemiBold" }}>
             Verified National ID
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity
           style={{
             display: "flex",
@@ -405,7 +403,7 @@ const QRcode = () => {
           )}
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

@@ -1,16 +1,18 @@
 import { View, Text, Dimensions, Linking, TouchableOpacity, Image } from "react-native";
-import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useContext } from "react";
 import GlobalHeader from "../components/GlobalHeader";
 import { ColorTheme, FontTheme } from "../components/ThemeFile";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { BookOpenIcon, IdentificationIcon, PlusIcon, HandIcon, PencilIcon } from "react-native-heroicons/solid";
+import { UserContext } from "../context/UserContext";
 
 const { height, width } = Dimensions.get("window");
 
 const Documents = () => {
+  const { user } = useContext(UserContext);
+
   return (
-    <SafeAreaView style={{ backgroundColor: "white", flex: 1, display: "flex", alignItems: "flex-start" }}>
+    <View style={{ backgroundColor: "white", flex: 1, alignItems: "flex-start" }}>
       <GlobalHeader title="Home" />
       <View
         style={{
@@ -198,7 +200,7 @@ const Documents = () => {
 
                 </KeyboardAwareScrollView> */}
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
