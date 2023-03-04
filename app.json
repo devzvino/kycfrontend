@@ -17,19 +17,33 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [
+      [
+        "expo-barcode-scanner",
+        {
+          "cameraPermission": "Allow KYC AFRICA to access camera."
+        }
+      ]
+    ],
     "ios": {
       "supportsTablet": false,
       "infoPlist": {
-        "UIBackgroundModes": ["location", "fetch"],
+        "UIBackgroundModes": [
+          "location",
+          "fetch"
+        ],
         "NSLocationWhenInUseUsageDescription": "Needs to use your location in the foreground and background",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "This app has to use the background location",
-        "NSLocationAlwaysUsageDescription": "This app uses your location to verify your kyc status"
+        "NSLocationAlwaysUsageDescription": "This app uses your location to verify your kyc status",
+        "NSCameraUsageDescription": "Allow KYC AFRICA to access camera.",
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
       },
       "config": {
         "googleMapsApiKey": "AIzaSyCBmk5fxV__Oh_QoxqXH7XSDnnenX_8Wx0"
       },
-
       "bundleIdentifier": "com.rilpix.kycapp"
     },
     "android": {
@@ -40,7 +54,8 @@
         "ACCESS_COARSE_LOCATION",
         "ACCESS_BACKGROUND_LOCATION",
         "ACCESS_FINE_LOCATION",
-        "FOREGROUND_SERVICE"
+        "FOREGROUND_SERVICE",
+        "android.permission.CAMERA"
       ],
       "config": {
         "googleMaps": {
@@ -58,7 +73,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "ba39433c-bb97-4808-8167-18e1a1b4699e"
+        "projectId": "6b8977bb-1d88-454e-92d1-33a98578c40f"
       }
     }
   }
