@@ -54,7 +54,7 @@ const QRcode = () => {
       ].map((url) => fetchOk(url).then((r) => r.json()))
     )
       .then(([d1, d2]) => {
-        // logging print info into the context
+        // logging print info into the contexttttt
         setPdfData([d1, d2]);
       })
       .catch((e) => console.error(e));
