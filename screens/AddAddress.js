@@ -53,7 +53,6 @@ const AddAddress = () => {
           style={{
             fontSize: 20,
             width: "95%",
-            // fontWeight: "bold",
             marginBottom: "3%",
             color: ColorTheme.main,
             fontFamily: "Poppins-SemiBold",
