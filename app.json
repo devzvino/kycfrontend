@@ -17,9 +17,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "plugins": [
       [
         "expo-barcode-scanner",
@@ -31,14 +29,12 @@
     "ios": {
       "supportsTablet": false,
       "infoPlist": {
-        "UIBackgroundModes": [
-          "location",
-          "fetch"
-        ],
+        "UIBackgroundModes": ["location", "fetch"],
         "NSLocationWhenInUseUsageDescription": "Needs to use your location in the foreground and background",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "This app has to use the background location",
         "NSLocationAlwaysUsageDescription": "This app uses your location to verify your kyc status",
         "NSCameraUsageDescription": "Allow KYC AFRICA to access camera.",
+        "NSLocationUsageDescription": "This app uses your location to verify your kyc status",
         "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
       },
       "config": {
@@ -73,7 +69,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "6b8977bb-1d88-454e-92d1-33a98578c40f"
+        "projectId": "ba39433c-bb97-4808-8167-18e1a1b4699e"
       }
     }
   }
