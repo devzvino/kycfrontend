@@ -260,13 +260,13 @@ const QRcode = () => {
 
   const handleLogout = async () => {
     setOutLoading(true);
+    setUser(null);
     await AsyncStorage.removeItem("@user");
-    setUser();
     setOutLoading(false);
   };
 
   useEffect(() => {
-    gatheringAllUserLocations();
+    if (user) gatheringAllUserLocations();
   }, []);
 
   return (
@@ -284,7 +284,7 @@ const QRcode = () => {
         <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 16, color: ColorTheme.grey4, marginBottom: 20 }}>
           Share Your KYC Details{" "}
         </Text>
-        <QRCode size={270} content={`KYCAID_${user._id}`} />
+        {user && <QRCode size={270} content={`KYCAID_${user._id}`} />}
       </View>
       <View style={{ alignItems: "center", marginTop: 20 }}>
         {/* <TouchableOpacity
