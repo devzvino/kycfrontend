@@ -503,8 +503,9 @@ const Home = () => {
 
     checkuserIfstoredandfetchdata();
     if (!tempDisplay) refresherpage();
+
     return () => {
-      setTempDisplay([]);
+      setTempDisplay(null);
     };
   }, []);
 
