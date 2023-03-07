@@ -163,7 +163,6 @@ const QRcode = () => {
               </div>
             </div>
             <div style="display: flex; justify-content: end; align-items: center; width: 40%">      
-                
               <img src="Qr_code_wiktionary_link.svg.png" alt="qrcode_link" style="height: 120px" />
             </div>
           </div>
@@ -249,13 +248,14 @@ const QRcode = () => {
       const file = await Print.printToFileAsync({
         html: html,
         base64: false,
-        // height: 842,
-        // width: 595,
       });
+      setLoading(false);
 
       await Sharing.shareAsync(file.uri);
       setLoading(false);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleLogout = async () => {
@@ -312,7 +312,9 @@ const QRcode = () => {
 
         <TouchableOpacity
           disabled={loading}
-          onPress={generateKycPdf}
+          onPress={async () => {
+            PdfData && generateKycPdf();
+          }}
           style={{
             borderColor: ColorTheme.grey2,
             borderRightWidth: 3,

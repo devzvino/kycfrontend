@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import LocationSelect from "../screens/LocationSelect";
 import Login from "../screens/Login";
 import Onboarding1 from "../screens/Onboarding1";
@@ -12,17 +12,20 @@ import TabsNav from "./TabsNav";
 import { UserContext } from "../context/UserContext";
 import GetLocation from "../screens/GetLocation";
 import Scanner from "../screens/Scanner";
+import { ActivityIndicator, View } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
   const { user, setUser } = useContext(UserContext);
+  const [loading, setLoading] = useState(true);
 
   const checkingIfUserIsStored = async () => {
     const storedUser = await AsyncStorage.getItem("@user");
     if (storedUser !== null) {
       setUser(JSON.parse(storedUser));
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -30,9 +33,17 @@ const StackNavigation = () => {
     return () => null;
   }, []);
 
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItem: "center", backgroundColor: "white" }}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={"Welcome"}>
-      {user === null ? (
+      {user === null && !loading ? (
         <>
           <Stack.Screen name="Onboarding1" component={Onboarding1} />
           <Stack.Screen name="Onboarding2" component={Onboarding2} />
