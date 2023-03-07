@@ -11,6 +11,7 @@ import GlobalContainerRoot from "./components/GlobalContainerRoot";
 import { LogBox } from "react-native";
 import { UserContext } from "./context/UserContext";
 import { HasLocationContext } from "./context/HasLocationContext";
+import { TempContext } from "./context/TempContext";
 
 LogBox.ignoreAllLogs(true);
 
@@ -26,6 +27,7 @@ const theme = {
 export default function App() {
   const [user, setUser] = useState(null);
   const [hasLocation, sethasLocation] = useState(null);
+  const [tempDisplay, setTempDisplay] = useState([]);
   let [fontsLoaded] = useFonts({
     "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
     "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
@@ -41,12 +43,14 @@ export default function App() {
   return (
     <NavigationContainer theme={theme}>
       <UserContext.Provider value={{ user, setUser }}>
-        <HasLocationContext.Provider value={{ hasLocation, sethasLocation }}>
-          <GestureHandlerRootView style={{ flex: 1 }}>
-            <StackNavigation />
-            <Toast />
-          </GestureHandlerRootView>
-        </HasLocationContext.Provider>
+        <TempContext.Provider value={{ tempDisplay, setTempDisplay }}>
+          <HasLocationContext.Provider value={{ hasLocation, sethasLocation }}>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+              <StackNavigation />
+              <Toast />
+            </GestureHandlerRootView>
+          </HasLocationContext.Provider>
+        </TempContext.Provider>
       </UserContext.Provider>
     </NavigationContainer>
   );

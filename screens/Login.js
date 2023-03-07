@@ -74,7 +74,7 @@ const Login = () => {
         idNumber: id,
         firstname: firstname,
       })
-      .then((res) => {
+      .then(async (res) => {
         setUser(res.data);
         AsyncStorage.setItem("@user", JSON.stringify(res.data));
         setLoadingLogin(false);

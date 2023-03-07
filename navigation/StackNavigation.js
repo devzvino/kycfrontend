@@ -30,7 +30,6 @@ const StackNavigation = () => {
 
   useEffect(() => {
     if (!user) checkingIfUserIsStored();
-    return () => null;
   }, []);
 
   if (loading) {

@@ -18,6 +18,7 @@ import { UserContext } from "../context/UserContext";
 import { HasLocationContext } from "../context/HasLocationContext";
 
 import { locationCords } from "./GetLocation";
+import { TempContext } from "../context/TempContext";
 
 //Verify location
 
@@ -421,6 +422,8 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
 
 const Home = () => {
   const { sethasLocation } = useContext(HasLocationContext);
+  const { tempDisplay, setTempDisplay } = useContext(TempContext);
+
   useEffect(() => {
     sethasLocation();
     return () => {};
@@ -431,14 +434,10 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [removing, setRemoving] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
-  const [homeLocation, setHomeLocation] = useState(null);
-  const [workLocation, setWorkLocation] = useState(null);
   const [mergedAddress, setMergedAddress] = useState();
-  const [tempDisplay, setTempDisplay] = useState([]);
+
   const { user } = useContext(UserContext);
   const navigation = useNavigation();
-  let userDetails;
-  let post;
 
   // aggregated locations
   let id;
@@ -466,7 +465,6 @@ const Home = () => {
     let packagedData;
     packagedData = [...home, ...work];
     setTempDisplay(packagedData);
-    // setObjectValue(packagedData);
     const jsonValue = JSON.stringify(packagedData);
     try {
       AsyncStorage.setItem("@mergedAddresses", jsonValue);
@@ -498,14 +496,13 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       const storedData = await AsyncStorage.getItem("@mergedAddresses");
-      console.log(storedData);
     })();
 
     checkuserIfstoredandfetchdata();
     if (!tempDisplay) refresherpage();
 
     return () => {
-      setTempDisplay(null);
+      setTempDisplay([]);
     };
   }, []);
 
