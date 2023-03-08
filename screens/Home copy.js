@@ -19,7 +19,6 @@ import { HasLocationContext } from "../context/HasLocationContext";
 
 import { locationCords } from "./GetLocation";
 import { TempContext } from "../context/TempContext";
-import HomeSwiperListDisplay from "../components/HomeSwiperListDisplay";
 
 //Verify location
 
@@ -422,46 +421,44 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
 });
 
 const Home = () => {
-  const { user } = useContext(UserContext);
-  const navigation = useNavigation();
+  const { user, setUser } = useContext(UserContext);
   const { sethasLocation } = useContext(HasLocationContext);
   const { tempDisplay, setTempDisplay } = useContext(TempContext);
+
+  console.log("tempDisplay", tempDisplay);
+
+  useEffect(() => {
+    sethasLocation();
+    return () => {};
+  }, []);
+
   const { addListener } = useNavigation();
 
   const [loading, setLoading] = useState(true);
   const [removing, setRemoving] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
 
-  const packedData = [];
+  const navigation = useNavigation();
 
-  // getting  savedUser Details
-  const getUserSavedLocations = async () => {
-    // setLoading(true)
-    let fetchOk = (...args) =>
-      fetch(...args).then((res) =>
-        res.ok
-          ? res
-          : res.json().then((data) => {
-              throw Object.assign(new Error(data.error_message), { name: res.statusText });
-            })
-      );
-    Promise.all(
-      [`${keys.apiURL}api/home/my/${user._id}`, `${keys.apiURL}api/work/my/${user._id}`].map((url) =>
-        fetchOk(url).then((r) => r.json())
-      )
-    )
-      .then(([d1, d2]) => {
-        setTempDisplay(d1, d2);
-        setLoading(false);
-      })
-      .catch((e) => console.error(e));
-  };
+  // aggregated locations
+  let id;
 
-  const mergingArrays = (home, work) => {
-    let packagedData;
-    packagedData = [...home, ...work];
-    setTempDisplay(packagedData);
-    const jsonValue = JSON.stringify(packagedData);
+  const checkuserIfstoredandfetchdata = async () => {
+    // setLoading(true);
+    if (user) {
+      id = user._id;
+    } else {
+      setErrorMessage("Please logout and sign back in");
+    }
+    //
+    let [res1, res2] = await Promise.all([
+      fetch(`${keys.apiURL}api/home/my/${id}`).then((response) => response.json()),
+      fetch(`${keys.apiURL}api/work/my/${id}`).then((response) => response.json()),
+    ]);
+    // mergingArrays(res1, res2);
+    setTempDisplay([...res1, ...res2]);
+    //
+    const jsonValue = JSON.stringify(tempDisplay);
     try {
       AsyncStorage.setItem("@mergedAddresses", jsonValue);
     } catch (error) {
@@ -470,14 +467,45 @@ const Home = () => {
     setLoading(false);
   };
 
-  //* used for location verifications
-  // useFetchAddresses();
+  // const mergingArrays = (home, work) => {
+  //   let packagedData;
+  //   packagedData = [...home, ...work];
+  //   setTempDisplay(packagedData);
+  //   const jsonValue = JSON.stringify(packagedData);
+  //   try {
+  //     AsyncStorage.setItem("@mergedAddresses", jsonValue);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   setLoading(false);
+  // };
+
+  // delete home verification card
+
+  const handleDeleteProcess = async (id, title) => {
+    setRemoving(true);
+    let newArray;
+    await axios.delete(title === "home" ? `${keys.apiURL}api/home/${id}` : `${keys.apiURL}api/work/${id}`);
+
+    newArray = tempDisplay.filter((i) => i._id !== id);
+    setTempDisplay(newArray);
+    // checkuserIfstoredandfetchdata();
+    setRemoving(false);
+  };
+  //function to check user
+
+  // force event to rerender page
+  const refresherpage = addListener("focus", () => {
+    checkuserIfstoredandfetchdata();
+    setLoading(true);
+  });
 
   useEffect(() => {
-    getUserSavedLocations();
+    checkuserIfstoredandfetchdata();
+    if (!tempDisplay) refresherpage();
   }, []);
 
-  console.log(tempDisplay);
+  useFetchAddresses();
 
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
@@ -559,7 +587,7 @@ const Home = () => {
         </View>
 
         <View style={styles.barLine}></View>
-        {/*  */}
+
         {tempDisplay?.length > 0 ? (
           <SwipeListView
             contentContainerStyle={{
@@ -629,7 +657,6 @@ const Home = () => {
             )}
           </>
         )}
-        {/*  */}
       </>
       <View style={{ justifyContent: "center", alignItems: "center", height: "5%" }}></View>
     </View>

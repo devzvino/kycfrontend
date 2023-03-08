@@ -12,7 +12,7 @@ import { UserContext } from "../context/UserContext";
 import { TempContext } from "../context/TempContext";
 
 const AddAddress = () => {
-  const { setTempDisplay } = useContext(TempContext);
+  const { tempDisplay, setTempDisplay } = useContext(TempContext);
   const navigation = useNavigation();
   const { user } = useContext(UserContext);
 
@@ -20,6 +20,7 @@ const AddAddress = () => {
 
   useEffect(() => {
     setTempDisplay([]);
+    console.log("tempDisplay", tempDisplay);
   }, []);
 
   return (
