@@ -1,13 +1,15 @@
 import { View, Text, Dimensions, Linking } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import GlobalHeader from "../components/GlobalHeader";
 import { ColorTheme } from "../components/ThemeFile";
 import { FlatList } from "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
+import { TempContext } from "../context/TempContext";
 
 const { height } = Dimensions.get("window");
 
 const Support = () => {
+  const { setTempDisplay } = useContext(TempContext);
   const [fqaContent, setFqaContent] = useState([
     {
       id: 1,
@@ -34,6 +36,10 @@ const Support = () => {
         "KYC Africa verifies your address over a period of three consecutive days. If the address location retains a positive result you will get a Verification Successful notification, but if the location fails our verification criteria it will return a Verification Failed result",
     },
   ]);
+
+  useEffect(() => {
+    setTempDisplay([]);
+  }, []);
 
   return (
     <View style={{ backgroundColor: "white", flex: 1, height: height, display: "flex", alignItems: "flex-start" }}>

@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { ActivityIndicator, Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { QrcodeIcon } from "react-native-heroicons/solid";
 import GlobalHeader from "../components/GlobalHeader";
@@ -9,12 +9,18 @@ import { useFetchAddresses } from "../hooks/useFetchAddresses";
 import InfoRow from "../components/InfoRow";
 import moment from "moment";
 import { UserContext } from "../context/UserContext";
+import { TempContext } from "../context/TempContext";
 
 const AddAddress = () => {
+  const { setTempDisplay } = useContext(TempContext);
   const navigation = useNavigation();
   const { user } = useContext(UserContext);
 
   useFetchAddresses();
+
+  useEffect(() => {
+    setTempDisplay([]);
+  }, []);
 
   return (
     <View style={{ backgroundColor: "white", flex: 1, alignItems: "center" }}>
@@ -61,7 +67,6 @@ const AddAddress = () => {
           }}
         >
           {user?.firstname + " " + user?.surname}
-          {/* Constentino Guvheya Nyikadzino Chiwenga */}
         </Text>
 
         <InfoRow section={"Verified National ID"} dataInfo={user?.idNumber} />
