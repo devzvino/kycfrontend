@@ -431,7 +431,7 @@ const Home = () => {
 
   const { addListener } = useNavigation();
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [removing, setRemoving] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
   const [mergedAddress, setMergedAddress] = useState();
@@ -443,7 +443,7 @@ const Home = () => {
   let id;
 
   const checkuserIfstoredandfetchdata = async () => {
-    setLoading(true);
+    // setLoading(true);
 
     if (user) {
       id = user._id;
@@ -488,7 +488,7 @@ const Home = () => {
 
   // force event to rerender page
   const refresherpage = addListener("focus", () => {
-    setLoading(true);
+    // setLoading(true);
     checkuserIfstoredandfetchdata();
     setLoading(true);
   });
