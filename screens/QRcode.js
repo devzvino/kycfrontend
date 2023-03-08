@@ -269,7 +269,7 @@ const QRcode = () => {
 
   useEffect(() => {
     if (user) gatheringAllUserLocations();
-    setTempDisplay([]);
+    // setTempDisplay([]);
   }, []);
 
   return (

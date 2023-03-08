@@ -14,7 +14,7 @@ const Documents = () => {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    setTempDisplay([]);
+    // setTempDisplay([]);
   }, []);
 
   return (

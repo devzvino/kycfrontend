@@ -19,7 +19,7 @@ const AddAddress = () => {
   useFetchAddresses();
 
   useEffect(() => {
-    setTempDisplay([]);
+    // setTempDisplay([]);
     console.log("tempDisplay", tempDisplay);
   }, []);
 

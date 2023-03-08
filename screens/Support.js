@@ -38,7 +38,7 @@ const Support = () => {
   ]);
 
   useEffect(() => {
-    setTempDisplay([]);
+    // setTempDisplay([]);
   }, []);
 
   return (

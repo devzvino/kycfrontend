@@ -470,6 +470,17 @@ const Home = () => {
     setLoading(false);
   };
 
+  const handleDeleteProcess = async (id, title) => {
+    setRemoving(true);
+    let newArray;
+    await axios.delete(title === "home" ? `${keys.apiURL}api/home/${id}` : `${keys.apiURL}api/work/${id}`);
+
+    newArray = tempDisplay.filter((i) => i._id !== id);
+    setTempDisplay(newArray);
+    // checkuserIfstoredandfetchdata();
+    setRemoving(false);
+  };
+
   //* used for location verifications
   // useFetchAddresses();
 
