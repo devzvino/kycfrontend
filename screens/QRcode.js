@@ -15,6 +15,7 @@ import { UserContext } from "../context/UserContext";
 import { html } from "../assets/pdf";
 import { Asset } from "expo-asset";
 import { manipulateAsync } from "expo-image-manipulator";
+import { TempContext } from "../context/TempContext";
 
 export const kyc_logo = require("./kyc-logo.png");
 
@@ -31,6 +32,7 @@ fetchImageData = async (uri) => {
 const QRcode = () => {
   // navigation process
   const { user, setUser } = useContext(UserContext);
+  const { setTempDisplay } = useContext(TempContext);
   const navigation = useNavigation();
 
   const [loading, setLoading] = useState(false);
@@ -267,6 +269,7 @@ const QRcode = () => {
 
   useEffect(() => {
     if (user) gatheringAllUserLocations();
+    setTempDisplay([]);
   }, []);
 
   return (
