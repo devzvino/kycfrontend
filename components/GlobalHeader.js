@@ -21,7 +21,7 @@ const GlobalHeader = ({ title, backable }) => {
         height: height * 0.1,
         zIndex: 10,
         paddingHorizontal: "5%",
-        marginTop: "10%",
+        marginTop: "5%",
         paddingBottom: 0,
         backgroundColor: "#ffffff",
         marginBottom: 10,
@@ -36,7 +36,7 @@ const GlobalHeader = ({ title, backable }) => {
           justifyContent: "space-between",
           alignItems: "center",
           width: "100%",
-          paddingTop: 20,
+          paddingTop: 5,
         }}
       >
         <View style={[LogoTheme.miniLogo, { marginTop: 0 }]}>

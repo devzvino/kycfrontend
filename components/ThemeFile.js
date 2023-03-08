@@ -232,10 +232,11 @@ export const LogoTheme = {
     alignSelf: "flex-start",
   },
   miniLogo: {
-    height: "100%",
+    height: "50%",
     resizeMode: "contain",
     width: 120,
-    marginTop: 30,
+    marginTop: 10,
+
   },
 };
 
