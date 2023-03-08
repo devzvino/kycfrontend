@@ -13,7 +13,6 @@ import { keys } from "../environmentVariables";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
-// import { Puff } from "react-loader-spinner";
 
 const { width, height } = Dimensions.get("window");
 
