@@ -426,7 +426,7 @@ const Home = () => {
 
   useEffect(() => {
     sethasLocation();
-    return () => {};
+    return () => { };
   }, []);
 
   const { addListener } = useNavigation();
@@ -455,10 +455,10 @@ const Home = () => {
       fetch(`${keys.apiURL}api/home/my/${id}`).then((response) => response.json()),
       fetch(`${keys.apiURL}api/work/my/${id}`).then((response) => response.json()),
     ]);
-    mergingArrays(res1, res2);
+    await mergingArrays(res1, res2);
     setMergedAddress(res1, res2);
     //
-    setLoading(false);
+
   };
 
   const mergingArrays = (home, work) => {
@@ -470,7 +470,9 @@ const Home = () => {
       AsyncStorage.setItem("@mergedAddresses", jsonValue);
     } catch (error) {
       console.log(error);
+
     }
+    setLoading(false);
   };
 
   // delete home verification card
