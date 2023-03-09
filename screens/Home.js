@@ -488,7 +488,7 @@ const Home = () => {
     getUserSavedLocations();
   }, []);
 
-  console.log(tempDisplay);
+  // console.log(tempDisplay);
 
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
