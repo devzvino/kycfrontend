@@ -1,8 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator, Alert } from "react-native";
 import { QRCode as QRCODE } from "react-native-custom-qr-codes";
-
 import GlobalHeader from "../components/GlobalHeader";
 import MainButton from "../components/MainButton";
 import { ColorTheme } from "../components/ThemeFile";
@@ -10,19 +9,16 @@ import kycLogo from "../assets/icon.png";
 import { useNavigation } from "@react-navigation/native";
 import * as FileSystem from "expo-file-system";
 import * as Print from "expo-print";
-import { shareAsync } from "expo-sharing";
 import moment from "moment";
 import { UserContext } from "../context/UserContext";
-// import { html } from "../assets/pdf";
 import { Asset } from "expo-asset";
 import { manipulateAsync } from "expo-image-manipulator";
 import { TempContext } from "../context/TempContext";
-import RNHTMLtoPDF from "react-native-html-to-pdf";
 import QRCode from "qrcode";
 
 export const kyc_logo = require("./kyc-logo.png");
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
 fetchImageData = async (uri) => {
   // fetch Base64 string of image data
@@ -41,9 +37,18 @@ const QRcode = () => {
   const [loading, setLoading] = useState(false);
   const [outLoading, setOutLoading] = useState(false);
 
-  const [pdfPath, setPdfPath] = useState();
+  const qrRef = useRef(null);
+  const [qrData, setQRData] = useState("");
 
   const [PdfData, setPdfData] = useState(null);
+
+  const getDataURL = () => {
+    qrRef.current.toDataURL(callback);
+  };
+
+  const callback = (dataURL) => {
+    setQRData(dataURL);
+  };
 
   const gatheringAllUserLocations = () => {
     let fetchOk = (...args) =>
@@ -77,18 +82,13 @@ const QRcode = () => {
     const assetGoogle = Asset.fromModule(require("./google.png"));
     const imageGoogle = await manipulateAsync(assetGoogle.localUri ?? assetGoogle.uri, [], { base64: true });
 
-    const qrCodeUrl = <QRCode value={"Your QR code value here"} size={120} color={"#000"} backgroundColor={"#FFF"} />;
-    // const qrCodeUrl = await QRCode.toDataURL("https://example.com");
-
-    // const assetQrcode = Asset.fromModule(require("./google.png"));
-    // const imageQrcode = await manipulateAsync(assetGoogle.localUri ?? assetGoogle.uri, [], { base64: true });
+    // getDataURL();
 
     let html = `<html lang="en">
     <head>
       <meta charset="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/qrcode.min.js"></script>
       <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet"
@@ -172,7 +172,7 @@ const QRcode = () => {
             </div>
           </div>
           <div style="display: flex; justify-content: end; align-items: center; width: 40%">      
-            ${qrCodeUrl}
+          <img src="data:image/jpeg;base64,${qrData}" />
           </div>
         </div>
       </section>
@@ -251,16 +251,7 @@ const QRcode = () => {
              : `<p>${user.firstname} ${user.surname} has not set any work addresses.</p>`
          }
       </section>
-      <script>
-      var qrcode = new QRCode("qrcode", {
-        text: "https://www.example.com",
-        width: 256,
-        height: 256,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-      });
-    </script>
+      
     </body>
   </html>`;
 
@@ -281,35 +272,6 @@ const QRcode = () => {
     }
   };
 
-  const generatePdf = async () => {
-    try {
-      const qrCodeUrl = await QRCode.toDataURL("https://example.com");
-      const htmlContent = `
-        <html>
-          <head>
-            <title>QR Code Example</title>
-          </head>
-          <body>
-            <div style="display: flex; justify-content: center;">
-              <img src="${qrCodeUrl}" />
-            </div>
-          </body>
-        </html>
-      `;
-      const options = {
-        html: htmlContent,
-        fileName: "qr-code.pdf",
-        directory: "Documents",
-      };
-      const pdf = await RNHTMLtoPDF.convert(options);
-      setPdfPath(pdf.filePath);
-      Alert.alert("PDF generated", `The PDF file has been saved to ${pdf.filePath}`);
-    } catch (error) {
-      console.error(error);
-      Alert.alert("Error", "Failed to generate PDF");
-    }
-  };
-
   const handleLogout = async () => {
     setOutLoading(true);
     setUser(null);
@@ -319,7 +281,6 @@ const QRcode = () => {
 
   useEffect(() => {
     if (user) gatheringAllUserLocations();
-    // setTempDisplay([]);
   }, []);
 
   return (
@@ -337,6 +298,9 @@ const QRcode = () => {
         <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 16, color: ColorTheme.grey4, marginBottom: 20 }}>
           Share Your KYC Details{" "}
         </Text>
+        {/* <View style={{ display: "none" }}>
+          <QRCode value="Just some string value" getRef={qrRef} />
+        </View> */}
         {user && <QRCODE size={270} content={`KYCAID_${user._id}`} />}
       </View>
       <View style={{ alignItems: "center", marginTop: 20 }}>
