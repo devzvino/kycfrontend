@@ -9,6 +9,8 @@ import kycLogo from "../assets/icon.png";
 import { useNavigation } from "@react-navigation/native";
 import * as FileSystem from "expo-file-system";
 import * as Print from "expo-print";
+import { printToFileAsync } from "expo-print";
+import { shareAsync } from "expo-sharing";
 import moment from "moment";
 import { UserContext } from "../context/UserContext";
 import { Asset, useAssets } from "expo-asset";
@@ -16,9 +18,6 @@ import { manipulateAsync } from "expo-image-manipulator";
 import { TempContext } from "../context/TempContext";
 import QRCode from "react-native-qrcode-svg";
 import ViewShot from "react-native-view-shot";
-import logoPrint from "../assets/kyc-logo.png";
-import applePrint from "../assets/apple.png";
-import googlePrint from "../assets/google.png";
 // import QRCode from "qrcode";
 
 export const kyc_logo = require("./kyc-logo.png");
@@ -37,14 +36,10 @@ const QRcode = () => {
   // navigation process
   const { user, setUser } = useContext(UserContext);
   const { setTempDisplay } = useContext(TempContext);
+  const [asset, setAsset] = useState();
 
-  const [assets, error] = useAssets([
-    require("../assets/kyc-logo.png"),
-    require("../assets/apple.png"),
-    require("../assets/google.png"),
-  ]);
+  const [assets, error] = useAssets([require("./kyc-logo.png"), require("./apple.png"), require("./google.png")]);
 
-  // console.log("assets", assets[0].localUri);
   const navigation = useNavigation();
 
   const [loading, setLoading] = useState(false);
@@ -79,20 +74,17 @@ const QRcode = () => {
   };
 
   const generateKycPdf = async () => {
-    // const assetLogo = Asset.fromModule(assets[0]);
-    const imageLogo = await manipulateAsync(assets[0].localUri ?? assets[0].uri, [], { base64: true });
+    const assetLogo = Asset.fromModule(require("./kyc-logo.png"));
+    const imageLogo = await manipulateAsync(assetLogo.localUri ?? assetLogo.uri, [], { base64: true });
 
-    // const assetApple = Asset.fromModule(assets[1]);
-    const imageApple = await manipulateAsync(assets[1].localUri ?? assets[1].uri, [], { base64: true });
+    const assetApple = Asset.fromModule(require("./apple.png"));
+    const imageApple = await manipulateAsync(assetApple.localUri ?? assetApple.uri, [], { base64: true });
 
-    // const assetGoogle = Asset.fromModule(assets[2]);
-    const imageGoogle = await manipulateAsync(assets[2].localUri ?? assets[2].uri, [], { base64: true });
+    const assetGoogle = Asset.fromModule(require("./google.png"));
+    const imageGoogle = await manipulateAsync(assetGoogle.localUri ?? assetGoogle.uri, [], { base64: true });
 
     const assetQrImg = Asset.fromModule(svgImg);
     const imageQRCode = await manipulateAsync(assetQrImg.localUri ?? assetQrImg.uri, [], { base64: true });
-
-    // console.log("image", imageLogo);
-    // console.log("svg", imageQRCode);
 
     let html = `<html lang="en">
     <head>
@@ -139,8 +131,8 @@ const QRcode = () => {
             To verify your identity & address please download the KYC AFRICA app from:
           </div>
           <div style="width: 32%; text-align: right; justify-content: space-between; display: flex">
-           <img src="data:image/jpeg;base64,${imageLogo.base64}" alt="apple_link" style="height: 20px" />
-           <img src="data:image/jpeg;base64,${imageLogo.base64}" alt="google_link" style="height: 20px" />
+           <img src="data:image/jpeg;base64,${imageApple.base64}" alt="apple_link" style="height: 20px" />
+           <img src="data:image/jpeg;base64,${imageGoogle.base64}" alt="google_link" style="height: 20px" />
           </div>
         </div>
       </section>
@@ -267,10 +259,16 @@ const QRcode = () => {
     setLoading(true);
 
     try {
-      await Print.printAsync({
-        html,
+      // await Print.printAsync({
+      //   html,
+      //   base64: false,
+      // });
+      const file = await printToFileAsync({
+        html: html,
         base64: false,
       });
+
+      await shareAsync(file.uri);
 
       setLoading(false);
     } catch (error) {
@@ -289,6 +287,7 @@ const QRcode = () => {
   useEffect(() => {
     if (user) {
       gatheringAllUserLocations();
+
       ref.current.capture().then((uri) => {
         // console.log(uri);
         setSvgImg(uri);
