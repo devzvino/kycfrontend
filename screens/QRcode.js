@@ -16,9 +16,9 @@ import { manipulateAsync } from "expo-image-manipulator";
 import { TempContext } from "../context/TempContext";
 import QRCode from "react-native-qrcode-svg";
 import ViewShot from "react-native-view-shot";
-import logoPrint from "./kyc-logo.png";
-import applePrint from "./apple.png";
-import googlePrint from "./google.png";
+import logoPrint from "../assets/kyc-logo.png";
+import applePrint from "../assets/apple.png";
+import googlePrint from "../assets/google.png";
 // import QRCode from "qrcode";
 
 export const kyc_logo = require("./kyc-logo.png");
@@ -70,9 +70,6 @@ const QRcode = () => {
       })
       .catch((e) => console.error(e));
   };
-
-  // <img src="data:image/jpeg;base64,${"imageApple.base64"}" alt="apple_link" style="height: 20px" />
-  // <img src="data:image/jpeg;base64,${"imageGoogle.base64"}" alt="google_link" style="height: 20px" />
 
   const generateKycPdf = async () => {
     const assetLogo = Asset.fromModule(logoPrint);

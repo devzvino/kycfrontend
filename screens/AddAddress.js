@@ -20,7 +20,6 @@ const AddAddress = () => {
 
   useEffect(() => {
     // setTempDisplay([]);
-    console.log("tempDisplay", tempDisplay);
   }, []);
 
   return (
