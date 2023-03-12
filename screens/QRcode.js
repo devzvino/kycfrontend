@@ -68,6 +68,9 @@ const QRcode = () => {
       .catch((e) => console.error(e));
   };
 
+  // <img src="data:image/jpeg;base64,${"imageApple.base64"}" alt="apple_link" style="height: 20px" />
+  // <img src="data:image/jpeg;base64,${"imageGoogle.base64"}" alt="google_link" style="height: 20px" />
+
   const generateKycPdf = async () => {
     const assetLogo = Asset.fromModule(require("./kyc-logo.png"));
     const imageLogo = await manipulateAsync(assetLogo.localUri ?? assetLogo.uri, [], { base64: true });
@@ -108,7 +111,7 @@ const QRcode = () => {
       >
         <div style="display: flex; align-items: center; width: 30%">
           <a style="display: flex; align-items: center">
-          <img  src="data:image/jpeg;base64,${imageLogo.base64}"  alt="kyc_logo" style="height: 20px" />
+          <img  src="https://asset.cloudinary.com/dmlcfxdre/1f8b1f351da3d55d598c015eb77182a7"  alt="kyc_logo" style="height: 20px" />
           </a>
         </div>
         <div style="display: flex; justify-content: end; width: 60%">
@@ -126,8 +129,8 @@ const QRcode = () => {
             To verify your identity & address please download the KYC AFRICA app from:
           </div>
           <div style="width: 32%; text-align: right; justify-content: space-between; display: flex">
-            <img src="data:image/jpeg;base64,${imageApple.base64}" alt="apple_link" style="height: 20px" />
-            <img src="data:image/jpeg;base64,${imageGoogle.base64}" alt="google_link" style="height: 20px" />
+            <img src="https://asset.cloudinary.com/dmlcfxdre/3025ed2eb5fe5416f59682a64bc8fa2b" alt="apple_link" style="height: 20px" />
+            <img src="https://asset.cloudinary.com/dmlcfxdre/17d2439da2a129a709bb5b2543391434" alt="google_link" style="height: 20px" />
           
           </div>
         </div>

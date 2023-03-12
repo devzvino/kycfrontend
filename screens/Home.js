@@ -620,7 +620,7 @@ const Home = () => {
           />
         ) : (
           <>
-            {tempDisplay?.length < 0 ? (
+            {tempDisplay?.length === 0 && !loading ? (
               <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
                 <Text style={{ fontFamily: "Poppins-Regular" }}>You have not added your home or work address. </Text>
               </View>
