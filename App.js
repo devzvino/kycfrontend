@@ -14,6 +14,7 @@ import { HasLocationContext } from "./context/HasLocationContext";
 import { TempContext } from "./context/TempContext";
 
 LogBox.ignoreAllLogs(true);
+// LogBox.ignoreAllLogs(true);
 
 //import fonts
 const theme = {
