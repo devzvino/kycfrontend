@@ -80,17 +80,19 @@ const QRcode = () => {
 
   const generateKycPdf = async () => {
     // const assetLogo = Asset.fromModule(assets[0]);
-    // console.log(assetLogo);
-    const imageLogo = await manipulateAsync(assets[0].localUri ?? assets[0].localUri, [], { base64: true });
+    const imageLogo = await manipulateAsync(assets[0].localUri ?? assets[0].uri, [], { base64: true });
 
     // const assetApple = Asset.fromModule(assets[1]);
-    const imageApple = await manipulateAsync(assets[1].localUri ?? assets[1].localUri, [], { base64: true });
+    const imageApple = await manipulateAsync(assets[1].localUri ?? assets[1].uri, [], { base64: true });
 
     // const assetGoogle = Asset.fromModule(assets[2]);
-    const imageGoogle = await manipulateAsync(assets[2].localUri ?? assets[2].localUri, [], { base64: true });
+    const imageGoogle = await manipulateAsync(assets[2].localUri ?? assets[2].uri, [], { base64: true });
 
     const assetQrImg = Asset.fromModule(svgImg);
     const imageQRCode = await manipulateAsync(assetQrImg.localUri ?? assetQrImg.uri, [], { base64: true });
+
+    // console.log("image", imageLogo);
+    // console.log("svg", imageQRCode);
 
     let html = `<html lang="en">
     <head>
@@ -137,8 +139,8 @@ const QRcode = () => {
             To verify your identity & address please download the KYC AFRICA app from:
           </div>
           <div style="width: 32%; text-align: right; justify-content: space-between; display: flex">
-           <img src="data:image/jpeg;base64,${imageApple.base64}" alt="apple_link" style="height: 20px" />
-           <img src="data:image/jpeg;base64,${imageGoogle.base64}" alt="google_link" style="height: 20px" />
+           <img src="data:image/jpeg;base64,${imageLogo.base64}" alt="apple_link" style="height: 20px" />
+           <img src="data:image/jpeg;base64,${imageLogo.base64}" alt="google_link" style="height: 20px" />
           </div>
         </div>
       </section>
