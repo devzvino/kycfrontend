@@ -69,14 +69,14 @@ const QRcode = () => {
   };
 
   const generateKycPdf = async () => {
-    // const assetLogo = Asset.fromModule(require("./kyc-logo.png"));
-    // const imageLogo = await manipulateAsync(assetLogo.localUri ?? assetLogo.uri, [], { base64: true });
+    const assetLogo = Asset.fromModule(require("./kyc-logo.png"));
+    const imageLogo = await manipulateAsync(assetLogo.localUri ?? assetLogo.uri, [], { base64: true });
 
-    // const assetApple = Asset.fromModule(require("./apple.png"));
-    // const imageApple = await manipulateAsync(assetApple.localUri ?? assetApple.uri, [], { base64: true });
+    const assetApple = Asset.fromModule(require("./apple.png"));
+    const imageApple = await manipulateAsync(assetApple.localUri ?? assetApple.uri, [], { base64: true });
 
-    // const assetGoogle = Asset.fromModule(require("./google.png"));
-    // const imageGoogle = await manipulateAsync(assetGoogle.localUri ?? assetGoogle.uri, [], { base64: true });
+    const assetGoogle = Asset.fromModule(require("./google.png"));
+    const imageGoogle = await manipulateAsync(assetGoogle.localUri ?? assetGoogle.uri, [], { base64: true });
 
     const assetQrImg = Asset.fromModule(svgImg);
     const imageQRCode = await manipulateAsync(assetQrImg.localUri ?? assetQrImg.uri, [], { base64: true });
@@ -108,7 +108,7 @@ const QRcode = () => {
       >
         <div style="display: flex; align-items: center; width: 30%">
           <a style="display: flex; align-items: center">
-          <img  src="data:image/jpeg;base64,${"imageLogo.base64"}"  alt="kyc_logo" style="height: 20px" />
+          <img  src="data:image/jpeg;base64,${imageLogo.base64}"  alt="kyc_logo" style="height: 20px" />
           </a>
         </div>
         <div style="display: flex; justify-content: end; width: 60%">
@@ -126,8 +126,8 @@ const QRcode = () => {
             To verify your identity & address please download the KYC AFRICA app from:
           </div>
           <div style="width: 32%; text-align: right; justify-content: space-between; display: flex">
-            <img src="data:image/jpeg;base64,${"imageApple.base64"}" alt="apple_link" style="height: 20px" />
-            <img src="data:image/jpeg;base64,${"imageGoogle.base64"}" alt="google_link" style="height: 20px" />
+            <img src="data:image/jpeg;base64,${imageApple.base64}" alt="apple_link" style="height: 20px" />
+            <img src="data:image/jpeg;base64,${imageGoogle.base64}" alt="google_link" style="height: 20px" />
           
           </div>
         </div>
@@ -149,7 +149,7 @@ const QRcode = () => {
             </div>
             <div style="display: flex; margin-top: 2%; margin-bottom: 2%">
               <div style="width: 50%">
-                <h6 style="margin: 0px; font-weight: 300">Nationa ID:</h6>
+                <h6 style="margin: 0px; font-weight: 300">National ID:</h6>
                 <h5 style="margin: 0px; font-weight: 500">${user.idNumber}</h5>
               </div>
               <div style="width: 50%">
