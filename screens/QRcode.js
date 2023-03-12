@@ -11,7 +11,7 @@ import * as FileSystem from "expo-file-system";
 import * as Print from "expo-print";
 import moment from "moment";
 import { UserContext } from "../context/UserContext";
-import { Asset } from "expo-asset";
+import { Asset, useAssets } from "expo-asset";
 import { manipulateAsync } from "expo-image-manipulator";
 import { TempContext } from "../context/TempContext";
 import QRCode from "react-native-qrcode-svg";
@@ -38,6 +38,13 @@ const QRcode = () => {
   const { user, setUser } = useContext(UserContext);
   const { setTempDisplay } = useContext(TempContext);
 
+  const [assets, error] = useAssets([
+    require("../assets/kyc-logo.png"),
+    require("../assets/apple.png"),
+    require("../assets/google.png"),
+  ]);
+
+  // console.log("assets", assets[0].localUri);
   const navigation = useNavigation();
 
   const [loading, setLoading] = useState(false);
@@ -72,14 +79,15 @@ const QRcode = () => {
   };
 
   const generateKycPdf = async () => {
-    const assetLogo = Asset.fromModule(logoPrint);
-    const imageLogo = await manipulateAsync(assetLogo.localUri ?? assetLogo.uri, [], { base64: true });
+    // const assetLogo = Asset.fromModule(assets[0]);
+    // console.log(assetLogo);
+    const imageLogo = await manipulateAsync(assets[0].localUri ?? assets[0].localUri, [], { base64: true });
 
-    const assetApple = Asset.fromModule(applePrint);
-    const imageApple = await manipulateAsync(assetApple.localUri ?? assetApple.uri, [], { base64: true });
+    // const assetApple = Asset.fromModule(assets[1]);
+    const imageApple = await manipulateAsync(assets[1].localUri ?? assets[1].localUri, [], { base64: true });
 
-    const assetGoogle = Asset.fromModule(googlePrint);
-    const imageGoogle = await manipulateAsync(assetGoogle.localUri ?? assetGoogle.uri, [], { base64: true });
+    // const assetGoogle = Asset.fromModule(assets[2]);
+    const imageGoogle = await manipulateAsync(assets[2].localUri ?? assets[2].localUri, [], { base64: true });
 
     const assetQrImg = Asset.fromModule(svgImg);
     const imageQRCode = await manipulateAsync(assetQrImg.localUri ?? assetQrImg.uri, [], { base64: true });
