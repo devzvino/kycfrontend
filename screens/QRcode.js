@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator, Alert } from "react-native";
-import { QRCode as QRCODE } from "react-native-custom-qr-codes";
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator, Alert, Image } from "react-native";
+// import { QRCode as QRCODE } from "react-native-custom-qr-codes";
 import GlobalHeader from "../components/GlobalHeader";
 import MainButton from "../components/MainButton";
 import { ColorTheme } from "../components/ThemeFile";
@@ -14,7 +14,9 @@ import { UserContext } from "../context/UserContext";
 import { Asset } from "expo-asset";
 import { manipulateAsync } from "expo-image-manipulator";
 import { TempContext } from "../context/TempContext";
-import QRCode from "qrcode";
+import QRCode from "react-native-qrcode-svg";
+import ViewShot from "react-native-view-shot";
+// import QRCode from "qrcode";
 
 export const kyc_logo = require("./kyc-logo.png");
 
@@ -32,23 +34,17 @@ const QRcode = () => {
   // navigation process
   const { user, setUser } = useContext(UserContext);
   const { setTempDisplay } = useContext(TempContext);
+
   const navigation = useNavigation();
 
   const [loading, setLoading] = useState(false);
   const [outLoading, setOutLoading] = useState(false);
 
-  const qrRef = useRef(null);
-  const [qrData, setQRData] = useState("");
+  const [svgImg, setSvgImg] = useState();
+
+  const ref = useRef();
 
   const [PdfData, setPdfData] = useState(null);
-
-  const getDataURL = () => {
-    qrRef.current.toDataURL(callback);
-  };
-
-  const callback = (dataURL) => {
-    setQRData(dataURL);
-  };
 
   const gatheringAllUserLocations = () => {
     let fetchOk = (...args) =>
@@ -73,16 +69,17 @@ const QRcode = () => {
   };
 
   const generateKycPdf = async () => {
-    const assetLogo = Asset.fromModule(require("./kyc-logo.png"));
-    const imageLogo = await manipulateAsync(assetLogo.localUri ?? assetLogo.uri, [], { base64: true });
+    // const assetLogo = Asset.fromModule(require("./kyc-logo.png"));
+    // const imageLogo = await manipulateAsync(assetLogo.localUri ?? assetLogo.uri, [], { base64: true });
 
-    const assetApple = Asset.fromModule(require("./apple.png"));
-    const imageApple = await manipulateAsync(assetApple.localUri ?? assetApple.uri, [], { base64: true });
+    // const assetApple = Asset.fromModule(require("./apple.png"));
+    // const imageApple = await manipulateAsync(assetApple.localUri ?? assetApple.uri, [], { base64: true });
 
-    const assetGoogle = Asset.fromModule(require("./google.png"));
-    const imageGoogle = await manipulateAsync(assetGoogle.localUri ?? assetGoogle.uri, [], { base64: true });
+    // const assetGoogle = Asset.fromModule(require("./google.png"));
+    // const imageGoogle = await manipulateAsync(assetGoogle.localUri ?? assetGoogle.uri, [], { base64: true });
 
-    // getDataURL();
+    const assetQrImg = Asset.fromModule(svgImg);
+    const imageQRCode = await manipulateAsync(assetQrImg.localUri ?? assetQrImg.uri, [], { base64: true });
 
     let html = `<html lang="en">
     <head>
@@ -111,7 +108,7 @@ const QRcode = () => {
       >
         <div style="display: flex; align-items: center; width: 30%">
           <a style="display: flex; align-items: center">
-          <img  src="data:image/jpeg;base64,${imageLogo.base64}"  alt="kyc_logo" style="height: 20px" />
+          <img  src="data:image/jpeg;base64,${"imageLogo.base64"}"  alt="kyc_logo" style="height: 20px" />
           </a>
         </div>
         <div style="display: flex; justify-content: end; width: 60%">
@@ -129,8 +126,8 @@ const QRcode = () => {
             To verify your identity & address please download the KYC AFRICA app from:
           </div>
           <div style="width: 32%; text-align: right; justify-content: space-between; display: flex">
-            <img src="data:image/jpeg;base64,${imageApple.base64}" alt="apple_link" style="height: 20px" />
-            <img src="data:image/jpeg;base64,${imageGoogle.base64}" alt="google_link" style="height: 20px" />
+            <img src="data:image/jpeg;base64,${"imageApple.base64"}" alt="apple_link" style="height: 20px" />
+            <img src="data:image/jpeg;base64,${"imageGoogle.base64"}" alt="google_link" style="height: 20px" />
           
           </div>
         </div>
@@ -172,7 +169,7 @@ const QRcode = () => {
             </div>
           </div>
           <div style="display: flex; justify-content: end; align-items: center; width: 40%">      
-          <img src="data:image/jpeg;base64,${qrData}" />
+          <img src="data:image/jpeg;base64,${imageQRCode.base64}" alt="google_link" style="height: 120px" />
           </div>
         </div>
       </section>
@@ -255,8 +252,6 @@ const QRcode = () => {
     </body>
   </html>`;
 
-    // ? ======
-    // ? ======
     setLoading(true);
 
     try {
@@ -280,7 +275,13 @@ const QRcode = () => {
   };
 
   useEffect(() => {
-    if (user) gatheringAllUserLocations();
+    if (user) {
+      gatheringAllUserLocations();
+      ref.current.capture().then((uri) => {
+        // console.log(uri);
+        setSvgImg(uri);
+      });
+    }
   }, []);
 
   return (
@@ -298,10 +299,12 @@ const QRcode = () => {
         <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 16, color: ColorTheme.grey4, marginBottom: 20 }}>
           Share Your KYC Details{" "}
         </Text>
-        {/* <View style={{ display: "none" }}>
-          <QRCode value="Just some string value" getRef={qrRef} />
-        </View> */}
-        {user && <QRCODE size={270} content={`KYCAID_${user._id}`} />}
+
+        {user && (
+          <ViewShot ref={ref} options={{ format: "jpg", quality: 1 }}>
+            <QRCode size={270} value={`KYCAID_${user._id}`} />
+          </ViewShot>
+        )}
       </View>
       <View style={{ alignItems: "center", marginTop: 20 }}>
         {/* <TouchableOpacity
