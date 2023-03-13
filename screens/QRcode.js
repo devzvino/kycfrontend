@@ -74,6 +74,7 @@ const QRcode = () => {
   };
 
   const generateKycPdf = async () => {
+    setLoading(true);
     const assetLogo = Asset.fromModule(require("./kyc-logo.png"));
     const imageLogo = await manipulateAsync(assetLogo.localUri ?? assetLogo.uri, [], { base64: true });
 
@@ -255,8 +256,6 @@ const QRcode = () => {
       
     </body>
   </html>`;
-
-    setLoading(true);
 
     try {
       // await Print.printAsync({
