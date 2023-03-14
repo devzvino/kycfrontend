@@ -10,6 +10,7 @@ import InfoRow from "../components/InfoRow";
 import moment from "moment";
 import { UserContext } from "../context/UserContext";
 import { TempContext } from "../context/TempContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AddAddress = () => {
   const { tempDisplay, setTempDisplay } = useContext(TempContext);
@@ -18,8 +19,14 @@ const AddAddress = () => {
 
   useFetchAddresses();
 
+  // check if localStorage has addresses
+  const checkAysncStorage = async () => {
+    let asyncData = await AsyncStorage.getItem("@mergedAddresses");
+  };
+
   useEffect(() => {
     // setTempDisplay([]);
+    checkAysncStorage();
   }, []);
 
   return (

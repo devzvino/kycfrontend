@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button, Dimensions, TouchableOpacity, Alert } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from "react";
+import { Text, View, StyleSheet, Button, Dimensions, TouchableOpacity, Alert } from "react-native";
+import { BarCodeScanner } from "expo-barcode-scanner";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
 import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
 import moment from "moment";
-import { html } from '../assets/pdf';
+import { html } from "../assets/pdf";
 import { Asset } from "expo-asset";
 import { manipulateAsync } from "expo-image-manipulator";
 
-import { ColorTheme } from '../components/ThemeFile';
+import { ColorTheme } from "../components/ThemeFile";
 const { height, width } = Dimensions.get("window");
 
 const Scanner = () => {
@@ -21,18 +21,14 @@ const Scanner = () => {
   const [user, setUser] = useState();
   const [PdfData, setPdfData] = useState();
 
-
-
   const getBarCodeScannerPermissions = async () => {
     const { status } = await BarCodeScanner.requestPermissionsAsync();
-    setHasPermission(status === 'granted');
+    setHasPermission(status === "granted");
   };
 
   useEffect(() => {
     getBarCodeScannerPermissions();
   }, []);
-
-
 
   const gatheringAllUserLocations = () => {
     let fetchOk = (...args) =>
@@ -40,8 +36,8 @@ const Scanner = () => {
         res.ok
           ? res
           : res.json().then((data) => {
-            throw Object.assign(new Error(data.error_message), { name: res.statusText });
-          })
+              throw Object.assign(new Error(data.error_message), { name: res.statusText });
+            })
       );
     Promise.all(
       [
@@ -52,9 +48,9 @@ const Scanner = () => {
       .then(([d1, d2]) => {
         // logging print info into the context
         setPdfData([d1, d2]);
-        console.log('====================================');
+        console.log("====================================");
         console.log(PdfData);
-        console.log('====================================');
+        console.log("====================================");
       })
       .catch((e) => console.error(e));
   };
@@ -62,12 +58,11 @@ const Scanner = () => {
   const handleBarCodeScanned = async ({ data }) => {
     setScanned(true);
 
-
-    if (data.includes('KYCAID')) {
-      const userID = data.slice(7)
-      console.log('====================================');
+    if (data.includes("KYCAID")) {
+      const userID = data.slice(7);
+      console.log("====================================");
       console.log(data.slice(7));
-      console.log('====================================');
+      console.log("====================================");
       // setLoading(true)
       // gatheringAllUserLocations();
       // setLoading(false)
@@ -78,8 +73,8 @@ const Scanner = () => {
           res.ok
             ? res
             : res.json().then((data) => {
-              throw Object.assign(new Error(data.error_message), { name: res.statusText });
-            })
+                throw Object.assign(new Error(data.error_message), { name: res.statusText });
+              })
         );
 
       Promise.all(
@@ -87,25 +82,12 @@ const Scanner = () => {
           `https://kycbackendapp.herokuapp.com/api/user/${userID}`,
           `https://kycbackendapp.herokuapp.com/api/home/my/${userID}`,
           `https://kycbackendapp.herokuapp.com/api/work/my/${userID}`,
-
-
         ].map((url) => fetchOk(url).then((r) => r.json()))
-
-
-
       )
         .then(([d1, d2, d3]) => {
           // logging print info into the context
-          setUser(d1)
+          setUser(d1);
           setPdfData([d2, d3]);
-
-          console.log('====================================');
-          console.log(user);
-          console.log('====================================');
-          console.log('====================================');
-          console.log(PdfData);
-          console.log('====================================');
-
         })
         .catch((e) => console.error(e));
 
@@ -115,28 +97,30 @@ const Scanner = () => {
       //     <Text>Loading...</Text>
       // }
 
-      await Alert.alert('Scan Complete', `${!user ? "fetching data Scan Again..." : `Verified KYC AFRICA ID: \n${user?.firstname + " " + user?.surname}`}`, [
-
+      await Alert.alert(
+        "Scan Complete",
+        `${
+          !user ? "fetching data Scan Again..." : `Verified KYC AFRICA ID: \n${user?.firstname + " " + user?.surname}`
+        }`,
+        [
+          {
+            text: "Scan Again",
+            onPress: () => setScanned(false),
+          },
+          user
+            ? { text: "Share Certificate", onPress: () => generateKycPdf() }
+            : { text: "Cancel", onPress: () => navigation.goBack(), style: "cancel" },
+        ]
+      );
+    } else {
+      Alert.alert("Scan Complete", "This is not a KYC AFRICA QR Code", [
         {
-          text: 'Scan Again',
-          onPress: () => setScanned(false)
-
-        },
-        user ? { text: 'Share Certificate', onPress: () => generateKycPdf() } : { text: "Cancel", onPress: () => navigation.goBack(), style: 'cancel', },
-      ]);
-
-    }
-    else {
-      Alert.alert('Scan Complete', 'This is not a KYC AFRICA QR Code', [
-        {
-          text: 'Cancel',
+          text: "Cancel",
           onPress: () => navigation.goBack(),
-
         },
-        { text: 'Scan Again', onPress: () => setScanned(false), style: 'cancel', },
+        { text: "Scan Again", onPress: () => setScanned(false), style: "cancel" },
       ]);
     }
-
   };
 
   if (hasPermission === null) {
@@ -145,7 +129,6 @@ const Scanner = () => {
   if (hasPermission === false) {
     getBarCodeScannerPermissions();
   }
-
 
   const generateKycPdf = async () => {
     const assetLogo = Asset.fromModule(require("./kyc-logo.png"));
@@ -239,10 +222,14 @@ const Scanner = () => {
                   </div>
                   <div>
                     <div>
-                      <h6 style="margin: 0px; font-weight: 500">Registered on: ${moment(user.createdAt).format("lll")}</h6>
+                      <h6 style="margin: 0px; font-weight: 500">Registered on: ${moment(user.createdAt).format(
+                        "lll"
+                      )}</h6>
                       <p style="font-size: 8px; font-style: italic; margin: 0px">
                     
-                        This is the date when ${user.firstname} ${user.surname}'s National ID was verified on the KYC Africa National ID & Address Verification System.
+                        This is the date when ${user.firstname} ${
+        user.surname
+      }'s National ID was verified on the KYC Africa National ID & Address Verification System.
                       </p>
                     </div>
                   </div>
@@ -260,13 +247,12 @@ const Scanner = () => {
                 Verified Home Addresses
               </div>
               <div>
-               ${PdfData[0].length > 0
-          ? PdfData[0]
-            .map(
-              (
-                home
-              ) =>
-                `<div style="display: flex; background-color: #f6f6f6; margin-bottom: 3%; border-radius: 5px; overflow: hidden">
+               ${
+                 PdfData[0].length > 0
+                   ? PdfData[0]
+                       .map(
+                         (home) =>
+                           `<div style="display: flex; background-color: #f6f6f6; margin-bottom: 3%; border-radius: 5px; overflow: hidden">
                 <div style="background-color: #2fbf00; width: 15px"></div>
                 <div style="margin-left: 10px; padding-top: 1%; padding-bottom: 1%">
                   <div style="display: flex; margin-top: 2%; margin-bottom: 2%">
@@ -283,27 +269,28 @@ const Scanner = () => {
                   </div>
                   <div style="display: flex; margin-top: 2%; margin-bottom: 2%">
                     <h5 style="margin: 0px; font-weight: 300; font-size: 11px">Registered On:</h5>
-                    <h5 style="margin: 0px; font-weight: 500; font-size: 11px">${moment(home.createdAt).format("lll")}</h5>
+                    <h5 style="margin: 0px; font-weight: 500; font-size: 11px">${moment(home.createdAt).format(
+                      "lll"
+                    )}</h5>
                   </div>
                 </div>
               </div>`
-            )
-            .join("")
-          : `<p>${user.firstname} ${user.surname} has not set any home addresses.</p>`
-        }
+                       )
+                       .join("")
+                   : `<p>${user.firstname} ${user.surname} has not set any home addresses.</p>`
+               }
             </section>
             <section id="verified_home_addresses" style="border-top: dotted 1px #4e4e4e; padding-top: 2%; margin-top: 2%">
               <div style="display: block; color: #2fbf00; font-weight: 500; font-size: 14px; margin-bottom: 2%">
                 Verified Work Addresses
               </div>
               <div>
-               ${PdfData[1].length > 0
-          ? PdfData[1]
-            .map(
-              (
-                work
-              ) =>
-                `<div style="display: flex; background-color: #f6f6f6;margin-bottom: 3%; border-radius: 5px; overflow: hidden">
+               ${
+                 PdfData[1].length > 0
+                   ? PdfData[1]
+                       .map(
+                         (work) =>
+                           `<div style="display: flex; background-color: #f6f6f6;margin-bottom: 3%; border-radius: 5px; overflow: hidden">
                 <div style="background-color: #2fbf00; width: 15px"></div>
                 <div style="margin-left: 10px; padding-top: 1%; padding-bottom: 1%">
                   <div style="display: flex; margin-top: 2%; margin-bottom: 2%">
@@ -320,85 +307,93 @@ const Scanner = () => {
                   </div>
                   <div style="display: flex; margin-top: 2%; margin-bottom: 2%">
                     <h5 style="margin: 0px; font-weight: 300; font-size: 11px">Registered On:</h5>
-                    <h5 style="margin: 0px; font-weight: 500; font-size: 11px">${moment(work.createdAt).format("lll")}</h5>
+                    <h5 style="margin: 0px; font-weight: 500; font-size: 11px">${moment(work.createdAt).format(
+                      "lll"
+                    )}</h5>
                   </div>
                 </div>
               </div>`
-            )
-            .join("")
-          : `<p>${user.firstname} ${user.surname} has not set any work addresses.</p>`
-        }
+                       )
+                       .join("")
+                   : `<p>${user.firstname} ${user.surname} has not set any work addresses.</p>`
+               }
             </section>
           </body>
-        </html>`
-
+        </html>`;
 
       const file = await Print.printToFileAsync({
         html: html,
         base64: false,
         // height: 842,
         // width: 595,
-
       });
 
       await Sharing.shareAsync(file.uri);
       setLoading(false);
-    }
-    catch (error) { }
-
+    } catch (error) {}
   };
 
-
-
-
   return (
-    <SafeAreaView style={{ width: width, height: height, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <SafeAreaView
+      style={{ width: width, height: height, display: "flex", alignItems: "center", justifyContent: "center" }}
+    >
       <View
         style={{
-          alignItems: 'center',
-          justifyContent: 'center',
+          alignItems: "center",
+          justifyContent: "center",
           height: height * 0.8,
           width: width,
-          overflow: 'hidden',
+          overflow: "hidden",
           // borderRadius: 5,
           // backgroundColor: 'tomato'
         }}
-
       >
         <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned
+          onBarCodeScanned={
+            scanned ? undefined : handleBarCodeScanned
             // && console.log(data)
-
           }
           barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
-
-          style={{ height: 1000, width: 900, }}
-
+          style={{ height: 1000, width: 900 }}
         />
-
       </View>
-      <View style={{ display: 'flex', justifyContent: 'space-around', flexDirection: 'row', width: '80%', marginTop: '5%', alignItems: 'center' }}>
-
+      <View
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+          flexDirection: "row",
+          width: "80%",
+          marginTop: "5%",
+          alignItems: "center",
+        }}
+      >
         <TouchableOpacity
           style={{
             display: "flex",
-            backgroundColor: '#ff0000',
+            backgroundColor: "#ff0000",
             flexDirection: "row",
             width: "45%",
             borderRadius: 5,
             alignItems: "center",
             paddingVertical: "3%",
             marginTop: "1%",
-            alignSelf: 'center',
+            alignSelf: "center",
             alignContent: "center",
             justifyContent: "center",
-
           }}
           onPress={() => {
             navigation.goBack();
           }}
         >
-          <Text style={{ fontSize: 18, color: "#FFF", textAlign: 'center', textTransform: "capitalize", fontFamily: "Poppins-SemiBold" }}>
+          <Text
+            style={{
+              fontSize: 18,
+              color: "#FFF",
+              textAlign: "center",
+              textTransform: "capitalize",
+              fontFamily: "Poppins-SemiBold",
+            }}
+          >
             Cancel
           </Text>
         </TouchableOpacity>
@@ -406,8 +401,8 @@ const Scanner = () => {
       {/* 
             {scanned && <Button title={'Tap to Scan Again'} onPress={} />}
             {scanned && <Button title={'Cancel'} onPress={() => { navigation.goBack() }} />} */}
-    </SafeAreaView >
-  )
-}
+    </SafeAreaView>
+  );
+};
 
-export default Scanner
+export default Scanner;

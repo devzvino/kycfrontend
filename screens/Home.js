@@ -488,8 +488,6 @@ const Home = () => {
     getUserSavedLocations();
   }, []);
 
-  // console.log(tempDisplay);
-
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <GlobalHeader title=" Registered Addresses" />
