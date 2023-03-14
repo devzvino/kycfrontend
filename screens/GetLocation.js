@@ -1,6 +1,5 @@
+import React, { useState, useEffect } from "react";
 import { View, Text, Dimensions, Touchable, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
-import React from "react";
-import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import GlobalHeader from "../components/GlobalHeader";
 import { ColorTheme } from "../components/ThemeFile";
@@ -13,7 +12,6 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { keys } from "../environmentVariables";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import { useEffect } from "react";
 import { HasLocationContext } from "../context/HasLocationContext";
 import axios from "axios";
 
