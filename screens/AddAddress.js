@@ -11,18 +11,20 @@ import moment from "moment";
 import { UserContext } from "../context/UserContext";
 import { TempContext } from "../context/TempContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useBackgroundFetch } from "../hooks/useBackgroundFetch";
 
 const AddAddress = () => {
   const { tempDisplay, setTempDisplay } = useContext(TempContext);
   const navigation = useNavigation();
   const { user } = useContext(UserContext);
 
-  useFetchAddresses();
-
   // check if localStorage has addresses
   const checkAysncStorage = async () => {
     let asyncData = await AsyncStorage.getItem("@mergedAddresses");
+    if (asyncData !== null) useBackgroundFetch();
   };
+
+  useFetchAddresses();
 
   useEffect(() => {
     // setTempDisplay([]);
