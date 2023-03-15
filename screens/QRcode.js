@@ -54,8 +54,8 @@ const QRcode = () => {
         res.ok
           ? res
           : res.json().then((data) => {
-              throw Object.assign(new Error(data.error_message), { name: res.statusText });
-            })
+            throw Object.assign(new Error(data.error_message), { name: res.statusText });
+          })
       );
     Promise.all(
       [
@@ -73,14 +73,14 @@ const QRcode = () => {
   const generateKycPdf = async () => {
     setLoading(true);
 
-    const assetLogo = Asset.fromModule(require("./kyc-logo.png"));
-    const imageLogo = await manipulateAsync(assetLogo.localUri ?? assetLogo.uri, [], { base64: true });
+    // const assetLogo = Asset.fromModule(require("./kyc-logo.png"));
+    // const imageLogo = await manipulateAsync(assetLogo.localUri ?? assetLogo.uri, [], { base64: true });
 
-    const assetApple = Asset.fromModule(require("./apple.png"));
-    const imageApple = await manipulateAsync(assetApple.localUri ?? assetApple.uri, [], { base64: true });
+    // const assetApple = Asset.fromModule(require("./apple.png"));
+    // const imageApple = await manipulateAsync(assetApple.localUri ?? assetApple.uri, [], { base64: true });
 
-    const assetGoogle = Asset.fromModule(require("./google.png"));
-    const imageGoogle = await manipulateAsync(assetGoogle.localUri ?? assetGoogle.uri, [], { base64: true });
+    // const assetGoogle = Asset.fromModule(require("./google.png"));
+    // const imageGoogle = await manipulateAsync(assetGoogle.localUri ?? assetGoogle.uri, [], { base64: true });
 
     const assetQrImg = Asset.fromModule(svgImg);
     const imageQRCode = await manipulateAsync(assetQrImg.localUri ?? assetQrImg.uri, [], { base64: true });
@@ -97,44 +97,6 @@ const QRcode = () => {
       <title>Document</title>
     </head>
     <body style="font-family: Poppins; width: 90%; margin: auto; margin-top: 20px; display: block">
-      <section
-        id="header"
-        style="
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 30px;
-          background-color: #eaeaea;
-          padding: 3px;
-          align-items: center;
-          border-radius: 2px;
-          width: 100%;
-        "
-      >
-        <div style="display: flex; align-items: center; width: 30%">
-          <a style="display: flex; align-items: center">
-          <img src="data:image/jpeg;base64,${imageLogo.base64}" alt="kyc_logo" style="height: 20px" />
-          </a>
-        </div>
-        <div style="display: flex; justify-content: end; width: 60%">
-          <div
-            style="
-              width: 50%;
-              font-size: 7px;
-              text-align: right;
-              margin-right: 2%;
-              display: flex;
-              align-items: center;
-              color: #4e4e4e;
-            "
-          >
-            To verify your identity & address please download the KYC AFRICA app from:
-          </div>
-          <div style="width: 32%; text-align: right; justify-content: space-between; display: flex">
-           <img src="data:image/jpeg;base64,${imageApple.base64}" alt="apple_link" style="height: 20px" />
-           <img src="data:image/jpeg;base64,${imageGoogle.base64}" alt="google_link" style="height: 20px" />
-          </div>
-        </div>
-      </section>
       <section id="personal_details" style="width: 100%">
         <div style="display: block; color: #2fbf00; font-weight: 500; font-size: 14px">Personal Details</div>
         <div style="display: flex; width: 100%">
@@ -164,9 +126,8 @@ const QRcode = () => {
               <div>
                 <h6 style="margin: 0px; font-weight: 500">Registered on: ${moment(user.createdAt).format("lll")}</h6>
                 <p style="font-size: 8px; font-style: italic; margin: 0px">
-                This is the date when ${user.firstname} ${
-      user.surname
-    }'s National ID was verified on the KYC Africa National ID & Address Verification System.
+                This is the date when ${user.firstname} ${user.surname
+      }'s National ID was verified on the KYC Africa National ID & Address Verification System.
                 </p>
               </div>
             </div>
@@ -184,12 +145,11 @@ const QRcode = () => {
           Verified Home Addresses
         </div>
         <div>
-         ${
-           PdfData[0].length > 0
-             ? PdfData[0]
-                 .map(
-                   (home) =>
-                     `<div style="display: flex; background-color: #f6f6f6; margin-bottom: 3%; border-radius: 5px; overflow: hidden">
+         ${PdfData[0].length > 0
+        ? PdfData[0]
+          .map(
+            (home) =>
+              `<div style="display: flex; background-color: #f6f6f6; margin-bottom: 3%; border-radius: 5px; overflow: hidden">
           <div style="background-color: #2fbf00; width: 15px"></div>
           <div style="margin-left: 10px; padding-top: 1%; padding-bottom: 1%">
             <div style="display: flex; margin-top: 2%; margin-bottom: 2%">
@@ -210,22 +170,21 @@ const QRcode = () => {
             </div>
           </div>
         </div>`
-                 )
-                 .join("")
-             : `<p>${user.firstname} ${user.surname} has not set any home addresses.</p>`
-         }
+          )
+          .join("")
+        : `<p>${user.firstname} ${user.surname} has not set any home addresses.</p>`
+      }
       </section>
       <section id="verified_home_addresses" style="border-top: dotted 1px #4e4e4e; padding-top: 2%; margin-top: 2%">
         <div style="display: block; color: #2fbf00; font-weight: 500; font-size: 14px; margin-bottom: 2%">
           Verified Work Addresses
         </div>
         <div>
-         ${
-           PdfData[1].length > 0
-             ? PdfData[1]
-                 .map(
-                   (work) =>
-                     `<div style="display: flex; background-color: #f6f6f6;margin-bottom: 3%; border-radius: 5px; overflow: hidden">
+         ${PdfData[1].length > 0
+        ? PdfData[1]
+          .map(
+            (work) =>
+              `<div style="display: flex; background-color: #f6f6f6;margin-bottom: 3%; border-radius: 5px; overflow: hidden">
           <div style="background-color: #2fbf00; width: 15px"></div>
           <div style="margin-left: 10px; padding-top: 1%; padding-bottom: 1%">
             <div style="display: flex; margin-top: 2%; margin-bottom: 2%">
@@ -246,10 +205,10 @@ const QRcode = () => {
             </div>
           </div>
         </div>`
-                 )
-                 .join("")
-             : `<p>${user.firstname} ${user.surname} has not set any work addresses.</p>`
-         }
+          )
+          .join("")
+        : `<p>${user.firstname} ${user.surname} has not set any work addresses.</p>`
+      }
       </section>
       
     </body>
